@@ -13,12 +13,13 @@ from lib.Header import *
 from lib.Functions import binary as bin
 from lib.Exceptions import *
 from lib.Interface  import UpdateListener
+from lib.Evaluator  import Evaluator
 
 class Cli(UpdateListener):
     """
     """
     def __init__(self, instructions, machine):
-        self.local_DEBUG=0
+        self.local_DEBUG=2
         self.simulation=None
 
         try:
@@ -68,66 +69,6 @@ class Cli(UpdateListener):
     def cycle(self):
         self.simulation.cycle(self)
 
-    def eval(self):
-        lines=[]
-        class EvalProperties(object):
-            connected=True
-            display_eval=True
-        local_props = EvalProperties()
-
-        while True:
-            try:
-                line=raw_input('% ')
-                line=line.strip()
-                if line[:1] == '\\':
-                    self.eval_leader(line[1:], local_props)
-                elif line in ['end']:
-                    self.eval_leader('e', local_props)
-                elif line[:3] == 'del':
-                    drop = int(line[3:])
-                    if drop < len(lines):
-                        lines.pop(drop)
-                        print 'Dropped line {:}'.format(drop)
-                    else:
-                        print 'No such line: {:}'.format(drop)
-                else:
-                    lines.append(line+'\n')
-            except EOFError, e:
-                print '\e'
-                expression = self.simulation.evaluate(lines, local_props.connected, self)
-                if local_props.display_eval:
-                    for line in expression:
-                        print bin(int(line),self.size)[2:]
-                break
-
-    def eval_leader(self, line, local):
-        line.strip()
-        if line == 'e':
-            raise EOFError
-        elif line == 'l':
-            print 'syntax: [on|off|toggle] bool_prop [property]'
-            print 'connected    [toggle] ({:})'.format(str(local.connected))
-            print 'display_eval [toggle] ({:})'.format(str(local.display_eval))
-        elif line == 'c':
-            self.eval_toggle('connected', local)
-        elif line == 'd':
-            self.eval_toggle('display_eval', local)
-
-    def eval_toggle(self, arg, local):
-        if arg == 'connected':
-            if local.connected:
-                print 'Disconnected'
-                local.connected=False
-            else:
-                print 'Connected'
-                local.connected=True
-        if arg == 'display_eval':
-            if local.display_eval:
-                print 'Evaluation off'
-                local.display_eval=False
-            else:
-                print 'Evaluation on'
-                local.display_eval=True
 
     def parse(self, line):
         """line:str -> ...
@@ -144,19 +85,22 @@ class Cli(UpdateListener):
                 if len(line) > 1:
                     if line[1][:3] == 'reg':
                         if len(line) > 2:
-                            self.print_register(int(line[2]))
+                            self.print_register(*line[2:])
                         else:
                             self.print_registers()
-                    elif line[1][:2] == 'pi':
+                    elif line[1][:4] == 'pipe':
                         self.print_pipeline()
                     elif line[1][:3] == 'mem':
                         if len(line) > 2:
                             self.print_memory(end=line[2])
-                        self.print_memory()
+                        else:
+                            self.print_memory()
                 else:
                     self.usage(fun='print')
             except:
                 print 'Simulation has not started'
+        elif line[0][:4] == 'rese':
+            self.reset()
         elif line[0] == 'step':
             self.step()
         elif line[0][:4] == 'cycl':
@@ -166,7 +110,14 @@ class Cli(UpdateListener):
                 self.load(line[1])
             else: print "Please supply a filename to read"
         elif line[0][:4] == 'eval':
-            self.eval()
+            try:
+                evaluator = Evaluator(simulation=self.simulation,
+                                      client=self)
+                evaluator.eval()
+            except Exception, e:
+                name=e.__class__.__name__.replace('_',' ')
+                print "{:}: `{:}'".format(name,e.message)
+
         elif line[0] == 'help':
             self.help()
         elif line[0][:4] == 'vers':
@@ -186,23 +137,43 @@ class Cli(UpdateListener):
         except Exception, e:
             self.exception_handler(e)
 
+    def reset(self):
+        self.simulation.reset(self)
+
     def print_registers(self):
         """Formats and outputs a display of the registers"""
         r=self.registers
         try:
             print "{:-<80}".format('--Registers')
             for i in r.values():
-                if i>0 and i % 5 == 0:
+                if i>0 and i % 4 == 0:
                     print ''
-                print "{:>2}:{:.>10}".format(hex(i)[2:],hex(r.values()[i])[2:]),
+                name = self.registers.get_number_name_mappings()[i]
+                print "{:>4}({:0>2}):{:.>10}".format(name[:4], i, hex(r.values()[i])[2:]),
             print "\n{:-<80}".format('')
         except:
             pass
 
-    def print_register(self, number):
+    def print_register(self, *args):
         """Formats and outputs display of a single register"""
-        value = self.registers.getValue(number)
-        print "Base10: {:}, Base2: {:}, Base16: {:}".format(value,bin(value,self.size)[2:],hex(value))
+        base = 'd'
+        if not args[0].isdigit():
+            number = int(args[0][:-1])
+            value = self.registers.getValue(number)
+            base = args[0][-1:]
+        else:
+            number = int(args[0])
+            value = self.registers.getValue(number)
+        name = self.registers.get_number_name_mappings()[number]
+        print "{:}({:}):".format(name, number),
+        if len(args) > 1:
+            base = args[1]
+        if base =='d':
+            print "{:}".format(value)
+        if base =='x':
+            print "{:}".format(hex(value)[2:])
+        if base =='b':
+            print "{:}".format(bin(value, self.size)[2:])
 
     def print_pipeline(self):
         """Formats and outputs a display of the pipeline"""
@@ -214,7 +185,16 @@ class Cli(UpdateListener):
             print "{:-<80}".format('')
 
     def print_memory(self, **kwargs):
-        print self.memory.getSlice()
+        try:
+            end=int(kwargs['end'])
+        except:
+            end=None
+        #print self.memory.get_slice()
+        memory_slice = self.memory.get_slice(end=end).items()
+        print "{:-<80}".format('--Memory')
+        for address, value in sorted(memory_slice, reverse=True):
+            print " {:>8}: {:}".format(hex(address)[2:],bin(value,self.size)[2:])
+        print "{:-<80}".format('')
 
     def usage(self, *args, **kwargs):
         usage={'print':'print <register>|<registers>'}

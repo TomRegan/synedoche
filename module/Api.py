@@ -406,6 +406,12 @@ class Sunray(_Api):
         self.log.buffer('returning {0}'.format(self._register.getValue(a) >= b))
         return self._register.getValue(a) >= b
 
+    def increment_pc(self, args, instruction_decoded):
+        a=instruction_decoded[args[0]]
+        pc=self._register.getPc()
+        value=self._register.getValue(pc)+a
+        self._register.setValue(pc, value)
+
     def noop(self, args, instruction_decoded):
         """[args]:list -> False
 

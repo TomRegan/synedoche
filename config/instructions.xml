@@ -224,7 +224,7 @@
       <symbol type="int" matches="im" />
     </syntax>
     <implementation>
-      <method name="addImmediate" args="PC PC im" />
+      <method name="increment_pc" args="im" />
     </implementation>
   </instruction>
 

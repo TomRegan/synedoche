@@ -264,8 +264,9 @@ class Simulation(object):
         expression = self.interpreter.read_lines(lines)
         expression = self.interpreter.convert(expression)
         if connected:
-            self.cpu.resetPc()
+            self.cpu.reset()
             self.memory.loadText(expression, and_dump=False)
+            #self.step(client)
             for i in range(len(expression)+3):
                 self.cpu.cycle()
                 self._cycles = self._cycles + 1
@@ -281,7 +282,15 @@ class Simulation(object):
         file_object = open(filename, 'r')
         programme = self.interpreter.readFile(file_object)
         programme = self.interpreter.convert(programme)
+        self.cpu.reset()
         self.memory.loadText(programme)
+
+    def reset(self, client):
+        """Resets the simulation processor"""
+        if not self._authorized_client(client):
+            self.log.buffer("blocked `load' call from unauthorized client `{0}'".format(client.__class__.__name__))
+            return
+        self.cpu.reset()
 
     def connect(self, client):
         """Connects a client while ensuring it implements the correct

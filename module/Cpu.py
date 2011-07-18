@@ -21,7 +21,7 @@ class Cpu(Loggable, UpdateBroadcaster):
 
         self._size = instructions.getSize()
         self._pc   = registers.getPc()
-        self._pciv = registers.getValue(self._pc)
+        #self._pciv = registers.getValue(self._pc)
 
         self._pipeline = []
         self._pipeline_stages=['_fetch','_decode','_execute','_writeback']
@@ -119,10 +119,22 @@ class Cpu(Loggable, UpdateBroadcaster):
     def _writeback(self, index):
         pass
 
-    def resetPc(self):
-        """Returns the pc to its starting value """
-        self._log.buffer('setting pc to {:}'.format(hex(self._pciv)))
-        self._registers.setValue(self._pc, self._pciv)
+    #def resetPc(self):
+    #    """Returns the pc to its starting value """
+    #    self._log.buffer('setting pc to {:}'.format(hex(self._pciv)))
+    #    self._registers.setValue(self._pc, self._pciv)
+
+    def reset(self):
+        """Reset the processor to starting values."""
+        self._log.buffer('RESET performing reset')
+        self._log.buffer('resetting registers')
+        self._registers.reset()
+        self._memory.dumpMemory()
+        self._log.buffer('clearing pipeline')
+        self._pipeline=[]
+        self._log.buffer('RESET completed')
+        self._broadcast()
+
 
     def getRegisters(self):
         return self._registers

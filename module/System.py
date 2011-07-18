@@ -9,6 +9,7 @@ description: Module providing hardware components for simulation.
 import Isa
 import lib.Errors as Errors
 
+from copy import deepcopy
 from lib.Logger   import CpuLogger, MemoryLogger
 from lib.Functions import binary as bin
 from lib.Interface import *
@@ -104,24 +105,29 @@ class Memory(Loggable):
         self.log = MemoryLogger(logger)
         self.log.buffer('created {0}-Kb of {1}-byte address space'.format(str(self.address_space[1])[:-3], (self._size)/4))
 
-    def getSlice(self, start=None, end=11):
-        """(start:int, end:int)->[values:str]:list
+    def get_slice(self, end=None, start=None):
+        """(end:int, start:int)->{address:int->values:int}:dict
 
         Returns a list of binary values stored in a range of memory.
         Meant to be used to display.
-        """
-        if not start: end=self.getEnd('stack')
-        end=start-11
 
-        slice=[]
-        for i in range(start, end):
+        Values will be unsorted.
+        """
+        if not start: start=self.getEnd('stack')
+        if not end:
+            end = start-11
+        else:
+            end = start-end+1
+
+        memory_slice={}
+        for i in range(end, start+1):
             if not self.isInRange(i):
-                return slice
+                return memory_slice
             try:
-                slice.append(self.address[i])
+                memory_slice[int(i)]=self.getWord32(i)
             except:
-                slice.append(0)
-        return slice
+                memory_slice[int(i)]=0
+        return memory_slice
 
 
     def loadText(self, text, and_dump=True):
@@ -302,7 +308,9 @@ class Registers(object):
     """
 
     _registers={}
-    _register_mappings={}
+    _registers_iv={}
+    _name_number={}
+    _number_name={}
     def addRegister(self, number, value, size, profile, privilege):
         """(number:int, value:int, size:int, profile:str, privilege:bool)
             -> registers{register[number]:{value,size,profile,provilege}:dict
@@ -315,6 +323,7 @@ class Registers(object):
         self._registers[number]['size']      = size
         self._registers[number]['profile']   = profile
         self._registers[number]['privilege'] = privilege
+        self._registers_iv = deepcopy(self._registers)
 
     def addRegisterMapping(self, name, number):
         """(name:str, number:int) -> register{name:number}:dict
@@ -323,7 +332,8 @@ class Registers(object):
         assist decoding assembly instructions.
         """
 
-        self._register_mappings[name]=number
+        self._name_number[name]=number
+        self._number_name[number]=name
 
     def removeRegister(self, number):
         """number:int -> ...
@@ -361,6 +371,10 @@ class Registers(object):
         return map(lambda x: x['profile'] == 'pc',
                  self._registers.values()).index(True)
 
+    def reset(self):
+        """Resets all registers to beginning values"""
+        self._registers = deepcopy(self._registers_iv)
+
     def keys(self):
         return self._registers.keys()
 
@@ -379,11 +393,17 @@ class Registers(object):
         return self
 
     def getRegisterMappings(self):
-        """... -> registers{name:number}:dict
+        """... -> registers{name:str->number:int}:dict
 
         Returns a dict of register mappings.
         """
-        return self._register_mappings
+        return self._name_number
+
+    def get_number_name_mappings(self):
+        """--- -> registers{number:int->name:str}:dict
+        Returns a dict of register mappings.
+        """
+        return self._number_name
 
 
 

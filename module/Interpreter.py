@@ -12,7 +12,7 @@ from lib.Logger     import InterpreterLogger
 from lib.Functions  import binary as bin
 from lib.Interface  import Loggable
 
-class InstructionSyntaxException(Exception):
+class Bad_instruction_or_syntax(Exception):
     """Signals bad syntax for the instruction just read"""
 
 class DataMissingException(Exception):
@@ -61,7 +61,7 @@ class Interpreter(Loggable):
                 programme=interpreter.readFile(file)
             except DataMissingException as e:
                 print e.message
-            except InstructionSyntaxException as e:
+            except Bad_instruction_or_syntax as e:
                 print e.message
         """
         try:
@@ -234,7 +234,7 @@ class Interpreter(Loggable):
         Returns a list of machine instructions.
 
         Raises:
-            InstructionSyntaxException
+            Bad_instruction_or_syntax
 
         +------------------------------------------------------+
         | Validation                                           |
@@ -285,7 +285,7 @@ class Interpreter(Loggable):
                                 else:
                                     value=int(value)
                             except:
-                                raise InstructionSyntaxException(line)
+                                raise Bad_instruction_or_syntax(line)
                         self.log.buffer("`{0}' is {1}".format(field,value))
                         instruction_fields[field]=value
 
@@ -311,7 +311,7 @@ class Interpreter(Loggable):
                     output.append(instruction_raw)
                     self.log.buffer("encoded {0}".format(instruction_raw))
                 else:
-                    raise InstructionSyntaxException(line)
+                    raise Bad_instruction_or_syntax(line)
             #elif instruction in self._special_instructions:
                 #
                 #we aren't dealing with specials yet
@@ -320,7 +320,7 @@ class Interpreter(Loggable):
                 #output.append(instruction)
                 #pass
             else:
-                raise InstructionSyntaxException(line)
+                raise Bad_instruction_or_syntax(line)
             instruction_fields.clear()
         self.log.buffer("leaving encoder")
         return output
