@@ -18,18 +18,23 @@ class Cli(UpdateListener):
     """
     """
     def __init__(self, instructions, machine):
-        self.local_DEBUG=1
+        self.local_DEBUG=0
+        self.simulation=None
+
         try:
             readline.read_history_file('.cli_history')
         except:
             pass
 
-        self.simulation=Simulation(instruction_conf=instructions,
-                                   machine_conf=machine,
-                                   logfile='logs/cli.log')
+        try:
+            self.simulation=Simulation(instruction_conf=instructions,
+                                       machine_conf=machine,
+                                       logfile='logs/cli.log')
 
-        self.simulation.connect(self)
-        self.size = self.simulation.getInstructionSize()
+            self.simulation.connect(self)
+            self.size = self.simulation.getInstructionSize()
+        except Exception, e:
+            self.exception_handler(e)
 
         try:
             self.run()
@@ -40,15 +45,9 @@ class Cli(UpdateListener):
             print '^D'
             self.exit()
         except Exception, e:
-            if DEBUG and self.local_DEBUG >= 2:
-                traceback.print_exc(file=sys.stderr)
-            try: print "Exception: " + e.message
-            except:
-                try: print "Exception: " + e.message
-                except: pass
-            if DEBUG and self.local_DEBUG >= 1:
-                print 'Exception type: ' + e.__class__.__name__
-            self.exit(1)
+            self.exception_handler(e)
+
+
 
 
     def run(self):
@@ -58,11 +57,22 @@ class Cli(UpdateListener):
             if len(line) > 0:
                 self.parse(line)
 
+    def update(self, *args, **kwargs):
+        self.registers = kwargs['registers']
+        self.memory    = kwargs['memory']
+        self.pipeline  = kwargs['pipeline']
+
+    def step(self):
+        self.simulation.step(self)
+
+    def cycle(self):
+        self.simulation.cycle(self)
+
     def eval(self):
         lines=[]
         class EvalProperties(object):
             connected=True
-            display_eval=False
+            display_eval=True
         local_props = EvalProperties()
 
         while True:
@@ -99,9 +109,9 @@ class Cli(UpdateListener):
             print 'connected    [toggle] ({:})'.format(str(local.connected))
             print 'display_eval [toggle] ({:})'.format(str(local.display_eval))
         elif line == 'c':
-            self.eval_toggle('connected')
+            self.eval_toggle('connected', local)
         elif line == 'd':
-            self.eval_toggle('display_eval')
+            self.eval_toggle('display_eval', local)
 
     def eval_toggle(self, arg, local):
         if arg == 'connected':
@@ -129,8 +139,6 @@ class Cli(UpdateListener):
             Exceptions from other frames must be handled.
         """
         line=line.split()
-        if line[0] == 'except':
-            raise Exception
         if line[0][:2] == 'pr':
             try:
                 if len(line) > 1:
@@ -149,16 +157,34 @@ class Cli(UpdateListener):
                     self.usage(fun='print')
             except:
                 print 'Simulation has not started'
-        elif line[0][:2] == 'ev':
+        elif line[0] == 'step':
+            self.step()
+        elif line[0][:4] == 'cycl':
+            self.cycle()
+        elif line[0] == 'load':
+            if len(line) > 1:
+                self.load(line[1])
+            else: print "Please supply a filename to read"
+        elif line[0][:4] == 'eval':
             self.eval()
         elif line[0] == 'help':
             self.help()
-        elif line[0] == 'version':
+        elif line[0][:4] == 'vers':
             print VERSION
+        elif line[0] == '__except__':
+            raise Exception('Intentionally raised exception in {:}'.format(self.__class__.__name__))
         elif line[0] == 'quit' or line[0] == 'exit' or line[0] == '\e':
             self.exit()
         else:
             self.usage(fun=' '.join(line))
+
+    def load(self, filename):
+        try:
+            self.simulation.load(filename, self)
+        except IOError, e:
+            sys.stderr.write("No such file: `{:}'\n".format(filename))
+        except Exception, e:
+            self.exception_handler(e)
 
     def print_registers(self):
         """Formats and outputs a display of the registers"""
@@ -190,11 +216,6 @@ class Cli(UpdateListener):
     def print_memory(self, **kwargs):
         print self.memory.getSlice()
 
-    def update(self, *args, **kwargs):
-        self.registers = kwargs['registers']
-        self.memory    = kwargs['memory']
-        self.pipeline  = kwargs['pipeline']
-
     def usage(self, *args, **kwargs):
         usage={'print':'print <register>|<registers>'}
         if kwargs['fun'] in usage:
@@ -210,8 +231,19 @@ class Cli(UpdateListener):
             args=[0]
             print "Bye!"
         readline.write_history_file('.cli_history')
-        self.simulation.disconnect(self)
+        if callable(self.simulation):
+            self.simulation.disconnect(self)
         sys.exit(args[0])
+
+    def exception_handler(self, e):
+        if DEBUG and self.local_DEBUG >= 2:
+            traceback.print_exc(file=sys.stderr)
+        try: print "Exception: {:}".format(e)
+        except:pass
+        if DEBUG and self.local_DEBUG >= 1:
+            print 'Type: ' + e.__class__.__name__
+        self.exit(1)
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 2:

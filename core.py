@@ -209,6 +209,13 @@ class Simulation(object):
         self.log.buffer('initialized with no incidents')
         self.log.flush()
 
+    def __call__(self):
+        """Clients need core to be callable"""
+        pass
+
+    def __del__(self):
+        self.log.write('Terminating')
+
     #
     #core interface is below
     #
@@ -217,24 +224,36 @@ class Simulation(object):
         if size > 2**20:
             sys.stderr.write('MESSAGE: logfile is becomming large ({0}-Kb).\n'.format(size/1000))
 
-    def _authClient(self, client):
+    def _authorized_client(self, client):
         return client in self._clients
 
     def cycle(self, client):
         """Performs one simulation cycle."""
-        if not self._authClient(client):
+        if not self._authorized_client(client):
             self.log.buffer("blocked `cycle' call from unauthorized client `{0}'".format(client.__class__.__name__))
             return
-        if self._cycles % 10 == 0:
-            self.runDaemons()
         self.log.buffer("`cycle' called by `{0}'".format(client.__class__.__name__))
         self.cpu.cycle()
         self._cycles = self._cycles + 1
 
+    def step(self, client):
+        """Completes [the remainder of] one instruction execution"""
+        if not self._authorized_client(client):
+            self.log.buffer("blocked `cycle' call from unauthorized client `{0}'".format(client.__class__.__name__))
+            return
+        self.log.buffer("`step' called by `{0}'".format(client.__class__.__name__))
+        remaining = 4 - (self._cycles % 4)
+        for i in range(remaining):
+            self.cpu.cycle()
+            self._cycles = self._cycles + 1
+
+    def complete(self, client):
+        pass
+
     def evaluate(self, lines, connected, client):
         """Processes cycles for one instruction"""
         assert type(lines) == list
-        if not self._authClient(client):
+        if not self._authorized_client(client):
             self.log.buffer("blocked `cycle' call from unauthorized client `{0}'".format(client.__class__.__name__))
             return
         #
@@ -247,15 +266,15 @@ class Simulation(object):
         if connected:
             self.cpu.resetPc()
             self.memory.loadText(expression, and_dump=False)
-            for i in range(4):
+            for i in range(len(expression)+3):
                 self.cpu.cycle()
                 self._cycles = self._cycles + 1
         self.log.flush()
         return expression
 
-    def loadProgrammeFromFile(self, filename, client):
+    def load(self, filename, client):
         """Loads an asm programme into the simulation"""
-        if not self._authClient(client):
+        if not self._authorized_client(client):
             self.log.buffer("blocked `load' call from unauthorized client `{0}'".format(client.__class__.__name__))
             return
         self.log.buffer("`load' called by `{0}'".format(client.__class__.__name__))
@@ -331,7 +350,7 @@ if __name__ == '__main__':
         tl = TestListener()
         s.connect(tl)
         #s.connect(tl)
-        s.loadProgrammeFromFile('add.asm', client=tl)
+        s.load('add.asm', client=tl)
         for i in range(8):
             s.cycle(client=tl)
         s.log.flush()

@@ -1,1290 +1,542 @@
-SYS  system started at 2011-07-17 20:27:22.215752
-1310930842271256:  MEM  created 2147483-Kb of 8-byte address space
-1310930842271300:  MEM  created segment `text'	4194304..268435456
-1310930842271322:  MEM  created segment `data'	268435456..2147483647
-1310930842271338:  MEM  created segment `stack'	268435456..2147483647
-1310930842271470:  API  created an api
-1310930842271666:  INT  created `MIPS_I' interpreter
-1310930842271752:  CPU  created a cpu
-1310930842271768:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:05:55.007715
+1310997955035919:  MEM  created 2147483-Kb of 8-byte address space
+1310997955035962:  MEM  created segment `text'	4194304..268435456
+1310997955035980:  MEM  created segment `data'	268435456..2147483647
+1310997955035995:  MEM  created segment `stack'	268435456..2147483647
+1310997955036130:  API  created an api
+1310997955036339:  INT  created `MIPS_I' interpreter
+1310997955036436:  CPU  created a cpu
+1310997955036453:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:28:02.150094
-1310930882179336:  MEM  created 2147483-Kb of 8-byte address space
-1310930882179380:  MEM  created segment `text'	4194304..268435456
-1310930882179403:  MEM  created segment `data'	268435456..2147483647
-1310930882179419:  MEM  created segment `stack'	268435456..2147483647
-1310930882179552:  API  created an api
-1310930882179747:  INT  created `MIPS_I' interpreter
-1310930882179834:  CPU  created a cpu
-1310930882179850:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:06:09.013799
+1310997969042562:  MEM  created 2147483-Kb of 8-byte address space
+1310997969042604:  MEM  created segment `text'	4194304..268435456
+1310997969042622:  MEM  created segment `data'	268435456..2147483647
+1310997969042639:  MEM  created segment `stack'	268435456..2147483647
+1310997969042770:  API  created an api
+1310997969042968:  INT  created `MIPS_I' interpreter
+1310997969043065:  CPU  created a cpu
+1310997969043082:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
+SYS  `load' called by `Cli'
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:29:00.882370
-1310930940911304:  MEM  created 2147483-Kb of 8-byte address space
-1310930940911349:  MEM  created segment `text'	4194304..268435456
-1310930940911371:  MEM  created segment `data'	268435456..2147483647
-1310930940911387:  MEM  created segment `stack'	268435456..2147483647
-1310930940911529:  API  created an api
-1310930940911724:  INT  created `MIPS_I' interpreter
-1310930940911810:  CPU  created a cpu
-1310930940911826:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:06:41.840677
+1310998001869269:  MEM  created 2147483-Kb of 8-byte address space
+1310998001869312:  MEM  created segment `text'	4194304..268435456
+1310998001869330:  MEM  created segment `data'	268435456..2147483647
+1310998001869346:  MEM  created segment `stack'	268435456..2147483647
+1310998001869485:  API  created an api
+1310998001869721:  INT  created `MIPS_I' interpreter
+1310998001869823:  CPU  created a cpu
+1310998001869841:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
+SYS  `load' called by `Cli'
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:30:32.963788
-1310931032992760:  MEM  created 2147483-Kb of 8-byte address space
-1310931032992806:  MEM  created segment `text'	4194304..268435456
-1310931032992830:  MEM  created segment `data'	268435456..2147483647
-1310931032992846:  MEM  created segment `stack'	268435456..2147483647
-1310931032992981:  API  created an api
-1310931032993168:  INT  created `MIPS_I' interpreter
-1310931032993256:  CPU  created a cpu
-1310931032993273:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:07:06.811628
+1310998026840296:  MEM  created 2147483-Kb of 8-byte address space
+1310998026840338:  MEM  created segment `text'	4194304..268435456
+1310998026840356:  MEM  created segment `data'	268435456..2147483647
+1310998026840372:  MEM  created segment `stack'	268435456..2147483647
+1310998026840510:  API  created an api
+1310998026840717:  INT  created `MIPS_I' interpreter
+1310998026840814:  CPU  created a cpu
+1310998026840831:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310931037398537:  INT  reading line: addi $t0,$zero,10
-1310931037398583:  INT  entering preprocessor
-1310931037398993:  INT  processed  addi $t0,$zero,10
-1310931037399008:  INT  leaving preprocessor
-1310931037399021:  INT  entering linker
-1310931037399041:  INT  leaving linker
-1310931037399053:  INT  entering encoder
-1310931037399070:  INT  matching `addi' instruction
-1310931037399777:  INT  `rt' is $t0
-1310931037399794:  INT  `rs' is $zero
-1310931037399814:  INT  `im' is 10
-1310931037399874:  INT  encoded 00100000000010000000000000001010
-1310931037399887:  INT  leaving encoder
-1310931037399910:  CPU  setting pc to 0x400000
+SYS  `load' called by `Cli'
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:31:05.652123
-1310931065680737:  MEM  created 2147483-Kb of 8-byte address space
-1310931065680782:  MEM  created segment `text'	4194304..268435456
-1310931065680804:  MEM  created segment `data'	268435456..2147483647
-1310931065680820:  MEM  created segment `stack'	268435456..2147483647
-1310931065680959:  API  created an api
-1310931065681159:  INT  created `MIPS_I' interpreter
-1310931065681246:  CPU  created a cpu
-1310931065681263:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:09:28.043881
+1310998168072522:  MEM  created 2147483-Kb of 8-byte address space
+1310998168072568:  MEM  created segment `text'	4194304..268435456
+1310998168072586:  MEM  created segment `data'	268435456..2147483647
+1310998168072601:  MEM  created segment `stack'	268435456..2147483647
+1310998168072735:  API  created an api
+1310998168072946:  INT  created `MIPS_I' interpreter
+1310998168073047:  CPU  created a cpu
+1310998168073065:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310931071534512:  INT  reading line: addi $t0,$zero,10
-1310931071534559:  INT  entering preprocessor
-1310931071535251:  INT  processed  addi $t0,$zero,10
-1310931071535278:  INT  leaving preprocessor
-1310931071535301:  INT  entering linker
-1310931071535336:  INT  leaving linker
-1310931071535359:  INT  entering encoder
-1310931071535387:  INT  matching `addi' instruction
-1310931071536669:  INT  `rt' is $t0
-1310931071536700:  INT  `rs' is $zero
-1310931071536734:  INT  `im' is 10
-1310931071536836:  INT  encoded 00100000000010000000000000001010
-1310931071536858:  INT  leaving encoder
-1310931071536898:  CPU  setting pc to 0x400000
+SYS  `load' called by `Cli'
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:31:43.627812
-1310931103656013:  MEM  created 2147483-Kb of 8-byte address space
-1310931103656057:  MEM  created segment `text'	4194304..268435456
-1310931103656079:  MEM  created segment `data'	268435456..2147483647
-1310931103656096:  MEM  created segment `stack'	268435456..2147483647
-1310931103656226:  API  created an api
-1310931103656408:  INT  created `MIPS_I' interpreter
-1310931103656494:  CPU  created a cpu
-1310931103656510:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:09:55.809435
+1310998195838495:  MEM  created 2147483-Kb of 8-byte address space
+1310998195838538:  MEM  created segment `text'	4194304..268435456
+1310998195838555:  MEM  created segment `data'	268435456..2147483647
+1310998195838571:  MEM  created segment `stack'	268435456..2147483647
+1310998195838705:  API  created an api
+1310998195838907:  INT  created `MIPS_I' interpreter
+1310998195839005:  CPU  created a cpu
+1310998195839021:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310931108778527:  INT  reading line: addi $t0,$zero,10
-1310931108778590:  INT  entering preprocessor
-1310931108779282:  INT  processed  addi $t0,$zero,10
-1310931108779309:  INT  leaving preprocessor
-1310931108779333:  INT  entering linker
-1310931108779368:  INT  leaving linker
-1310931108779390:  INT  entering encoder
-1310931108779418:  INT  matching `addi' instruction
-1310931108780699:  INT  `rt' is $t0
-1310931108780729:  INT  `rs' is $zero
-1310931108780764:  INT  `im' is 10
-1310931108780863:  INT  encoded 00100000000010000000000000001010
-1310931108780886:  INT  leaving encoder
-1310931108780925:  CPU  setting pc to 0x400000
-1310931108780988:  MEM  stored 00100000000010000000000000001010 at 0x400000
-1310931108781012:  MEM  loaded 1 word programme into memory
-1310931108781037:  CPU  beginning a cycle
-1310931108781059:  CPU  entering fetch stage
-1310931108781111:  MEM  loaded 00100000000010000000000000001010 from 0x400000
-1310931108781139:  CPU  leaving fetch stage
-1310931108781160:  CPU  entering decode stage
-1310931108781204:  CPU  decode found dust in the pipeline
-1310931108781226:  CPU  leaving decode stage
-1310931108781245:  CPU  entering execute stage
-1310931108781283:  CPU  execute found dust in the pipeline
-1310931108781305:  CPU  leaving execute stage
-1310931108781324:  CPU  entering writeback stage
-1310931108781349:  CPU  leaving writeback stage
-1310931108781414:  CPU  completing a cycle
-1310931108781442:  CPU  beginning a cycle
-1310931108781465:  CPU  entering fetch stage
-1310931108781514:  MEM  loaded 00000000000000000000000000000000 from 0x400001
-1310931108781544:  CPU  leaving fetch stage
-1310931108781565:  CPU  entering decode stage
-1310931108781596:  CPU  decoding 00100000000010000000000000001010
-1310931108781664:  CPU  decoded `i' type instruction, addi
-1310931108781689:  CPU  leaving decode stage
-1310931108781708:  CPU  entering execute stage
-1310931108781739:  CPU  execute found dust in the pipeline
-1310931108781759:  CPU  leaving execute stage
-1310931108781777:  CPU  entering writeback stage
-1310931108781800:  CPU  leaving writeback stage
-1310931108781844:  CPU  completing a cycle
-1310931108781872:  CPU  beginning a cycle
-1310931108781893:  CPU  entering fetch stage
-1310931108781939:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310931108781970:  CPU  leaving fetch stage
-1310931108781990:  CPU  entering decode stage
-1310931108782020:  CPU  decoding 00000000000000000000000000000000
-1310931108782138:  CPU  decoded `j' type instruction, nop
-1310931108782162:  CPU  leaving decode stage
-1310931108782182:  CPU  entering execute stage
-1310931108782210:  CPU  executing 00100000000010000000000000001010
-1310931108782240:  CPU  `rt' is 8 (11:16)
-1310931108782270:  CPU  `rs' is 0 (6:11)
-1310931108782352:  CPU  `im' is 10 (16:32)
-1310931108782379:  CPU  `op' is 8 (0:6)
-1310931108782433:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931108782459:  API  addImmediate called
-1310931108782481:  API  args 0:8, 1:0, 2:10
-1310931108782521:  API  setting register 8 to 10
-1310931108782547:  CPU  leaving execute stage
-1310931108782567:  CPU  entering writeback stage
-1310931108782591:  CPU  leaving writeback stage
-1310931108782636:  CPU  completing a cycle
-1310931108782658:  CPU  beginning a cycle
-1310931108782679:  CPU  entering fetch stage
-1310931108782727:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310931108782758:  CPU  leaving fetch stage
-1310931108782778:  CPU  entering decode stage
-1310931108782807:  CPU  decoding 00000000000000000000000000000000
-1310931108782923:  CPU  decoded `j' type instruction, nop
-1310931108782949:  CPU  leaving decode stage
-1310931108782968:  CPU  entering execute stage
-1310931108782995:  CPU  executing 00000000000000000000000000000000
-1310931108783026:  CPU  `im' is 0 (6:32)
-1310931108783052:  CPU  `op' is 0 (0:6)
-1310931108783084:  CPU  calling noop with []
-1310931108783105:  API  noop called
-1310931108783128:  CPU  leaving execute stage
-1310931108783148:  CPU  entering writeback stage
-1310931108783171:  CPU  leaving writeback stage
-1310931108783213:  CPU  completing a cycle
-SYS  `evaluate' called by `Cli'
-1310931112890538:  INT  reading line: addi $t0,$zero,10
-1310931112890584:  INT  entering preprocessor
-1310931112890677:  INT  processed  addi $t0,$zero,10
-1310931112890700:  INT  leaving preprocessor
-1310931112890723:  INT  entering linker
-1310931112890759:  INT  leaving linker
-1310931112890779:  INT  entering encoder
-1310931112890808:  INT  matching `addi' instruction
-1310931112890862:  INT  `rt' is $t0
-1310931112890890:  INT  `rs' is $zero
-1310931112890926:  INT  `im' is 10
-1310931112891023:  INT  encoded 00100000000010000000000000001010
-1310931112891046:  INT  leaving encoder
-1310931112891083:  CPU  setting pc to 0x400000
-1310931112891146:  MEM  stored 00100000000010000000000000001010 at 0x400000
-1310931112891170:  MEM  loaded 1 word programme into memory
-1310931112891196:  CPU  beginning a cycle
-1310931112891218:  CPU  entering fetch stage
-1310931112891261:  MEM  loaded 00100000000010000000000000001010 from 0x400000
-1310931112891292:  CPU  leaving fetch stage
-1310931112891313:  CPU  entering decode stage
-1310931112891347:  CPU  decoding 00000000000000000000000000000000
-1310931112891466:  CPU  decoded `j' type instruction, nop
-1310931112891490:  CPU  leaving decode stage
-1310931112891511:  CPU  entering execute stage
-1310931112891538:  CPU  executing 00000000000000000000000000000000
-1310931112891570:  CPU  `im' is 0 (6:32)
-1310931112891596:  CPU  `op' is 0 (0:6)
-1310931112891632:  CPU  calling noop with []
-1310931112891655:  API  noop called
-1310931112891677:  CPU  leaving execute stage
-1310931112891697:  CPU  entering writeback stage
-1310931112891720:  CPU  leaving writeback stage
-1310931112891777:  CPU  completing a cycle
-1310931112891800:  CPU  beginning a cycle
-1310931112891822:  CPU  entering fetch stage
-1310931112891874:  MEM  loaded 00000000000000000000000000000000 from 0x400001
-1310931112891906:  CPU  leaving fetch stage
-1310931112891926:  CPU  entering decode stage
-1310931112891956:  CPU  decoding 00100000000010000000000000001010
-1310931112892011:  CPU  decoded `i' type instruction, addi
-1310931112892034:  CPU  leaving decode stage
-1310931112892053:  CPU  entering execute stage
-1310931112892080:  CPU  executing 00000000000000000000000000000000
-1310931112892111:  CPU  `im' is 0 (6:32)
-1310931112892137:  CPU  `op' is 0 (0:6)
-1310931112892167:  CPU  calling noop with []
-1310931112892188:  API  noop called
-1310931112892210:  CPU  leaving execute stage
-1310931112892231:  CPU  entering writeback stage
-1310931112892254:  CPU  leaving writeback stage
-1310931112892297:  CPU  completing a cycle
-1310931112892320:  CPU  beginning a cycle
-1310931112892341:  CPU  entering fetch stage
-1310931112892389:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310931112892420:  CPU  leaving fetch stage
-1310931112892441:  CPU  entering decode stage
-1310931112892471:  CPU  decoding 00000000000000000000000000000000
-1310931112892585:  CPU  decoded `j' type instruction, nop
-1310931112892608:  CPU  leaving decode stage
-1310931112892629:  CPU  entering execute stage
-1310931112892656:  CPU  executing 00100000000010000000000000001010
-1310931112892686:  CPU  `rt' is 8 (11:16)
-1310931112892713:  CPU  `rs' is 0 (6:11)
-1310931112892739:  CPU  `im' is 10 (16:32)
-1310931112892764:  CPU  `op' is 8 (0:6)
-1310931112892801:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931112892823:  API  addImmediate called
-1310931112892845:  API  args 0:8, 1:0, 2:10
-1310931112892885:  API  setting register 8 to 10
-1310931112892910:  CPU  leaving execute stage
-1310931112892930:  CPU  entering writeback stage
-1310931112892955:  CPU  leaving writeback stage
-1310931112892999:  CPU  completing a cycle
-1310931112893022:  CPU  beginning a cycle
-1310931112893042:  CPU  entering fetch stage
-1310931112893089:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310931112893120:  CPU  leaving fetch stage
-1310931112893141:  CPU  entering decode stage
-1310931112893170:  CPU  decoding 00000000000000000000000000000000
-1310931112893306:  CPU  decoded `j' type instruction, nop
-1310931112893329:  CPU  leaving decode stage
-1310931112893349:  CPU  entering execute stage
-1310931112893376:  CPU  executing 00000000000000000000000000000000
-1310931112893406:  CPU  `im' is 0 (6:32)
-1310931112893432:  CPU  `op' is 0 (0:6)
-1310931112893462:  CPU  calling noop with []
-1310931112893482:  API  noop called
-1310931112893506:  CPU  leaving execute stage
-1310931112893525:  CPU  entering writeback stage
-1310931112893548:  CPU  leaving writeback stage
-1310931112893591:  CPU  completing a cycle
+SYS  `load' called by `Cli'
+1310998198553819:  INT  reading file: add.asm
+1310998198553908:  INT  entering preprocessor
+1310998198554999:  INT  mapped label `main' to 0
+1310998198555048:  INT  processed  addi  $t0, $zero, 2
+1310998198555087:  INT  processed  addi  $t1, $zero, 2
+1310998198555121:  INT  processed  add   $t0, $t0,  $t1
+1310998198555155:  INT  processed  addi  $v0, $zero, 10
+1310998198555188:  INT  processed  slt   $v0, $t0,  $t1
+1310998198555211:  INT  leaving preprocessor
+1310998198555232:  INT  entering linker
+1310998198555295:  INT  leaving linker
+1310998198555317:  INT  entering encoder
+1310998198555344:  INT  matching `addi' instruction
+1310998198556632:  INT  `rt' is $t0
+1310998198556662:  INT  `rs' is $zero
+1310998198556695:  INT  `im' is 2
+1310998198556795:  INT  encoded 00100000000010000000000000000010
+1310998198556825:  INT  matching `addi' instruction
+1310998198556876:  INT  `rt' is $t1
+1310998198556902:  INT  `rs' is $zero
+1310998198556931:  INT  `im' is 2
+1310998198557010:  INT  encoded 00100000000010010000000000000010
+1310998198557040:  INT  matching `add' instruction
+1310998198558211:  INT  `rd' is $t0
+1310998198558242:  INT  `rs' is $t0
+1310998198558267:  INT  `rt' is $t1
+1310998198558365:  INT  encoded 00000001000010010100000000100000
+1310998198558395:  INT  matching `addi' instruction
+1310998198558446:  INT  `rt' is $v0
+1310998198558472:  INT  `rs' is $zero
+1310998198558502:  INT  `im' is 10
+1310998198558579:  INT  encoded 00100000000000100000000000001010
+1310998198558609:  INT  matching `slt' instruction
+1310998198558657:  INT  `rd' is $v0
+1310998198558683:  INT  `rs' is $t0
+1310998198558707:  INT  `rt' is $t1
+1310998198558799:  INT  encoded 00000001000010010001000000101010
+1310998198558821:  INT  leaving encoder
+1310998198558867:  MEM  memory cleared
+1310998198558912:  MEM  stored 00100000000010000000000000000010 at 0x400000
+1310998198558944:  MEM  stored 00100000000010010000000000000010 at 0x400001
+1310998198558975:  MEM  stored 00000001000010010100000000100000 at 0x400002
+1310998198559005:  MEM  stored 00100000000000100000000000001010 at 0x400003
+1310998198559035:  MEM  stored 00000001000010010001000000101010 at 0x400004
+1310998198559057:  MEM  loaded 5 word programme into memory
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:33:57.825588
-1310931237855018:  MEM  created 2147483-Kb of 8-byte address space
-1310931237855063:  MEM  created segment `text'	4194304..268435456
-1310931237855081:  MEM  created segment `data'	268435456..2147483647
-1310931237855097:  MEM  created segment `stack'	268435456..2147483647
-1310931237855234:  API  created an api
-1310931237855426:  INT  created `MIPS_I' interpreter
-1310931237855512:  CPU  created a cpu
-1310931237855529:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:11:23.631963
+1310998283660864:  MEM  created 2147483-Kb of 8-byte address space
+1310998283660908:  MEM  created segment `text'	4194304..268435456
+1310998283660926:  MEM  created segment `data'	268435456..2147483647
+1310998283660942:  MEM  created segment `stack'	268435456..2147483647
+1310998283661082:  API  created an api
+1310998283661299:  INT  created `MIPS_I' interpreter
+1310998283661398:  CPU  created a cpu
+1310998283661415:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310931265694562:  INT  reading line: addi $t0,$zero,10
-1310931265694603:  INT  reading line: addi $t1,$zero,1
-1310931265694624:  INT  reading line: addi $t2,$zero,2
-1310931265694642:  INT  reading line: slt $t0,$t1,$t2
-1310931265694666:  INT  entering preprocessor
-1310931265695352:  INT  processed  addi $t0,$zero,10addi $t1,$zero,1addi $t2,$zero,2slt $t0,$t1,$t2
-1310931265695378:  INT  leaving preprocessor
-1310931265695400:  INT  entering linker
-1310931265695439:  INT  leaving linker
-1310931265695462:  INT  entering encoder
-1310931265695491:  INT  matching `addi' instruction
+SYS  `load' called by `Cli'
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:36:37.907415
-1310931397936274:  MEM  created 2147483-Kb of 8-byte address space
-1310931397936327:  MEM  created segment `text'	4194304..268435456
-1310931397936345:  MEM  created segment `data'	268435456..2147483647
-1310931397936361:  MEM  created segment `stack'	268435456..2147483647
-1310931397936498:  API  created an api
-1310931397936738:  INT  created `MIPS_I' interpreter
-1310931397936831:  CPU  created a cpu
-1310931397936848:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:11:38.493221
+1310998298521963:  MEM  created 2147483-Kb of 8-byte address space
+1310998298522008:  MEM  created segment `text'	4194304..268435456
+1310998298522026:  MEM  created segment `data'	268435456..2147483647
+1310998298522042:  MEM  created segment `stack'	268435456..2147483647
+1310998298522180:  API  created an api
+1310998298522390:  INT  created `MIPS_I' interpreter
+1310998298522490:  CPU  created a cpu
+1310998298522508:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310931403906502:  INT  reading line: addi $t0,$zero,10
-1310931403906546:  INT  entering preprocessor
-1310931403907238:  INT  processed  addi $t0,$zero,10
-1310931403907265:  INT  leaving preprocessor
-1310931403907288:  INT  entering linker
-1310931403907324:  INT  leaving linker
-1310931403907347:  INT  entering encoder
-1310931403907375:  INT  matching `addi' instruction
-1310931403908661:  INT  `rt' is $t0
-1310931403908692:  INT  `rs' is $zero
-1310931403908726:  INT  `im' is 10
-1310931403908830:  INT  encoded 00100000000010000000000000001010
-1310931403908854:  INT  leaving encoder
-1310931403908893:  CPU  setting pc to 0x400000
-1310931403908958:  MEM  stored 00100000000010000000000000001010 at 0x400000
-1310931403908982:  MEM  loaded 1 word programme into memory
-1310931403909007:  CPU  beginning a cycle
-1310931403909029:  CPU  entering fetch stage
-1310931403909082:  MEM  loaded 00100000000010000000000000001010 from 0x400000
-1310931403909111:  CPU  leaving fetch stage
-1310931403909132:  CPU  entering decode stage
-1310931403909173:  CPU  decode found dust in the pipeline
-1310931403909194:  CPU  leaving decode stage
-1310931403909214:  CPU  entering execute stage
-1310931403909252:  CPU  execute found dust in the pipeline
-1310931403909275:  CPU  leaving execute stage
-1310931403909294:  CPU  entering writeback stage
-1310931403909319:  CPU  leaving writeback stage
-1310931403909384:  CPU  completing a cycle
-1310931403909412:  CPU  beginning a cycle
-1310931403909434:  CPU  entering fetch stage
-1310931403909483:  MEM  loaded 00000000000000000000000000000000 from 0x400001
-1310931403909513:  CPU  leaving fetch stage
-1310931403909534:  CPU  entering decode stage
-1310931403909566:  CPU  decoding 00100000000010000000000000001010
-1310931403909625:  CPU  decoded `i' type instruction, addi
-1310931403909650:  CPU  leaving decode stage
-1310931403909670:  CPU  entering execute stage
-1310931403909700:  CPU  execute found dust in the pipeline
-1310931403909722:  CPU  leaving execute stage
-1310931403909741:  CPU  entering writeback stage
-1310931403909764:  CPU  leaving writeback stage
-1310931403909806:  CPU  completing a cycle
-1310931403909832:  CPU  beginning a cycle
-1310931403909853:  CPU  entering fetch stage
-1310931403909901:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310931403909930:  CPU  leaving fetch stage
-1310931403909951:  CPU  entering decode stage
-1310931403909981:  CPU  decoding 00000000000000000000000000000000
-1310931403910102:  CPU  decoded `j' type instruction, nop
-1310931403910127:  CPU  leaving decode stage
-1310931403910148:  CPU  entering execute stage
-1310931403910175:  CPU  executing 00100000000010000000000000001010
-1310931403910205:  CPU  `rt' is 8 (11:16)
-1310931403910232:  CPU  `rs' is 0 (6:11)
-1310931403910287:  CPU  `im' is 10 (16:32)
-1310931403910333:  CPU  `op' is 8 (0:6)
-1310931403910386:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931403910411:  API  addImmediate called
-1310931403910434:  API  args 0:8, 1:0, 2:10
-1310931403910475:  API  setting register 8 to 10
-1310931403910501:  CPU  leaving execute stage
-1310931403910521:  CPU  entering writeback stage
-1310931403910544:  CPU  leaving writeback stage
-1310931403910588:  CPU  completing a cycle
-1310931403910610:  CPU  beginning a cycle
-1310931403910631:  CPU  entering fetch stage
-1310931403910679:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310931403910707:  CPU  leaving fetch stage
-1310931403910728:  CPU  entering decode stage
-1310931403910759:  CPU  decoding 00000000000000000000000000000000
-1310931403910872:  CPU  decoded `j' type instruction, nop
-1310931403910897:  CPU  leaving decode stage
-1310931403910918:  CPU  entering execute stage
-1310931403910945:  CPU  executing 00000000000000000000000000000000
-1310931403910975:  CPU  `im' is 0 (6:32)
-1310931403911001:  CPU  `op' is 0 (0:6)
-1310931403911032:  CPU  calling noop with []
-1310931403911054:  API  noop called
-1310931403911078:  CPU  leaving execute stage
-1310931403911098:  CPU  entering writeback stage
-1310931403911121:  CPU  leaving writeback stage
-1310931403911163:  CPU  completing a cycle
+SYS  `load' called by `Cli'
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:36:58.250911
-1310931418279627:  MEM  created 2147483-Kb of 8-byte address space
-1310931418279672:  MEM  created segment `text'	4194304..268435456
-1310931418279690:  MEM  created segment `data'	268435456..2147483647
-1310931418279706:  MEM  created segment `stack'	268435456..2147483647
-1310931418279838:  API  created an api
-1310931418280202:  INT  created `MIPS_I' interpreter
-1310931418280299:  CPU  created a cpu
-1310931418280318:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:13:25.724209
+1310998405752924:  MEM  created 2147483-Kb of 8-byte address space
+1310998405752968:  MEM  created segment `text'	4194304..268435456
+1310998405752985:  MEM  created segment `data'	268435456..2147483647
+1310998405753001:  MEM  created segment `stack'	268435456..2147483647
+1310998405753142:  API  created an api
+1310998405753349:  INT  created `MIPS_I' interpreter
+1310998405753450:  CPU  created a cpu
+1310998405753468:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310931424106508:  INT  reading line: addi $t0,$zero,10
-1310931424106553:  INT  entering preprocessor
-1310931424107245:  INT  processed  addi $t0,$zero,10
-1310931424107273:  INT  leaving preprocessor
-1310931424107296:  INT  entering linker
-1310931424107332:  INT  leaving linker
-1310931424107354:  INT  entering encoder
-1310931424107382:  INT  matching `addi' instruction
-1310931424108670:  INT  `rt' is $t0
-1310931424108700:  INT  `rs' is $zero
-1310931424108736:  INT  `im' is 10
-1310931424108839:  INT  encoded 00100000000010000000000000001010
-1310931424108861:  INT  leaving encoder
-1310931424108919:  CPU  setting pc to 0x400000
-1310931424108986:  MEM  stored 00100000000010000000000000001010 at 0x400000
-1310931424109012:  MEM  loaded 1 word programme into memory
-1310931424109047:  CPU  beginning a cycle
-1310931424109071:  CPU  entering fetch stage
-1310931424109116:  MEM  loaded 00100000000010000000000000001010 from 0x400000
-1310931424109144:  CPU  leaving fetch stage
-1310931424109165:  CPU  entering decode stage
-1310931424109207:  CPU  decode found dust in the pipeline
-1310931424109228:  CPU  leaving decode stage
-1310931424109247:  CPU  entering execute stage
-1310931424109286:  CPU  execute found dust in the pipeline
-1310931424109308:  CPU  leaving execute stage
-1310931424109328:  CPU  entering writeback stage
-1310931424109353:  CPU  leaving writeback stage
-1310931424109417:  CPU  completing a cycle
-1310931424109444:  CPU  beginning a cycle
-1310931424109465:  CPU  entering fetch stage
-1310931424109513:  MEM  loaded 00000000000000000000000000000000 from 0x400001
-1310931424109542:  CPU  leaving fetch stage
-1310931424109562:  CPU  entering decode stage
-1310931424109594:  CPU  decoding 00100000000010000000000000001010
-1310931424109653:  CPU  decoded `i' type instruction, addi
-1310931424109676:  CPU  leaving decode stage
-1310931424109695:  CPU  entering execute stage
-1310931424109724:  CPU  execute found dust in the pipeline
-1310931424109744:  CPU  leaving execute stage
-1310931424109763:  CPU  entering writeback stage
-1310931424109786:  CPU  leaving writeback stage
-1310931424109829:  CPU  completing a cycle
-1310931424109853:  CPU  beginning a cycle
-1310931424109875:  CPU  entering fetch stage
-1310931424109920:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310931424109950:  CPU  leaving fetch stage
-1310931424109971:  CPU  entering decode stage
-1310931424110001:  CPU  decoding 00000000000000000000000000000000
-1310931424110125:  CPU  decoded `j' type instruction, nop
-1310931424110149:  CPU  leaving decode stage
-1310931424110169:  CPU  entering execute stage
-1310931424110196:  CPU  executing 00100000000010000000000000001010
-1310931424110227:  CPU  `rt' is 8 (11:16)
-1310931424110253:  CPU  `rs' is 0 (6:11)
-1310931424110327:  CPU  `im' is 10 (16:32)
-1310931424110354:  CPU  `op' is 8 (0:6)
-1310931424110407:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931424110432:  API  addImmediate called
-1310931424110455:  API  args 0:8, 1:0, 2:10
-1310931424110496:  API  setting register 8 to 10
-1310931424110521:  CPU  leaving execute stage
-1310931424110541:  CPU  entering writeback stage
-1310931424110565:  CPU  leaving writeback stage
-1310931424110609:  CPU  completing a cycle
-1310931424110631:  CPU  beginning a cycle
-1310931424110652:  CPU  entering fetch stage
-1310931424110700:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310931424110729:  CPU  leaving fetch stage
-1310931424110750:  CPU  entering decode stage
-1310931424110780:  CPU  decoding 00000000000000000000000000000000
-1310931424110890:  CPU  decoded `j' type instruction, nop
-1310931424110916:  CPU  leaving decode stage
-1310931424110936:  CPU  entering execute stage
-1310931424110963:  CPU  executing 00000000000000000000000000000000
-1310931424110993:  CPU  `im' is 0 (6:32)
-1310931424111019:  CPU  `op' is 0 (0:6)
-1310931424111051:  CPU  calling noop with []
-1310931424111072:  API  noop called
-1310931424111095:  CPU  leaving execute stage
-1310931424111114:  CPU  entering writeback stage
-1310931424111138:  CPU  leaving writeback stage
-1310931424111180:  CPU  completing a cycle
+SYS  `load' called by `Cli'
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:40:15.226305
-1310931615254737:  MEM  created 2147483-Kb of 8-byte address space
-1310931615254782:  MEM  created segment `text'	4194304..268435456
-1310931615254800:  MEM  created segment `data'	268435456..2147483647
-1310931615254816:  MEM  created segment `stack'	268435456..2147483647
-1310931615254947:  API  created an api
-1310931615255154:  INT  created `MIPS_I' interpreter
-1310931615255239:  CPU  created a cpu
-1310931615255256:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:13:37.473177
+1310998417502883:  MEM  created 2147483-Kb of 8-byte address space
+1310998417502927:  MEM  created segment `text'	4194304..268435456
+1310998417502944:  MEM  created segment `data'	268435456..2147483647
+1310998417502960:  MEM  created segment `stack'	268435456..2147483647
+1310998417503096:  API  created an api
+1310998417503303:  INT  created `MIPS_I' interpreter
+1310998417503404:  CPU  created a cpu
+1310998417503422:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310931623098527:  INT  reading line: addi $t0,$zero,10
-1310931623098569:  INT  reading line: addi $t1,$zero,10
-1310931623098593:  INT  entering preprocessor
-1310931623099280:  INT  processed  addi $t0,$zero,10addi $t1,$zero,10
-1310931623099309:  INT  leaving preprocessor
-1310931623099331:  INT  entering linker
-1310931623099367:  INT  leaving linker
-1310931623099390:  INT  entering encoder
-1310931623099419:  INT  matching `addi' instruction
+SYS  `load' called by `Cli'
+SYS  `load' called by `Cli'
+1310998432945904:  INT  reading file: ../asm/add.asm
+1310998432967085:  INT  entering preprocessor
+1310998432968224:  INT  mapped label `main' to 0
+1310998432968276:  INT  processed  addi  $t0, $zero, 2
+1310998432968315:  INT  processed  addi  $t1, $zero, 2
+1310998432968349:  INT  processed  add   $t0, $t0,  $t1
+1310998432968384:  INT  processed  addi  $v0, $zero, 10
+1310998432968408:  INT  leaving preprocessor
+1310998432968430:  INT  entering linker
+1310998432968488:  INT  leaving linker
+1310998432968512:  INT  entering encoder
+1310998432968540:  INT  matching `addi' instruction
+1310998432969860:  INT  `rt' is $t0
+1310998432969891:  INT  `rs' is $zero
+1310998432969924:  INT  `im' is 2
+1310998432970027:  INT  encoded 00100000000010000000000000000010
+1310998432970057:  INT  matching `addi' instruction
+1310998432970107:  INT  `rt' is $t1
+1310998432970132:  INT  `rs' is $zero
+1310998432970160:  INT  `im' is 2
+1310998432970236:  INT  encoded 00100000000010010000000000000010
+1310998432970265:  INT  matching `add' instruction
+1310998432971359:  INT  `rd' is $t0
+1310998432971390:  INT  `rs' is $t0
+1310998432971415:  INT  `rt' is $t1
+1310998432971514:  INT  encoded 00000001000010010100000000100000
+1310998432971543:  INT  matching `addi' instruction
+1310998432971593:  INT  `rt' is $v0
+1310998432971618:  INT  `rs' is $zero
+1310998432971647:  INT  `im' is 10
+1310998432971733:  INT  encoded 00100000000000100000000000001010
+1310998432971756:  INT  leaving encoder
+1310998432971803:  MEM  memory cleared
+1310998432971849:  MEM  stored 00100000000010000000000000000010 at 0x400000
+1310998432971882:  MEM  stored 00100000000010010000000000000010 at 0x400001
+1310998432971913:  MEM  stored 00000001000010010100000000100000 at 0x400002
+1310998432971942:  MEM  stored 00100000000000100000000000001010 at 0x400003
+1310998432971964:  MEM  loaded 4 word programme into memory
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:41:30.097279
-1310931690126903:  MEM  created 2147483-Kb of 8-byte address space
-1310931690126950:  MEM  created segment `text'	4194304..268435456
-1310931690126968:  MEM  created segment `data'	268435456..2147483647
-1310931690126985:  MEM  created segment `stack'	268435456..2147483647
-1310931690127116:  API  created an api
-1310931690127314:  INT  created `MIPS_I' interpreter
-1310931690127401:  CPU  created a cpu
-1310931690127417:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:19:19.171057
+1310998759199751:  MEM  created 2147483-Kb of 8-byte address space
+1310998759199799:  MEM  created segment `text'	4194304..268435456
+1310998759199816:  MEM  created segment `data'	268435456..2147483647
+1310998759199832:  MEM  created segment `stack'	268435456..2147483647
+1310998759199964:  API  created an api
+1310998759200163:  INT  created `MIPS_I' interpreter
+1310998759200265:  CPU  created a cpu
+1310998759200282:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:20:14.038348
+1310998814066718:  MEM  created 2147483-Kb of 8-byte address space
+1310998814066765:  MEM  created segment `text'	4194304..268435456
+1310998814066783:  MEM  created segment `data'	268435456..2147483647
+1310998814066799:  MEM  created segment `stack'	268435456..2147483647
+1310998814066932:  API  created an api
+1310998814067147:  INT  created `MIPS_I' interpreter
+1310998814067254:  CPU  created a cpu
+1310998814067272:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:20:27.522649
+1310998827551481:  MEM  created 2147483-Kb of 8-byte address space
+1310998827551525:  MEM  created segment `text'	4194304..268435456
+1310998827551542:  MEM  created segment `data'	268435456..2147483647
+1310998827551558:  MEM  created segment `stack'	268435456..2147483647
+1310998827551688:  API  created an api
+1310998827551894:  INT  created `MIPS_I' interpreter
+1310998827551996:  CPU  created a cpu
+1310998827552013:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:21:28.038183
+1310998888066961:  MEM  created 2147483-Kb of 8-byte address space
+1310998888067006:  MEM  created segment `text'	4194304..268435456
+1310998888067024:  MEM  created segment `data'	268435456..2147483647
+1310998888067040:  MEM  created segment `stack'	268435456..2147483647
+1310998888067177:  API  created an api
+1310998888067399:  INT  created `MIPS_I' interpreter
+1310998888067498:  CPU  created a cpu
+1310998888067516:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:21:49.829095
+1310998909858187:  MEM  created 2147483-Kb of 8-byte address space
+1310998909858231:  MEM  created segment `text'	4194304..268435456
+1310998909858249:  MEM  created segment `data'	268435456..2147483647
+1310998909858265:  MEM  created segment `stack'	268435456..2147483647
+1310998909858410:  API  created an api
+1310998909858615:  INT  created `MIPS_I' interpreter
+1310998909858714:  CPU  created a cpu
+1310998909858731:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:22:15.986737
+1310998936015995:  MEM  created 2147483-Kb of 8-byte address space
+1310998936016040:  MEM  created segment `text'	4194304..268435456
+1310998936016059:  MEM  created segment `data'	268435456..2147483647
+1310998936016075:  MEM  created segment `stack'	268435456..2147483647
+1310998936016209:  API  created an api
+1310998936016416:  INT  created `MIPS_I' interpreter
+1310998936016518:  CPU  created a cpu
+1310998936016535:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:22:34.914818
+1310998954943492:  MEM  created 2147483-Kb of 8-byte address space
+1310998954943537:  MEM  created segment `text'	4194304..268435456
+1310998954943555:  MEM  created segment `data'	268435456..2147483647
+1310998954943571:  MEM  created segment `stack'	268435456..2147483647
+1310998954943718:  API  created an api
+1310998954943942:  INT  created `MIPS_I' interpreter
+1310998954944042:  CPU  created a cpu
+1310998954944060:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:23:01.556510
+1310998981585635:  MEM  created 2147483-Kb of 8-byte address space
+1310998981585679:  MEM  created segment `text'	4194304..268435456
+1310998981585697:  MEM  created segment `data'	268435456..2147483647
+1310998981585713:  MEM  created segment `stack'	268435456..2147483647
+1310998981585851:  API  created an api
+1310998981586067:  INT  created `MIPS_I' interpreter
+1310998981586166:  CPU  created a cpu
+1310998981586184:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:23:17.749083
+1310998997778091:  MEM  created 2147483-Kb of 8-byte address space
+1310998997778135:  MEM  created segment `text'	4194304..268435456
+1310998997778152:  MEM  created segment `data'	268435456..2147483647
+1310998997778168:  MEM  created segment `stack'	268435456..2147483647
+1310998997778306:  API  created an api
+1310998997778512:  INT  created `MIPS_I' interpreter
+1310998997778613:  CPU  created a cpu
+1310998997778630:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:30:31.904122
+1310999431936180:  MEM  created 2147483-Kb of 8-byte address space
+1310999431936231:  MEM  created segment `text'	4194304..268435456
+1310999431936250:  MEM  created segment `data'	268435456..2147483647
+1310999431936266:  MEM  created segment `stack'	268435456..2147483647
+1310999431936413:  API  created an api
+1310999431936941:  INT  created `MIPS_I' interpreter
+1310999431937151:  CPU  created a cpu
+1310999431937171:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  detatched a client
+SYS  system started at 2011-07-18 15:33:24.995364
+1310999605023811:  MEM  created 2147483-Kb of 8-byte address space
+1310999605023854:  MEM  created segment `text'	4194304..268435456
+1310999605023872:  MEM  created segment `data'	268435456..2147483647
+1310999605023888:  MEM  created segment `stack'	268435456..2147483647
+1310999605024021:  API  created an api
+1310999605024238:  INT  created `MIPS_I' interpreter
+1310999605024338:  CPU  created a cpu
+1310999605024356:  CPU  pc is register 0x21
+SYS  initialized with no incidents
+SYS  attached client `Cli'
+SYS  `step' called by `Cli'
+1310999606437785:  CPU  beginning a cycle
+1310999606437826:  CPU  entering fetch stage
+1310999606437915:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310999606437948:  CPU  leaving fetch stage
+1310999606437971:  CPU  entering decode stage
+1310999606438015:  CPU  decode found dust in the pipeline
+1310999606438037:  CPU  leaving decode stage
+1310999606438057:  CPU  entering execute stage
+1310999606438089:  CPU  execute found dust in the pipeline
+1310999606438109:  CPU  leaving execute stage
+1310999606438128:  CPU  entering writeback stage
+1310999606438158:  CPU  leaving writeback stage
+1310999606438219:  CPU  completing a cycle
+1310999606438247:  CPU  beginning a cycle
+1310999606438268:  CPU  entering fetch stage
+1310999606438316:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310999606438346:  CPU  leaving fetch stage
+1310999606438366:  CPU  entering decode stage
+1310999606438396:  CPU  decoding 00000000000000000000000000000000
+1310999606438520:  CPU  decoded `j' type instruction, nop
+1310999606438545:  CPU  leaving decode stage
+1310999606438565:  CPU  entering execute stage
+1310999606438595:  CPU  execute found dust in the pipeline
+1310999606438614:  CPU  leaving execute stage
+1310999606438633:  CPU  entering writeback stage
+1310999606438657:  CPU  leaving writeback stage
+1310999606438699:  CPU  completing a cycle
+1310999606438726:  CPU  beginning a cycle
+1310999606438746:  CPU  entering fetch stage
+1310999606438793:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310999606438822:  CPU  leaving fetch stage
+1310999606438842:  CPU  entering decode stage
+1310999606438872:  CPU  decoding 00000000000000000000000000000000
+1310999606438986:  CPU  decoded `j' type instruction, nop
+1310999606439009:  CPU  leaving decode stage
+1310999606439029:  CPU  entering execute stage
+1310999606439056:  CPU  executing 00000000000000000000000000000000
+1310999606439087:  CPU  `im' is 0 (6:32)
+1310999606439114:  CPU  `op' is 0 (0:6)
+1310999606439161:  CPU  calling noop with []
+1310999606439185:  API  noop called
+1310999606439208:  CPU  leaving execute stage
+1310999606439228:  CPU  entering writeback stage
+1310999606439251:  CPU  leaving writeback stage
+1310999606439294:  CPU  completing a cycle
+1310999606439316:  CPU  beginning a cycle
+1310999606439337:  CPU  entering fetch stage
+1310999606439385:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310999606439414:  CPU  leaving fetch stage
+1310999606439434:  CPU  entering decode stage
+1310999606439464:  CPU  decoding 00000000000000000000000000000000
+1310999606439578:  CPU  decoded `j' type instruction, nop
+1310999606439601:  CPU  leaving decode stage
+1310999606439620:  CPU  entering execute stage
+1310999606439648:  CPU  executing 00000000000000000000000000000000
+1310999606439678:  CPU  `im' is 0 (6:32)
+1310999606439705:  CPU  `op' is 0 (0:6)
+1310999606439735:  CPU  calling noop with []
+1310999606439755:  API  noop called
+1310999606439777:  CPU  leaving execute stage
+1310999606439796:  CPU  entering writeback stage
+1310999606439819:  CPU  leaving writeback stage
+1310999606439860:  CPU  completing a cycle
+SYS  `step' called by `Cli'
+1310999612565797:  CPU  beginning a cycle
+1310999612565840:  CPU  entering fetch stage
+1310999612565922:  MEM  loaded 00000000000000000000000000000000 from 0x400004
+1310999612565960:  CPU  leaving fetch stage
+1310999612565982:  CPU  entering decode stage
+1310999612566019:  CPU  decoding 00000000000000000000000000000000
+1310999612566143:  CPU  decoded `j' type instruction, nop
+1310999612566167:  CPU  leaving decode stage
+1310999612566189:  CPU  entering execute stage
+1310999612566217:  CPU  executing 00000000000000000000000000000000
+1310999612566261:  CPU  `im' is 0 (6:32)
+1310999612566290:  CPU  `op' is 0 (0:6)
+1310999612566328:  CPU  calling noop with []
+1310999612566351:  API  noop called
+1310999612566374:  CPU  leaving execute stage
+1310999612566394:  CPU  entering writeback stage
+1310999612566418:  CPU  leaving writeback stage
+1310999612566474:  CPU  completing a cycle
+1310999612566497:  CPU  beginning a cycle
+1310999612566517:  CPU  entering fetch stage
+1310999612566566:  MEM  loaded 00000000000000000000000000000000 from 0x400005
+1310999612566598:  CPU  leaving fetch stage
+1310999612566618:  CPU  entering decode stage
+1310999612566648:  CPU  decoding 00000000000000000000000000000000
+1310999612566762:  CPU  decoded `j' type instruction, nop
+1310999612566785:  CPU  leaving decode stage
+1310999612566805:  CPU  entering execute stage
+1310999612566831:  CPU  executing 00000000000000000000000000000000
+1310999612566862:  CPU  `im' is 0 (6:32)
+1310999612566889:  CPU  `op' is 0 (0:6)
+1310999612566918:  CPU  calling noop with []
+1310999612566938:  API  noop called
+1310999612566961:  CPU  leaving execute stage
+1310999612566980:  CPU  entering writeback stage
+1310999612567004:  CPU  leaving writeback stage
+1310999612567048:  CPU  completing a cycle
+1310999612567070:  CPU  beginning a cycle
+1310999612567106:  CPU  entering fetch stage
+1310999612567154:  MEM  loaded 00000000000000000000000000000000 from 0x400006
+1310999612567186:  CPU  leaving fetch stage
+1310999612567206:  CPU  entering decode stage
+1310999612567236:  CPU  decoding 00000000000000000000000000000000
+1310999612567350:  CPU  decoded `j' type instruction, nop
+1310999612567374:  CPU  leaving decode stage
+1310999612567394:  CPU  entering execute stage
+1310999612567420:  CPU  executing 00000000000000000000000000000000
+1310999612567451:  CPU  `im' is 0 (6:32)
+1310999612567477:  CPU  `op' is 0 (0:6)
+1310999612567507:  CPU  calling noop with []
+1310999612567526:  API  noop called
+1310999612567549:  CPU  leaving execute stage
+1310999612567569:  CPU  entering writeback stage
+1310999612567592:  CPU  leaving writeback stage
+1310999612567634:  CPU  completing a cycle
+1310999612567656:  CPU  beginning a cycle
+1310999612567677:  CPU  entering fetch stage
+1310999612567724:  MEM  loaded 00000000000000000000000000000000 from 0x400007
+1310999612567754:  CPU  leaving fetch stage
+1310999612567774:  CPU  entering decode stage
+1310999612567811:  CPU  decoding 00000000000000000000000000000000
+1310999612567927:  CPU  decoded `j' type instruction, nop
+1310999612567950:  CPU  leaving decode stage
+1310999612567970:  CPU  entering execute stage
+1310999612567997:  CPU  executing 00000000000000000000000000000000
+1310999612568028:  CPU  `im' is 0 (6:32)
+1310999612568054:  CPU  `op' is 0 (0:6)
+1310999612568083:  CPU  calling noop with []
+1310999612568102:  API  noop called
+1310999612568125:  CPU  leaving execute stage
+1310999612568145:  CPU  entering writeback stage
+1310999612568167:  CPU  leaving writeback stage
+1310999612568209:  CPU  completing a cycle
+SYS  `cycle' called by `Cli'
+1310999616093774:  CPU  beginning a cycle
+1310999616093818:  CPU  entering fetch stage
+1310999616093906:  MEM  loaded 00000000000000000000000000000000 from 0x400008
+1310999616093931:  CPU  leaving fetch stage
+1310999616093946:  CPU  entering decode stage
+1310999616093971:  CPU  decoding 00000000000000000000000000000000
+1310999616094056:  CPU  decoded `j' type instruction, nop
+1310999616094072:  CPU  leaving decode stage
+1310999616094086:  CPU  entering execute stage
+1310999616094104:  CPU  executing 00000000000000000000000000000000
+1310999616094125:  CPU  `im' is 0 (6:32)
+1310999616094147:  CPU  `op' is 0 (0:6)
+1310999616094183:  CPU  calling noop with []
+1310999616094199:  API  noop called
+1310999616094215:  CPU  leaving execute stage
+1310999616094229:  CPU  entering writeback stage
+1310999616094244:  CPU  leaving writeback stage
+1310999616094285:  CPU  completing a cycle
+SYS  `cycle' called by `Cli'
+1310999622341768:  CPU  beginning a cycle
+1310999622341812:  CPU  entering fetch stage
+1310999622341894:  MEM  loaded 00000000000000000000000000000000 from 0x400009
+1310999622341930:  CPU  leaving fetch stage
+1310999622341952:  CPU  entering decode stage
+1310999622341988:  CPU  decoding 00000000000000000000000000000000
+1310999622342113:  CPU  decoded `j' type instruction, nop
+1310999622342138:  CPU  leaving decode stage
+1310999622342158:  CPU  entering execute stage
+1310999622342186:  CPU  executing 00000000000000000000000000000000
+1310999622342218:  CPU  `im' is 0 (6:32)
+1310999622342244:  CPU  `op' is 0 (0:6)
+1310999622342281:  CPU  calling noop with []
+1310999622342304:  API  noop called
+1310999622342326:  CPU  leaving execute stage
+1310999622342345:  CPU  entering writeback stage
+1310999622342368:  CPU  leaving writeback stage
+1310999622342426:  CPU  completing a cycle
 SYS  `evaluate' called by `Cli'
-1310931695290518:  INT  reading line: addi $t0,$zero,10
+1310999757617746:  INT  reading line: sw pc,0($sp)
 
-1310931695290549:  INT  reading line: addi $t1,$zero,10
-
-1310931695290566:  INT  entering preprocessor
-1310931695291059:  INT  processed  addi $t0,$zero,10
-1310931695291087:  INT  processed  addi $t1,$zero,10
-1310931695291102:  INT  leaving preprocessor
-1310931695291117:  INT  entering linker
-1310931695291144:  INT  leaving linker
-1310931695291159:  INT  entering encoder
-1310931695291178:  INT  matching `addi' instruction
-1310931695292040:  INT  `rt' is $t0
-1310931695292060:  INT  `rs' is $zero
-1310931695292085:  INT  `im' is 10
-1310931695292155:  INT  encoded 00100000000010000000000000001010
-1310931695292175:  INT  matching `addi' instruction
-1310931695292208:  INT  `rt' is $t1
-1310931695292227:  INT  `rs' is $zero
-1310931695292247:  INT  `im' is 10
-1310931695292300:  INT  encoded 00100000000010010000000000001010
-1310931695292316:  INT  leaving encoder
-1310931695292344:  CPU  setting pc to 0x400000
-1310931695292390:  MEM  stored 00100000000010000000000000001010 at 0x400000
-1310931695292413:  MEM  stored 00100000000010010000000000001010 at 0x400001
-1310931695292429:  MEM  loaded 2 word programme into memory
-1310931695292445:  CPU  beginning a cycle
-1310931695292460:  CPU  entering fetch stage
-1310931695292491:  MEM  loaded 00100000000010000000000000001010 from 0x400000
-1310931695292510:  CPU  leaving fetch stage
-1310931695292524:  CPU  entering decode stage
-1310931695292552:  CPU  decode found dust in the pipeline
-1310931695292567:  CPU  leaving decode stage
-1310931695292588:  CPU  entering execute stage
-1310931695292610:  CPU  execute found dust in the pipeline
-1310931695292624:  CPU  leaving execute stage
-1310931695292637:  CPU  entering writeback stage
-1310931695292654:  CPU  leaving writeback stage
-1310931695292698:  CPU  completing a cycle
-1310931695292717:  CPU  beginning a cycle
-1310931695292731:  CPU  entering fetch stage
-1310931695292759:  MEM  loaded 00100000000010010000000000001010 from 0x400001
-1310931695292777:  CPU  leaving fetch stage
-1310931695292790:  CPU  entering decode stage
-1310931695292811:  CPU  decoding 00100000000010000000000000001010
-1310931695292857:  CPU  decoded `i' type instruction, addi
-1310931695292874:  CPU  leaving decode stage
-1310931695292887:  CPU  entering execute stage
-1310931695292908:  CPU  execute found dust in the pipeline
-1310931695292922:  CPU  leaving execute stage
-1310931695292935:  CPU  entering writeback stage
-1310931695292950:  CPU  leaving writeback stage
-1310931695292979:  CPU  completing a cycle
-1310931695292996:  CPU  beginning a cycle
-1310931695293010:  CPU  entering fetch stage
-1310931695293043:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310931695293062:  CPU  leaving fetch stage
-1310931695293076:  CPU  entering decode stage
-1310931695293097:  CPU  decoding 00100000000010010000000000001010
-1310931695293133:  CPU  decoded `i' type instruction, addi
-1310931695293149:  CPU  leaving decode stage
-1310931695293163:  CPU  entering execute stage
-1310931695293181:  CPU  executing 00100000000010000000000000001010
-1310931695293201:  CPU  `rt' is 8 (11:16)
-1310931695293220:  CPU  `rs' is 0 (6:11)
-1310931695293238:  CPU  `im' is 10 (16:32)
-1310931695293255:  CPU  `op' is 8 (0:6)
-1310931695293292:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931695293309:  API  addImmediate called
-1310931695293325:  API  args 0:8, 1:0, 2:10
-1310931695293353:  API  setting register 8 to 10
-1310931695293370:  CPU  leaving execute stage
-1310931695293384:  CPU  entering writeback stage
-1310931695293400:  CPU  leaving writeback stage
-1310931695293430:  CPU  completing a cycle
-1310931695293445:  CPU  beginning a cycle
-1310931695293459:  CPU  entering fetch stage
-1310931695293491:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310931695293511:  CPU  leaving fetch stage
-1310931695293524:  CPU  entering decode stage
-1310931695293545:  CPU  decoding 00000000000000000000000000000000
-1310931695293622:  CPU  decoded `j' type instruction, nop
-1310931695293639:  CPU  leaving decode stage
-1310931695293652:  CPU  entering execute stage
-1310931695293671:  CPU  executing 00100000000010010000000000001010
-1310931695293691:  CPU  `rt' is 9 (11:16)
-1310931695293709:  CPU  `rs' is 0 (6:11)
-1310931695293726:  CPU  `im' is 10 (16:32)
-1310931695293743:  CPU  `op' is 8 (0:6)
-1310931695293768:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931695293782:  API  addImmediate called
-1310931695293797:  API  args 0:9, 1:0, 2:10
-1310931695293824:  API  setting register 9 to 10
-1310931695293840:  CPU  leaving execute stage
-1310931695293854:  CPU  entering writeback stage
-1310931695293870:  CPU  leaving writeback stage
-1310931695293899:  CPU  completing a cycle
-SYS  `evaluate' called by `Cli'
-1310931708138742:  INT  reading line: addi $t1,$zero,10
-
-1310931708138784:  INT  reading line: ev
-
-1310931708138804:  INT  reading line: addi $t0,$zero,10
-
-1310931708138839:  INT  entering preprocessor
-1310931708138955:  INT  processed  addi $t1,$zero,10
-1310931708138987:  INT  processed  ev
-1310931708139019:  INT  processed  addi $t0,$zero,10
-1310931708139041:  INT  leaving preprocessor
-1310931708139061:  INT  entering linker
-1310931708139105:  INT  leaving linker
-1310931708139126:  INT  entering encoder
-1310931708139154:  INT  matching `addi' instruction
-1310931708139206:  INT  `rt' is $t1
-1310931708139232:  INT  `rs' is $zero
-1310931708139267:  INT  `im' is 10
-1310931708139362:  INT  encoded 00100000000010010000000000001010
+1310999757617791:  INT  entering preprocessor
+1310999757618524:  INT  processed  sw pc,0($sp)
+1310999757618553:  INT  leaving preprocessor
+1310999757618575:  INT  entering linker
+1310999757618609:  INT  leaving linker
+1310999757618632:  INT  entering encoder
+1310999757618660:  INT  matching `sw' instruction
 SYS  detatched a client
-SYS  system started at 2011-07-17 20:42:18.673001
-1310931738701597:  MEM  created 2147483-Kb of 8-byte address space
-1310931738701640:  MEM  created segment `text'	4194304..268435456
-1310931738701658:  MEM  created segment `data'	268435456..2147483647
-1310931738701674:  MEM  created segment `stack'	268435456..2147483647
-1310931738701806:  API  created an api
-1310931738702001:  INT  created `MIPS_I' interpreter
-1310931738702088:  CPU  created a cpu
-1310931738702104:  CPU  pc is register 0x21
+SYS  system started at 2011-07-18 15:38:14.261664
+1310999894290844:  MEM  created 2147483-Kb of 8-byte address space
+1310999894290888:  MEM  created segment `text'	4194304..268435456
+1310999894290906:  MEM  created segment `data'	268435456..2147483647
+1310999894290922:  MEM  created segment `stack'	268435456..2147483647
+1310999894291055:  API  created an api
+1310999894291256:  INT  created `MIPS_I' interpreter
+1310999894291356:  CPU  created a cpu
+1310999894291373:  CPU  pc is register 0x21
 SYS  initialized with no incidents
 SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310931746910515:  INT  reading line: addi $t1,$zero,10
-
-1310931746910550:  INT  reading line: addi $t0,$zero,10
-
-1310931746910567:  INT  entering preprocessor
-1310931746911161:  INT  processed  addi $t1,$zero,10
-1310931746911187:  INT  processed  addi $t0,$zero,10
-1310931746911201:  INT  leaving preprocessor
-1310931746911214:  INT  entering linker
-1310931746911237:  INT  leaving linker
-1310931746911251:  INT  entering encoder
-1310931746911268:  INT  matching `addi' instruction
-1310931746912000:  INT  `rt' is $t1
-1310931746912019:  INT  `rs' is $zero
-1310931746912041:  INT  `im' is 10
-1310931746912127:  INT  encoded 00100000000010010000000000001010
-1310931746912145:  INT  matching `addi' instruction
-1310931746912174:  INT  `rt' is $t0
-1310931746912189:  INT  `rs' is $zero
-1310931746912206:  INT  `im' is 10
-1310931746912250:  INT  encoded 00100000000010000000000000001010
-1310931746912263:  INT  leaving encoder
-1310931746912291:  CPU  setting pc to 0x400000
-1310931746912337:  MEM  stored 00100000000010010000000000001010 at 0x400000
-1310931746912356:  MEM  stored 00100000000010000000000000001010 at 0x400001
-1310931746912370:  MEM  loaded 2 word programme into memory
-1310931746912384:  CPU  beginning a cycle
-1310931746912397:  CPU  entering fetch stage
-1310931746912424:  MEM  loaded 00100000000010010000000000001010 from 0x400000
-1310931746912440:  CPU  leaving fetch stage
-1310931746912452:  CPU  entering decode stage
-1310931746912480:  CPU  decode found dust in the pipeline
-1310931746912492:  CPU  leaving decode stage
-1310931746912511:  CPU  entering execute stage
-1310931746912529:  CPU  execute found dust in the pipeline
-1310931746912540:  CPU  leaving execute stage
-1310931746912552:  CPU  entering writeback stage
-1310931746912566:  CPU  leaving writeback stage
-1310931746912611:  CPU  completing a cycle
-1310931746912627:  CPU  beginning a cycle
-1310931746912639:  CPU  entering fetch stage
-1310931746912662:  MEM  loaded 00100000000010000000000000001010 from 0x400001
-1310931746912676:  CPU  leaving fetch stage
-1310931746912688:  CPU  entering decode stage
-1310931746912705:  CPU  decoding 00100000000010010000000000001010
-1310931746912746:  CPU  decoded `i' type instruction, addi
-1310931746912760:  CPU  leaving decode stage
-1310931746912772:  CPU  entering execute stage
-1310931746912789:  CPU  execute found dust in the pipeline
-1310931746912801:  CPU  leaving execute stage
-1310931746912812:  CPU  entering writeback stage
-1310931746912825:  CPU  leaving writeback stage
-1310931746912849:  CPU  completing a cycle
-1310931746912863:  CPU  beginning a cycle
-1310931746912875:  CPU  entering fetch stage
-1310931746912903:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310931746912919:  CPU  leaving fetch stage
-1310931746912931:  CPU  entering decode stage
-1310931746912948:  CPU  decoding 00100000000010000000000000001010
-1310931746912981:  CPU  decoded `i' type instruction, addi
-1310931746912994:  CPU  leaving decode stage
-1310931746913006:  CPU  entering execute stage
-1310931746913021:  CPU  executing 00100000000010010000000000001010
-1310931746913038:  CPU  `rt' is 9 (11:16)
-1310931746913053:  CPU  `rs' is 0 (6:11)
-1310931746913068:  CPU  `im' is 10 (16:32)
-1310931746913082:  CPU  `op' is 8 (0:6)
-1310931746913119:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931746913136:  API  addImmediate called
-1310931746913149:  API  args 0:9, 1:0, 2:10
-1310931746913173:  API  setting register 9 to 10
-1310931746913187:  CPU  leaving execute stage
-1310931746913199:  CPU  entering writeback stage
-1310931746913213:  CPU  leaving writeback stage
-1310931746913239:  CPU  completing a cycle
-1310931746913252:  CPU  beginning a cycle
-1310931746913263:  CPU  entering fetch stage
-1310931746913290:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310931746913307:  CPU  leaving fetch stage
-1310931746913319:  CPU  entering decode stage
-1310931746913335:  CPU  decoding 00000000000000000000000000000000
-1310931746913400:  CPU  decoded `j' type instruction, nop
-1310931746913413:  CPU  leaving decode stage
-1310931746913425:  CPU  entering execute stage
-1310931746913440:  CPU  executing 00100000000010000000000000001010
-1310931746913457:  CPU  `rt' is 8 (11:16)
-1310931746913472:  CPU  `rs' is 0 (6:11)
-1310931746913487:  CPU  `im' is 10 (16:32)
-1310931746913501:  CPU  `op' is 8 (0:6)
-1310931746913521:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931746913534:  API  addImmediate called
-1310931746913546:  API  args 0:8, 1:0, 2:10
-1310931746913568:  API  setting register 8 to 10
-1310931746913582:  CPU  leaving execute stage
-1310931746913594:  CPU  entering writeback stage
-1310931746913607:  CPU  leaving writeback stage
-1310931746913631:  CPU  completing a cycle
-SYS  `evaluate' called by `Cli'
-1310931759310526:  INT  reading line: addi $t0,$zero,10
-
-1310931759310566:  INT  reading line: addi $t1,$zero,10
-
-1310931759310589:  INT  entering preprocessor
-1310931759310693:  INT  processed  addi $t0,$zero,10
-1310931759310730:  INT  processed  addi $t1,$zero,10
-1310931759310753:  INT  leaving preprocessor
-1310931759310774:  INT  entering linker
-1310931759310814:  INT  leaving linker
-1310931759310837:  INT  entering encoder
-1310931759310864:  INT  matching `addi' instruction
-1310931759310917:  INT  `rt' is $t0
-1310931759310943:  INT  `rs' is $zero
-1310931759310978:  INT  `im' is 10
-1310931759311073:  INT  encoded 00100000000010000000000000001010
-1310931759311101:  INT  matching `addi' instruction
-1310931759311148:  INT  `rt' is $t1
-1310931759311173:  INT  `rs' is $zero
-1310931759311202:  INT  `im' is 10
-1310931759311282:  INT  encoded 00100000000010010000000000001010
-1310931759311303:  INT  leaving encoder
-1310931759311343:  CPU  setting pc to 0x400000
-1310931759311406:  MEM  stored 00100000000010000000000000001010 at 0x400000
-1310931759311439:  MEM  stored 00100000000010010000000000001010 at 0x400001
-1310931759311462:  MEM  loaded 2 word programme into memory
-1310931759311485:  CPU  beginning a cycle
-1310931759311509:  CPU  entering fetch stage
-1310931759311552:  MEM  loaded 00100000000010000000000000001010 from 0x400000
-1310931759311583:  CPU  leaving fetch stage
-1310931759311604:  CPU  entering decode stage
-1310931759311639:  CPU  decoding 00000000000000000000000000000000
-1310931759311756:  CPU  decoded `j' type instruction, nop
-1310931759311780:  CPU  leaving decode stage
-1310931759311801:  CPU  entering execute stage
-1310931759311828:  CPU  executing 00000000000000000000000000000000
-1310931759311859:  CPU  `im' is 0 (6:32)
-1310931759311886:  CPU  `op' is 0 (0:6)
-1310931759311922:  CPU  calling noop with []
-1310931759311945:  API  noop called
-1310931759311968:  CPU  leaving execute stage
-1310931759311988:  CPU  entering writeback stage
-1310931759312012:  CPU  leaving writeback stage
-1310931759312066:  CPU  completing a cycle
-1310931759312089:  CPU  beginning a cycle
-1310931759312109:  CPU  entering fetch stage
-1310931759312149:  MEM  loaded 00100000000010010000000000001010 from 0x400001
-1310931759312176:  CPU  leaving fetch stage
-1310931759312198:  CPU  entering decode stage
-1310931759312228:  CPU  decoding 00100000000010000000000000001010
-1310931759312283:  CPU  decoded `i' type instruction, addi
-1310931759312306:  CPU  leaving decode stage
-1310931759312325:  CPU  entering execute stage
-1310931759312352:  CPU  executing 00000000000000000000000000000000
-1310931759312382:  CPU  `im' is 0 (6:32)
-1310931759312408:  CPU  `op' is 0 (0:6)
-1310931759312438:  CPU  calling noop with []
-1310931759312458:  API  noop called
-1310931759312481:  CPU  leaving execute stage
-1310931759312500:  CPU  entering writeback stage
-1310931759312525:  CPU  leaving writeback stage
-1310931759312567:  CPU  completing a cycle
-1310931759312589:  CPU  beginning a cycle
-1310931759312610:  CPU  entering fetch stage
-1310931759312660:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310931759312690:  CPU  leaving fetch stage
-1310931759312711:  CPU  entering decode stage
-1310931759312742:  CPU  decoding 00100000000010010000000000001010
-1310931759312796:  CPU  decoded `i' type instruction, addi
-1310931759312819:  CPU  leaving decode stage
-1310931759312838:  CPU  entering execute stage
-1310931759312865:  CPU  executing 00100000000010000000000000001010
-1310931759312895:  CPU  `rt' is 8 (11:16)
-1310931759312921:  CPU  `rs' is 0 (6:11)
-1310931759312947:  CPU  `im' is 10 (16:32)
-1310931759312972:  CPU  `op' is 8 (0:6)
-1310931759313007:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931759313028:  API  addImmediate called
-1310931759313050:  API  args 0:8, 1:0, 2:10
-1310931759313090:  API  setting register 8 to 10
-1310931759313115:  CPU  leaving execute stage
-1310931759313136:  CPU  entering writeback stage
-1310931759313159:  CPU  leaving writeback stage
-1310931759313201:  CPU  completing a cycle
-1310931759313223:  CPU  beginning a cycle
-1310931759313243:  CPU  entering fetch stage
-1310931759313289:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310931759313319:  CPU  leaving fetch stage
-1310931759313340:  CPU  entering decode stage
-1310931759313370:  CPU  decoding 00000000000000000000000000000000
-1310931759313484:  CPU  decoded `j' type instruction, nop
-1310931759313508:  CPU  leaving decode stage
-1310931759313527:  CPU  entering execute stage
-1310931759313553:  CPU  executing 00100000000010010000000000001010
-1310931759313582:  CPU  `rt' is 9 (11:16)
-1310931759313609:  CPU  `rs' is 0 (6:11)
-1310931759313635:  CPU  `im' is 10 (16:32)
-1310931759313660:  CPU  `op' is 8 (0:6)
-1310931759313694:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310931759313714:  API  addImmediate called
-1310931759313736:  API  args 0:9, 1:0, 2:10
-1310931759313774:  API  setting register 9 to 10
-1310931759313798:  CPU  leaving execute stage
-1310931759313819:  CPU  entering writeback stage
-1310931759313842:  CPU  leaving writeback stage
-1310931759313884:  CPU  completing a cycle
-SYS  detatched a client
-SYS  system started at 2011-07-17 20:47:19.654813
-1310932039683432:  MEM  created 2147483-Kb of 8-byte address space
-1310932039683477:  MEM  created segment `text'	4194304..268435456
-1310932039683494:  MEM  created segment `data'	268435456..2147483647
-1310932039683510:  MEM  created segment `stack'	268435456..2147483647
-1310932039683641:  API  created an api
-1310932039683833:  INT  created `MIPS_I' interpreter
-1310932039683922:  CPU  created a cpu
-1310932039683939:  CPU  pc is register 0x21
-SYS  initialized with no incidents
-SYS  attached client `Cli'
-SYS  detatched a client
-SYS  system started at 2011-07-17 20:55:42.353750
-1310932542382651:  MEM  created 2147483-Kb of 8-byte address space
-1310932542382697:  MEM  created segment `text'	4194304..268435456
-1310932542382714:  MEM  created segment `data'	268435456..2147483647
-1310932542382730:  MEM  created segment `stack'	268435456..2147483647
-1310932542382870:  API  created an api
-1310932542383070:  INT  created `MIPS_I' interpreter
-1310932542383157:  CPU  created a cpu
-1310932542383174:  CPU  pc is register 0x21
-SYS  initialized with no incidents
-SYS  attached client `Cli'
-SYS  detatched a client
-SYS  system started at 2011-07-17 20:56:30.188584
-1310932590217525:  MEM  created 2147483-Kb of 8-byte address space
-1310932590217570:  MEM  created segment `text'	4194304..268435456
-1310932590217588:  MEM  created segment `data'	268435456..2147483647
-1310932590217603:  MEM  created segment `stack'	268435456..2147483647
-1310932590217734:  API  created an api
-1310932590217944:  INT  created `MIPS_I' interpreter
-1310932590218030:  CPU  created a cpu
-1310932590218047:  CPU  pc is register 0x21
-SYS  initialized with no incidents
-SYS  attached client `Cli'
-SYS  detatched a client
-SYS  system started at 2011-07-17 21:02:58.440978
-1310932978470413:  MEM  created 2147483-Kb of 8-byte address space
-1310932978470459:  MEM  created segment `text'	4194304..268435456
-1310932978470477:  MEM  created segment `data'	268435456..2147483647
-1310932978470493:  MEM  created segment `stack'	268435456..2147483647
-1310932978470635:  API  created an api
-1310932978470832:  INT  created `MIPS_I' interpreter
-1310932978470920:  CPU  created a cpu
-1310932978470936:  CPU  pc is register 0x21
-SYS  initialized with no incidents
-SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310933007486547:  INT  reading line: addi $t2,$zero,31
-
-1310933007486610:  INT  entering preprocessor
-1310933007487306:  INT  processed  addi $t2,$zero,31
-1310933007487334:  INT  leaving preprocessor
-1310933007487356:  INT  entering linker
-1310933007487391:  INT  leaving linker
-1310933007487413:  INT  entering encoder
-1310933007487441:  INT  matching `addi' instruction
-1310933007488722:  INT  `rt' is $t2
-1310933007488752:  INT  `rs' is $zero
-1310933007488787:  INT  `im' is 31
-1310933007488891:  INT  encoded 00100000000010100000000000011111
-1310933007488914:  INT  leaving encoder
-1310933007488953:  CPU  setting pc to 0x400000
-1310933007489019:  MEM  stored 00100000000010100000000000011111 at 0x400000
-1310933007489043:  MEM  loaded 1 word programme into memory
-1310933007489067:  CPU  beginning a cycle
-1310933007489089:  CPU  entering fetch stage
-1310933007489142:  MEM  loaded 00100000000010100000000000011111 from 0x400000
-1310933007489170:  CPU  leaving fetch stage
-1310933007489191:  CPU  entering decode stage
-1310933007489233:  CPU  decode found dust in the pipeline
-1310933007489254:  CPU  leaving decode stage
-1310933007489274:  CPU  entering execute stage
-1310933007489304:  CPU  execute found dust in the pipeline
-1310933007489325:  CPU  leaving execute stage
-1310933007489344:  CPU  entering writeback stage
-1310933007489369:  CPU  leaving writeback stage
-1310933007489431:  CPU  completing a cycle
-1310933007489459:  CPU  beginning a cycle
-1310933007489481:  CPU  entering fetch stage
-1310933007489529:  MEM  loaded 00000000000000000000000000000000 from 0x400001
-1310933007489558:  CPU  leaving fetch stage
-1310933007489578:  CPU  entering decode stage
-1310933007489609:  CPU  decoding 00100000000010100000000000011111
-1310933007489668:  CPU  decoded `i' type instruction, addi
-1310933007489691:  CPU  leaving decode stage
-1310933007489711:  CPU  entering execute stage
-1310933007489741:  CPU  execute found dust in the pipeline
-1310933007489761:  CPU  leaving execute stage
-1310933007489780:  CPU  entering writeback stage
-1310933007489804:  CPU  leaving writeback stage
-1310933007489845:  CPU  completing a cycle
-1310933007489871:  CPU  beginning a cycle
-1310933007489892:  CPU  entering fetch stage
-1310933007489939:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310933007489969:  CPU  leaving fetch stage
-1310933007489989:  CPU  entering decode stage
-1310933007490019:  CPU  decoding 00000000000000000000000000000000
-1310933007490135:  CPU  decoded `j' type instruction, nop
-1310933007490159:  CPU  leaving decode stage
-1310933007490179:  CPU  entering execute stage
-1310933007490206:  CPU  executing 00100000000010100000000000011111
-1310933007490236:  CPU  `rt' is 10 (11:16)
-1310933007490267:  CPU  `rs' is 0 (6:11)
-1310933007490345:  CPU  `im' is 31 (16:32)
-1310933007490374:  CPU  `op' is 8 (0:6)
-1310933007490427:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310933007490452:  API  addImmediate called
-1310933007490475:  API  args 0:10, 1:0, 2:31
-1310933007490516:  API  setting register 10 to 31
-1310933007490541:  CPU  leaving execute stage
-1310933007490561:  CPU  entering writeback stage
-1310933007490585:  CPU  leaving writeback stage
-1310933007490627:  CPU  completing a cycle
-1310933007490639:  CPU  beginning a cycle
-1310933007490651:  CPU  entering fetch stage
-1310933007490677:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310933007490693:  CPU  leaving fetch stage
-1310933007490704:  CPU  entering decode stage
-1310933007490721:  CPU  decoding 00000000000000000000000000000000
-1310933007490784:  CPU  decoded `j' type instruction, nop
-1310933007490798:  CPU  leaving decode stage
-1310933007490809:  CPU  entering execute stage
-1310933007490824:  CPU  executing 00000000000000000000000000000000
-1310933007490841:  CPU  `im' is 0 (6:32)
-1310933007490856:  CPU  `op' is 0 (0:6)
-1310933007490873:  CPU  calling noop with []
-1310933007490885:  API  noop called
-1310933007490898:  CPU  leaving execute stage
-1310933007490909:  CPU  entering writeback stage
-1310933007490922:  CPU  leaving writeback stage
-1310933007490946:  CPU  completing a cycle
-SYS  detatched a client
-SYS  system started at 2011-07-17 21:03:59.531386
-1310933039561259:  MEM  created 2147483-Kb of 8-byte address space
-1310933039561307:  MEM  created segment `text'	4194304..268435456
-1310933039561326:  MEM  created segment `data'	268435456..2147483647
-1310933039561342:  MEM  created segment `stack'	268435456..2147483647
-1310933039561480:  API  created an api
-1310933039561681:  INT  created `MIPS_I' interpreter
-1310933039561769:  CPU  created a cpu
-1310933039561785:  CPU  pc is register 0x21
-SYS  initialized with no incidents
-SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310933047550515:  INT  reading line: addi $t2,$zero,31
-
-1310933047550561:  INT  entering preprocessor
-1310933047551253:  INT  processed  addi $t2,$zero,31
-1310933047551280:  INT  leaving preprocessor
-1310933047551304:  INT  entering linker
-1310933047551340:  INT  leaving linker
-1310933047551363:  INT  entering encoder
-1310933047551392:  INT  matching `addi' instruction
-1310933047552692:  INT  `rt' is $t2
-1310933047552724:  INT  `rs' is $zero
-1310933047552761:  INT  `im' is 31
-1310933047552864:  INT  encoded 00100000000010100000000000011111
-1310933047552888:  INT  leaving encoder
-1310933047552926:  CPU  setting pc to 0x400000
-1310933047552992:  MEM  stored 00100000000010100000000000011111 at 0x400000
-1310933047553017:  MEM  loaded 1 word programme into memory
-1310933047553041:  CPU  beginning a cycle
-1310933047553064:  CPU  entering fetch stage
-1310933047553115:  MEM  loaded 00100000000010100000000000011111 from 0x400000
-1310933047553144:  CPU  leaving fetch stage
-1310933047553165:  CPU  entering decode stage
-1310933047553207:  CPU  decode found dust in the pipeline
-1310933047553229:  CPU  leaving decode stage
-1310933047553248:  CPU  entering execute stage
-1310933047553280:  CPU  execute found dust in the pipeline
-1310933047553302:  CPU  leaving execute stage
-1310933047553322:  CPU  entering writeback stage
-1310933047553347:  CPU  leaving writeback stage
-1310933047553410:  CPU  completing a cycle
-1310933047553438:  CPU  beginning a cycle
-1310933047553460:  CPU  entering fetch stage
-1310933047553509:  MEM  loaded 00000000000000000000000000000000 from 0x400001
-1310933047553539:  CPU  leaving fetch stage
-1310933047553560:  CPU  entering decode stage
-1310933047553593:  CPU  decoding 00100000000010100000000000011111
-1310933047553657:  CPU  decoded `i' type instruction, addi
-1310933047553681:  CPU  leaving decode stage
-1310933047553701:  CPU  entering execute stage
-1310933047553731:  CPU  execute found dust in the pipeline
-1310933047553751:  CPU  leaving execute stage
-1310933047553770:  CPU  entering writeback stage
-1310933047553794:  CPU  leaving writeback stage
-1310933047553837:  CPU  completing a cycle
-1310933047553862:  CPU  beginning a cycle
-1310933047553884:  CPU  entering fetch stage
-1310933047553931:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310933047553960:  CPU  leaving fetch stage
-1310933047553981:  CPU  entering decode stage
-1310933047554011:  CPU  decoding 00000000000000000000000000000000
-1310933047554131:  CPU  decoded `j' type instruction, nop
-1310933047554156:  CPU  leaving decode stage
-1310933047554176:  CPU  entering execute stage
-1310933047554202:  CPU  executing 00100000000010100000000000011111
-1310933047554232:  CPU  `rt' is 10 (11:16)
-1310933047554302:  CPU  `rs' is 0 (6:11)
-1310933047554333:  CPU  `im' is 31 (16:32)
-1310933047554360:  CPU  `op' is 8 (0:6)
-1310933047554414:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310933047554440:  API  addImmediate called
-1310933047554463:  API  args 0:10, 1:0, 2:31
-1310933047554504:  API  setting register 10 to 31
-1310933047554530:  CPU  leaving execute stage
-1310933047554550:  CPU  entering writeback stage
-1310933047554575:  CPU  leaving writeback stage
-1310933047554619:  CPU  completing a cycle
-1310933047554641:  CPU  beginning a cycle
-1310933047554661:  CPU  entering fetch stage
-1310933047554710:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310933047554739:  CPU  leaving fetch stage
-1310933047554760:  CPU  entering decode stage
-1310933047554790:  CPU  decoding 00000000000000000000000000000000
-1310933047554914:  CPU  decoded `j' type instruction, nop
-1310933047554940:  CPU  leaving decode stage
-1310933047554960:  CPU  entering execute stage
-1310933047554987:  CPU  executing 00000000000000000000000000000000
-1310933047555018:  CPU  `im' is 0 (6:32)
-1310933047555045:  CPU  `op' is 0 (0:6)
-1310933047555076:  CPU  calling noop with []
-1310933047555098:  API  noop called
-1310933047555122:  CPU  leaving execute stage
-1310933047555141:  CPU  entering writeback stage
-1310933047555165:  CPU  leaving writeback stage
-1310933047555208:  CPU  completing a cycle
-SYS  detatched a client
-SYS  system started at 2011-07-17 21:04:19.438206
-1310933059467023:  MEM  created 2147483-Kb of 8-byte address space
-1310933059467069:  MEM  created segment `text'	4194304..268435456
-1310933059467086:  MEM  created segment `data'	268435456..2147483647
-1310933059467102:  MEM  created segment `stack'	268435456..2147483647
-1310933059467235:  API  created an api
-1310933059467449:  INT  created `MIPS_I' interpreter
-1310933059467538:  CPU  created a cpu
-1310933059467554:  CPU  pc is register 0x21
-SYS  initialized with no incidents
-SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310933065182696:  INT  reading line: addi $t2,$zero,31
-
-1310933065182739:  INT  entering preprocessor
-1310933065183435:  INT  processed  addi $t2,$zero,31
-1310933065183462:  INT  leaving preprocessor
-1310933065183485:  INT  entering linker
-1310933065183521:  INT  leaving linker
-1310933065183543:  INT  entering encoder
-1310933065183571:  INT  matching `addi' instruction
-1310933065184903:  INT  `rt' is $t2
-1310933065184941:  INT  `rs' is $zero
-1310933065184978:  INT  `im' is 31
-1310933065185089:  INT  encoded 00100000000010100000000000011111
-1310933065185113:  INT  leaving encoder
-1310933065185157:  CPU  setting pc to 0x400000
-1310933065185231:  MEM  stored 00100000000010100000000000011111 at 0x400000
-1310933065185256:  MEM  loaded 1 word programme into memory
-1310933065185293:  CPU  beginning a cycle
-1310933065185317:  CPU  entering fetch stage
-1310933065185363:  MEM  loaded 00100000000010100000000000011111 from 0x400000
-1310933065185392:  CPU  leaving fetch stage
-1310933065185413:  CPU  entering decode stage
-1310933065185457:  CPU  decode found dust in the pipeline
-1310933065185479:  CPU  leaving decode stage
-1310933065185499:  CPU  entering execute stage
-1310933065185530:  CPU  execute found dust in the pipeline
-1310933065185553:  CPU  leaving execute stage
-1310933065185572:  CPU  entering writeback stage
-1310933065185597:  CPU  leaving writeback stage
-1310933065185664:  CPU  completing a cycle
-1310933065185692:  CPU  beginning a cycle
-1310933065185714:  CPU  entering fetch stage
-1310933065185763:  MEM  loaded 00000000000000000000000000000000 from 0x400001
-1310933065185792:  CPU  leaving fetch stage
-1310933065185813:  CPU  entering decode stage
-1310933065185845:  CPU  decoding 00100000000010100000000000011111
-1310933065185905:  CPU  decoded `i' type instruction, addi
-1310933065185928:  CPU  leaving decode stage
-1310933065185947:  CPU  entering execute stage
-1310933065185977:  CPU  execute found dust in the pipeline
-1310933065185997:  CPU  leaving execute stage
-1310933065186016:  CPU  entering writeback stage
-1310933065186039:  CPU  leaving writeback stage
-1310933065186081:  CPU  completing a cycle
-1310933065186107:  CPU  beginning a cycle
-1310933065186128:  CPU  entering fetch stage
-1310933065186174:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310933065186203:  CPU  leaving fetch stage
-1310933065186223:  CPU  entering decode stage
-1310933065186253:  CPU  decoding 00000000000000000000000000000000
-1310933065186426:  CPU  decoded `j' type instruction, nop
-1310933065186451:  CPU  leaving decode stage
-1310933065186472:  CPU  entering execute stage
-1310933065186499:  CPU  executing 00100000000010100000000000011111
-1310933065186529:  CPU  `rt' is 10 (11:16)
-1310933065186556:  CPU  `rs' is 0 (6:11)
-1310933065186582:  CPU  `im' is 31 (16:32)
-1310933065186611:  CPU  `op' is 8 (0:6)
-1310933065186643:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310933065186658:  API  addImmediate called
-1310933065186672:  API  args 0:10, 1:0, 2:31
-1310933065186694:  API  setting register 10 to 31
-1310933065186708:  CPU  leaving execute stage
-1310933065186719:  CPU  entering writeback stage
-1310933065186732:  CPU  leaving writeback stage
-1310933065186756:  CPU  completing a cycle
-1310933065186768:  CPU  beginning a cycle
-1310933065186780:  CPU  entering fetch stage
-1310933065186807:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310933065186822:  CPU  leaving fetch stage
-1310933065186834:  CPU  entering decode stage
-1310933065186851:  CPU  decoding 00000000000000000000000000000000
-1310933065186915:  CPU  decoded `j' type instruction, nop
-1310933065186929:  CPU  leaving decode stage
-1310933065186940:  CPU  entering execute stage
-1310933065186955:  CPU  executing 00000000000000000000000000000000
-1310933065186972:  CPU  `im' is 0 (6:32)
-1310933065186987:  CPU  `op' is 0 (0:6)
-1310933065187004:  CPU  calling noop with []
-1310933065187016:  API  noop called
-1310933065187030:  CPU  leaving execute stage
-1310933065187041:  CPU  entering writeback stage
-1310933065187054:  CPU  leaving writeback stage
-1310933065187077:  CPU  completing a cycle
-SYS  detatched a client
-SYS  system started at 2011-07-17 21:06:00.684511
-1310933160713533:  MEM  created 2147483-Kb of 8-byte address space
-1310933160713579:  MEM  created segment `text'	4194304..268435456
-1310933160713601:  MEM  created segment `data'	268435456..2147483647
-1310933160713617:  MEM  created segment `stack'	268435456..2147483647
-1310933160713752:  API  created an api
-1310933160713949:  INT  created `MIPS_I' interpreter
-1310933160714035:  CPU  created a cpu
-1310933160714051:  CPU  pc is register 0x21
-SYS  initialized with no incidents
-SYS  attached client `Cli'
-SYS  `evaluate' called by `Cli'
-1310933197814522:  INT  reading line: addi $t1,$zero,15
-
-1310933197814567:  INT  entering preprocessor
-1310933197815343:  INT  processed  addi $t1,$zero,15
-1310933197815371:  INT  leaving preprocessor
-1310933197815394:  INT  entering linker
-1310933197815428:  INT  leaving linker
-1310933197815450:  INT  entering encoder
-1310933197815480:  INT  matching `addi' instruction
-1310933197816790:  INT  `rt' is $t1
-1310933197816821:  INT  `rs' is $zero
-1310933197816856:  INT  `im' is 15
-1310933197816958:  INT  encoded 00100000000010010000000000001111
-1310933197816981:  INT  leaving encoder
-1310933197817020:  CPU  setting pc to 0x400000
-1310933197817087:  MEM  stored 00100000000010010000000000001111 at 0x400000
-1310933197817111:  MEM  loaded 1 word programme into memory
-1310933197817135:  CPU  beginning a cycle
-1310933197817157:  CPU  entering fetch stage
-1310933197817201:  MEM  loaded 00100000000010010000000000001111 from 0x400000
-1310933197817229:  CPU  leaving fetch stage
-1310933197817250:  CPU  entering decode stage
-1310933197817291:  CPU  decode found dust in the pipeline
-1310933197817312:  CPU  leaving decode stage
-1310933197817331:  CPU  entering execute stage
-1310933197817362:  CPU  execute found dust in the pipeline
-1310933197817383:  CPU  leaving execute stage
-1310933197817402:  CPU  entering writeback stage
-1310933197817427:  CPU  leaving writeback stage
-1310933197817491:  CPU  completing a cycle
-1310933197817517:  CPU  beginning a cycle
-1310933197817539:  CPU  entering fetch stage
-1310933197817586:  MEM  loaded 00000000000000000000000000000000 from 0x400001
-1310933197817615:  CPU  leaving fetch stage
-1310933197817635:  CPU  entering decode stage
-1310933197817666:  CPU  decoding 00100000000010010000000000001111
-1310933197817727:  CPU  decoded `i' type instruction, addi
-1310933197817751:  CPU  leaving decode stage
-1310933197817771:  CPU  entering execute stage
-1310933197817801:  CPU  execute found dust in the pipeline
-1310933197817821:  CPU  leaving execute stage
-1310933197817841:  CPU  entering writeback stage
-1310933197817864:  CPU  leaving writeback stage
-1310933197817905:  CPU  completing a cycle
-1310933197817930:  CPU  beginning a cycle
-1310933197817952:  CPU  entering fetch stage
-1310933197817998:  MEM  loaded 00000000000000000000000000000000 from 0x400002
-1310933197818027:  CPU  leaving fetch stage
-1310933197818048:  CPU  entering decode stage
-1310933197818078:  CPU  decoding 00000000000000000000000000000000
-1310933197818195:  CPU  decoded `j' type instruction, nop
-1310933197818220:  CPU  leaving decode stage
-1310933197818240:  CPU  entering execute stage
-1310933197818328:  CPU  executing 00100000000010010000000000001111
-1310933197818363:  CPU  `rt' is 9 (11:16)
-1310933197818390:  CPU  `rs' is 0 (6:11)
-1310933197818417:  CPU  `im' is 15 (16:32)
-1310933197818443:  CPU  `op' is 8 (0:6)
-1310933197818496:  CPU  calling addImmediate with ['rt', 'rs', 'im']
-1310933197818522:  API  addImmediate called
-1310933197818546:  API  args 0:9, 1:0, 2:15
-1310933197818587:  API  setting register 9 to 15
-1310933197818613:  CPU  leaving execute stage
-1310933197818633:  CPU  entering writeback stage
-1310933197818657:  CPU  leaving writeback stage
-1310933197818701:  CPU  completing a cycle
-1310933197818723:  CPU  beginning a cycle
-1310933197818743:  CPU  entering fetch stage
-1310933197818791:  MEM  loaded 00000000000000000000000000000000 from 0x400003
-1310933197818819:  CPU  leaving fetch stage
-1310933197818840:  CPU  entering decode stage
-1310933197818870:  CPU  decoding 00000000000000000000000000000000
-1310933197818987:  CPU  decoded `j' type instruction, nop
-1310933197819011:  CPU  leaving decode stage
-1310933197819031:  CPU  entering execute stage
-1310933197819058:  CPU  executing 00000000000000000000000000000000
-1310933197819089:  CPU  `im' is 0 (6:32)
-1310933197819115:  CPU  `op' is 0 (0:6)
-1310933197819146:  CPU  calling noop with []
-1310933197819167:  API  noop called
-1310933197819191:  CPU  leaving execute stage
-1310933197819210:  CPU  entering writeback stage
-1310933197819234:  CPU  leaving writeback stage
-1310933197819277:  CPU  completing a cycle
 SYS  detatched a client

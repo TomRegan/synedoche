@@ -62,21 +62,18 @@ class InstructionReader(XmlReader):
     """
 
     def __init__(self, filename):
-        try:
-            self._document=XmlDocument(filename)
-            self._rootNode=self._document._rootNode
-            self._readLanguage()
-            self._readSize()
-            self._readFormatFieldSizeMap()
-            self._readInstructionSignatureMap()
-            self._readInstructionSyntaxMap()
-            self._readInstructionValuesMap()
-            self._readInstructionImplementationMap()
-            self._readInstructionFormatMap()
-            self._readAssembleyDirectives()
-            self._readAssembleySyntax()
-        except:
-            raise XmlDataFormatException
+        self._document=XmlDocument(filename)
+        self._rootNode=self._document._rootNode
+        self._readLanguage()
+        self._readSize()
+        self._readFormatFieldSizeMap()
+        self._readInstructionSignatureMap()
+        self._readInstructionSyntaxMap()
+        self._readInstructionValuesMap()
+        self._readInstructionImplementationMap()
+        self._readInstructionFormatMap()
+        self._readAssembleyDirectives()
+        self._readAssembleySyntax()
 
     def _readLanguage(self):
         """Stores 'language' -> self.record
@@ -330,14 +327,11 @@ class MachineReader(XmlReader):
     _register_mappings={}
 
     def __init__(self, filename):
-        try:
-            self._document=XmlDocument(filename)
-            self._rootNode=self._document._rootNode
-            self._readLanguage()
-            self._readMemory()
-            self._readRegisters()
-        except:
-            raise XmlDataFormatException
+        self._document=XmlDocument(filename)
+        self._rootNode=self._document._rootNode
+        self._readLanguage()
+        self._readMemory()
+        self._readRegisters()
 
     def _readLanguage(self):
         """Stores the language recognized by the machine implementation
