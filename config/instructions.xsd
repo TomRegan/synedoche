@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      Instruciton format schema
+      Tom Regan thomas.c.regan@gmail.com
+      2011-06-24
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:element name="instructions" type="InstructionsType" />
+
+  <xsd:complexType name="InstructionsType">
+    <xsd:sequence>
+      <xsd:element name="formats"     type="FormatsType" />
+      <xsd:element name="instruction" type="InstructionType" />
+    </xsd:sequence>
+    <xsd:attribute name="language" type="xsd:string" />
+    <xsd:attribute name="size"     type="xsd:string" />
+  </xsd:complexType>
+
+  <xsd:complexType name="FormatsType">
+    <xsd:sequence>
+      <xsd:element name="format" type="FormatType" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="FormatType">
+    <xsd:sequence>
+      <xsd:element name="field" type="FormatFieldType" />
+    </xsd:sequence>
+    <xsd:attribute name="type" type="xsd:string" />
+  </xsd:complexType>
+
+  <xsd:complexType name="FormatFieldType">
+    <xsd:attribute name="name"  type="xsd:string" />
+    <xsd:attribute name="start" type="xsd:string" />
+    <xsd:attribute name="end"   type="xsd:string" />
+  </xsd:complexType>
+
+  <xsd:complexType name="InstructionType">
+    <xsd:sequence>
+      <xsd:element name="signature"      type="SignatureType" />
+      <xsd:element name="fields"         type="InstructionFieldsType" />
+      <xsd:element name="syntax"         type="SyntaxType" />
+      <xsd:element name="implementation" type="ImplementationType" />
+    </xsd:sequence>
+    <xsd:attribute name="name"   type="xsd:string" />
+    <xsd:attribute name="format" type="xsd:string" />
+  </xsd:complexType>
+
+  <xsd:complexType name="SignatureType">
+    <xsd:sequence>
+      <xsd:element name="field" type="SignatureFieldType" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SignatureFieldType">
+    <xsd:attribute name="name" type="xsd:string" />
+  </xsd:complexType>
+
+  <xsd:complexType name="InstructionFieldsType">
+    <xsd:sequence>
+      <xsd:element name="field" type="InstructionFieldType" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="InstructionFieldType">
+    <xsd:attribute name="name"  type="xsd:string" />
+    <xsd:attribute name="value" type="xsd:string" />
+  </xsd:complexType>
+
+  <xsd:complexType name="SyntaxType">
+    <xsd:sequence>
+      <xsd:element name="symbol" type="SymbolType" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SymbolType">
+    <xsd:attribute name="type"    type="xsd:string" />
+    <xsd:attribute name="matches" type="xsd:string" />
+  </xsd:complexType>
+
+  <xsd:complexType name="ImplementationType">
+    <xsd:sequence>
+      <xsd:element name="method" type="MethodType" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MethodType">
+    <xsd:attribute name="name" type="xsd:string" />
+    <xsd:attribute name="args" type="xsd:string" />
+  </xsd:complexType>
+
+</xsd:schema>

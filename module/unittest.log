@@ -1,0 +1,1568 @@
+[i]1310387355445312:  INT  created `MIPS_I' interpreter
+[i]1310387355476536:  INT  created `MIPS_I' interpreter
+[i]1310387355506870:  INT  created `MIPS_I' interpreter
+[i]1310387355534718:  INT  created `MIPS_I' interpreter
+[m]1310387355534801:  MEM  created 2147483-Kb of 8-byte address space
+[i]1310387355553744:  INT  reading file: ../../asm/add.asm
+[i]1310387355575773:  INT  entering preprocessor
+[i]1310387355575993:  INT  mapped label `main' to 0
+[i]1310387355576020:  INT  processed  addi  $t0, $zero, 2
+[i]1310387355576042:  INT  processed  addi  $t1, $zero, 2
+[i]1310387355576063:  INT  processed  add   $t0, $t0,  $t1
+[i]1310387355576083:  INT  processed  addi  $v0, $zero, 10
+[i]1310387355576096:  INT  leaving preprocessor
+[i]1310387355576109:  INT  entering linker
+[i]1310387355576142:  INT  leaving linker
+[i]1310387355576155:  INT  entering encoder
+[i]1310387355576172:  INT  matching `addi' instruction
+[i]1310387355576203:  INT  `rt' is $t0
+[i]1310387355576219:  INT  `rs' is $zero
+[i]1310387355576239:  INT  `im' is 2
+[i]1310387355576310:  INT  encoded 00100000000010000000000000000010
+[i]1310387355576329:  INT  matching `addi' instruction
+[i]1310387355576358:  INT  `rt' is $t1
+[i]1310387355576373:  INT  `rs' is $zero
+[i]1310387355576390:  INT  `im' is 2
+[i]1310387355576434:  INT  encoded 00100000000010010000000000000010
+[i]1310387355576451:  INT  matching `add' instruction
+[i]1310387355576479:  INT  `rd' is $t0
+[i]1310387355576495:  INT  `rs' is $t0
+[i]1310387355576509:  INT  `rt' is $t1
+[i]1310387355576562:  INT  encoded 00000001000010010100000000100000
+[i]1310387355576578:  INT  matching `addi' instruction
+[i]1310387355576606:  INT  `rt' is $v0
+[i]1310387355576621:  INT  `rs' is $zero
+[i]1310387355576638:  INT  `im' is 10
+[i]1310387355576679:  INT  encoded 00100000000000100000000000001010
+[i]1310387355576692:  INT  leaving encoder
+[i]1310387355576989:  INT  reading file: ../../asm/labels.asm
+[i]1310387355587349:  INT  entering preprocessor
+[i]1310387355587523:  INT  mapped label `Main' to 0
+[i]1310387355587582:  INT  processed  addi  $t0, $zero, 10
+[i]1310387355587611:  INT  mapped label `Loop' to 1
+[i]1310387355587637:  INT  processed  beq   $t0, $t1,   Exit
+[i]1310387355587659:  INT  processed  addi  $t0, $zero, -1
+[i]1310387355587680:  INT  processed  j     Loop
+[i]1310387355587708:  INT  mapped label `Exit' to 4
+[i]1310387355587731:  INT  processed  
+[i]1310387355587745:  INT  leaving preprocessor
+[i]1310387355587758:  INT  entering linker
+[i]1310387355587786:  INT  mapped `Exit' to 4
+[i]1310387355587807:  INT  mapped `Loop' to 1
+[i]1310387355587826:  INT  leaving linker
+[i]1310387355587840:  INT  entering encoder
+[i]1310387355587857:  INT  matching `addi' instruction
+[i]1310387355587889:  INT  `rt' is $t0
+[i]1310387355587907:  INT  `rs' is $zero
+[i]1310387355587926:  INT  `im' is 10
+[i]1310387355587977:  INT  encoded 00100000000010000000000000001010
+[i]1310387355587996:  INT  matching `beq' instruction
+[i]1310387355588026:  INT  `rs' is $t0
+[i]1310387355588043:  INT  `rt' is $t1
+[i]1310387355588061:  INT  `im' is 4
+[i]1310387355588107:  INT  encoded 00010001000010010000000000000100
+[i]1310387355588126:  INT  matching `addi' instruction
+[i]1310387355588156:  INT  `rt' is $t0
+[i]1310387355588173:  INT  `rs' is $zero
+[i]1310387355588192:  INT  `im' is -1
+[i]1310387355588239:  INT  encoded 00100000000010001111111111111111
+[i]1310387355588266:  INT  matching `j' instruction
+[i]1310387355588597:  INT  `im' is 1
+[i]1310387355588639:  INT  encoded 00001000000000000000000000000001
+[i]1310387355588654:  INT  leaving encoder
+[i]1310387355619173:  INT  created `MIPS_I' interpreter
+[m]1310387355619287:  MEM  created 2147483-Kb of 8-byte address space
+[i]1310387355619468:  INT  reading single line: add $t0,$s1,$s2
+[i]1310387355619493:  INT  entering preprocessor
+[i]1310387355619564:  INT  processed  add $t0,$s1,$s2
+[i]1310387355619578:  INT  leaving preprocessor
+[i]1310387355619592:  INT  entering linker
+[i]1310387355619611:  INT  leaving linker
+[i]1310387355619624:  INT  entering encoder
+[i]1310387355619640:  INT  matching `add' instruction
+[i]1310387355619673:  INT  `rd' is $t0
+[i]1310387355619689:  INT  `rs' is $s1
+[i]1310387355619704:  INT  `rt' is $s2
+[i]1310387355619766:  INT  encoded 00000010001100100100000000100000
+[i]1310387355619780:  INT  leaving encoder
+1310387521944614:  INT  created `MIPS_I' interpreter
+1310387521976865:  INT  created `MIPS_I' interpreter
+1310387522007021:  INT  created `MIPS_I' interpreter
+1310387522034869:  INT  created `MIPS_I' interpreter
+1310387522034954:  MEM  created 2147483-Kb of 8-byte address space
+1310387522035077:  INT  reading file: ../../asm/add.asm
+1310387522035104:  INT  entering preprocessor
+1310387522035215:  INT  mapped label `main' to 0
+1310387522035239:  INT  processed  addi  $t0, $zero, 2
+1310387522035260:  INT  processed  addi  $t1, $zero, 2
+1310387522035279:  INT  processed  add   $t0, $t0,  $t1
+1310387522035298:  INT  processed  addi  $v0, $zero, 10
+1310387522035311:  INT  leaving preprocessor
+1310387522035323:  INT  entering linker
+1310387522035353:  INT  leaving linker
+1310387522035366:  INT  entering encoder
+1310387522035380:  INT  matching `addi' instruction
+1310387522035451:  INT  `rt' is $t0
+1310387522035466:  INT  `rs' is $zero
+1310387522035484:  INT  `im' is 2
+1310387522035534:  INT  encoded 00100000000010000000000000000010
+1310387522035551:  INT  matching `addi' instruction
+1310387522035579:  INT  `rt' is $t1
+1310387522035593:  INT  `rs' is $zero
+1310387522035609:  INT  `im' is 2
+1310387522035651:  INT  encoded 00100000000010010000000000000010
+1310387522035666:  INT  matching `add' instruction
+1310387522035693:  INT  `rd' is $t0
+1310387522035707:  INT  `rs' is $t0
+1310387522035720:  INT  `rt' is $t1
+1310387522035771:  INT  encoded 00000001000010010100000000100000
+1310387522035786:  INT  matching `addi' instruction
+1310387522035813:  INT  `rt' is $v0
+1310387522035827:  INT  `rs' is $zero
+1310387522035843:  INT  `im' is 10
+1310387522035883:  INT  encoded 00100000000000100000000000001010
+1310387522035895:  INT  leaving encoder
+1310387522036119:  INT  reading file: ../../asm/labels.asm
+1310387522036142:  INT  entering preprocessor
+1310387522036205:  INT  mapped label `Main' to 0
+1310387522036229:  INT  processed  addi  $t0, $zero, 10
+1310387522036255:  INT  mapped label `Loop' to 1
+1310387522036277:  INT  processed  beq   $t0, $t1,   Exit
+1310387522036297:  INT  processed  addi  $t0, $zero, -1
+1310387522036314:  INT  processed  j     Loop
+1310387522036339:  INT  mapped label `Exit' to 4
+1310387522036359:  INT  processed  
+1310387522036371:  INT  leaving preprocessor
+1310387522036382:  INT  entering linker
+1310387522036405:  INT  mapped `Exit' to 4
+1310387522036423:  INT  mapped `Loop' to 1
+1310387522036439:  INT  leaving linker
+1310387522036451:  INT  entering encoder
+1310387522036464:  INT  matching `addi' instruction
+1310387522036492:  INT  `rt' is $t0
+1310387522036506:  INT  `rs' is $zero
+1310387522036523:  INT  `im' is 10
+1310387522036565:  INT  encoded 00100000000010000000000000001010
+1310387522036581:  INT  matching `beq' instruction
+1310387522036608:  INT  `rs' is $t0
+1310387522036622:  INT  `rt' is $t1
+1310387522036638:  INT  `im' is 4
+1310387522036679:  INT  encoded 00010001000010010000000000000100
+1310387522036694:  INT  matching `addi' instruction
+1310387522036721:  INT  `rt' is $t0
+1310387522036735:  INT  `rs' is $zero
+1310387522036751:  INT  `im' is -1
+1310387522036792:  INT  encoded 00100000000010001111111111111111
+1310387522036807:  INT  matching `j' instruction
+1310387522037101:  INT  `im' is 1
+1310387522037136:  INT  encoded 00001000000000000000000000000001
+1310387522037148:  INT  leaving encoder
+1310387522067343:  INT  created `MIPS_I' interpreter
+1310387522067481:  MEM  created 2147483-Kb of 8-byte address space
+1310387522067611:  INT  reading single line: add $t0,$s1,$s2
+1310387522067633:  INT  entering preprocessor
+1310387522067698:  INT  processed  add $t0,$s1,$s2
+1310387522067711:  INT  leaving preprocessor
+1310387522067724:  INT  entering linker
+1310387522067742:  INT  leaving linker
+1310387522067755:  INT  entering encoder
+1310387522067769:  INT  matching `add' instruction
+1310387522067801:  INT  `rd' is $t0
+1310387522067816:  INT  `rs' is $s1
+1310387522067830:  INT  `rt' is $s2
+1310387522067890:  INT  encoded 00000010001100100100000000100000
+1310387522067903:  INT  leaving encoder
+1310387532121416:  MEM  created 1-Kb of 8-byte address space
+1310387532121732:  MEM  created 1-Kb of 8-byte address space
+1310387532121772:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310387532122048:  MEM  created 1-Kb of 8-byte address space
+1310387532122073:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310387532122275:  MEM  created 1-Kb of 8-byte address space
+1310387532122300:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310387532123035:  MEM  created 1-Kb of 8-byte address space
+1310387532123085:  CPU  created a cpu
+1310387532123100:  CPU  programme counter is register 0x3
+1310387532123118:  MEM  memory cleared
+1310387532123148:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310387532123163:  MEM  loaded 1 word programme into memory
+1310387532123175:  CPU  beginning a cycle
+1310387532123186:  CPU  entering fetch stage
+1310387532123198:  CPU  programme counter value is 0x0
+1310387532123215:  CPU  got 00101000001000000000000000000010 from 0x0
+1310387532123226:  CPU  leaving fetch stage
+1310387532123240:  CPU  entering decode stage
+1310387532123263:  CPU  decoded `slti' instruction
+1310387532123276:  CPU  found `slti' in instruction set
+1310387532123295:  CPU  hashed `slti' instruction
+1310387532123306:  CPU  leaving decode stage
+1310387532123318:  CPU  entering execute stage
+1310387532146647:  CPU  calling testLessImmediate with ['rs', 'im']
+1310387532146717:  CPU  calling setRegister with ['rt', 1]
+1310387532146827:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310387532146846:  CPU  skipping an API call
+1310387532146863:  CPU  instruction slot cleared
+1310387532146876:  CPU  leaving execute stage
+1310387532146890:  CPU  completing a cycle
+1310387532146924:  MEM  memory cleared
+1310387532147778:  MEM  created 1-Kb of 8-byte address space
+1310387532147824:  CPU  created a cpu
+1310387532147844:  CPU  programme counter is register 0x3
+1310387532147874:  CPU  beginning a cycle
+1310387532147890:  CPU  entering fetch stage
+1310387532147908:  CPU  programme counter value is 0x0
+1310387532147942:  CPU  got 00000000000000000000000000000000 from 0x0
+1310387532147958:  CPU  leaving fetch stage
+1310387532147975:  CPU  entering decode stage
+1310387532148017:  CPU  decoded `None' instruction
+1310387532148053:  MEM  memory cleared
+1310387532148388:  MEM  created 1-Kb of 8-byte address space
+1310387532148429:  CPU  created a cpu
+1310387532148447:  CPU  programme counter is register 0x3
+1310387532148484:  MEM  memory cleared
+1310387532148777:  MEM  created 1-Kb of 8-byte address space
+1310387532148818:  CPU  created a cpu
+1310387532148836:  CPU  programme counter is register 0x3
+1310387532148856:  CPU  entering decode stage
+1310387532148893:  CPU  decoded `sub' instruction
+1310387532148911:  CPU  found `sub' in instruction set
+1310387532148943:  CPU  hashed `sub' instruction
+1310387532148957:  CPU  leaving decode stage
+1310387532148983:  MEM  memory cleared
+1310387532149303:  MEM  created 1-Kb of 8-byte address space
+1310387532149344:  CPU  created a cpu
+1310387532149362:  CPU  programme counter is register 0x3
+1310387532149379:  CPU  entering decode stage
+1310387532149405:  CPU  decoded `add' instruction
+1310387532149423:  CPU  found `add' in instruction set
+1310387532149453:  CPU  hashed `add' instruction
+1310387532149467:  CPU  leaving decode stage
+1310387532149488:  MEM  memory cleared
+1310387532149805:  MEM  created 1-Kb of 8-byte address space
+1310387532149846:  CPU  created a cpu
+1310387532149864:  CPU  programme counter is register 0x3
+1310387532149887:  MEM  memory cleared
+1310387532149916:  MEM  stored 00000000001000100000000000100000 at 0x0
+1310387532149934:  MEM  loaded 1 word programme into memory
+1310387532149949:  CPU  beginning a cycle
+1310387532149963:  CPU  entering fetch stage
+1310387532149979:  CPU  programme counter value is 0x0
+1310387532150002:  CPU  got 00000000001000100000000000100000 from 0x0
+1310387532150016:  CPU  leaving fetch stage
+1310387532150033:  CPU  entering decode stage
+1310387532150058:  CPU  decoded `add' instruction
+1310387532150074:  CPU  found `add' in instruction set
+1310387532150103:  CPU  hashed `add' instruction
+1310387532150117:  CPU  leaving decode stage
+1310387532150132:  CPU  entering execute stage
+1310387532150157:  CPU  calling addRegisters with ['rd', 'rs', 'rt']
+1310387532150182:  CPU  instruction slot cleared
+1310387532150196:  CPU  leaving execute stage
+1310387532150209:  CPU  completing a cycle
+1310387532150230:  MEM  memory cleared
+1310387532150650:  MEM  created 1-Kb of 8-byte address space
+1310387532150692:  CPU  created a cpu
+1310387532150710:  CPU  programme counter is register 0x3
+1310387532150739:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310387532150761:  CPU  entering fetch stage
+1310387532150778:  CPU  programme counter value is 0x0
+1310387532150801:  CPU  got 00000000000000000000000000100000 from 0x0
+1310387532150815:  CPU  leaving fetch stage
+1310387532150849:  MEM  memory cleared
+1310387532151187:  MEM  created 1-Kb of 8-byte address space
+1310387532151228:  CPU  created a cpu
+1310387532151246:  CPU  programme counter is register 0x3
+1310387532151274:  MEM  memory cleared
+1310394260760379:  INT  created `MIPS_I' interpreter
+1310394260792612:  INT  created `MIPS_I' interpreter
+1310394260823196:  INT  created `MIPS_I' interpreter
+1310394260851238:  INT  created `MIPS_I' interpreter
+1310394260883025:  INT  created `MIPS_I' interpreter
+1310394260883140:  MEM  created 2147483-Kb of 8-byte address space
+1310394260883289:  INT  reading single line: add $t0,$s1,$s2
+1310394260883313:  INT  entering preprocessor
+1310394260883385:  INT  processed  add $t0,$s1,$s2
+1310394260883399:  INT  leaving preprocessor
+1310394260883434:  INT  entering linker
+1310394260883453:  INT  leaving linker
+1310394260883466:  INT  entering encoder
+1310394260883481:  INT  matching `add' instruction
+1310394260883513:  INT  `rd' is $t0
+1310394260883527:  INT  `rs' is $s1
+1310394260883541:  INT  `rt' is $s2
+1310394260883602:  INT  encoded 00000010001100100100000000100000
+1310394260883615:  INT  leaving encoder
+1310397413271943:  MEM  created 1-Kb of 8-byte address space
+1310397413272214:  MEM  created 1-Kb of 8-byte address space
+1310397413272247:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310397413272292:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310397413272494:  MEM  created 1-Kb of 8-byte address space
+1310397413272518:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310397413272540:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310397413272742:  MEM  created 1-Kb of 8-byte address space
+1310397413272766:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310397413272808:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310397413273523:  MEM  created 1-Kb of 8-byte address space
+1310397413273740:  CPU  created a cpu
+1310397413273756:  CPU  programme counter is register 0x3
+1310397413273775:  MEM  memory cleared
+1310397413273798:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310397413273811:  MEM  loaded 1 word programme into memory
+1310397413273823:  CPU  beginning a cycle
+1310397413273834:  CPU  entering fetch stage
+1310397413273846:  CPU  programme counter value is 0x0
+1310397413273863:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310397413273877:  CPU  fetched 00101000001000000000000000000010
+1310397413273887:  CPU  leaving fetch stage
+1310397413273901:  CPU  entering decode stage
+1310397413273924:  CPU  decoded `slti' instruction
+1310397413273937:  CPU  found `slti' in instruction set
+1310397413273957:  CPU  hashed `slti' instruction
+1310397413273967:  CPU  leaving decode stage
+1310397413273979:  CPU  entering execute stage
+1310397413274008:  CPU  calling testLessImmediate with ['rs', 'im']
+1310397413274027:  CPU  calling setRegister with ['rt', 1]
+1310397413274046:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310397413274059:  CPU  skipping an API call
+1310397413274070:  CPU  instruction slot cleared
+1310397413274079:  CPU  leaving execute stage
+1310397413274089:  CPU  completing a cycle
+1310397413274107:  MEM  memory cleared
+1310397413274510:  MEM  created 1-Kb of 8-byte address space
+1310397413274545:  CPU  created a cpu
+1310397413274558:  CPU  programme counter is register 0x3
+1310397413274578:  CPU  beginning a cycle
+1310397413274590:  CPU  entering fetch stage
+1310397413274602:  CPU  programme counter value is 0x0
+1310397413274625:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310397413274641:  CPU  fetched 00000000000000000000000000000000
+1310397413274652:  CPU  leaving fetch stage
+1310397413274664:  CPU  entering decode stage
+1310397413274692:  CPU  decoded `None' instruction
+1310397413274718:  MEM  memory cleared
+1310397413274978:  MEM  created 1-Kb of 8-byte address space
+1310397413275008:  CPU  created a cpu
+1310397413275022:  CPU  programme counter is register 0x3
+1310397413275049:  MEM  memory cleared
+1310397413275276:  MEM  created 1-Kb of 8-byte address space
+1310397413275305:  CPU  created a cpu
+1310397413275318:  CPU  programme counter is register 0x3
+1310397413275332:  CPU  entering decode stage
+1310397413275360:  CPU  decoded `sub' instruction
+1310397413275374:  CPU  found `sub' in instruction set
+1310397413275398:  CPU  hashed `sub' instruction
+1310397413275457:  CPU  leaving decode stage
+1310397413275478:  MEM  memory cleared
+1310397413275729:  MEM  created 1-Kb of 8-byte address space
+1310397413275759:  CPU  created a cpu
+1310397413275773:  CPU  programme counter is register 0x3
+1310397413275786:  CPU  entering decode stage
+1310397413275805:  CPU  decoded `add' instruction
+1310397413275819:  CPU  found `add' in instruction set
+1310397413275842:  CPU  hashed `add' instruction
+1310397413275852:  CPU  leaving decode stage
+1310397413275869:  MEM  memory cleared
+1310397413276112:  MEM  created 1-Kb of 8-byte address space
+1310397413276142:  CPU  created a cpu
+1310397413276156:  CPU  programme counter is register 0x3
+1310397413276173:  MEM  memory cleared
+1310397413276195:  MEM  stored 00000000001000100000000000100000 at 0x0
+1310397413276208:  MEM  loaded 1 word programme into memory
+1310397413276219:  CPU  beginning a cycle
+1310397413276230:  CPU  entering fetch stage
+1310397413276242:  CPU  programme counter value is 0x0
+1310397413276259:  MEM  loaded 00000000001000100000000000100000 from 0x0
+1310397413276273:  CPU  fetched 00000000001000100000000000100000
+1310397413276284:  CPU  leaving fetch stage
+1310397413276296:  CPU  entering decode stage
+1310397413276315:  CPU  decoded `add' instruction
+1310397413276328:  CPU  found `add' in instruction set
+1310397413276352:  CPU  hashed `add' instruction
+1310397413276362:  CPU  leaving decode stage
+1310397413276374:  CPU  entering execute stage
+1310397413276397:  CPU  calling addRegisters with ['rd', 'rs', 'rt']
+1310397413276416:  CPU  instruction slot cleared
+1310397413276427:  CPU  leaving execute stage
+1310397413276436:  CPU  completing a cycle
+1310397413276455:  MEM  memory cleared
+1310397413276831:  MEM  created 1-Kb of 8-byte address space
+1310397413276866:  CPU  created a cpu
+1310397413276880:  CPU  programme counter is register 0x3
+1310397413276902:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310397413276919:  CPU  entering fetch stage
+1310397413276932:  CPU  programme counter value is 0x0
+1310397413276948:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310397413276962:  CPU  fetched 00000000000000000000000000100000
+1310397413276973:  CPU  leaving fetch stage
+1310397413276992:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310397413277014:  MEM  memory cleared
+1310397413277286:  MEM  created 1-Kb of 8-byte address space
+1310397413277316:  CPU  created a cpu
+1310397413277330:  CPU  programme counter is register 0x3
+1310397413277352:  MEM  memory cleared
+1310397416061383:  INT  created `MIPS_I' interpreter
+1310397416092502:  INT  created `MIPS_I' interpreter
+1310397416122955:  INT  created `MIPS_I' interpreter
+1310397416150497:  INT  created `MIPS_I' interpreter
+1310397416183036:  INT  created `MIPS_I' interpreter
+1310397416183130:  MEM  created 2147483-Kb of 8-byte address space
+1310397416183254:  INT  reading single line: add $t0,$s1,$s2
+1310397416183276:  INT  entering preprocessor
+1310397416183341:  INT  processed  add $t0,$s1,$s2
+1310397416183355:  INT  leaving preprocessor
+1310397416183367:  INT  entering linker
+1310397416183385:  INT  leaving linker
+1310397416183398:  INT  entering encoder
+1310397416183431:  INT  matching `add' instruction
+1310397416183465:  INT  `rd' is $t0
+1310397416183479:  INT  `rs' is $s1
+1310397416183492:  INT  `rt' is $s2
+1310397416183555:  INT  encoded 00000010001100100100000000100000
+1310397416183568:  INT  leaving encoder
+1310470364626873:  MEM  created 1-Kb of 8-byte address space
+1310470364642127:  MEM  created 1-Kb of 8-byte address space
+1310470364642195:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470364642256:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470364642549:  MEM  created 1-Kb of 8-byte address space
+1310470364642579:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470364642607:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470364642862:  MEM  created 1-Kb of 8-byte address space
+1310470364642897:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470364642950:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470364644064:  MEM  created 1-Kb of 8-byte address space
+1310470364644120:  CPU  created a cpu
+1310470364644137:  CPU  programme counter is register 0x3
+1310470364644822:  MEM  memory cleared
+1310470364645126:  MEM  created 1-Kb of 8-byte address space
+1310470364645171:  CPU  created a cpu
+1310470364645189:  CPU  programme counter is register 0x3
+1310470364645214:  CPU  beginning a cycle
+1310470364645228:  CPU  entering fetch stage
+1310470364645248:  CPU  programme counter value is 0x0
+1310470364645283:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470364645304:  CPU  fetched 00000000000000000000000000000000
+1310470364645317:  CPU  leaving fetch stage
+1310470364645334:  CPU  entering decode stage
+1310470364645377:  CPU  decoded `None' instruction
+1310470364645410:  MEM  memory cleared
+1310470364645762:  MEM  created 1-Kb of 8-byte address space
+1310470364645803:  CPU  created a cpu
+1310470364645819:  CPU  programme counter is register 0x3
+1310470364645854:  MEM  memory cleared
+1310470364646223:  MEM  created 1-Kb of 8-byte address space
+1310470364646261:  CPU  created a cpu
+1310470364646276:  CPU  programme counter is register 0x3
+1310470364646291:  CPU  entering decode stage
+1310470364646319:  CPU  decoded `sub' instruction
+1310470364646333:  CPU  found `sub' in instruction set
+1310470364646357:  CPU  hashed `sub' instruction
+1310470364646367:  CPU  leaving decode stage
+1310470364646389:  MEM  memory cleared
+1310470364646699:  MEM  created 1-Kb of 8-byte address space
+1310470364646738:  CPU  created a cpu
+1310470364646758:  CPU  programme counter is register 0x3
+1310470364646773:  CPU  entering decode stage
+1310470364646792:  CPU  decoded `add' instruction
+1310470364646805:  CPU  found `add' in instruction set
+1310470364646827:  CPU  hashed `add' instruction
+1310470364646837:  CPU  leaving decode stage
+1310470364646856:  MEM  memory cleared
+1310470364647869:  MEM  created 1-Kb of 8-byte address space
+1310470364647911:  CPU  created a cpu
+1310470364647925:  CPU  programme counter is register 0x3
+1310470364648055:  MEM  memory cleared
+1310470364648300:  MEM  created 1-Kb of 8-byte address space
+1310470364648337:  CPU  created a cpu
+1310470364648350:  CPU  programme counter is register 0x3
+1310470364648378:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470364648463:  MEM  memory cleared
+1310470364648705:  MEM  created 1-Kb of 8-byte address space
+1310470364648740:  CPU  created a cpu
+1310470364648754:  CPU  programme counter is register 0x3
+1310470364648859:  MEM  memory cleared
+1310470393131729:  MEM  created 1-Kb of 8-byte address space
+1310470393132005:  MEM  created 1-Kb of 8-byte address space
+1310470393132041:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470393132088:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470393132320:  MEM  created 1-Kb of 8-byte address space
+1310470393132345:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470393132367:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470393132574:  MEM  created 1-Kb of 8-byte address space
+1310470393132598:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470393132640:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470393133481:  MEM  created 1-Kb of 8-byte address space
+1310470393133526:  CPU  created a cpu
+1310470393133540:  CPU  programme counter is register 0x3
+1310470393133998:  MEM  memory cleared
+1310470393134256:  MEM  created 1-Kb of 8-byte address space
+1310470393134293:  CPU  created a cpu
+1310470393134307:  CPU  programme counter is register 0x3
+1310470393134328:  CPU  beginning a cycle
+1310470393134340:  CPU  entering fetch stage
+1310470393134357:  CPU  programme counter value is 0x0
+1310470393134381:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470393134397:  CPU  fetched 00000000000000000000000000000000
+1310470393134409:  CPU  leaving fetch stage
+1310470393134422:  CPU  entering decode stage
+1310470393134460:  CPU  decoded `None' instruction
+1310470393134486:  MEM  memory cleared
+1310470393134768:  MEM  created 1-Kb of 8-byte address space
+1310470393134803:  CPU  created a cpu
+1310470393134816:  CPU  programme counter is register 0x3
+1310470393134843:  MEM  memory cleared
+1310470393135074:  MEM  created 1-Kb of 8-byte address space
+1310470393135108:  CPU  created a cpu
+1310470393135122:  CPU  programme counter is register 0x3
+1310470393135136:  CPU  entering decode stage
+1310470393135163:  CPU  decoded `sub' instruction
+1310470393135177:  CPU  found `sub' in instruction set
+1310470393135199:  CPU  hashed `sub' instruction
+1310470393135210:  CPU  leaving decode stage
+1310470393135230:  MEM  memory cleared
+1310470393135478:  MEM  created 1-Kb of 8-byte address space
+1310470393135511:  CPU  created a cpu
+1310470393135525:  CPU  programme counter is register 0x3
+1310470393135537:  CPU  entering decode stage
+1310470393135556:  CPU  decoded `add' instruction
+1310470393135569:  CPU  found `add' in instruction set
+1310470393135591:  CPU  hashed `add' instruction
+1310470393135601:  CPU  leaving decode stage
+1310470393135617:  MEM  memory cleared
+1310470393135867:  MEM  created 1-Kb of 8-byte address space
+1310470393135900:  CPU  created a cpu
+1310470393135914:  CPU  programme counter is register 0x3
+1310470393136010:  MEM  memory cleared
+1310470393136235:  MEM  created 1-Kb of 8-byte address space
+1310470393136270:  CPU  created a cpu
+1310470393136284:  CPU  programme counter is register 0x3
+1310470393136306:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470393136387:  MEM  memory cleared
+1310470393136620:  MEM  created 1-Kb of 8-byte address space
+1310470393136655:  CPU  created a cpu
+1310470393136668:  CPU  programme counter is register 0x3
+1310470393136689:  MEM  memory cleared
+1310470503995063:  MEM  created 1-Kb of 8-byte address space
+1310470503995411:  MEM  created 1-Kb of 8-byte address space
+1310470503995451:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470503995500:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470503995729:  MEM  created 1-Kb of 8-byte address space
+1310470503995754:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470503995777:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470503995996:  MEM  created 1-Kb of 8-byte address space
+1310470503996027:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470503996071:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470503997004:  MEM  created 1-Kb of 8-byte address space
+1310470503997055:  CPU  created a cpu
+1310470503997070:  CPU  programme counter is register 0x3
+1310470503997563:  MEM  memory cleared
+1310470503997828:  MEM  created 1-Kb of 8-byte address space
+1310470503997863:  CPU  created a cpu
+1310470503997877:  CPU  programme counter is register 0x3
+1310470503997896:  CPU  beginning a cycle
+1310470503997909:  CPU  entering fetch stage
+1310470503997926:  CPU  programme counter value is 0x0
+1310470503997950:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470503998070:  CPU  fetched 00000000000000000000000000000000
+1310470503998083:  CPU  leaving fetch stage
+1310470503998098:  CPU  entering decode stage
+1310470503998138:  CPU  decoded `None' instruction
+1310470503998165:  MEM  memory cleared
+1310470503998482:  MEM  created 1-Kb of 8-byte address space
+1310470503998518:  CPU  created a cpu
+1310470503998531:  CPU  programme counter is register 0x3
+1310470503998560:  MEM  memory cleared
+1310470503998799:  MEM  created 1-Kb of 8-byte address space
+1310470503998833:  CPU  created a cpu
+1310470503998846:  CPU  programme counter is register 0x3
+1310470503998861:  CPU  entering decode stage
+1310470503998889:  CPU  decoded `sub' instruction
+1310470503998903:  CPU  found `sub' in instruction set
+1310470503998925:  CPU  hashed `sub' instruction
+1310470503998936:  CPU  leaving decode stage
+1310470503998955:  MEM  memory cleared
+1310470503999211:  MEM  created 1-Kb of 8-byte address space
+1310470503999246:  CPU  created a cpu
+1310470503999265:  CPU  programme counter is register 0x3
+1310470503999278:  CPU  entering decode stage
+1310470503999297:  CPU  decoded `add' instruction
+1310470503999310:  CPU  found `add' in instruction set
+1310470503999332:  CPU  hashed `add' instruction
+1310470503999342:  CPU  leaving decode stage
+1310470503999359:  MEM  memory cleared
+1310470503999612:  MEM  created 1-Kb of 8-byte address space
+1310470503999646:  CPU  created a cpu
+1310470503999659:  CPU  programme counter is register 0x3
+1310470503999757:  MEM  memory cleared
+1310470503999994:  MEM  created 1-Kb of 8-byte address space
+1310470504000027:  CPU  created a cpu
+1310470504000041:  CPU  programme counter is register 0x3
+1310470504000072:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470504000158:  MEM  memory cleared
+1310470504000393:  MEM  created 1-Kb of 8-byte address space
+1310470504000427:  CPU  created a cpu
+1310470504000440:  CPU  programme counter is register 0x3
+1310470504000464:  MEM  memory cleared
+1310470549195421:  MEM  created 1-Kb of 8-byte address space
+1310470549195730:  MEM  created 1-Kb of 8-byte address space
+1310470549195770:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470549195816:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470549196042:  MEM  created 1-Kb of 8-byte address space
+1310470549196066:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470549196089:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470549196308:  MEM  created 1-Kb of 8-byte address space
+1310470549196338:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470549196380:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470549197324:  MEM  created 1-Kb of 8-byte address space
+1310470549197386:  CPU  created a cpu
+1310470549197401:  CPU  programme counter is register 0x3
+1310470549197924:  MEM  memory cleared
+1310470549198296:  MEM  created 1-Kb of 8-byte address space
+1310470549198338:  CPU  created a cpu
+1310470549198353:  CPU  programme counter is register 0x3
+1310470549198376:  CPU  beginning a cycle
+1310470549198388:  CPU  entering fetch stage
+1310470549198405:  CPU  programme counter value is 0x0
+1310470549198431:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470549198448:  CPU  fetched 00000000000000000000000000000000
+1310470549198459:  CPU  leaving fetch stage
+1310470549198474:  CPU  entering decode stage
+1310470549198516:  CPU  decoded `None' instruction
+1310470549198544:  MEM  memory cleared
+1310470549198865:  MEM  created 1-Kb of 8-byte address space
+1310470549198907:  CPU  created a cpu
+1310470549198922:  CPU  programme counter is register 0x3
+1310470549198954:  MEM  memory cleared
+1310470549199195:  MEM  created 1-Kb of 8-byte address space
+1310470549199230:  CPU  created a cpu
+1310470549199244:  CPU  programme counter is register 0x3
+1310470549199259:  CPU  entering decode stage
+1310470549199287:  CPU  decoded `sub' instruction
+1310470549199301:  CPU  found `sub' in instruction set
+1310470549199325:  CPU  hashed `sub' instruction
+1310470549199335:  CPU  leaving decode stage
+1310470549199354:  MEM  memory cleared
+1310470549199636:  MEM  created 1-Kb of 8-byte address space
+1310470549199670:  CPU  created a cpu
+1310470549199690:  CPU  programme counter is register 0x3
+1310470549199704:  CPU  entering decode stage
+1310470549199723:  CPU  decoded `add' instruction
+1310470549199736:  CPU  found `add' in instruction set
+1310470549199759:  CPU  hashed `add' instruction
+1310470549199769:  CPU  leaving decode stage
+1310470549199786:  MEM  memory cleared
+1310470549200048:  MEM  created 1-Kb of 8-byte address space
+1310470549200084:  CPU  created a cpu
+1310470549200097:  CPU  programme counter is register 0x3
+1310470549200220:  MEM  memory cleared
+1310470549200448:  MEM  created 1-Kb of 8-byte address space
+1310470549200484:  CPU  created a cpu
+1310470549200497:  CPU  programme counter is register 0x3
+1310470549200519:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470549200608:  MEM  memory cleared
+1310470549200849:  MEM  created 1-Kb of 8-byte address space
+1310470549200885:  CPU  created a cpu
+1310470549200899:  CPU  programme counter is register 0x3
+1310470549200922:  MEM  memory cleared
+1310470557475540:  MEM  created 1-Kb of 8-byte address space
+1310470557475832:  MEM  created 1-Kb of 8-byte address space
+1310470557475870:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470557475917:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470557476153:  MEM  created 1-Kb of 8-byte address space
+1310470557476178:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470557476201:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470557476427:  MEM  created 1-Kb of 8-byte address space
+1310470557476458:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470557476504:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470557477423:  MEM  created 1-Kb of 8-byte address space
+1310470557477480:  CPU  created a cpu
+1310470557477495:  CPU  programme counter is register 0x3
+1310470557477518:  MEM  memory cleared
+1310470557477551:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310470557477566:  MEM  loaded 1 word programme into memory
+1310470557477578:  CPU  beginning a cycle
+1310470557477589:  CPU  entering fetch stage
+1310470557477603:  CPU  programme counter value is 0x0
+1310470557477620:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310470557477634:  CPU  fetched 00101000001000000000000000000010
+1310470557477644:  CPU  leaving fetch stage
+1310470557477657:  CPU  entering decode stage
+1310470557477680:  CPU  decoded `slti' instruction
+1310470557477693:  CPU  found `slti' in instruction set
+1310470557477713:  CPU  hashed `slti' instruction
+1310470557477723:  CPU  leaving decode stage
+1310470557477735:  CPU  entering execute stage
+1310470557477768:  CPU  calling testLessImmediate with ['rs', 'im']
+1310470557477789:  CPU  calling setRegister with ['rt', 1]
+1310470557477810:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310470557477831:  CPU  skipping an API call
+1310470557477843:  CPU  instruction slot cleared
+1310470557477852:  CPU  leaving execute stage
+1310470557477868:  CPU  completing a cycle
+1310470557478467:  MEM  memory cleared
+1310470557478875:  MEM  created 1-Kb of 8-byte address space
+1310470557478925:  CPU  created a cpu
+1310470557478940:  CPU  programme counter is register 0x3
+1310470557478964:  CPU  beginning a cycle
+1310470557478976:  CPU  entering fetch stage
+1310470557478992:  CPU  programme counter value is 0x0
+1310470557479018:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470557479034:  CPU  fetched 00000000000000000000000000000000
+1310470557479045:  CPU  leaving fetch stage
+1310470557479059:  CPU  entering decode stage
+1310470557479087:  CPU  decoded `None' instruction
+1310470557479115:  MEM  memory cleared
+1310470557479394:  MEM  created 1-Kb of 8-byte address space
+1310470557479430:  CPU  created a cpu
+1310470557479443:  CPU  programme counter is register 0x3
+1310470557479474:  MEM  memory cleared
+1310470557479722:  MEM  created 1-Kb of 8-byte address space
+1310470557479758:  CPU  created a cpu
+1310470557479771:  CPU  programme counter is register 0x3
+1310470557479786:  CPU  entering decode stage
+1310470557479814:  CPU  decoded `sub' instruction
+1310470557479827:  CPU  found `sub' in instruction set
+1310470557479850:  CPU  hashed `sub' instruction
+1310470557479861:  CPU  leaving decode stage
+1310470557479881:  MEM  memory cleared
+1310470557480134:  MEM  created 1-Kb of 8-byte address space
+1310470557480168:  CPU  created a cpu
+1310470557480188:  CPU  programme counter is register 0x3
+1310470557480201:  CPU  entering decode stage
+1310470557480220:  CPU  decoded `add' instruction
+1310470557480234:  CPU  found `add' in instruction set
+1310470557480256:  CPU  hashed `add' instruction
+1310470557480266:  CPU  leaving decode stage
+1310470557480284:  MEM  memory cleared
+1310470557480535:  MEM  created 1-Kb of 8-byte address space
+1310470557480570:  CPU  created a cpu
+1310470557480583:  CPU  programme counter is register 0x3
+1310470557480701:  MEM  memory cleared
+1310470557480934:  MEM  created 1-Kb of 8-byte address space
+1310470557480968:  CPU  created a cpu
+1310470557480981:  CPU  programme counter is register 0x3
+1310470557481003:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470557481085:  MEM  memory cleared
+1310470557481319:  MEM  created 1-Kb of 8-byte address space
+1310470557481353:  CPU  created a cpu
+1310470557481367:  CPU  programme counter is register 0x3
+1310470557481389:  MEM  memory cleared
+1310470615421128:  MEM  created 1-Kb of 8-byte address space
+1310470615421447:  MEM  created 1-Kb of 8-byte address space
+1310470615421487:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470615421535:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470615421770:  MEM  created 1-Kb of 8-byte address space
+1310470615421796:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470615421819:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470615422062:  MEM  created 1-Kb of 8-byte address space
+1310470615422093:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470615422136:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470615423083:  MEM  created 1-Kb of 8-byte address space
+1310470615423135:  CPU  created a cpu
+1310470615423149:  CPU  programme counter is register 0x3
+1310470615423173:  MEM  memory cleared
+1310470615423207:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310470615423221:  MEM  loaded 1 word programme into memory
+1310470615423233:  CPU  beginning a cycle
+1310470615423244:  CPU  entering fetch stage
+1310470615423259:  CPU  programme counter value is 0x0
+1310470615423277:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310470615423291:  CPU  fetched 00101000001000000000000000000010
+1310470615423301:  CPU  leaving fetch stage
+1310470615423314:  CPU  entering decode stage
+1310470615423337:  CPU  decoded `slti' instruction
+1310470615423350:  CPU  found `slti' in instruction set
+1310470615423369:  CPU  hashed `slti' instruction
+1310470615423380:  CPU  leaving decode stage
+1310470615423392:  CPU  entering execute stage
+1310470615423420:  CPU  calling testLessImmediate with ['rs', 'im']
+1310470615423441:  CPU  calling setRegister with ['rt', 1]
+1310470615423462:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310470615423483:  CPU  skipping an API call
+1310470615423495:  CPU  instruction slot cleared
+1310470615423505:  CPU  leaving execute stage
+1310470615423521:  CPU  completing a cycle
+1310470615423543:  MEM  memory cleared
+1310470615423949:  MEM  created 1-Kb of 8-byte address space
+1310470615423990:  CPU  created a cpu
+1310470615424005:  CPU  programme counter is register 0x3
+1310470615424026:  CPU  beginning a cycle
+1310470615424037:  CPU  entering fetch stage
+1310470615424053:  CPU  programme counter value is 0x0
+1310470615424077:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470615424094:  CPU  fetched 00000000000000000000000000000000
+1310470615424104:  CPU  leaving fetch stage
+1310470615424117:  CPU  entering decode stage
+1310470615424148:  CPU  decoded `None' instruction
+1310470615424174:  MEM  memory cleared
+1310470615424500:  MEM  created 1-Kb of 8-byte address space
+1310470615424539:  CPU  created a cpu
+1310470615424554:  CPU  programme counter is register 0x3
+1310470615424581:  MEM  memory cleared
+1310470615424820:  MEM  created 1-Kb of 8-byte address space
+1310470615424856:  CPU  created a cpu
+1310470615424869:  CPU  programme counter is register 0x3
+1310470615424884:  CPU  entering decode stage
+1310470615424912:  CPU  decoded `sub' instruction
+1310470615424926:  CPU  found `sub' in instruction set
+1310470615424948:  CPU  hashed `sub' instruction
+1310470615424958:  CPU  leaving decode stage
+1310470615424978:  MEM  memory cleared
+1310470615425237:  MEM  created 1-Kb of 8-byte address space
+1310470615425271:  CPU  created a cpu
+1310470615425285:  CPU  programme counter is register 0x3
+1310470615425298:  CPU  entering decode stage
+1310470615425317:  CPU  decoded `add' instruction
+1310470615425330:  CPU  found `add' in instruction set
+1310470615425353:  CPU  hashed `add' instruction
+1310470615425363:  CPU  leaving decode stage
+1310470615425380:  MEM  memory cleared
+1310470615425664:  MEM  created 1-Kb of 8-byte address space
+1310470615425704:  CPU  created a cpu
+1310470615425719:  CPU  programme counter is register 0x3
+1310470615426295:  MEM  memory cleared
+1310470615426584:  MEM  created 1-Kb of 8-byte address space
+1310470615426622:  CPU  created a cpu
+1310470615426637:  CPU  programme counter is register 0x3
+1310470615426663:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470615426766:  MEM  memory cleared
+1310470615427007:  MEM  created 1-Kb of 8-byte address space
+1310470615427043:  CPU  created a cpu
+1310470615427056:  CPU  programme counter is register 0x3
+1310470615427082:  MEM  memory cleared
+1310470675917892:  MEM  created 1-Kb of 8-byte address space
+1310470675918253:  MEM  created 1-Kb of 8-byte address space
+1310470675918288:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470675918335:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470675918565:  MEM  created 1-Kb of 8-byte address space
+1310470675918590:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470675918612:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470675918831:  MEM  created 1-Kb of 8-byte address space
+1310470675918855:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470675918897:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470675919779:  MEM  created 1-Kb of 8-byte address space
+1310470675919825:  CPU  created a cpu
+1310470675919839:  CPU  programme counter is register 0x3
+1310470675919860:  MEM  memory cleared
+1310470675919884:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310470675919897:  MEM  loaded 1 word programme into memory
+1310470675919909:  CPU  beginning a cycle
+1310470675919920:  CPU  entering fetch stage
+1310470675919935:  CPU  programme counter value is 0x0
+1310470675919952:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310470675919966:  CPU  fetched 00101000001000000000000000000010
+1310470675919977:  CPU  leaving fetch stage
+1310470675919990:  CPU  entering decode stage
+1310470675920013:  CPU  decoded `slti' instruction
+1310470675920026:  CPU  found `slti' in instruction set
+1310470675920046:  CPU  hashed `slti' instruction
+1310470675920057:  CPU  leaving decode stage
+1310470675920069:  CPU  entering execute stage
+1310470675920097:  CPU  calling testLessImmediate with ['rs', 'im']
+1310470675920124:  CPU  calling setRegister with ['rt', 1]
+1310470675920145:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310470675920160:  CPU  skipping an API call
+1310470675920171:  CPU  instruction slot cleared
+1310470675920181:  CPU  leaving execute stage
+1310470675920197:  CPU  completing a cycle
+1310470675920217:  MEM  memory cleared
+1310470675920597:  MEM  created 1-Kb of 8-byte address space
+1310470675920635:  CPU  created a cpu
+1310470675920649:  CPU  programme counter is register 0x3
+1310470675920669:  CPU  beginning a cycle
+1310470675920680:  CPU  entering fetch stage
+1310470675920696:  CPU  programme counter value is 0x0
+1310470675920719:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470675920735:  CPU  fetched 00000000000000000000000000000000
+1310470675920746:  CPU  leaving fetch stage
+1310470675920759:  CPU  entering decode stage
+1310470675920788:  CPU  decoded `None' instruction
+1310470675920815:  MEM  memory cleared
+1310470675921139:  MEM  created 1-Kb of 8-byte address space
+1310470675921179:  CPU  created a cpu
+1310470675921192:  CPU  programme counter is register 0x3
+1310470675921223:  MEM  memory cleared
+1310470675921489:  MEM  created 1-Kb of 8-byte address space
+1310470675921527:  CPU  created a cpu
+1310470675921541:  CPU  programme counter is register 0x3
+1310470675921556:  CPU  entering decode stage
+1310470675921584:  CPU  decoded `sub' instruction
+1310470675921598:  CPU  found `sub' in instruction set
+1310470675921621:  CPU  hashed `sub' instruction
+1310470675921632:  CPU  leaving decode stage
+1310470675921652:  MEM  memory cleared
+1310470675921916:  MEM  created 1-Kb of 8-byte address space
+1310470675921951:  CPU  created a cpu
+1310470675922016:  CPU  programme counter is register 0x3
+1310470675922031:  CPU  entering decode stage
+1310470675922051:  CPU  decoded `add' instruction
+1310470675922065:  CPU  found `add' in instruction set
+1310470675922088:  CPU  hashed `add' instruction
+1310470675922099:  CPU  leaving decode stage
+1310470675922115:  MEM  memory cleared
+1310470675922401:  MEM  created 1-Kb of 8-byte address space
+1310470675922437:  CPU  created a cpu
+1310470675922450:  CPU  programme counter is register 0x3
+1310470675922473:  MEM  memory cleared
+1310470675922495:  MEM  stored 00000000001000100000000000100000 at 0x0
+1310470675922509:  MEM  loaded 1 word programme into memory
+1310470675922520:  CPU  beginning a cycle
+1310470675922530:  CPU  entering fetch stage
+1310470675922544:  CPU  programme counter value is 0x0
+1310470675922561:  MEM  loaded 00000000001000100000000000100000 from 0x0
+1310470675922575:  CPU  fetched 00000000001000100000000000100000
+1310470675922585:  CPU  leaving fetch stage
+1310470675922597:  CPU  entering decode stage
+1310470675922615:  CPU  decoded `add' instruction
+1310470675922628:  CPU  found `add' in instruction set
+1310470675922650:  CPU  hashed `add' instruction
+1310470675922660:  CPU  leaving decode stage
+1310470675922672:  CPU  entering execute stage
+1310470675922693:  CPU  calling addRegisters with ['rd', 'rs', 'rt']
+1310470675922716:  CPU  instruction slot cleared
+1310470675922727:  CPU  leaving execute stage
+1310470675922742:  CPU  completing a cycle
+1310470675923265:  MEM  memory cleared
+1310470675923622:  MEM  created 1-Kb of 8-byte address space
+1310470675923666:  CPU  created a cpu
+1310470675923681:  CPU  programme counter is register 0x3
+1310470675923705:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470675923816:  MEM  memory cleared
+1310470675924078:  MEM  created 1-Kb of 8-byte address space
+1310470675924116:  CPU  created a cpu
+1310470675924130:  CPU  programme counter is register 0x3
+1310470675924155:  MEM  memory cleared
+1310470742413402:  MEM  created 1-Kb of 8-byte address space
+1310470742413690:  MEM  created 1-Kb of 8-byte address space
+1310470742413725:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470742413773:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470742414155:  MEM  created 1-Kb of 8-byte address space
+1310470742414186:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470742414209:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470742414650:  MEM  created 1-Kb of 8-byte address space
+1310470742414681:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470742414726:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470742415789:  MEM  created 1-Kb of 8-byte address space
+1310470742415839:  CPU  created a cpu
+1310470742415854:  CPU  programme counter is register 0x3
+1310470742415875:  MEM  memory cleared
+1310470742415898:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310470742415912:  MEM  loaded 1 word programme into memory
+1310470742415923:  CPU  beginning a cycle
+1310470742415934:  CPU  entering fetch stage
+1310470742415949:  CPU  programme counter value is 0x0
+1310470742415966:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310470742415980:  CPU  fetched 00101000001000000000000000000010
+1310470742415990:  CPU  leaving fetch stage
+1310470742416003:  CPU  entering decode stage
+1310470742416026:  CPU  decoded `slti' instruction
+1310470742416039:  CPU  found `slti' in instruction set
+1310470742416058:  CPU  hashed `slti' instruction
+1310470742416068:  CPU  leaving decode stage
+1310470742416080:  CPU  entering execute stage
+1310470742416108:  CPU  calling testLessImmediate with ['rs', 'im']
+1310470742416135:  CPU  calling setRegister with ['rt', 1]
+1310470742416155:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310470742416170:  CPU  skipping an API call
+1310470742416181:  CPU  instruction slot cleared
+1310470742416191:  CPU  leaving execute stage
+1310470742416206:  CPU  completing a cycle
+1310470742416226:  MEM  memory cleared
+1310470742416594:  MEM  created 1-Kb of 8-byte address space
+1310470742416629:  CPU  created a cpu
+1310470742416642:  CPU  programme counter is register 0x3
+1310470742416661:  CPU  beginning a cycle
+1310470742416672:  CPU  entering fetch stage
+1310470742416687:  CPU  programme counter value is 0x0
+1310470742416708:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470742416724:  CPU  fetched 00000000000000000000000000000000
+1310470742416735:  CPU  leaving fetch stage
+1310470742416748:  CPU  entering decode stage
+1310470742416776:  CPU  decoded `None' instruction
+1310470742416801:  MEM  memory cleared
+1310470742417073:  MEM  created 1-Kb of 8-byte address space
+1310470742417107:  CPU  created a cpu
+1310470742417120:  CPU  programme counter is register 0x3
+1310470742417147:  MEM  memory cleared
+1310470742417378:  MEM  created 1-Kb of 8-byte address space
+1310470742417412:  CPU  created a cpu
+1310470742417426:  CPU  programme counter is register 0x3
+1310470742417441:  CPU  entering decode stage
+1310470742417468:  CPU  decoded `sub' instruction
+1310470742417481:  CPU  found `sub' in instruction set
+1310470742417505:  CPU  hashed `sub' instruction
+1310470742417515:  CPU  leaving decode stage
+1310470742417535:  MEM  memory cleared
+1310470742417787:  MEM  created 1-Kb of 8-byte address space
+1310470742417821:  CPU  created a cpu
+1310470742417834:  CPU  programme counter is register 0x3
+1310470742417847:  CPU  entering decode stage
+1310470742417865:  CPU  decoded `add' instruction
+1310470742417878:  CPU  found `add' in instruction set
+1310470742417900:  CPU  hashed `add' instruction
+1310470742417911:  CPU  leaving decode stage
+1310470742417927:  MEM  memory cleared
+1310470742418222:  MEM  created 1-Kb of 8-byte address space
+1310470742418257:  CPU  created a cpu
+1310470742418270:  CPU  programme counter is register 0x3
+1310470742418292:  MEM  memory cleared
+1310470742418314:  MEM  stored 00000000001000100000000000100000 at 0x0
+1310470742418328:  MEM  loaded 1 word programme into memory
+1310470742418338:  CPU  beginning a cycle
+1310470742418349:  CPU  entering fetch stage
+1310470742418362:  CPU  programme counter value is 0x0
+1310470742418378:  MEM  loaded 00000000001000100000000000100000 from 0x0
+1310470742418392:  CPU  fetched 00000000001000100000000000100000
+1310470742418403:  CPU  leaving fetch stage
+1310470742418415:  CPU  entering decode stage
+1310470742418433:  CPU  decoded `add' instruction
+1310470742418444:  CPU  found `add' in instruction set
+1310470742418466:  CPU  hashed `add' instruction
+1310470742418476:  CPU  leaving decode stage
+1310470742418487:  CPU  entering execute stage
+1310470742418507:  CPU  calling addRegisters with ['rd', 'rs', 'rt']
+1310470742418530:  CPU  instruction slot cleared
+1310470742418541:  CPU  leaving execute stage
+1310470742418556:  CPU  completing a cycle
+1310470742418573:  MEM  memory cleared
+1310470742418897:  MEM  created 1-Kb of 8-byte address space
+1310470742418934:  CPU  created a cpu
+1310470742418947:  CPU  programme counter is register 0x3
+1310470742418968:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470742418987:  CPU  entering fetch stage
+1310470742419002:  CPU  programme counter value is 0x0
+1310470742419018:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310470742419031:  CPU  fetched 00000000000000000000000000100000
+1310470742419041:  CPU  leaving fetch stage
+1310470742419061:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310470742419583:  MEM  memory cleared
+1310470742419874:  MEM  created 1-Kb of 8-byte address space
+1310470742419911:  CPU  created a cpu
+1310470742419925:  CPU  programme counter is register 0x3
+1310470742419948:  MEM  memory cleared
+1310470757146308:  MEM  created 1-Kb of 8-byte address space
+1310470757146889:  MEM  created 1-Kb of 8-byte address space
+1310470757146935:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470757146984:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470757147480:  MEM  created 1-Kb of 8-byte address space
+1310470757147511:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470757147534:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470757147770:  MEM  created 1-Kb of 8-byte address space
+1310470757147795:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470757147838:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470757148797:  MEM  created 1-Kb of 8-byte address space
+1310470757148848:  CPU  created a cpu
+1310470757148862:  CPU  programme counter is register 0x3
+1310470757148883:  MEM  memory cleared
+1310470757148906:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310470757148919:  MEM  loaded 1 word programme into memory
+1310470757148931:  CPU  beginning a cycle
+1310470757148942:  CPU  entering fetch stage
+1310470757148956:  CPU  programme counter value is 0x0
+1310470757148973:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310470757148987:  CPU  fetched 00101000001000000000000000000010
+1310470757148997:  CPU  leaving fetch stage
+1310470757149010:  CPU  entering decode stage
+1310470757149034:  CPU  decoded `slti' instruction
+1310470757149047:  CPU  found `slti' in instruction set
+1310470757149074:  CPU  hashed `slti' instruction
+1310470757149084:  CPU  leaving decode stage
+1310470757149097:  CPU  entering execute stage
+1310470757149130:  CPU  calling testLessImmediate with ['rs', 'im']
+1310470757149160:  CPU  calling setRegister with ['rt', 1]
+1310470757149181:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310470757149196:  CPU  skipping an API call
+1310470757149207:  CPU  instruction slot cleared
+1310470757149217:  CPU  leaving execute stage
+1310470757149232:  CPU  completing a cycle
+1310470757149253:  MEM  memory cleared
+1310470757149621:  MEM  created 1-Kb of 8-byte address space
+1310470757149658:  CPU  created a cpu
+1310470757149671:  CPU  programme counter is register 0x3
+1310470757149691:  CPU  beginning a cycle
+1310470757149702:  CPU  entering fetch stage
+1310470757149717:  CPU  programme counter value is 0x0
+1310470757149740:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470757149757:  CPU  fetched 00000000000000000000000000000000
+1310470757149767:  CPU  leaving fetch stage
+1310470757149781:  CPU  entering decode stage
+1310470757149809:  CPU  decoded `None' instruction
+1310470757149835:  MEM  memory cleared
+1310470757150189:  MEM  created 1-Kb of 8-byte address space
+1310470757150230:  CPU  created a cpu
+1310470757150244:  CPU  programme counter is register 0x3
+1310470757150271:  MEM  memory cleared
+1310470757150517:  MEM  created 1-Kb of 8-byte address space
+1310470757150552:  CPU  created a cpu
+1310470757150566:  CPU  programme counter is register 0x3
+1310470757150580:  CPU  entering decode stage
+1310470757150608:  CPU  decoded `sub' instruction
+1310470757150622:  CPU  found `sub' in instruction set
+1310470757150646:  CPU  hashed `sub' instruction
+1310470757150656:  CPU  leaving decode stage
+1310470757150675:  MEM  memory cleared
+1310470757151168:  MEM  created 1-Kb of 8-byte address space
+1310470757151209:  CPU  created a cpu
+1310470757151223:  CPU  programme counter is register 0x3
+1310470757151236:  CPU  entering decode stage
+1310470757151256:  CPU  decoded `add' instruction
+1310470757151270:  CPU  found `add' in instruction set
+1310470757151293:  CPU  hashed `add' instruction
+1310470757151303:  CPU  leaving decode stage
+1310470757151320:  MEM  memory cleared
+1310470757151836:  MEM  created 1-Kb of 8-byte address space
+1310470757151881:  CPU  created a cpu
+1310470757151895:  CPU  programme counter is register 0x3
+1310470757151917:  MEM  memory cleared
+1310470757151942:  MEM  stored 00000000001000100000000000100000 at 0x0
+1310470757151956:  MEM  loaded 1 word programme into memory
+1310470757151968:  CPU  beginning a cycle
+1310470757151978:  CPU  entering fetch stage
+1310470757151992:  CPU  programme counter value is 0x0
+1310470757152009:  MEM  loaded 00000000001000100000000000100000 from 0x0
+1310470757152023:  CPU  fetched 00000000001000100000000000100000
+1310470757152034:  CPU  leaving fetch stage
+1310470757152046:  CPU  entering decode stage
+1310470757152064:  CPU  decoded `add' instruction
+1310470757152076:  CPU  found `add' in instruction set
+1310470757152098:  CPU  hashed `add' instruction
+1310470757152108:  CPU  leaving decode stage
+1310470757152119:  CPU  entering execute stage
+1310470757152142:  CPU  calling addRegisters with ['rd', 'rs', 'rt']
+1310470757152165:  CPU  instruction slot cleared
+1310470757152176:  CPU  leaving execute stage
+1310470757152191:  CPU  completing a cycle
+1310470757152210:  MEM  memory cleared
+1310470757152756:  MEM  created 1-Kb of 8-byte address space
+1310470757152803:  CPU  created a cpu
+1310470757152818:  CPU  programme counter is register 0x3
+1310470757152843:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470757152864:  CPU  entering fetch stage
+1310470757152879:  CPU  programme counter value is 0x0
+1310470757152896:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310470757152909:  CPU  fetched 00000000000000000000000000100000
+1310470757152920:  CPU  leaving fetch stage
+1310470757152940:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310470757152965:  MEM  memory cleared
+1310470757153529:  MEM  created 1-Kb of 8-byte address space
+1310470757153569:  CPU  created a cpu
+1310470757153584:  CPU  programme counter is register 0x3
+1310470757153609:  MEM  memory cleared
+1310470813074423:  MEM  created 1-Kb of 8-byte address space
+1310470813074726:  MEM  created 1-Kb of 8-byte address space
+1310470813074765:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470813074814:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470813075047:  MEM  created 1-Kb of 8-byte address space
+1310470813075072:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470813075094:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470813075314:  MEM  created 1-Kb of 8-byte address space
+1310470813075345:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470813075388:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470813076362:  MEM  created 1-Kb of 8-byte address space
+1310470813076421:  CPU  created a cpu
+1310470813076436:  CPU  programme counter is register 0x3
+1310470813076459:  MEM  memory cleared
+1310470813076495:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310470813076509:  MEM  loaded 1 word programme into memory
+1310470813076521:  CPU  beginning a cycle
+1310470813076532:  CPU  entering fetch stage
+1310470813076547:  CPU  programme counter value is 0x0
+1310470813076565:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310470813076579:  CPU  fetched 00101000001000000000000000000010
+1310470813076590:  CPU  leaving fetch stage
+1310470813076604:  CPU  entering decode stage
+1310470813076629:  CPU  decoded `slti' instruction
+1310470813076642:  CPU  found `slti' in instruction set
+1310470813076662:  CPU  hashed `slti' instruction
+1310470813076673:  CPU  leaving decode stage
+1310470813076685:  CPU  entering execute stage
+1310470813076718:  CPU  calling testLessImmediate with ['rs', 'im']
+1310470813076746:  CPU  calling setRegister with ['rt', 1]
+1310470813076768:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310470813076782:  CPU  skipping an API call
+1310470813076794:  CPU  instruction slot cleared
+1310470813076804:  CPU  leaving execute stage
+1310470813076821:  CPU  completing a cycle
+1310470813076844:  MEM  memory cleared
+1310470813077299:  MEM  created 1-Kb of 8-byte address space
+1310470813077341:  CPU  created a cpu
+1310470813077355:  CPU  programme counter is register 0x3
+1310470813077378:  CPU  beginning a cycle
+1310470813077389:  CPU  entering fetch stage
+1310470813077405:  CPU  programme counter value is 0x0
+1310470813077429:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470813077446:  CPU  fetched 00000000000000000000000000000000
+1310470813077456:  CPU  leaving fetch stage
+1310470813077470:  CPU  entering decode stage
+1310470813077502:  CPU  decoded `None' instruction
+1310470813077528:  MEM  memory cleared
+1310470813077843:  MEM  created 1-Kb of 8-byte address space
+1310470813077880:  CPU  created a cpu
+1310470813077894:  CPU  programme counter is register 0x3
+1310470813077922:  MEM  memory cleared
+1310470813078227:  MEM  created 1-Kb of 8-byte address space
+1310470813078263:  CPU  created a cpu
+1310470813078277:  CPU  programme counter is register 0x3
+1310470813078292:  CPU  entering decode stage
+1310470813078319:  CPU  decoded `sub' instruction
+1310470813078333:  CPU  found `sub' in instruction set
+1310470813078356:  CPU  hashed `sub' instruction
+1310470813078366:  CPU  leaving decode stage
+1310470813078387:  MEM  memory cleared
+1310470813078670:  MEM  created 1-Kb of 8-byte address space
+1310470813078706:  CPU  created a cpu
+1310470813078720:  CPU  programme counter is register 0x3
+1310470813078734:  CPU  entering decode stage
+1310470813078753:  CPU  decoded `add' instruction
+1310470813078767:  CPU  found `add' in instruction set
+1310470813078789:  CPU  hashed `add' instruction
+1310470813078799:  CPU  leaving decode stage
+1310470813078817:  MEM  memory cleared
+1310470813079098:  MEM  created 1-Kb of 8-byte address space
+1310470813079134:  CPU  created a cpu
+1310470813079148:  CPU  programme counter is register 0x3
+1310470813079170:  MEM  memory cleared
+1310470813079201:  MEM  stored 00000000001000100000000000100000 at 0x0
+1310470813079215:  MEM  loaded 1 word programme into memory
+1310470813079226:  CPU  beginning a cycle
+1310470813079236:  CPU  entering fetch stage
+1310470813079250:  CPU  programme counter value is 0x0
+1310470813079268:  MEM  loaded 00000000001000100000000000100000 from 0x0
+1310470813079282:  CPU  fetched 00000000001000100000000000100000
+1310470813079292:  CPU  leaving fetch stage
+1310470813079304:  CPU  entering decode stage
+1310470813079322:  CPU  decoded `add' instruction
+1310470813079334:  CPU  found `add' in instruction set
+1310470813079355:  CPU  hashed `add' instruction
+1310470813079365:  CPU  leaving decode stage
+1310470813079377:  CPU  entering execute stage
+1310470813079405:  CPU  calling addRegisters with ['rd', 'rs', 'rt']
+1310470813079428:  CPU  instruction slot cleared
+1310470813079439:  CPU  leaving execute stage
+1310470813079454:  CPU  completing a cycle
+1310470813079473:  MEM  memory cleared
+1310470813079798:  MEM  created 1-Kb of 8-byte address space
+1310470813079832:  CPU  created a cpu
+1310470813079846:  CPU  programme counter is register 0x3
+1310470813079868:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470813079887:  CPU  entering fetch stage
+1310470813079902:  CPU  programme counter value is 0x0
+1310470813079918:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310470813079932:  CPU  fetched 00000000000000000000000000100000
+1310470813079943:  CPU  leaving fetch stage
+1310470813079962:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310470813079986:  MEM  memory cleared
+1310470813080256:  MEM  created 1-Kb of 8-byte address space
+1310470813080289:  CPU  created a cpu
+1310470813080302:  CPU  programme counter is register 0x3
+1310470813080806:  MEM  memory cleared
+1310470860580964:  MEM  created 1-Kb of 8-byte address space
+1310470860581263:  MEM  created 1-Kb of 8-byte address space
+1310470860581301:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470860581349:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310470860581573:  MEM  created 1-Kb of 8-byte address space
+1310470860581596:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470860581619:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310470860581831:  MEM  created 1-Kb of 8-byte address space
+1310470860581861:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310470860581905:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310470860582885:  MEM  created 1-Kb of 8-byte address space
+1310470860582937:  CPU  created a cpu
+1310470860582951:  CPU  programme counter is register 0x3
+1310470860582973:  MEM  memory cleared
+1310470860582998:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310470860583011:  MEM  loaded 1 word programme into memory
+1310470860583023:  CPU  beginning a cycle
+1310470860583034:  CPU  entering fetch stage
+1310470860583049:  CPU  programme counter value is 0x0
+1310470860583065:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310470860583079:  CPU  fetched 00101000001000000000000000000010
+1310470860583090:  CPU  leaving fetch stage
+1310470860583103:  CPU  entering decode stage
+1310470860583125:  CPU  decoded `slti' instruction
+1310470860583138:  CPU  found `slti' in instruction set
+1310470860583157:  CPU  hashed `slti' instruction
+1310470860583167:  CPU  leaving decode stage
+1310470860583190:  CPU  entering execute stage
+1310470860583220:  CPU  calling testLessImmediate with ['rs', 'im']
+1310470860583242:  CPU  calling setRegister with ['rt', 1]
+1310470860583263:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310470860583277:  CPU  skipping an API call
+1310470860583288:  CPU  instruction slot cleared
+1310470860583298:  CPU  leaving execute stage
+1310470860583313:  CPU  completing a cycle
+1310470860583334:  MEM  memory cleared
+1310470860583724:  MEM  created 1-Kb of 8-byte address space
+1310470860583763:  CPU  created a cpu
+1310470860583777:  CPU  programme counter is register 0x3
+1310470860583799:  CPU  beginning a cycle
+1310470860583810:  CPU  entering fetch stage
+1310470860583826:  CPU  programme counter value is 0x0
+1310470860583850:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310470860583866:  CPU  fetched 00000000000000000000000000000000
+1310470860583877:  CPU  leaving fetch stage
+1310470860583890:  CPU  entering decode stage
+1310470860583920:  CPU  decoded `None' instruction
+1310470860583948:  MEM  memory cleared
+1310470860584509:  MEM  created 1-Kb of 8-byte address space
+1310470860584557:  CPU  created a cpu
+1310470860584570:  CPU  programme counter is register 0x3
+1310470860584602:  MEM  memory cleared
+1310470860585044:  MEM  created 1-Kb of 8-byte address space
+1310470860585083:  CPU  created a cpu
+1310470860585097:  CPU  programme counter is register 0x3
+1310470860585112:  CPU  entering decode stage
+1310470860585140:  CPU  decoded `sub' instruction
+1310470860585154:  CPU  found `sub' in instruction set
+1310470860585177:  CPU  hashed `sub' instruction
+1310470860585187:  CPU  leaving decode stage
+1310470860585207:  MEM  memory cleared
+1310470860585667:  MEM  created 1-Kb of 8-byte address space
+1310470860585706:  CPU  created a cpu
+1310470860585719:  CPU  programme counter is register 0x3
+1310470860585733:  CPU  entering decode stage
+1310470860585752:  CPU  decoded `add' instruction
+1310470860585765:  CPU  found `add' in instruction set
+1310470860585787:  CPU  hashed `add' instruction
+1310470860585797:  CPU  leaving decode stage
+1310470860585815:  MEM  memory cleared
+1310470860586430:  MEM  created 1-Kb of 8-byte address space
+1310470860586477:  CPU  created a cpu
+1310470860586491:  CPU  programme counter is register 0x3
+1310470860586516:  MEM  memory cleared
+1310470860586547:  MEM  stored 00000000001000100000000000100000 at 0x0
+1310470860586562:  MEM  loaded 1 word programme into memory
+1310470860586573:  CPU  beginning a cycle
+1310470860586583:  CPU  entering fetch stage
+1310470860586598:  CPU  programme counter value is 0x0
+1310470860586615:  MEM  loaded 00000000001000100000000000100000 from 0x0
+1310470860586628:  CPU  fetched 00000000001000100000000000100000
+1310470860586638:  CPU  leaving fetch stage
+1310470860586650:  CPU  entering decode stage
+1310470860586668:  CPU  decoded `add' instruction
+1310470860586681:  CPU  found `add' in instruction set
+1310470860586703:  CPU  hashed `add' instruction
+1310470860586713:  CPU  leaving decode stage
+1310470860586725:  CPU  entering execute stage
+1310470860586754:  CPU  calling addRegisters with ['rd', 'rs', 'rt']
+1310470860586779:  CPU  instruction slot cleared
+1310470860586789:  CPU  leaving execute stage
+1310470860586805:  CPU  completing a cycle
+1310470860586824:  MEM  memory cleared
+1310470860587375:  MEM  created 1-Kb of 8-byte address space
+1310470860587416:  CPU  created a cpu
+1310470860587430:  CPU  programme counter is register 0x3
+1310470860587453:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310470860587473:  CPU  entering fetch stage
+1310470860587488:  CPU  programme counter value is 0x0
+1310470860587504:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310470860587517:  CPU  fetched 00000000000000000000000000100000
+1310470860587527:  CPU  leaving fetch stage
+1310470860587547:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310470860587570:  MEM  memory cleared
+1310480656726055:  MEM  created 1-Kb of 8-byte address space
+1310480656726394:  MEM  created 1-Kb of 8-byte address space
+1310480656726436:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310480656726487:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310480656726724:  MEM  created 1-Kb of 8-byte address space
+1310480656726748:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310480656726771:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310480656726982:  MEM  created 1-Kb of 8-byte address space
+1310480656727012:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310480656727056:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310480656727957:  MEM  created 1-Kb of 8-byte address space
+1310480656728008:  CPU  created a cpu
+1310480656728023:  CPU  programme counter is register 0x3
+1310480656728043:  MEM  memory cleared
+1310480656728066:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310480656728079:  MEM  loaded 1 word programme into memory
+1310480656728091:  CPU  beginning a cycle
+1310480656728101:  CPU  entering fetch stage
+1310480656728115:  CPU  programme counter value is 0x0
+1310480656728132:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310480656728146:  CPU  fetched 00101000001000000000000000000010
+1310480656728156:  CPU  leaving fetch stage
+1310480656728169:  CPU  entering decode stage
+1310480656728191:  CPU  decoded `slti' instruction
+1310480656728204:  CPU  found `slti' in instruction set
+1310480656728224:  CPU  hashed `slti' instruction
+1310480656728234:  CPU  leaving decode stage
+1310480656728254:  CPU  entering execute stage
+1310480656728283:  CPU  calling testLessImmediate with ['rs', 'im']
+1310480656728304:  CPU  calling setRegister with ['rt', 1]
+1310480656728325:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310480656728339:  CPU  skipping an API call
+1310480656728349:  CPU  instruction slot cleared
+1310480656728359:  CPU  leaving execute stage
+1310480656728374:  CPU  completing a cycle
+1310480656728394:  MEM  memory cleared
+1310480656728746:  MEM  created 1-Kb of 8-byte address space
+1310480656728781:  CPU  created a cpu
+1310480656728795:  CPU  programme counter is register 0x3
+1310480656728814:  CPU  beginning a cycle
+1310480656728825:  CPU  entering fetch stage
+1310480656728839:  CPU  programme counter value is 0x0
+1310480656728861:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310480656728877:  CPU  fetched 00000000000000000000000000000000
+1310480656728888:  CPU  leaving fetch stage
+1310480656728900:  CPU  entering decode stage
+1310480656728928:  CPU  decoded `None' instruction
+1310480656728953:  MEM  memory cleared
+1310480656729247:  MEM  created 1-Kb of 8-byte address space
+1310480656729282:  CPU  created a cpu
+1310480656729295:  CPU  programme counter is register 0x3
+1310480656729319:  MEM  memory cleared
+1310480656729548:  MEM  created 1-Kb of 8-byte address space
+1310480656729582:  CPU  created a cpu
+1310480656729595:  CPU  programme counter is register 0x3
+1310480656729609:  CPU  entering decode stage
+1310480656729640:  CPU  decoded `sub' instruction
+1310480656729654:  CPU  found `sub' in instruction set
+1310480656729677:  CPU  hashed `sub' instruction
+1310480656729687:  CPU  leaving decode stage
+1310480656729706:  MEM  memory cleared
+1310480656730017:  MEM  created 1-Kb of 8-byte address space
+1310480656730056:  CPU  created a cpu
+1310480656730070:  CPU  programme counter is register 0x3
+1310480656730083:  CPU  entering decode stage
+1310480656730102:  CPU  decoded `add' instruction
+1310480656730115:  CPU  found `add' in instruction set
+1310480656730137:  CPU  hashed `add' instruction
+1310480656730147:  CPU  leaving decode stage
+1310480656730163:  MEM  memory cleared
+1310480656730422:  MEM  created 1-Kb of 8-byte address space
+1310480656730457:  CPU  created a cpu
+1310480656730471:  CPU  programme counter is register 0x3
+1310480656730491:  MEM  memory cleared
+1310480656730518:  MEM  stored 00000000001000100000000000100000 at 0x0
+1310480656730532:  MEM  loaded 1 word programme into memory
+1310480656730542:  CPU  beginning a cycle
+1310480656730552:  CPU  entering fetch stage
+1310480656730566:  CPU  programme counter value is 0x0
+1310480656730586:  MEM  loaded 00000000001000100000000000100000 from 0x0
+1310480656730600:  CPU  fetched 00000000001000100000000000100000
+1310480656730611:  CPU  leaving fetch stage
+1310480656730623:  CPU  entering decode stage
+1310480656730641:  CPU  decoded `add' instruction
+1310480656730653:  CPU  found `add' in instruction set
+1310480656730676:  CPU  hashed `add' instruction
+1310480656730686:  CPU  leaving decode stage
+1310480656730697:  CPU  entering execute stage
+1310480656730722:  CPU  calling addRegisters with ['rd', 'rs', 'rt']
+1310480656730746:  CPU  instruction slot cleared
+1310480656730757:  CPU  leaving execute stage
+1310480656730771:  CPU  completing a cycle
+1310480656730789:  MEM  memory cleared
+1310480656731102:  MEM  created 1-Kb of 8-byte address space
+1310480656731137:  CPU  created a cpu
+1310480656731150:  CPU  programme counter is register 0x3
+1310480656731170:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310480656731189:  CPU  entering fetch stage
+1310480656731203:  CPU  programme counter value is 0x0
+1310480656731219:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310480656731232:  CPU  fetched 00000000000000000000000000100000
+1310480656731242:  CPU  leaving fetch stage
+1310480656731261:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310480656731284:  MEM  memory cleared
+1310928204396849:  MEM  created 1-Kb of 8-byte address space
+1310928204450023:  MEM  created 1-Kb of 8-byte address space
+1310928204450074:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310928204450127:  MEM  loaded 00000001000000000000000000000000 from 0x3e8
+1310928204450390:  MEM  created 1-Kb of 8-byte address space
+1310928204450422:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310928204450446:  MEM  loaded 01111111111111111111111111111111 from 0x3e8
+1310928204450672:  MEM  created 1-Kb of 8-byte address space
+1310928204450700:  MEM  stored 01111111111111111111111111111111 at 0x3e8
+1310928204450747:  MEM  loaded 00000000000000010000000000000000 from 0x3e7
+1310928204451710:  MEM  created 1-Kb of 8-byte address space
+1310928204451760:  CPU  created a cpu
+1310928204451775:  CPU  programme counter is register 0x3
+1310928204451798:  MEM  memory cleared
+1310928204451824:  MEM  stored 00101000001000000000000000000010 at 0x0
+1310928204451839:  MEM  loaded 1 word programme into memory
+1310928204451855:  CPU  beginning a cycle
+1310928204451867:  CPU  entering fetch stage
+1310928204451883:  CPU  programme counter value is 0x0
+1310928204451901:  MEM  loaded 00101000001000000000000000000010 from 0x0
+1310928204451916:  CPU  fetched 00101000001000000000000000000010
+1310928204451932:  CPU  leaving fetch stage
+1310928204451946:  CPU  entering decode stage
+1310928204451971:  CPU  decoded `slti' instruction
+1310928204451985:  CPU  found `slti' in instruction set
+1310928204452005:  CPU  hashed `slti' instruction
+1310928204452016:  CPU  leaving decode stage
+1310928204452033:  CPU  entering execute stage
+1310928204473806:  CPU  calling testLessImmediate with ['rs', 'im']
+1310928204473920:  CPU  calling setRegister with ['rt', 1]
+1310928204473981:  CPU  calling testGreaterImmediate with ['rs', 'im']
+1310928204474005:  CPU  skipping an API call
+1310928204474019:  CPU  instruction slot cleared
+1310928204474030:  CPU  leaving execute stage
+1310928204474055:  CPU  completing a cycle
+1310928204474085:  MEM  memory cleared
+1310928204474608:  MEM  created 1-Kb of 8-byte address space
+1310928204474651:  CPU  created a cpu
+1310928204474667:  CPU  programme counter is register 0x3
+1310928204474689:  CPU  beginning a cycle
+1310928204474702:  CPU  entering fetch stage
+1310928204474718:  CPU  programme counter value is 0x0
+1310928204474744:  MEM  loaded 00000000000000000000000000000000 from 0x0
+1310928204474762:  CPU  fetched 00000000000000000000000000000000
+1310928204474773:  CPU  leaving fetch stage
+1310928204474788:  CPU  entering decode stage
+1310928204474820:  CPU  decoded `None' instruction
+1310928204474849:  MEM  memory cleared
+1310928204475126:  MEM  created 1-Kb of 8-byte address space
+1310928204475163:  CPU  created a cpu
+1310928204475177:  CPU  programme counter is register 0x3
+1310928204475205:  MEM  memory cleared
+1310928204475441:  MEM  created 1-Kb of 8-byte address space
+1310928204475478:  CPU  created a cpu
+1310928204475492:  CPU  programme counter is register 0x3
+1310928204475508:  CPU  entering decode stage
+1310928204475537:  CPU  decoded `sub' instruction
+1310928204475552:  CPU  found `sub' in instruction set
+1310928204475578:  CPU  hashed `sub' instruction
+1310928204475589:  CPU  leaving decode stage
+1310928204475610:  MEM  memory cleared
+1310928204475867:  MEM  created 1-Kb of 8-byte address space
+1310928204475902:  CPU  created a cpu
+1310928204475917:  CPU  programme counter is register 0x3
+1310928204475931:  CPU  entering decode stage
+1310928204475951:  CPU  decoded `add' instruction
+1310928204475965:  CPU  found `add' in instruction set
+1310928204475991:  CPU  hashed `add' instruction
+1310928204476001:  CPU  leaving decode stage
+1310928204476019:  MEM  memory cleared
+1310928204476275:  MEM  created 1-Kb of 8-byte address space
+1310928204476312:  CPU  created a cpu
+1310928204476326:  CPU  programme counter is register 0x3
+1310928204476349:  MEM  memory cleared
+1310928204476373:  MEM  stored 00000000001000100000000000100000 at 0x0
+1310928204476388:  MEM  loaded 1 word programme into memory
+1310928204476400:  CPU  beginning a cycle
+1310928204476411:  CPU  entering fetch stage
+1310928204476426:  CPU  programme counter value is 0x0
+1310928204476445:  MEM  loaded 00000000001000100000000000100000 from 0x0
+1310928204476460:  CPU  fetched 00000000001000100000000000100000
+1310928204476472:  CPU  leaving fetch stage
+1310928204476485:  CPU  entering decode stage
+1310928204476504:  CPU  decoded `add' instruction
+1310928204476517:  CPU  found `add' in instruction set
+1310928204476541:  CPU  hashed `add' instruction
+1310928204476552:  CPU  leaving decode stage
+1310928204476574:  CPU  entering execute stage
+1310928204476599:  CPU  calling addRegisters with ['rd', 'rs', 'rt']
+1310928204476634:  CPU  instruction slot cleared
+1310928204476646:  CPU  leaving execute stage
+1310928204476666:  CPU  completing a cycle
+1310928204476687:  MEM  memory cleared
+1310928204477036:  MEM  created 1-Kb of 8-byte address space
+1310928204477079:  CPU  created a cpu
+1310928204477093:  CPU  programme counter is register 0x3
+1310928204477119:  MEM  stored 00000000000000000000000000100000 at 0x0
+1310928204477141:  CPU  entering fetch stage
+1310928204477158:  CPU  programme counter value is 0x0
+1310928204477176:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310928204477191:  CPU  fetched 00000000000000000000000000100000
+1310928204477202:  CPU  leaving fetch stage
+1310928204477224:  MEM  loaded 00000000000000000000000000100000 from 0x0
+1310928204477250:  MEM  memory cleared

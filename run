@@ -1,0 +1,4 @@
+#!/bin/bash
+#runs the cli
+
+./cli.py config/instructions.xml ../xml/machine.xml

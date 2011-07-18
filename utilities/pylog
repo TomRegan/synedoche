@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+''' pylog.py
+author:      Tom Regan <thomas.c.regan@gmail.com>
+since:       2011-07-08
+description: Logfile utility: colourizes output
+'''
+import sys
+import re
+
+infile=open(sys.argv[1],'r')
+outfile=None
+if len(sys.argv) > 2:
+    outfile=open(sys.argv[2], 'w')
+lines=infile.readlines()
+
+blk='\033[30m'
+red='\033[31m'
+gre='\033[32m'
+yel='\033[33m'
+blu='\033[34m'
+mag='\033[35m'
+cya='\033[36m'
+whi='\033[37m'
+#ora='\033[31;1m'
+ora='\033[91m'
+pur='\033[95m'
+bgr='\033[4;32m'
+rst='\033[0m'
+
+i=0
+for line in lines:
+    line = re.sub('\n','',line)
+    match = re.search('^(\d{10})(\d{6})', line)
+
+    if line.find('CPU') >= 0:
+        line = gre + line + rst
+        try:
+            repl = blk + match.group(1) + rst + gre
+            line = re.sub(match.group(1),repl,line)
+        except:
+            pass
+    elif line.find('MEM') >= 0:
+        line = mag + line+ rst
+        try:
+            repl = blk + match.group(1) + rst + mag
+            line = re.sub(match.group(1),repl,line)
+        except:
+            pass
+    elif line.find('INT') >= 0:
+        line = yel + line + rst
+        try:
+            repl = blk + match.group(1) + rst + yel
+            line = re.sub(match.group(1),repl,line)
+        except:
+            pass
+    elif line.find('API') >= 0:
+        line = blu + line + rst
+        try:
+            repl = blk + match.group(1) + rst + blu
+            line = re.sub(match.group(1),repl,line)
+        except:
+            pass
+    elif line.find('SYS') >= 0:
+        line = ora + line + rst
+    if outfile:
+        outfile.write(line)
+    else:
+        print line
+    i = i + 1
+print "processed {0} lines".format(i)

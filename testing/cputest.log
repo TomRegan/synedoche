@@ -1,0 +1,3298 @@
+1310418371248474:  MEM  created 2147483-Kb of 8-byte address space
+1310418371248535:  MEM  created segment `text'	4194304..268435456
+1310418371248553:  MEM  created segment `data'	268435456..2147483647
+1310418371248569:  MEM  created segment `stack'	268435456..2147483647
+1310418371251278:  INT  created `MIPS_I' interpreter
+1310418458250680:  MEM  created 2147483-Kb of 8-byte address space
+1310418458250730:  MEM  created segment `text'	4194304..268435456
+1310418458250748:  MEM  created segment `data'	268435456..2147483647
+1310418458250764:  MEM  created segment `stack'	268435456..2147483647
+1310418458253048:  INT  created `MIPS_I' interpreter
+1310418516773905:  MEM  created 2147483-Kb of 8-byte address space
+1310418516773955:  MEM  created segment `text'	4194304..268435456
+1310418516773972:  MEM  created segment `data'	268435456..2147483647
+1310418516773989:  MEM  created segment `stack'	268435456..2147483647
+1310418516776216:  INT  created `MIPS_I' interpreter
+1310418540725763:  MEM  created 2147483-Kb of 8-byte address space
+1310418540725815:  MEM  created segment `text'	4194304..268435456
+1310418540725833:  MEM  created segment `data'	268435456..2147483647
+1310418540725849:  MEM  created segment `stack'	268435456..2147483647
+1310418540728263:  INT  created `MIPS_I' interpreter
+1310418572559311:  MEM  created 2147483-Kb of 8-byte address space
+1310418572559364:  MEM  created segment `text'	4194304..268435456
+1310418572559382:  MEM  created segment `data'	268435456..2147483647
+1310418572559399:  MEM  created segment `stack'	268435456..2147483647
+1310418572561682:  INT  created `MIPS_I' interpreter
+1310418583222759:  MEM  created 2147483-Kb of 8-byte address space
+1310418583222814:  MEM  created segment `text'	4194304..268435456
+1310418583222833:  MEM  created segment `data'	268435456..2147483647
+1310418583222849:  MEM  created segment `stack'	268435456..2147483647
+1310418583225912:  INT  created `MIPS_I' interpreter
+1310418688650023:  MEM  created 2147483-Kb of 8-byte address space
+1310418688650074:  MEM  created segment `text'	4194304..268435456
+1310418688650092:  MEM  created segment `data'	268435456..2147483647
+1310418688650108:  MEM  created segment `stack'	268435456..2147483647
+1310418688652491:  INT  created `MIPS_I' interpreter
+1310418898496681:  MEM  created 2147483-Kb of 8-byte address space
+1310418898496730:  MEM  created segment `text'	4194304..268435456
+1310418898496748:  MEM  created segment `data'	268435456..2147483647
+1310418898496764:  MEM  created segment `stack'	268435456..2147483647
+1310418898499218:  INT  created `MIPS_I' interpreter
+1310419325726243:  MEM  created 2147483-Kb of 8-byte address space
+1310419325726295:  MEM  created segment `text'	4194304..268435456
+1310419325726312:  MEM  created segment `data'	268435456..2147483647
+1310419325726328:  MEM  created segment `stack'	268435456..2147483647
+1310419325728718:  INT  created `MIPS_I' interpreter
+1310419406118994:  MEM  created 2147483-Kb of 8-byte address space
+1310419406119059:  MEM  created segment `text'	4194304..268435456
+1310419406119077:  MEM  created segment `data'	268435456..2147483647
+1310419406119093:  MEM  created segment `stack'	268435456..2147483647
+1310419406121675:  INT  created `MIPS_I' interpreter
+1310419498819470:  MEM  created 2147483-Kb of 8-byte address space
+1310419498819521:  MEM  created segment `text'	4194304..268435456
+1310419498819539:  MEM  created segment `data'	268435456..2147483647
+1310419498819555:  MEM  created segment `stack'	268435456..2147483647
+1310419498821808:  INT  created `MIPS_I' interpreter
+1310419512475503:  MEM  created 2147483-Kb of 8-byte address space
+1310419512475553:  MEM  created segment `text'	4194304..268435456
+1310419512475571:  MEM  created segment `data'	268435456..2147483647
+1310419512475586:  MEM  created segment `stack'	268435456..2147483647
+1310419512477756:  INT  created `MIPS_I' interpreter
+1310419530451592:  MEM  created 2147483-Kb of 8-byte address space
+1310419530451642:  MEM  created segment `text'	4194304..268435456
+1310419530451660:  MEM  created segment `data'	268435456..2147483647
+1310419530451676:  MEM  created segment `stack'	268435456..2147483647
+1310419530453943:  INT  created `MIPS_I' interpreter
+1310419595968738:  MEM  created 2147483-Kb of 8-byte address space
+1310419595968789:  MEM  created segment `text'	4194304..268435456
+1310419595968807:  MEM  created segment `data'	268435456..2147483647
+1310419595968823:  MEM  created segment `stack'	268435456..2147483647
+1310419595971065:  INT  created `MIPS_I' interpreter
+1310419606191793:  MEM  created 2147483-Kb of 8-byte address space
+1310419606191844:  MEM  created segment `text'	4194304..268435456
+1310419606191862:  MEM  created segment `data'	268435456..2147483647
+1310419606191878:  MEM  created segment `stack'	268435456..2147483647
+1310419606194109:  INT  created `MIPS_I' interpreter
+1310419628618508:  MEM  created 2147483-Kb of 8-byte address space
+1310419628618564:  MEM  created segment `text'	4194304..268435456
+1310419628618582:  MEM  created segment `data'	268435456..2147483647
+1310419628618599:  MEM  created segment `stack'	268435456..2147483647
+1310419628620963:  INT  created `MIPS_I' interpreter
+1310419639809371:  MEM  created 2147483-Kb of 8-byte address space
+1310419639809421:  MEM  created segment `text'	4194304..268435456
+1310419639809440:  MEM  created segment `data'	268435456..2147483647
+1310419639809456:  MEM  created segment `stack'	268435456..2147483647
+1310419639811795:  INT  created `MIPS_I' interpreter
+1310419675083713:  MEM  created 2147483-Kb of 8-byte address space
+1310419675083764:  MEM  created segment `text'	4194304..268435456
+1310419675083782:  MEM  created segment `data'	268435456..2147483647
+1310419675083798:  MEM  created segment `stack'	268435456..2147483647
+1310419675086092:  INT  created `MIPS_I' interpreter
+1310419791686398:  MEM  created 2147483-Kb of 8-byte address space
+1310419791686449:  MEM  created segment `text'	4194304..268435456
+1310419791686467:  MEM  created segment `data'	268435456..2147483647
+1310419791686482:  MEM  created segment `stack'	268435456..2147483647
+1310419791688772:  INT  created `MIPS_I' interpreter
+1310419813914946:  MEM  created 2147483-Kb of 8-byte address space
+1310419813914996:  MEM  created segment `text'	4194304..268435456
+1310419813915014:  MEM  created segment `data'	268435456..2147483647
+1310419813915029:  MEM  created segment `stack'	268435456..2147483647
+1310419813917279:  INT  created `MIPS_I' interpreter
+1310419961938490:  MEM  created 2147483-Kb of 8-byte address space
+1310419961938541:  MEM  created segment `text'	4194304..268435456
+1310419961938559:  MEM  created segment `data'	268435456..2147483647
+1310419961938575:  MEM  created segment `stack'	268435456..2147483647
+1310419961940834:  INT  created `MIPS_I' interpreter
+1310419975423449:  MEM  created 2147483-Kb of 8-byte address space
+1310419975423501:  MEM  created segment `text'	4194304..268435456
+1310419975423518:  MEM  created segment `data'	268435456..2147483647
+1310419975423534:  MEM  created segment `stack'	268435456..2147483647
+1310419975425789:  INT  created `MIPS_I' interpreter
+1310420002940877:  MEM  created 2147483-Kb of 8-byte address space
+1310420002940927:  MEM  created segment `text'	4194304..268435456
+1310420002940945:  MEM  created segment `data'	268435456..2147483647
+1310420002940960:  MEM  created segment `stack'	268435456..2147483647
+1310420002943105:  INT  created `MIPS_I' interpreter
+1310420130380153:  MEM  created 2147483-Kb of 8-byte address space
+1310420130380215:  MEM  created segment `text'	4194304..268435456
+1310420130380234:  MEM  created segment `data'	268435456..2147483647
+1310420130380250:  MEM  created segment `stack'	268435456..2147483647
+1310420130382726:  INT  created `MIPS_I' interpreter
+1310420145602113:  MEM  created 2147483-Kb of 8-byte address space
+1310420145602167:  MEM  created segment `text'	4194304..268435456
+1310420145602185:  MEM  created segment `data'	268435456..2147483647
+1310420145602201:  MEM  created segment `stack'	268435456..2147483647
+1310420145604590:  INT  created `MIPS_I' interpreter
+1310420168905988:  MEM  created 2147483-Kb of 8-byte address space
+1310420168906038:  MEM  created segment `text'	4194304..268435456
+1310420168906056:  MEM  created segment `data'	268435456..2147483647
+1310420168906072:  MEM  created segment `stack'	268435456..2147483647
+1310420168908467:  INT  created `MIPS_I' interpreter
+1310420417039142:  MEM  created 2147483-Kb of 8-byte address space
+1310420417039193:  MEM  created segment `text'	4194304..268435456
+1310420417039211:  MEM  created segment `data'	268435456..2147483647
+1310420417039227:  MEM  created segment `stack'	268435456..2147483647
+1310420417041634:  INT  created `MIPS_I' interpreter
+1310420484784284:  MEM  created 2147483-Kb of 8-byte address space
+1310420484784339:  MEM  created segment `text'	4194304..268435456
+1310420484784357:  MEM  created segment `data'	268435456..2147483647
+1310420484784373:  MEM  created segment `stack'	268435456..2147483647
+1310420484786702:  INT  created `MIPS_I' interpreter
+1310420524812919:  MEM  created 2147483-Kb of 8-byte address space
+1310420524812970:  MEM  created segment `text'	4194304..268435456
+1310420524812988:  MEM  created segment `data'	268435456..2147483647
+1310420524813004:  MEM  created segment `stack'	268435456..2147483647
+1310420524815323:  INT  created `MIPS_I' interpreter
+1310420544705238:  MEM  created 2147483-Kb of 8-byte address space
+1310420544705324:  MEM  created segment `text'	4194304..268435456
+1310420544705343:  MEM  created segment `data'	268435456..2147483647
+1310420544705359:  MEM  created segment `stack'	268435456..2147483647
+1310420544708185:  INT  created `MIPS_I' interpreter
+1310420585153890:  MEM  created 2147483-Kb of 8-byte address space
+1310420585153968:  MEM  created segment `text'	4194304..268435456
+1310420585153986:  MEM  created segment `data'	268435456..2147483647
+1310420585154003:  MEM  created segment `stack'	268435456..2147483647
+1310420585156910:  INT  created `MIPS_I' interpreter
+1310420596890466:  MEM  created 2147483-Kb of 8-byte address space
+1310420596890539:  MEM  created segment `text'	4194304..268435456
+1310420596890557:  MEM  created segment `data'	268435456..2147483647
+1310420596890573:  MEM  created segment `stack'	268435456..2147483647
+1310420596892958:  INT  created `MIPS_I' interpreter
+1310420608155990:  MEM  created 2147483-Kb of 8-byte address space
+1310420608156057:  MEM  created segment `text'	4194304..268435456
+1310420608156075:  MEM  created segment `data'	268435456..2147483647
+1310420608156091:  MEM  created segment `stack'	268435456..2147483647
+1310420608158479:  INT  created `MIPS_I' interpreter
+1310420621027965:  MEM  created 2147483-Kb of 8-byte address space
+1310420621028021:  MEM  created segment `text'	4194304..268435456
+1310420621028039:  MEM  created segment `data'	268435456..2147483647
+1310420621028055:  MEM  created segment `stack'	268435456..2147483647
+1310420621030398:  INT  created `MIPS_I' interpreter
+1310420646428784:  MEM  created 2147483-Kb of 8-byte address space
+1310420646428845:  MEM  created segment `text'	4194304..268435456
+1310420646428864:  MEM  created segment `data'	268435456..2147483647
+1310420646428880:  MEM  created segment `stack'	268435456..2147483647
+1310420646431787:  INT  created `MIPS_I' interpreter
+1310420660003183:  MEM  created 2147483-Kb of 8-byte address space
+1310420660003251:  MEM  created segment `text'	4194304..268435456
+1310420660003269:  MEM  created segment `data'	268435456..2147483647
+1310420660003285:  MEM  created segment `stack'	268435456..2147483647
+1310420660005808:  INT  created `MIPS_I' interpreter
+1310420673044662:  MEM  created 2147483-Kb of 8-byte address space
+1310420673044718:  MEM  created segment `text'	4194304..268435456
+1310420673044735:  MEM  created segment `data'	268435456..2147483647
+1310420673044751:  MEM  created segment `stack'	268435456..2147483647
+1310420673047026:  INT  created `MIPS_I' interpreter
+1310420679990413:  MEM  created 2147483-Kb of 8-byte address space
+1310420679990473:  MEM  created segment `text'	4194304..268435456
+1310420679990491:  MEM  created segment `data'	268435456..2147483647
+1310420679990508:  MEM  created segment `stack'	268435456..2147483647
+1310420679993047:  INT  created `MIPS_I' interpreter
+1310420690172242:  MEM  created 2147483-Kb of 8-byte address space
+1310420690172300:  MEM  created segment `text'	4194304..268435456
+1310420690172318:  MEM  created segment `data'	268435456..2147483647
+1310420690172334:  MEM  created segment `stack'	268435456..2147483647
+1310420690174576:  INT  created `MIPS_I' interpreter
+1310420699022329:  MEM  created 2147483-Kb of 8-byte address space
+1310420699022399:  MEM  created segment `text'	4194304..268435456
+1310420699022418:  MEM  created segment `data'	268435456..2147483647
+1310420699022435:  MEM  created segment `stack'	268435456..2147483647
+1310420699024875:  INT  created `MIPS_I' interpreter
+1310420732996010:  MEM  created 2147483-Kb of 8-byte address space
+1310420732996062:  MEM  created segment `text'	4194304..268435456
+1310420732996080:  MEM  created segment `data'	268435456..2147483647
+1310420732996097:  MEM  created segment `stack'	268435456..2147483647
+1310420732998272:  INT  created `MIPS_I' interpreter
+1310420813685277:  MEM  created 2147483-Kb of 8-byte address space
+1310420813685328:  MEM  created segment `text'	4194304..268435456
+1310420813685346:  MEM  created segment `data'	268435456..2147483647
+1310420813685362:  MEM  created segment `stack'	268435456..2147483647
+1310420813687648:  INT  created `MIPS_I' interpreter
+1310420917999147:  MEM  created 2147483-Kb of 8-byte address space
+1310420917999204:  MEM  created segment `text'	4194304..268435456
+1310420917999222:  MEM  created segment `data'	268435456..2147483647
+1310420917999239:  MEM  created segment `stack'	268435456..2147483647
+1310420918001613:  INT  created `MIPS_I' interpreter
+1310420935157900:  MEM  created 2147483-Kb of 8-byte address space
+1310420935157967:  MEM  created segment `text'	4194304..268435456
+1310420935157986:  MEM  created segment `data'	268435456..2147483647
+1310420935158003:  MEM  created segment `stack'	268435456..2147483647
+1310420935160774:  INT  created `MIPS_I' interpreter
+1310420958318597:  MEM  created 2147483-Kb of 8-byte address space
+1310420958318665:  MEM  created segment `text'	4194304..268435456
+1310420958318684:  MEM  created segment `data'	268435456..2147483647
+1310420958318700:  MEM  created segment `stack'	268435456..2147483647
+1310420958321310:  INT  created `MIPS_I' interpreter
+1310420981058267:  MEM  created 2147483-Kb of 8-byte address space
+1310420981058342:  MEM  created segment `text'	4194304..268435456
+1310420981058361:  MEM  created segment `data'	268435456..2147483647
+1310420981058378:  MEM  created segment `stack'	268435456..2147483647
+1310420981061007:  INT  created `MIPS_I' interpreter
+1310420994090150:  MEM  created 2147483-Kb of 8-byte address space
+1310420994090215:  MEM  created segment `text'	4194304..268435456
+1310420994090233:  MEM  created segment `data'	268435456..2147483647
+1310420994090249:  MEM  created segment `stack'	268435456..2147483647
+1310420994092864:  INT  created `MIPS_I' interpreter
+1310421052578590:  MEM  created 2147483-Kb of 8-byte address space
+1310421052578649:  MEM  created segment `text'	4194304..268435456
+1310421052578667:  MEM  created segment `data'	268435456..2147483647
+1310421052578683:  MEM  created segment `stack'	268435456..2147483647
+1310421052581157:  INT  created `MIPS_I' interpreter
+1310421291390674:  MEM  created 2147483-Kb of 8-byte address space
+1310421291390727:  MEM  created segment `text'	4194304..268435456
+1310421291390744:  MEM  created segment `data'	268435456..2147483647
+1310421291390760:  MEM  created segment `stack'	268435456..2147483647
+1310421291393265:  INT  created `MIPS_I' interpreter
+1310421312800502:  MEM  created 2147483-Kb of 8-byte address space
+1310421312800559:  MEM  created segment `text'	4194304..268435456
+1310421312800577:  MEM  created segment `data'	268435456..2147483647
+1310421312800593:  MEM  created segment `stack'	268435456..2147483647
+1310421312803432:  INT  created `MIPS_I' interpreter
+1310421337247590:  MEM  created 2147483-Kb of 8-byte address space
+1310421337247649:  MEM  created segment `text'	4194304..268435456
+1310421337247667:  MEM  created segment `data'	268435456..2147483647
+1310421337247683:  MEM  created segment `stack'	268435456..2147483647
+1310421337250012:  INT  created `MIPS_I' interpreter
+1310421352649130:  MEM  created 2147483-Kb of 8-byte address space
+1310421352649195:  MEM  created segment `text'	4194304..268435456
+1310421352649213:  MEM  created segment `data'	268435456..2147483647
+1310421352649230:  MEM  created segment `stack'	268435456..2147483647
+1310421352651468:  INT  created `MIPS_I' interpreter
+1310421363740533:  MEM  created 2147483-Kb of 8-byte address space
+1310421363740588:  MEM  created segment `text'	4194304..268435456
+1310421363740605:  MEM  created segment `data'	268435456..2147483647
+1310421363740622:  MEM  created segment `stack'	268435456..2147483647
+1310421363743020:  INT  created `MIPS_I' interpreter
+1310421426975600:  MEM  created 2147483-Kb of 8-byte address space
+1310421426975650:  MEM  created segment `text'	4194304..268435456
+1310421426975668:  MEM  created segment `data'	268435456..2147483647
+1310421426975684:  MEM  created segment `stack'	268435456..2147483647
+1310421426977899:  INT  created `MIPS_I' interpreter
+1310421439844553:  MEM  created 2147483-Kb of 8-byte address space
+1310421439844610:  MEM  created segment `text'	4194304..268435456
+1310421439844628:  MEM  created segment `data'	268435456..2147483647
+1310421439844644:  MEM  created segment `stack'	268435456..2147483647
+1310421439847359:  INT  created `MIPS_I' interpreter
+1310421447198061:  MEM  created 2147483-Kb of 8-byte address space
+1310421447198146:  MEM  created segment `text'	4194304..268435456
+1310421447198164:  MEM  created segment `data'	268435456..2147483647
+1310421447198180:  MEM  created segment `stack'	268435456..2147483647
+1310421447200940:  INT  created `MIPS_I' interpreter
+1310421500190037:  MEM  created 2147483-Kb of 8-byte address space
+1310421500190124:  MEM  created segment `text'	4194304..268435456
+1310421500190142:  MEM  created segment `data'	268435456..2147483647
+1310421500190159:  MEM  created segment `stack'	268435456..2147483647
+1310421500192778:  INT  created `MIPS_I' interpreter
+1310421519142163:  MEM  created 2147483-Kb of 8-byte address space
+1310421519142212:  MEM  created segment `text'	4194304..268435456
+1310421519142230:  MEM  created segment `data'	268435456..2147483647
+1310421519142247:  MEM  created segment `stack'	268435456..2147483647
+1310421519144722:  INT  created `MIPS_I' interpreter
+1310421525077226:  MEM  created 2147483-Kb of 8-byte address space
+1310421525077282:  MEM  created segment `text'	4194304..268435456
+1310421525077299:  MEM  created segment `data'	268435456..2147483647
+1310421525077316:  MEM  created segment `stack'	268435456..2147483647
+1310421525079618:  INT  created `MIPS_I' interpreter
+1310421553607268:  MEM  created 2147483-Kb of 8-byte address space
+1310421553607326:  MEM  created segment `text'	4194304..268435456
+1310421553607343:  MEM  created segment `data'	268435456..2147483647
+1310421553607360:  MEM  created segment `stack'	268435456..2147483647
+1310421553609719:  INT  created `MIPS_I' interpreter
+1310421576094767:  MEM  created 2147483-Kb of 8-byte address space
+1310421576094824:  MEM  created segment `text'	4194304..268435456
+1310421576094841:  MEM  created segment `data'	268435456..2147483647
+1310421576094858:  MEM  created segment `stack'	268435456..2147483647
+1310421576097209:  INT  created `MIPS_I' interpreter
+1310421613004649:  MEM  created 2147483-Kb of 8-byte address space
+1310421613004706:  MEM  created segment `text'	4194304..268435456
+1310421613004724:  MEM  created segment `data'	268435456..2147483647
+1310421613004740:  MEM  created segment `stack'	268435456..2147483647
+1310421613007033:  INT  created `MIPS_I' interpreter
+1310421631014264:  MEM  created 2147483-Kb of 8-byte address space
+1310421631014334:  MEM  created segment `text'	4194304..268435456
+1310421631014353:  MEM  created segment `data'	268435456..2147483647
+1310421631014369:  MEM  created segment `stack'	268435456..2147483647
+1310421631016806:  INT  created `MIPS_I' interpreter
+1310421661052642:  MEM  created 2147483-Kb of 8-byte address space
+1310421661052708:  MEM  created segment `text'	4194304..268435456
+1310421661052725:  MEM  created segment `data'	268435456..2147483647
+1310421661052742:  MEM  created segment `stack'	268435456..2147483647
+1310421661055933:  INT  created `MIPS_I' interpreter
+1310421693772497:  MEM  created 2147483-Kb of 8-byte address space
+1310421693772558:  MEM  created segment `text'	4194304..268435456
+1310421693772575:  MEM  created segment `data'	268435456..2147483647
+1310421693772592:  MEM  created segment `stack'	268435456..2147483647
+1310421693774845:  INT  created `MIPS_I' interpreter
+1310421712782207:  MEM  created 2147483-Kb of 8-byte address space
+1310421712782284:  MEM  created segment `text'	4194304..268435456
+1310421712782302:  MEM  created segment `data'	268435456..2147483647
+1310421712782320:  MEM  created segment `stack'	268435456..2147483647
+1310421712784747:  INT  created `MIPS_I' interpreter
+1310421720527498:  MEM  created 2147483-Kb of 8-byte address space
+1310421720527556:  MEM  created segment `text'	4194304..268435456
+1310421720527574:  MEM  created segment `data'	268435456..2147483647
+1310421720527590:  MEM  created segment `stack'	268435456..2147483647
+1310421720529805:  INT  created `MIPS_I' interpreter
+1310421737912749:  MEM  created 2147483-Kb of 8-byte address space
+1310421737912817:  MEM  created segment `text'	4194304..268435456
+1310421737912835:  MEM  created segment `data'	268435456..2147483647
+1310421737912851:  MEM  created segment `stack'	268435456..2147483647
+1310421737915816:  INT  created `MIPS_I' interpreter
+1310421746615353:  MEM  created 2147483-Kb of 8-byte address space
+1310421746615435:  MEM  created segment `text'	4194304..268435456
+1310421746615453:  MEM  created segment `data'	268435456..2147483647
+1310421746615470:  MEM  created segment `stack'	268435456..2147483647
+1310421746617784:  INT  created `MIPS_I' interpreter
+1310421889073570:  MEM  created 2147483-Kb of 8-byte address space
+1310421889073621:  MEM  created segment `text'	4194304..268435456
+1310421889073639:  MEM  created segment `data'	268435456..2147483647
+1310421889073655:  MEM  created segment `stack'	268435456..2147483647
+1310421889076193:  INT  created `MIPS_I' interpreter
+1310421914638310:  MEM  created 2147483-Kb of 8-byte address space
+1310421914638370:  MEM  created segment `text'	4194304..268435456
+1310421914638388:  MEM  created segment `data'	268435456..2147483647
+1310421914638404:  MEM  created segment `stack'	268435456..2147483647
+1310421914641043:  INT  created `MIPS_I' interpreter
+1310421973569393:  MEM  created 2147483-Kb of 8-byte address space
+1310421973569468:  MEM  created segment `text'	4194304..268435456
+1310421973569486:  MEM  created segment `data'	268435456..2147483647
+1310421973569502:  MEM  created segment `stack'	268435456..2147483647
+1310421973572321:  INT  created `MIPS_I' interpreter
+1310421994904620:  MEM  created 2147483-Kb of 8-byte address space
+1310421994904678:  MEM  created segment `text'	4194304..268435456
+1310421994904696:  MEM  created segment `data'	268435456..2147483647
+1310421994904712:  MEM  created segment `stack'	268435456..2147483647
+1310421994907795:  INT  created `MIPS_I' interpreter
+1310422009773614:  MEM  created 2147483-Kb of 8-byte address space
+1310422009773671:  MEM  created segment `text'	4194304..268435456
+1310422009773689:  MEM  created segment `data'	268435456..2147483647
+1310422009773705:  MEM  created segment `stack'	268435456..2147483647
+1310422009776053:  INT  created `MIPS_I' interpreter
+1310422030271166:  MEM  created 2147483-Kb of 8-byte address space
+1310422030271225:  MEM  created segment `text'	4194304..268435456
+1310422030271243:  MEM  created segment `data'	268435456..2147483647
+1310422030271259:  MEM  created segment `stack'	268435456..2147483647
+1310422030273647:  INT  created `MIPS_I' interpreter
+1310422049385010:  MEM  created 2147483-Kb of 8-byte address space
+1310422049385089:  MEM  created segment `text'	4194304..268435456
+1310422049385108:  MEM  created segment `data'	268435456..2147483647
+1310422049385124:  MEM  created segment `stack'	268435456..2147483647
+1310422049388027:  INT  created `MIPS_I' interpreter
+1310422088313131:  MEM  created 2147483-Kb of 8-byte address space
+1310422088313182:  MEM  created segment `text'	4194304..268435456
+1310422088313200:  MEM  created segment `data'	268435456..2147483647
+1310422088313217:  MEM  created segment `stack'	268435456..2147483647
+1310422088315470:  INT  created `MIPS_I' interpreter
+1310422143102451:  MEM  created 2147483-Kb of 8-byte address space
+1310422143102519:  MEM  created segment `text'	4194304..268435456
+1310422143102537:  MEM  created segment `data'	268435456..2147483647
+1310422143102553:  MEM  created segment `stack'	268435456..2147483647
+1310422143105108:  INT  created `MIPS_I' interpreter
+1310422183460955:  MEM  created 2147483-Kb of 8-byte address space
+1310422183461011:  MEM  created segment `text'	4194304..268435456
+1310422183461029:  MEM  created segment `data'	268435456..2147483647
+1310422183461046:  MEM  created segment `stack'	268435456..2147483647
+1310422183463894:  INT  created `MIPS_I' interpreter
+1310422284060164:  MEM  created 2147483-Kb of 8-byte address space
+1310422284060213:  MEM  created segment `text'	4194304..268435456
+1310422284060231:  MEM  created segment `data'	268435456..2147483647
+1310422284060247:  MEM  created segment `stack'	268435456..2147483647
+1310422284062953:  INT  created `MIPS_I' interpreter
+1310422301135154:  MEM  created 2147483-Kb of 8-byte address space
+1310422301135220:  MEM  created segment `text'	4194304..268435456
+1310422301135238:  MEM  created segment `data'	268435456..2147483647
+1310422301135255:  MEM  created segment `stack'	268435456..2147483647
+1310422301137595:  INT  created `MIPS_I' interpreter
+1310422338116904:  MEM  created 2147483-Kb of 8-byte address space
+1310422338116960:  MEM  created segment `text'	4194304..268435456
+1310422338116978:  MEM  created segment `data'	268435456..2147483647
+1310422338116994:  MEM  created segment `stack'	268435456..2147483647
+1310422338119286:  INT  created `MIPS_I' interpreter
+1310422406394952:  MEM  created 2147483-Kb of 8-byte address space
+1310422406395010:  MEM  created segment `text'	4194304..268435456
+1310422406395029:  MEM  created segment `data'	268435456..2147483647
+1310422406395045:  MEM  created segment `stack'	268435456..2147483647
+1310422406397392:  INT  created `MIPS_I' interpreter
+1310422419942713:  MEM  created 2147483-Kb of 8-byte address space
+1310422419942773:  MEM  created segment `text'	4194304..268435456
+1310422419942791:  MEM  created segment `data'	268435456..2147483647
+1310422419942807:  MEM  created segment `stack'	268435456..2147483647
+1310422419945178:  INT  created `MIPS_I' interpreter
+1310422449683627:  MEM  created 2147483-Kb of 8-byte address space
+1310422449683683:  MEM  created segment `text'	4194304..268435456
+1310422449683700:  MEM  created segment `data'	268435456..2147483647
+1310422449683717:  MEM  created segment `stack'	268435456..2147483647
+1310422449686009:  INT  created `MIPS_I' interpreter
+1310422477086563:  MEM  created 2147483-Kb of 8-byte address space
+1310422477086614:  MEM  created segment `text'	4194304..268435456
+1310422477086631:  MEM  created segment `data'	268435456..2147483647
+1310422477086646:  MEM  created segment `stack'	268435456..2147483647
+1310422477088964:  INT  created `MIPS_I' interpreter
+1310422506729387:  MEM  created 2147483-Kb of 8-byte address space
+1310422506729460:  MEM  created segment `text'	4194304..268435456
+1310422506729479:  MEM  created segment `data'	268435456..2147483647
+1310422506729495:  MEM  created segment `stack'	268435456..2147483647
+1310422506732183:  INT  created `MIPS_I' interpreter
+1310422957517394:  MEM  created 2147483-Kb of 8-byte address space
+1310422957517445:  MEM  created segment `text'	4194304..268435456
+1310422957517462:  MEM  created segment `data'	268435456..2147483647
+1310422957517478:  MEM  created segment `stack'	268435456..2147483647
+1310422957520381:  INT  created `MIPS_I' interpreter
+1310423029626630:  MEM  created 2147483-Kb of 8-byte address space
+1310423029626688:  MEM  created segment `text'	4194304..268435456
+1310423029626706:  MEM  created segment `data'	268435456..2147483647
+1310423029626721:  MEM  created segment `stack'	268435456..2147483647
+1310423029629123:  INT  created `MIPS_I' interpreter
+1310423059983313:  MEM  created 2147483-Kb of 8-byte address space
+1310423059983366:  MEM  created segment `text'	4194304..268435456
+1310423059983383:  MEM  created segment `data'	268435456..2147483647
+1310423059983400:  MEM  created segment `stack'	268435456..2147483647
+1310423059985693:  INT  created `MIPS_I' interpreter
+1310423092625630:  MEM  created 2147483-Kb of 8-byte address space
+1310423092625682:  MEM  created segment `text'	4194304..268435456
+1310423092625699:  MEM  created segment `data'	268435456..2147483647
+1310423092625716:  MEM  created segment `stack'	268435456..2147483647
+1310423092628095:  INT  created `MIPS_I' interpreter
+1310423177526270:  MEM  created 2147483-Kb of 8-byte address space
+1310423177526346:  MEM  created segment `text'	4194304..268435456
+1310423177526365:  MEM  created segment `data'	268435456..2147483647
+1310423177526381:  MEM  created segment `stack'	268435456..2147483647
+1310423177529002:  INT  created `MIPS_I' interpreter
+1310423184538291:  MEM  created 2147483-Kb of 8-byte address space
+1310423184538346:  MEM  created segment `text'	4194304..268435456
+1310423184538363:  MEM  created segment `data'	268435456..2147483647
+1310423184538379:  MEM  created segment `stack'	268435456..2147483647
+1310423184540683:  INT  created `MIPS_I' interpreter
+1310423218671232:  MEM  created 2147483-Kb of 8-byte address space
+1310423218671285:  MEM  created segment `text'	4194304..268435456
+1310423218671303:  MEM  created segment `data'	268435456..2147483647
+1310423218671319:  MEM  created segment `stack'	268435456..2147483647
+1310423218673627:  INT  created `MIPS_I' interpreter
+1310423275808843:  MEM  created 2147483-Kb of 8-byte address space
+1310423275808921:  MEM  created segment `text'	4194304..268435456
+1310423275808939:  MEM  created segment `data'	268435456..2147483647
+1310423275808956:  MEM  created segment `stack'	268435456..2147483647
+1310423275811787:  INT  created `MIPS_I' interpreter
+1310423329711878:  MEM  created 2147483-Kb of 8-byte address space
+1310423329711928:  MEM  created segment `text'	4194304..268435456
+1310423329711946:  MEM  created segment `data'	268435456..2147483647
+1310423329711962:  MEM  created segment `stack'	268435456..2147483647
+1310423329714379:  INT  created `MIPS_I' interpreter
+1310423362625580:  MEM  created 2147483-Kb of 8-byte address space
+1310423362625644:  MEM  created segment `text'	4194304..268435456
+1310423362625663:  MEM  created segment `data'	268435456..2147483647
+1310423362625680:  MEM  created segment `stack'	268435456..2147483647
+1310423362628163:  INT  created `MIPS_I' interpreter
+1310423379377663:  MEM  created 2147483-Kb of 8-byte address space
+1310423379377720:  MEM  created segment `text'	4194304..268435456
+1310423379377739:  MEM  created segment `data'	268435456..2147483647
+1310423379377756:  MEM  created segment `stack'	268435456..2147483647
+1310423379380434:  INT  created `MIPS_I' interpreter
+1310423386179453:  MEM  created 2147483-Kb of 8-byte address space
+1310423386179505:  MEM  created segment `text'	4194304..268435456
+1310423386179523:  MEM  created segment `data'	268435456..2147483647
+1310423386179539:  MEM  created segment `stack'	268435456..2147483647
+1310423386181889:  INT  created `MIPS_I' interpreter
+1310423401491980:  MEM  created 2147483-Kb of 8-byte address space
+1310423401492032:  MEM  created segment `text'	4194304..268435456
+1310423401492050:  MEM  created segment `data'	268435456..2147483647
+1310423401492067:  MEM  created segment `stack'	268435456..2147483647
+1310423401494487:  INT  created `MIPS_I' interpreter
+1310423408962611:  MEM  created 2147483-Kb of 8-byte address space
+1310423408962689:  MEM  created segment `text'	4194304..268435456
+1310423408962708:  MEM  created segment `data'	268435456..2147483647
+1310423408962724:  MEM  created segment `stack'	268435456..2147483647
+1310423408965738:  INT  created `MIPS_I' interpreter
+1310423437218949:  MEM  created 2147483-Kb of 8-byte address space
+1310423437218998:  MEM  created segment `text'	4194304..268435456
+1310423437219016:  MEM  created segment `data'	268435456..2147483647
+1310423437219032:  MEM  created segment `stack'	268435456..2147483647
+1310423437221349:  INT  created `MIPS_I' interpreter
+1310423461243255:  MEM  created 2147483-Kb of 8-byte address space
+1310423461243307:  MEM  created segment `text'	4194304..268435456
+1310423461243325:  MEM  created segment `data'	268435456..2147483647
+1310423461243341:  MEM  created segment `stack'	268435456..2147483647
+1310423461245711:  INT  created `MIPS_I' interpreter
+1310423503455515:  MEM  created 2147483-Kb of 8-byte address space
+1310423503455566:  MEM  created segment `text'	4194304..268435456
+1310423503455583:  MEM  created segment `data'	268435456..2147483647
+1310423503455600:  MEM  created segment `stack'	268435456..2147483647
+1310423503457909:  INT  created `MIPS_I' interpreter
+1310423685666641:  MEM  created 2147483-Kb of 8-byte address space
+1310423685666693:  MEM  created segment `text'	4194304..268435456
+1310423685666711:  MEM  created segment `data'	268435456..2147483647
+1310423685666727:  MEM  created segment `stack'	268435456..2147483647
+1310423685669134:  INT  created `MIPS_I' interpreter
+1310423727032199:  MEM  created 2147483-Kb of 8-byte address space
+1310423727032254:  MEM  created segment `text'	4194304..268435456
+1310423727032271:  MEM  created segment `data'	268435456..2147483647
+1310423727032287:  MEM  created segment `stack'	268435456..2147483647
+1310423727034622:  INT  created `MIPS_I' interpreter
+1310423805279424:  MEM  created 2147483-Kb of 8-byte address space
+1310423805279476:  MEM  created segment `text'	4194304..268435456
+1310423805279494:  MEM  created segment `data'	268435456..2147483647
+1310423805279510:  MEM  created segment `stack'	268435456..2147483647
+1310423805281823:  INT  created `MIPS_I' interpreter
+1310423818650138:  MEM  created 2147483-Kb of 8-byte address space
+1310423818650190:  MEM  created segment `text'	4194304..268435456
+1310423818650208:  MEM  created segment `data'	268435456..2147483647
+1310423818650224:  MEM  created segment `stack'	268435456..2147483647
+1310423818652857:  INT  created `MIPS_I' interpreter
+1310423833416054:  MEM  created 2147483-Kb of 8-byte address space
+1310423833416104:  MEM  created segment `text'	4194304..268435456
+1310423833416122:  MEM  created segment `data'	268435456..2147483647
+1310423833416138:  MEM  created segment `stack'	268435456..2147483647
+1310423833418770:  INT  created `MIPS_I' interpreter
+1310423842034607:  MEM  created 2147483-Kb of 8-byte address space
+1310423842034661:  MEM  created segment `text'	4194304..268435456
+1310423842034679:  MEM  created segment `data'	268435456..2147483647
+1310423842034695:  MEM  created segment `stack'	268435456..2147483647
+1310423842037047:  INT  created `MIPS_I' interpreter
+1310423916819895:  MEM  created 2147483-Kb of 8-byte address space
+1310423916819946:  MEM  created segment `text'	4194304..268435456
+1310423916819964:  MEM  created segment `data'	268435456..2147483647
+1310423916819980:  MEM  created segment `stack'	268435456..2147483647
+1310423916822289:  INT  created `MIPS_I' interpreter
+1310423932361891:  MEM  created 2147483-Kb of 8-byte address space
+1310423932361956:  MEM  created segment `text'	4194304..268435456
+1310423932361974:  MEM  created segment `data'	268435456..2147483647
+1310423932361990:  MEM  created segment `stack'	268435456..2147483647
+1310423932364583:  INT  created `MIPS_I' interpreter
+1310423970990126:  MEM  created 2147483-Kb of 8-byte address space
+1310423970990183:  MEM  created segment `text'	4194304..268435456
+1310423970990202:  MEM  created segment `data'	268435456..2147483647
+1310423970990219:  MEM  created segment `stack'	268435456..2147483647
+1310423970992626:  INT  created `MIPS_I' interpreter
+1310424027969426:  MEM  created 2147483-Kb of 8-byte address space
+1310424027969484:  MEM  created segment `text'	4194304..268435456
+1310424027969502:  MEM  created segment `data'	268435456..2147483647
+1310424027969519:  MEM  created segment `stack'	268435456..2147483647
+1310424027972434:  INT  created `MIPS_I' interpreter
+1310424066250041:  MEM  created 2147483-Kb of 8-byte address space
+1310424066250095:  MEM  created segment `text'	4194304..268435456
+1310424066250114:  MEM  created segment `data'	268435456..2147483647
+1310424066250130:  MEM  created segment `stack'	268435456..2147483647
+1310424066252850:  INT  created `MIPS_I' interpreter
+1310424083458650:  MEM  created 2147483-Kb of 8-byte address space
+1310424083458700:  MEM  created segment `text'	4194304..268435456
+1310424083458718:  MEM  created segment `data'	268435456..2147483647
+1310424083458734:  MEM  created segment `stack'	268435456..2147483647
+1310424083461020:  INT  created `MIPS_I' interpreter
+1310424101598582:  MEM  created 2147483-Kb of 8-byte address space
+1310424101598630:  MEM  created segment `text'	4194304..268435456
+1310424101598648:  MEM  created segment `data'	268435456..2147483647
+1310424101598665:  MEM  created segment `stack'	268435456..2147483647
+1310424101600945:  INT  created `MIPS_I' interpreter
+1310424113814823:  MEM  created 2147483-Kb of 8-byte address space
+1310424113814873:  MEM  created segment `text'	4194304..268435456
+1310424113814891:  MEM  created segment `data'	268435456..2147483647
+1310424113814906:  MEM  created segment `stack'	268435456..2147483647
+1310424113817253:  INT  created `MIPS_I' interpreter
+1310424133395006:  MEM  created 2147483-Kb of 8-byte address space
+1310424133395057:  MEM  created segment `text'	4194304..268435456
+1310424133395076:  MEM  created segment `data'	268435456..2147483647
+1310424133395092:  MEM  created segment `stack'	268435456..2147483647
+1310424133397429:  INT  created `MIPS_I' interpreter
+1310424185731603:  MEM  created 2147483-Kb of 8-byte address space
+1310424185731653:  MEM  created segment `text'	4194304..268435456
+1310424185731671:  MEM  created segment `data'	268435456..2147483647
+1310424185731687:  MEM  created segment `stack'	268435456..2147483647
+1310424185733934:  INT  created `MIPS_I' interpreter
+1310424237940953:  MEM  created 2147483-Kb of 8-byte address space
+1310424237941003:  MEM  created segment `text'	4194304..268435456
+1310424237941021:  MEM  created segment `data'	268435456..2147483647
+1310424237941037:  MEM  created segment `stack'	268435456..2147483647
+1310424237943871:  INT  created `MIPS_I' interpreter
+1310424328225537:  MEM  created 2147483-Kb of 8-byte address space
+1310424328225596:  MEM  created segment `text'	4194304..268435456
+1310424328225614:  MEM  created segment `data'	268435456..2147483647
+1310424328225630:  MEM  created segment `stack'	268435456..2147483647
+1310424328228553:  INT  created `MIPS_I' interpreter
+1310752133426158:  >-----setUp
+1310752133457039:  MEM  created 2147483-Kb of 8-byte address space
+1310752133457073:  MEM  created segment `text'	4194304..268435456
+1310752133457090:  MEM  created segment `data'	268435456..2147483647
+1310752133457107:  MEM  created segment `stack'	268435456..2147483647
+1310752133467865:  INT  created `MIPS_I' interpreter
+1310752133468044:  CPU  created a cpu
+1310752133468062:  CPU  pc is register 0x21
+1310752133468093:  >-----testAddInstruction
+1310752133468114:  INT  reading single line: addi $s0, $zero, 32
+1310752133468135:  INT  entering preprocessor
+1310752133468528:  INT  processed  addi $s0, $zero, 32
+1310752133468542:  INT  leaving preprocessor
+1310752133468555:  INT  entering linker
+1310752133468575:  INT  leaving linker
+1310752133468588:  INT  entering encoder
+1310752133468604:  INT  matching `addi' instruction
+1310752133469320:  INT  `rt' is $s0
+1310752133469338:  INT  `rs' is $zero
+1310752133469357:  INT  `im' is 32
+1310752133469412:  INT  encoded 00100000000100000000000000100000
+1310752133469425:  INT  leaving encoder
+1310752133469562:  MEM  memory cleared
+1310752133469589:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310752133469603:  MEM  loaded 1 word programme into memory
+1310752133469616:  CPU  beginning a cycle
+1310752133469629:  CPU  entering fetch stage
+1310752133469654:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310752133469669:  CPU  leaving fetch stage
+1310752133469681:  CPU  entering decode stage
+1310752133469706:  CPU  decode found dust in the pipeline
+1310752133469718:  CPU  leaving decode stage
+1310752133469729:  CPU  entering writeback stage
+1310752133469742:  CPU  leaving writeback stage
+1310752133469753:  CPU  entering execute stage
+1310752133469770:  CPU  execute found dust in the pipeline
+1310752133469782:  CPU  leaving execute stage
+1310752133469807:  CPU  completing a cycle
+1310752133469821:  CPU  beginning a cycle
+1310752133469833:  CPU  entering fetch stage
+1310752133469860:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752133469877:  CPU  leaving fetch stage
+1310752133469888:  CPU  entering decode stage
+1310752133469905:  CPU  decoding 00100000000100000000000000100000
+1310752133469936:  CPU  decoded `i' type instruction, addi
+1310752133469949:  CPU  leaving decode stage
+1310752133469960:  CPU  entering writeback stage
+1310752133469973:  CPU  leaving writeback stage
+1310752133469984:  CPU  entering execute stage
+1310752133470001:  CPU  execute found dust in the pipeline
+1310752133470012:  CPU  leaving execute stage
+1310752133470031:  CPU  completing a cycle
+1310752133470045:  CPU  beginning a cycle
+1310752133470057:  CPU  entering fetch stage
+1310752133470082:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752133470098:  CPU  leaving fetch stage
+1310752133470109:  CPU  entering decode stage
+1310752133470130:  CPU  decoding 00000000000000000000000000000000
+1310752133470194:  CPU  decoded `j' type instruction, nop
+1310752133470207:  CPU  leaving decode stage
+1310752133470218:  CPU  entering writeback stage
+1310752133470231:  CPU  leaving writeback stage
+1310752133470241:  CPU  entering execute stage
+1310752133470257:  CPU  execute found dust in the pipeline
+1310752133470269:  CPU  leaving execute stage
+1310752133470288:  CPU  completing a cycle
+1310752133470546:  MEM  memory cleared
+1310752133470560:  >-----tearDown
+1310752133470997:  >-----setUp
+1310752133499642:  MEM  created 2147483-Kb of 8-byte address space
+1310752133499676:  MEM  created segment `text'	4194304..268435456
+1310752133499694:  MEM  created segment `data'	268435456..2147483647
+1310752133499709:  MEM  created segment `stack'	268435456..2147483647
+1310752133499985:  INT  created `MIPS_I' interpreter
+1310752133500077:  CPU  created a cpu
+1310752133500095:  CPU  pc is register 0x21
+1310752133500118:  >-----testDecode
+1310752133500135:  CPU  beginning a cycle
+1310752133500148:  CPU  entering fetch stage
+1310752133500184:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752133500202:  CPU  leaving fetch stage
+1310752133500214:  CPU  entering decode stage
+1310752133500233:  CPU  decode found dust in the pipeline
+1310752133500245:  CPU  leaving decode stage
+1310752133500256:  CPU  entering writeback stage
+1310752133500269:  CPU  leaving writeback stage
+1310752133500280:  CPU  entering execute stage
+1310752133500297:  CPU  execute found dust in the pipeline
+1310752133500308:  CPU  leaving execute stage
+1310752133500334:  CPU  completing a cycle
+1310752133500349:  CPU  beginning a cycle
+1310752133500361:  CPU  entering fetch stage
+1310752133500387:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752133500403:  CPU  leaving fetch stage
+1310752133500414:  CPU  entering decode stage
+1310752133500432:  CPU  decoding 00000000000000000000000000000000
+1310752133500497:  CPU  decoded `j' type instruction, nop
+1310752133500510:  CPU  leaving decode stage
+1310752133500521:  CPU  entering writeback stage
+1310752133500534:  CPU  leaving writeback stage
+1310752133500546:  CPU  entering execute stage
+1310752133500561:  CPU  execute found dust in the pipeline
+1310752133500573:  CPU  leaving execute stage
+1310752133500592:  CPU  completing a cycle
+1310752133500632:  MEM  memory cleared
+1310752133500644:  >-----tearDown
+1310752133500955:  >-----setUp
+1310752133532075:  MEM  created 2147483-Kb of 8-byte address space
+1310752133532111:  MEM  created segment `text'	4194304..268435456
+1310752133532129:  MEM  created segment `data'	268435456..2147483647
+1310752133532145:  MEM  created segment `stack'	268435456..2147483647
+1310752133532474:  INT  created `MIPS_I' interpreter
+1310752133532560:  CPU  created a cpu
+1310752133532577:  CPU  pc is register 0x21
+1310752133532601:  >-----testExecute
+1310752133532619:  CPU  beginning a cycle
+1310752133532631:  CPU  entering fetch stage
+1310752133532667:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752133532684:  CPU  leaving fetch stage
+1310752133532696:  CPU  entering decode stage
+1310752133532715:  CPU  decode found dust in the pipeline
+1310752133532727:  CPU  leaving decode stage
+1310752133532738:  CPU  entering writeback stage
+1310752133532751:  CPU  leaving writeback stage
+1310752133532762:  CPU  entering execute stage
+1310752133532779:  CPU  execute found dust in the pipeline
+1310752133532790:  CPU  leaving execute stage
+1310752133532817:  CPU  completing a cycle
+1310752133532832:  CPU  beginning a cycle
+1310752133532844:  CPU  entering fetch stage
+1310752133532870:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752133532887:  CPU  leaving fetch stage
+1310752133532898:  CPU  entering decode stage
+1310752133532921:  CPU  decoding 00000000000000000000000000000000
+1310752133532989:  CPU  decoded `j' type instruction, nop
+1310752133533002:  CPU  leaving decode stage
+1310752133533013:  CPU  entering writeback stage
+1310752133533026:  CPU  leaving writeback stage
+1310752133533038:  CPU  entering execute stage
+1310752133533055:  CPU  execute found dust in the pipeline
+1310752133533066:  CPU  leaving execute stage
+1310752133533087:  CPU  completing a cycle
+1310752133533101:  CPU  beginning a cycle
+1310752133533113:  CPU  entering fetch stage
+1310752133533140:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752133533157:  CPU  leaving fetch stage
+1310752133533168:  CPU  entering decode stage
+1310752133533185:  CPU  decoding 00000000000000000000000000000000
+1310752133533248:  CPU  decoded `j' type instruction, nop
+1310752133533261:  CPU  leaving decode stage
+1310752133533272:  CPU  entering writeback stage
+1310752133533284:  CPU  leaving writeback stage
+1310752133533295:  CPU  entering execute stage
+1310752133533312:  CPU  execute found dust in the pipeline
+1310752133533323:  CPU  leaving execute stage
+1310752133533343:  CPU  completing a cycle
+1310752133533394:  MEM  memory cleared
+1310752133533405:  >-----tearDown
+1310752133533832:  >-----setUp
+1310752133561165:  MEM  created 2147483-Kb of 8-byte address space
+1310752133561203:  MEM  created segment `text'	4194304..268435456
+1310752133561221:  MEM  created segment `data'	268435456..2147483647
+1310752133561238:  MEM  created segment `stack'	268435456..2147483647
+1310752133561565:  INT  created `MIPS_I' interpreter
+1310752133561652:  CPU  created a cpu
+1310752133561669:  CPU  pc is register 0x21
+1310752133561692:  >-----testNoop/Fetch
+1310752133561710:  CPU  beginning a cycle
+1310752133561723:  CPU  entering fetch stage
+1310752133561760:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752133561779:  CPU  leaving fetch stage
+1310752133561790:  CPU  entering decode stage
+1310752133561810:  CPU  decode found dust in the pipeline
+1310752133561823:  CPU  leaving decode stage
+1310752133561834:  CPU  entering writeback stage
+1310752133561847:  CPU  leaving writeback stage
+1310752133561859:  CPU  entering execute stage
+1310752133561875:  CPU  execute found dust in the pipeline
+1310752133561886:  CPU  leaving execute stage
+1310752133561914:  CPU  completing a cycle
+1310752133561955:  MEM  memory cleared
+1310752133561967:  >-----tearDown
+1310752133562231:  >-----setUp
+1310752133592371:  MEM  created 2147483-Kb of 8-byte address space
+1310752133592410:  MEM  created segment `text'	4194304..268435456
+1310752133592429:  MEM  created segment `data'	268435456..2147483647
+1310752133592446:  MEM  created segment `stack'	268435456..2147483647
+1310752133592792:  INT  created `MIPS_I' interpreter
+1310752133592901:  CPU  created a cpu
+1310752133592918:  CPU  pc is register 0x21
+1310752133592943:  >-----testPipeline
+1310752133592957:  CPU  beginning a cycle
+1310752133592969:  CPU  entering fetch stage
+1310752133593007:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752133593024:  CPU  leaving fetch stage
+1310752133593036:  CPU  entering decode stage
+1310752133593057:  CPU  decode found dust in the pipeline
+1310752133593068:  CPU  leaving decode stage
+1310752133593079:  CPU  entering writeback stage
+1310752133593093:  CPU  leaving writeback stage
+1310752133593104:  CPU  entering execute stage
+1310752133593120:  CPU  execute found dust in the pipeline
+1310752133593132:  CPU  leaving execute stage
+1310752133593158:  CPU  completing a cycle
+1310752133593172:  CPU  beginning a cycle
+1310752133593185:  CPU  entering fetch stage
+1310752133593211:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752133593227:  CPU  leaving fetch stage
+1310752133593238:  CPU  entering decode stage
+1310752133593256:  CPU  decoding 00000000000000000000000000000000
+1310752133593323:  CPU  decoded `j' type instruction, nop
+1310752133593335:  CPU  leaving decode stage
+1310752133593346:  CPU  entering writeback stage
+1310752133593359:  CPU  leaving writeback stage
+1310752133593371:  CPU  entering execute stage
+1310752133593387:  CPU  execute found dust in the pipeline
+1310752133593398:  CPU  leaving execute stage
+1310752133593418:  CPU  completing a cycle
+1310752133593432:  CPU  beginning a cycle
+1310752133593444:  CPU  entering fetch stage
+1310752133593475:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752133593491:  CPU  leaving fetch stage
+1310752133593503:  CPU  entering decode stage
+1310752133593521:  CPU  decoding 00000000000000000000000000000000
+1310752133593584:  CPU  decoded `j' type instruction, nop
+1310752133593597:  CPU  leaving decode stage
+1310752133593608:  CPU  entering writeback stage
+1310752133593621:  CPU  leaving writeback stage
+1310752133593632:  CPU  entering execute stage
+1310752133593648:  CPU  execute found dust in the pipeline
+1310752133593660:  CPU  leaving execute stage
+1310752133593680:  CPU  completing a cycle
+1310752133593713:  MEM  memory cleared
+1310752133593724:  >-----tearDown
+1310752194826632:  >-----setUp
+1310752194857941:  MEM  created 2147483-Kb of 8-byte address space
+1310752194857974:  MEM  created segment `text'	4194304..268435456
+1310752194857991:  MEM  created segment `data'	268435456..2147483647
+1310752194858007:  MEM  created segment `stack'	268435456..2147483647
+1310752194858296:  INT  created `MIPS_I' interpreter
+1310752194858381:  CPU  created a cpu
+1310752194858398:  CPU  pc is register 0x21
+1310752194858417:  >-----testAddInstruction
+1310752194858435:  INT  reading single line: addi $s0, $zero, 32
+1310752194858453:  INT  entering preprocessor
+1310752194858846:  INT  processed  addi $s0, $zero, 32
+1310752194858862:  INT  leaving preprocessor
+1310752194858874:  INT  entering linker
+1310752194858894:  INT  leaving linker
+1310752194858907:  INT  entering encoder
+1310752194858922:  INT  matching `addi' instruction
+1310752194859627:  INT  `rt' is $s0
+1310752194859644:  INT  `rs' is $zero
+1310752194859663:  INT  `im' is 32
+1310752194859715:  INT  encoded 00100000000100000000000000100000
+1310752194859728:  INT  leaving encoder
+1310752194859879:  MEM  memory cleared
+1310752194859905:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310752194859919:  MEM  loaded 1 word programme into memory
+1310752194859933:  CPU  beginning a cycle
+1310752194859946:  CPU  entering fetch stage
+1310752194859971:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310752194859987:  CPU  leaving fetch stage
+1310752194859999:  CPU  entering decode stage
+1310752194860022:  CPU  decode found dust in the pipeline
+1310752194860035:  CPU  leaving decode stage
+1310752194860047:  CPU  entering writeback stage
+1310752194860060:  CPU  leaving writeback stage
+1310752194860072:  CPU  entering execute stage
+1310752194860089:  CPU  execute found dust in the pipeline
+1310752194860100:  CPU  leaving execute stage
+1310752194860127:  CPU  completing a cycle
+1310752194860141:  CPU  beginning a cycle
+1310752194860154:  CPU  entering fetch stage
+1310752194860180:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752194860196:  CPU  leaving fetch stage
+1310752194860207:  CPU  entering decode stage
+1310752194860225:  CPU  decoding 00100000000100000000000000100000
+1310752194860257:  CPU  decoded `i' type instruction, addi
+1310752194860269:  CPU  leaving decode stage
+1310752194860280:  CPU  entering writeback stage
+1310752194860294:  CPU  leaving writeback stage
+1310752194860305:  CPU  entering execute stage
+1310752194860322:  CPU  execute found dust in the pipeline
+1310752194860333:  CPU  leaving execute stage
+1310752194860353:  CPU  completing a cycle
+1310752194860367:  CPU  beginning a cycle
+1310752194860379:  CPU  entering fetch stage
+1310752194860405:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752194860421:  CPU  leaving fetch stage
+1310752194860432:  CPU  entering decode stage
+1310752194860455:  CPU  decoding 00000000000000000000000000000000
+1310752194860518:  CPU  decoded `j' type instruction, nop
+1310752194860531:  CPU  leaving decode stage
+1310752194860542:  CPU  entering writeback stage
+1310752194860555:  CPU  leaving writeback stage
+1310752194860565:  CPU  entering execute stage
+1310752194860581:  CPU  execute found dust in the pipeline
+1310752194860592:  CPU  leaving execute stage
+1310752194860611:  CPU  completing a cycle
+1310752194860625:  CPU  beginning a cycle
+1310752194860637:  CPU  entering fetch stage
+1310752194860662:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310752194860678:  CPU  leaving fetch stage
+1310752194860689:  CPU  entering decode stage
+1310752194860706:  CPU  decoding 00000000000000000000000000000000
+1310752194860768:  CPU  decoded `j' type instruction, nop
+1310752194860781:  CPU  leaving decode stage
+1310752194860792:  CPU  entering writeback stage
+1310752194860805:  CPU  leaving writeback stage
+1310752194860816:  CPU  entering execute stage
+1310752194860832:  CPU  executing 00100000000100000000000000100000
+1310752194860849:  CPU  `rt' is 16 (11:16)
+1310752194860864:  CPU  `rs' is 0 (6:11)
+1310752194860889:  CPU  `im' is 32 (16:32)
+1310752194860905:  CPU  `op' is 8 (0:6)
+1310752194860944:  CPU  calling addImmediate with ['rt', 'rs', 'im']
+1310752194860978:  CPU  leaving execute stage
+1310752194861000:  CPU  completing a cycle
+1310752194861026:  MEM  memory cleared
+1310752194861037:  >-----tearDown
+1310752194861503:  >-----setUp
+1310752194888255:  MEM  created 2147483-Kb of 8-byte address space
+1310752194888288:  MEM  created segment `text'	4194304..268435456
+1310752194888306:  MEM  created segment `data'	268435456..2147483647
+1310752194888322:  MEM  created segment `stack'	268435456..2147483647
+1310752194888595:  INT  created `MIPS_I' interpreter
+1310752194888678:  CPU  created a cpu
+1310752194888695:  CPU  pc is register 0x21
+1310752194888715:  >-----testDecode
+1310752194888733:  CPU  beginning a cycle
+1310752194888746:  CPU  entering fetch stage
+1310752194888780:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752194888798:  CPU  leaving fetch stage
+1310752194888809:  CPU  entering decode stage
+1310752194888829:  CPU  decode found dust in the pipeline
+1310752194888841:  CPU  leaving decode stage
+1310752194888853:  CPU  entering writeback stage
+1310752194888866:  CPU  leaving writeback stage
+1310752194888877:  CPU  entering execute stage
+1310752194888894:  CPU  execute found dust in the pipeline
+1310752194888905:  CPU  leaving execute stage
+1310752194888930:  CPU  completing a cycle
+1310752194888945:  CPU  beginning a cycle
+1310752194888957:  CPU  entering fetch stage
+1310752194888983:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752194888999:  CPU  leaving fetch stage
+1310752194889010:  CPU  entering decode stage
+1310752194889027:  CPU  decoding 00000000000000000000000000000000
+1310752194889097:  CPU  decoded `j' type instruction, nop
+1310752194889110:  CPU  leaving decode stage
+1310752194889122:  CPU  entering writeback stage
+1310752194889135:  CPU  leaving writeback stage
+1310752194889147:  CPU  entering execute stage
+1310752194889164:  CPU  execute found dust in the pipeline
+1310752194889175:  CPU  leaving execute stage
+1310752194889203:  CPU  completing a cycle
+1310752194889247:  MEM  memory cleared
+1310752194889258:  >-----tearDown
+1310752194889600:  >-----setUp
+1310752194920017:  MEM  created 2147483-Kb of 8-byte address space
+1310752194920049:  MEM  created segment `text'	4194304..268435456
+1310752194920067:  MEM  created segment `data'	268435456..2147483647
+1310752194920084:  MEM  created segment `stack'	268435456..2147483647
+1310752194920388:  INT  created `MIPS_I' interpreter
+1310752194920476:  CPU  created a cpu
+1310752194920494:  CPU  pc is register 0x21
+1310752194920518:  >-----testExecute
+1310752194920536:  CPU  beginning a cycle
+1310752194920550:  CPU  entering fetch stage
+1310752194920592:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752194920610:  CPU  leaving fetch stage
+1310752194920623:  CPU  entering decode stage
+1310752194920643:  CPU  decode found dust in the pipeline
+1310752194920656:  CPU  leaving decode stage
+1310752194920667:  CPU  entering writeback stage
+1310752194920680:  CPU  leaving writeback stage
+1310752194920692:  CPU  entering execute stage
+1310752194920709:  CPU  execute found dust in the pipeline
+1310752194920720:  CPU  leaving execute stage
+1310752194920747:  CPU  completing a cycle
+1310752194920761:  CPU  beginning a cycle
+1310752194920775:  CPU  entering fetch stage
+1310752194920802:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752194920818:  CPU  leaving fetch stage
+1310752194920829:  CPU  entering decode stage
+1310752194920847:  CPU  decoding 00000000000000000000000000000000
+1310752194920919:  CPU  decoded `j' type instruction, nop
+1310752194920932:  CPU  leaving decode stage
+1310752194920943:  CPU  entering writeback stage
+1310752194920956:  CPU  leaving writeback stage
+1310752194920967:  CPU  entering execute stage
+1310752194920983:  CPU  execute found dust in the pipeline
+1310752194920995:  CPU  leaving execute stage
+1310752194921015:  CPU  completing a cycle
+1310752194921028:  CPU  beginning a cycle
+1310752194921040:  CPU  entering fetch stage
+1310752194921067:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752194921083:  CPU  leaving fetch stage
+1310752194921095:  CPU  entering decode stage
+1310752194921112:  CPU  decoding 00000000000000000000000000000000
+1310752194921178:  CPU  decoded `j' type instruction, nop
+1310752194921191:  CPU  leaving decode stage
+1310752194921202:  CPU  entering writeback stage
+1310752194921215:  CPU  leaving writeback stage
+1310752194921226:  CPU  entering execute stage
+1310752194921242:  CPU  execute found dust in the pipeline
+1310752194921253:  CPU  leaving execute stage
+1310752194921273:  CPU  completing a cycle
+1310752194921287:  CPU  beginning a cycle
+1310752194921298:  CPU  entering fetch stage
+1310752194921324:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310752194921341:  CPU  leaving fetch stage
+1310752194921352:  CPU  entering decode stage
+1310752194921370:  CPU  decoding 00000000000000000000000000000000
+1310752194921433:  CPU  decoded `j' type instruction, nop
+1310752194921446:  CPU  leaving decode stage
+1310752194921457:  CPU  entering writeback stage
+1310752194921470:  CPU  leaving writeback stage
+1310752194921481:  CPU  entering execute stage
+1310752194921496:  CPU  executing 00000000000000000000000000000000
+1310752194921514:  CPU  `im' is 0 (6:32)
+1310752194921528:  CPU  `op' is 0 (0:6)
+1310752194921551:  CPU  calling noop with []
+1310752194921568:  CPU  leaving execute stage
+1310752194921589:  CPU  completing a cycle
+1310752194922991:  MEM  memory cleared
+1310752194923006:  >-----tearDown
+1310752194923438:  >-----setUp
+1310752194950501:  MEM  created 2147483-Kb of 8-byte address space
+1310752194950539:  MEM  created segment `text'	4194304..268435456
+1310752194950557:  MEM  created segment `data'	268435456..2147483647
+1310752194950573:  MEM  created segment `stack'	268435456..2147483647
+1310752194950926:  INT  created `MIPS_I' interpreter
+1310752194951016:  CPU  created a cpu
+1310752194951034:  CPU  pc is register 0x21
+1310752194951057:  >-----testNoop/Fetch
+1310752194951076:  CPU  beginning a cycle
+1310752194951088:  CPU  entering fetch stage
+1310752194951125:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752194951142:  CPU  leaving fetch stage
+1310752194951154:  CPU  entering decode stage
+1310752194951174:  CPU  decode found dust in the pipeline
+1310752194951186:  CPU  leaving decode stage
+1310752194951197:  CPU  entering writeback stage
+1310752194951210:  CPU  leaving writeback stage
+1310752194951222:  CPU  entering execute stage
+1310752194951239:  CPU  execute found dust in the pipeline
+1310752194951250:  CPU  leaving execute stage
+1310752194951276:  CPU  completing a cycle
+1310752194951317:  MEM  memory cleared
+1310752194951329:  >-----tearDown
+1310752194951602:  >-----setUp
+1310752194983682:  MEM  created 2147483-Kb of 8-byte address space
+1310752194983724:  MEM  created segment `text'	4194304..268435456
+1310752194983743:  MEM  created segment `data'	268435456..2147483647
+1310752194983760:  MEM  created segment `stack'	268435456..2147483647
+1310752194984117:  INT  created `MIPS_I' interpreter
+1310752194984207:  CPU  created a cpu
+1310752194984226:  CPU  pc is register 0x21
+1310752194984255:  >-----testPipeline
+1310752194984269:  CPU  beginning a cycle
+1310752194984282:  CPU  entering fetch stage
+1310752194984319:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752194984339:  CPU  leaving fetch stage
+1310752194984351:  CPU  entering decode stage
+1310752194984372:  CPU  decode found dust in the pipeline
+1310752194984385:  CPU  leaving decode stage
+1310752194984397:  CPU  entering writeback stage
+1310752194984411:  CPU  leaving writeback stage
+1310752194984422:  CPU  entering execute stage
+1310752194984440:  CPU  execute found dust in the pipeline
+1310752194984453:  CPU  leaving execute stage
+1310752194984481:  CPU  completing a cycle
+1310752194984496:  CPU  beginning a cycle
+1310752194984509:  CPU  entering fetch stage
+1310752194984536:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752194984552:  CPU  leaving fetch stage
+1310752194984564:  CPU  entering decode stage
+1310752194984583:  CPU  decoding 00000000000000000000000000000000
+1310752194984656:  CPU  decoded `j' type instruction, nop
+1310752194984669:  CPU  leaving decode stage
+1310752194984680:  CPU  entering writeback stage
+1310752194984694:  CPU  leaving writeback stage
+1310752194984706:  CPU  entering execute stage
+1310752194984722:  CPU  execute found dust in the pipeline
+1310752194984734:  CPU  leaving execute stage
+1310752194984755:  CPU  completing a cycle
+1310752194984768:  CPU  beginning a cycle
+1310752194984781:  CPU  entering fetch stage
+1310752194984807:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752194984823:  CPU  leaving fetch stage
+1310752194984834:  CPU  entering decode stage
+1310752194984852:  CPU  decoding 00000000000000000000000000000000
+1310752194984916:  CPU  decoded `j' type instruction, nop
+1310752194984929:  CPU  leaving decode stage
+1310752194984940:  CPU  entering writeback stage
+1310752194984954:  CPU  leaving writeback stage
+1310752194984965:  CPU  entering execute stage
+1310752194984981:  CPU  execute found dust in the pipeline
+1310752194984992:  CPU  leaving execute stage
+1310752194985011:  CPU  completing a cycle
+1310752194985025:  CPU  beginning a cycle
+1310752194985037:  CPU  entering fetch stage
+1310752194985064:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310752194985081:  CPU  leaving fetch stage
+1310752194985093:  CPU  entering decode stage
+1310752194985110:  CPU  decoding 00000000000000000000000000000000
+1310752194985175:  CPU  decoded `j' type instruction, nop
+1310752194985188:  CPU  leaving decode stage
+1310752194985199:  CPU  entering writeback stage
+1310752194985212:  CPU  leaving writeback stage
+1310752194985223:  CPU  entering execute stage
+1310752194985238:  CPU  executing 00000000000000000000000000000000
+1310752194985256:  CPU  `im' is 0 (6:32)
+1310752194985270:  CPU  `op' is 0 (0:6)
+1310752194985292:  CPU  calling noop with []
+1310752194985310:  CPU  leaving execute stage
+1310752194985331:  CPU  completing a cycle
+1310752194985910:  MEM  memory cleared
+1310752194985925:  >-----tearDown
+1310752211452129:  >-----setUp
+1310752211482882:  MEM  created 2147483-Kb of 8-byte address space
+1310752211482915:  MEM  created segment `text'	4194304..268435456
+1310752211482932:  MEM  created segment `data'	268435456..2147483647
+1310752211482948:  MEM  created segment `stack'	268435456..2147483647
+1310752211483244:  INT  created `MIPS_I' interpreter
+1310752211483331:  CPU  created a cpu
+1310752211483347:  CPU  pc is register 0x21
+1310752211483368:  >-----testAddInstruction
+1310752211483386:  INT  reading single line: addi $s0, $zero, 32
+1310752211483403:  INT  entering preprocessor
+1310752211483786:  INT  processed  addi $s0, $zero, 32
+1310752211483801:  INT  leaving preprocessor
+1310752211483813:  INT  entering linker
+1310752211483832:  INT  leaving linker
+1310752211483845:  INT  entering encoder
+1310752211483859:  INT  matching `addi' instruction
+1310752211484573:  INT  `rt' is $s0
+1310752211484590:  INT  `rs' is $zero
+1310752211484609:  INT  `im' is 32
+1310752211484662:  INT  encoded 00100000000100000000000000100000
+1310752211484675:  INT  leaving encoder
+1310752211484812:  MEM  memory cleared
+1310752211484837:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310752211484851:  MEM  loaded 1 word programme into memory
+1310752211484864:  CPU  beginning a cycle
+1310752211484877:  CPU  entering fetch stage
+1310752211484902:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310752211484918:  CPU  leaving fetch stage
+1310752211484929:  CPU  entering decode stage
+1310752211484952:  CPU  decode found dust in the pipeline
+1310752211484964:  CPU  leaving decode stage
+1310752211484975:  CPU  entering writeback stage
+1310752211484988:  CPU  leaving writeback stage
+1310752211484999:  CPU  entering execute stage
+1310752211485016:  CPU  execute found dust in the pipeline
+1310752211485027:  CPU  leaving execute stage
+1310752211485052:  CPU  completing a cycle
+1310752211485067:  CPU  beginning a cycle
+1310752211485079:  CPU  entering fetch stage
+1310752211485105:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752211485121:  CPU  leaving fetch stage
+1310752211485132:  CPU  entering decode stage
+1310752211485150:  CPU  decoding 00100000000100000000000000100000
+1310752211485182:  CPU  decoded `i' type instruction, addi
+1310752211485195:  CPU  leaving decode stage
+1310752211485206:  CPU  entering writeback stage
+1310752211485219:  CPU  leaving writeback stage
+1310752211485231:  CPU  entering execute stage
+1310752211485246:  CPU  execute found dust in the pipeline
+1310752211485258:  CPU  leaving execute stage
+1310752211485278:  CPU  completing a cycle
+1310752211485292:  CPU  beginning a cycle
+1310752211485304:  CPU  entering fetch stage
+1310752211485330:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752211485346:  CPU  leaving fetch stage
+1310752211485358:  CPU  entering decode stage
+1310752211485379:  CPU  decoding 00000000000000000000000000000000
+1310752211485442:  CPU  decoded `j' type instruction, nop
+1310752211485455:  CPU  leaving decode stage
+1310752211485466:  CPU  entering writeback stage
+1310752211485479:  CPU  leaving writeback stage
+1310752211485490:  CPU  entering execute stage
+1310752211485506:  CPU  execute found dust in the pipeline
+1310752211485517:  CPU  leaving execute stage
+1310752211485537:  CPU  completing a cycle
+1310752211485551:  CPU  beginning a cycle
+1310752211485563:  CPU  entering fetch stage
+1310752211485588:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310752211485605:  CPU  leaving fetch stage
+1310752211485616:  CPU  entering decode stage
+1310752211485633:  CPU  decoding 00000000000000000000000000000000
+1310752211485695:  CPU  decoded `j' type instruction, nop
+1310752211485708:  CPU  leaving decode stage
+1310752211485720:  CPU  entering writeback stage
+1310752211485733:  CPU  leaving writeback stage
+1310752211485745:  CPU  entering execute stage
+1310752211485760:  CPU  executing 00100000000100000000000000100000
+1310752211485777:  CPU  `rt' is 16 (11:16)
+1310752211485793:  CPU  `rs' is 0 (6:11)
+1310752211485808:  CPU  `im' is 32 (16:32)
+1310752211485823:  CPU  `op' is 8 (0:6)
+1310752211485856:  CPU  calling addImmediate with ['rt', 'rs', 'im']
+1310752211485891:  CPU  leaving execute stage
+1310752211485913:  CPU  completing a cycle
+1310752211485938:  MEM  memory cleared
+1310752211485949:  >-----tearDown
+1310752211486408:  >-----setUp
+1310752211513769:  MEM  created 2147483-Kb of 8-byte address space
+1310752211513808:  MEM  created segment `text'	4194304..268435456
+1310752211513826:  MEM  created segment `data'	268435456..2147483647
+1310752211513843:  MEM  created segment `stack'	268435456..2147483647
+1310752211514176:  INT  created `MIPS_I' interpreter
+1310752211514273:  CPU  created a cpu
+1310752211514290:  CPU  pc is register 0x21
+1310752211514317:  >-----testDecode
+1310752211514335:  CPU  beginning a cycle
+1310752211514348:  CPU  entering fetch stage
+1310752211514389:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752211514407:  CPU  leaving fetch stage
+1310752211514419:  CPU  entering decode stage
+1310752211514440:  CPU  decode found dust in the pipeline
+1310752211514453:  CPU  leaving decode stage
+1310752211514464:  CPU  entering writeback stage
+1310752211514478:  CPU  leaving writeback stage
+1310752211514489:  CPU  entering execute stage
+1310752211514505:  CPU  execute found dust in the pipeline
+1310752211514517:  CPU  leaving execute stage
+1310752211514544:  CPU  completing a cycle
+1310752211514558:  CPU  beginning a cycle
+1310752211514571:  CPU  entering fetch stage
+1310752211514596:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752211514612:  CPU  leaving fetch stage
+1310752211514624:  CPU  entering decode stage
+1310752211514641:  CPU  decoding 00000000000000000000000000000000
+1310752211514710:  CPU  decoded `j' type instruction, nop
+1310752211514722:  CPU  leaving decode stage
+1310752211514733:  CPU  entering writeback stage
+1310752211514747:  CPU  leaving writeback stage
+1310752211514759:  CPU  entering execute stage
+1310752211514775:  CPU  execute found dust in the pipeline
+1310752211514786:  CPU  leaving execute stage
+1310752211514811:  CPU  completing a cycle
+1310752211514881:  MEM  memory cleared
+1310752211514893:  >-----tearDown
+1310752211515233:  >-----setUp
+1310752211549030:  MEM  created 2147483-Kb of 8-byte address space
+1310752211549072:  MEM  created segment `text'	4194304..268435456
+1310752211549091:  MEM  created segment `data'	268435456..2147483647
+1310752211549107:  MEM  created segment `stack'	268435456..2147483647
+1310752211549466:  INT  created `MIPS_I' interpreter
+1310752211549565:  CPU  created a cpu
+1310752211549584:  CPU  pc is register 0x21
+1310752211549616:  >-----testExecute
+1310752211549635:  CPU  beginning a cycle
+1310752211549648:  CPU  entering fetch stage
+1310752211549694:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752211549712:  CPU  leaving fetch stage
+1310752211549723:  CPU  entering decode stage
+1310752211549745:  CPU  decode found dust in the pipeline
+1310752211549758:  CPU  leaving decode stage
+1310752211549769:  CPU  entering writeback stage
+1310752211549782:  CPU  leaving writeback stage
+1310752211549793:  CPU  entering execute stage
+1310752211549809:  CPU  execute found dust in the pipeline
+1310752211549820:  CPU  leaving execute stage
+1310752211549850:  CPU  completing a cycle
+1310752211549864:  CPU  beginning a cycle
+1310752211549877:  CPU  entering fetch stage
+1310752211549904:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752211549919:  CPU  leaving fetch stage
+1310752211549930:  CPU  entering decode stage
+1310752211549948:  CPU  decoding 00000000000000000000000000000000
+1310752211550018:  CPU  decoded `j' type instruction, nop
+1310752211550031:  CPU  leaving decode stage
+1310752211550042:  CPU  entering writeback stage
+1310752211550055:  CPU  leaving writeback stage
+1310752211550066:  CPU  entering execute stage
+1310752211550083:  CPU  execute found dust in the pipeline
+1310752211550094:  CPU  leaving execute stage
+1310752211550114:  CPU  completing a cycle
+1310752211550128:  CPU  beginning a cycle
+1310752211550140:  CPU  entering fetch stage
+1310752211550166:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752211550182:  CPU  leaving fetch stage
+1310752211550193:  CPU  entering decode stage
+1310752211550210:  CPU  decoding 00000000000000000000000000000000
+1310752211550274:  CPU  decoded `j' type instruction, nop
+1310752211550287:  CPU  leaving decode stage
+1310752211550298:  CPU  entering writeback stage
+1310752211550311:  CPU  leaving writeback stage
+1310752211550322:  CPU  entering execute stage
+1310752211550338:  CPU  execute found dust in the pipeline
+1310752211550349:  CPU  leaving execute stage
+1310752211550369:  CPU  completing a cycle
+1310752211550383:  CPU  beginning a cycle
+1310752211550395:  CPU  entering fetch stage
+1310752211550421:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310752211550437:  CPU  leaving fetch stage
+1310752211550449:  CPU  entering decode stage
+1310752211550466:  CPU  decoding 00000000000000000000000000000000
+1310752211550528:  CPU  decoded `j' type instruction, nop
+1310752211550540:  CPU  leaving decode stage
+1310752211550552:  CPU  entering writeback stage
+1310752211550565:  CPU  leaving writeback stage
+1310752211550576:  CPU  entering execute stage
+1310752211550591:  CPU  executing 00000000000000000000000000000000
+1310752211550609:  CPU  `im' is 0 (6:32)
+1310752211550624:  CPU  `op' is 0 (0:6)
+1310752211550650:  CPU  calling noop with []
+1310752211550669:  CPU  leaving execute stage
+1310752211550690:  CPU  completing a cycle
+1310752211552175:  MEM  memory cleared
+1310752211552193:  >-----tearDown
+1310752211552637:  >-----setUp
+1310752211581085:  MEM  created 2147483-Kb of 8-byte address space
+1310752211581127:  MEM  created segment `text'	4194304..268435456
+1310752211581146:  MEM  created segment `data'	268435456..2147483647
+1310752211581163:  MEM  created segment `stack'	268435456..2147483647
+1310752211581532:  INT  created `MIPS_I' interpreter
+1310752211581625:  CPU  created a cpu
+1310752211581643:  CPU  pc is register 0x21
+1310752211581668:  >-----testNoop/Fetch
+1310752211581687:  CPU  beginning a cycle
+1310752211581700:  CPU  entering fetch stage
+1310752211581740:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752211581757:  CPU  leaving fetch stage
+1310752211581768:  CPU  entering decode stage
+1310752211581789:  CPU  decode found dust in the pipeline
+1310752211581801:  CPU  leaving decode stage
+1310752211581812:  CPU  entering writeback stage
+1310752211581825:  CPU  leaving writeback stage
+1310752211581836:  CPU  entering execute stage
+1310752211581853:  CPU  execute found dust in the pipeline
+1310752211581864:  CPU  leaving execute stage
+1310752211581890:  CPU  completing a cycle
+1310752211581929:  MEM  memory cleared
+1310752211581941:  >-----tearDown
+1310752211582200:  >-----setUp
+1310752211616027:  MEM  created 2147483-Kb of 8-byte address space
+1310752211616060:  MEM  created segment `text'	4194304..268435456
+1310752211616078:  MEM  created segment `data'	268435456..2147483647
+1310752211616094:  MEM  created segment `stack'	268435456..2147483647
+1310752211616392:  INT  created `MIPS_I' interpreter
+1310752211616474:  CPU  created a cpu
+1310752211616492:  CPU  pc is register 0x21
+1310752211616514:  >-----testPipeline
+1310752211616527:  CPU  beginning a cycle
+1310752211616540:  CPU  entering fetch stage
+1310752211616576:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752211616593:  CPU  leaving fetch stage
+1310752211616605:  CPU  entering decode stage
+1310752211616626:  CPU  decode found dust in the pipeline
+1310752211616638:  CPU  leaving decode stage
+1310752211616649:  CPU  entering writeback stage
+1310752211616662:  CPU  leaving writeback stage
+1310752211616674:  CPU  entering execute stage
+1310752211616691:  CPU  execute found dust in the pipeline
+1310752211616702:  CPU  leaving execute stage
+1310752211616728:  CPU  completing a cycle
+1310752211616742:  CPU  beginning a cycle
+1310752211616754:  CPU  entering fetch stage
+1310752211616779:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752211616795:  CPU  leaving fetch stage
+1310752211616807:  CPU  entering decode stage
+1310752211616824:  CPU  decoding 00000000000000000000000000000000
+1310752211616892:  CPU  decoded `j' type instruction, nop
+1310752211616905:  CPU  leaving decode stage
+1310752211616916:  CPU  entering writeback stage
+1310752211616929:  CPU  leaving writeback stage
+1310752211616940:  CPU  entering execute stage
+1310752211616957:  CPU  execute found dust in the pipeline
+1310752211616969:  CPU  leaving execute stage
+1310752211616989:  CPU  completing a cycle
+1310752211617003:  CPU  beginning a cycle
+1310752211617014:  CPU  entering fetch stage
+1310752211617040:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752211617056:  CPU  leaving fetch stage
+1310752211617067:  CPU  entering decode stage
+1310752211617084:  CPU  decoding 00000000000000000000000000000000
+1310752211617148:  CPU  decoded `j' type instruction, nop
+1310752211617160:  CPU  leaving decode stage
+1310752211617172:  CPU  entering writeback stage
+1310752211617185:  CPU  leaving writeback stage
+1310752211617196:  CPU  entering execute stage
+1310752211617212:  CPU  execute found dust in the pipeline
+1310752211617223:  CPU  leaving execute stage
+1310752211617243:  CPU  completing a cycle
+1310752211617257:  CPU  beginning a cycle
+1310752211617270:  CPU  entering fetch stage
+1310752211617296:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310752211617313:  CPU  leaving fetch stage
+1310752211617324:  CPU  entering decode stage
+1310752211617341:  CPU  decoding 00000000000000000000000000000000
+1310752211617408:  CPU  decoded `j' type instruction, nop
+1310752211617421:  CPU  leaving decode stage
+1310752211617432:  CPU  entering writeback stage
+1310752211617445:  CPU  leaving writeback stage
+1310752211617456:  CPU  entering execute stage
+1310752211617471:  CPU  executing 00000000000000000000000000000000
+1310752211617488:  CPU  `im' is 0 (6:32)
+1310752211617504:  CPU  `op' is 0 (0:6)
+1310752211617527:  CPU  calling noop with []
+1310752211617544:  CPU  leaving execute stage
+1310752211617565:  CPU  completing a cycle
+1310752211617595:  MEM  memory cleared
+1310752211617606:  >-----tearDown
+1310752236256124:  >-----setUp
+1310752236287692:  MEM  created 2147483-Kb of 8-byte address space
+1310752236287726:  MEM  created segment `text'	4194304..268435456
+1310752236287743:  MEM  created segment `data'	268435456..2147483647
+1310752236287759:  MEM  created segment `stack'	268435456..2147483647
+1310752236288061:  INT  created `MIPS_I' interpreter
+1310752236288149:  CPU  created a cpu
+1310752236288167:  CPU  pc is register 0x21
+1310752236288191:  >-----testAddInstruction
+1310752236288210:  INT  reading single line: addi $s0, $zero, 32
+1310752236288229:  INT  entering preprocessor
+1310752236288625:  INT  processed  addi $s0, $zero, 32
+1310752236288640:  INT  leaving preprocessor
+1310752236288653:  INT  entering linker
+1310752236288674:  INT  leaving linker
+1310752236288687:  INT  entering encoder
+1310752236288702:  INT  matching `addi' instruction
+1310752236289413:  INT  `rt' is $s0
+1310752236289430:  INT  `rs' is $zero
+1310752236289449:  INT  `im' is 32
+1310752236289502:  INT  encoded 00100000000100000000000000100000
+1310752236289515:  INT  leaving encoder
+1310752236289666:  MEM  memory cleared
+1310752236289692:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310752236289705:  MEM  loaded 1 word programme into memory
+1310752236289719:  CPU  beginning a cycle
+1310752236289731:  CPU  entering fetch stage
+1310752236289757:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310752236289772:  CPU  leaving fetch stage
+1310752236289783:  CPU  entering decode stage
+1310752236289807:  CPU  decode found dust in the pipeline
+1310752236289819:  CPU  leaving decode stage
+1310752236289830:  CPU  entering writeback stage
+1310752236289844:  CPU  leaving writeback stage
+1310752236289855:  CPU  entering execute stage
+1310752236289871:  CPU  execute found dust in the pipeline
+1310752236289883:  CPU  leaving execute stage
+1310752236289907:  CPU  completing a cycle
+1310752236289921:  CPU  beginning a cycle
+1310752236289934:  CPU  entering fetch stage
+1310752236289960:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752236289976:  CPU  leaving fetch stage
+1310752236289988:  CPU  entering decode stage
+1310752236290006:  CPU  decoding 00100000000100000000000000100000
+1310752236290037:  CPU  decoded `i' type instruction, addi
+1310752236290050:  CPU  leaving decode stage
+1310752236290061:  CPU  entering writeback stage
+1310752236290074:  CPU  leaving writeback stage
+1310752236290086:  CPU  entering execute stage
+1310752236290102:  CPU  execute found dust in the pipeline
+1310752236290114:  CPU  leaving execute stage
+1310752236290133:  CPU  completing a cycle
+1310752236290148:  CPU  beginning a cycle
+1310752236290159:  CPU  entering fetch stage
+1310752236290186:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752236290201:  CPU  leaving fetch stage
+1310752236290213:  CPU  entering decode stage
+1310752236290235:  CPU  decoding 00000000000000000000000000000000
+1310752236290297:  CPU  decoded `j' type instruction, nop
+1310752236290310:  CPU  leaving decode stage
+1310752236290322:  CPU  entering writeback stage
+1310752236290335:  CPU  leaving writeback stage
+1310752236290346:  CPU  entering execute stage
+1310752236290361:  CPU  execute found dust in the pipeline
+1310752236290372:  CPU  leaving execute stage
+1310752236290392:  CPU  completing a cycle
+1310752236290406:  CPU  beginning a cycle
+1310752236290418:  CPU  entering fetch stage
+1310752236290443:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310752236290459:  CPU  leaving fetch stage
+1310752236290470:  CPU  entering decode stage
+1310752236290487:  CPU  decoding 00000000000000000000000000000000
+1310752236290550:  CPU  decoded `j' type instruction, nop
+1310752236290563:  CPU  leaving decode stage
+1310752236290575:  CPU  entering writeback stage
+1310752236290587:  CPU  leaving writeback stage
+1310752236290599:  CPU  entering execute stage
+1310752236290614:  CPU  executing 00100000000100000000000000100000
+1310752236290631:  CPU  `rt' is 16 (11:16)
+1310752236290646:  CPU  `rs' is 0 (6:11)
+1310752236290662:  CPU  `im' is 32 (16:32)
+1310752236290677:  CPU  `op' is 8 (0:6)
+1310752236290711:  CPU  calling addImmediate with ['rt', 'rs', 'im']
+1310752236290746:  CPU  leaving execute stage
+1310752236290768:  CPU  completing a cycle
+1310752236290794:  MEM  memory cleared
+1310752236290805:  >-----tearDown
+1310752236291298:  >-----setUp
+1310752236318834:  MEM  created 2147483-Kb of 8-byte address space
+1310752236318869:  MEM  created segment `text'	4194304..268435456
+1310752236318886:  MEM  created segment `data'	268435456..2147483647
+1310752236318902:  MEM  created segment `stack'	268435456..2147483647
+1310752236319176:  INT  created `MIPS_I' interpreter
+1310752236319258:  CPU  created a cpu
+1310752236319276:  CPU  pc is register 0x21
+1310752236319297:  >-----testDecode
+1310752236319315:  CPU  beginning a cycle
+1310752236319328:  CPU  entering fetch stage
+1310752236319365:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752236319383:  CPU  leaving fetch stage
+1310752236319395:  CPU  entering decode stage
+1310752236319416:  CPU  decode found dust in the pipeline
+1310752236319429:  CPU  leaving decode stage
+1310752236319440:  CPU  entering writeback stage
+1310752236319454:  CPU  leaving writeback stage
+1310752236319466:  CPU  entering execute stage
+1310752236319483:  CPU  execute found dust in the pipeline
+1310752236319494:  CPU  leaving execute stage
+1310752236319519:  CPU  completing a cycle
+1310752236319533:  CPU  beginning a cycle
+1310752236319546:  CPU  entering fetch stage
+1310752236319572:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752236319587:  CPU  leaving fetch stage
+1310752236319598:  CPU  entering decode stage
+1310752236319616:  CPU  decoding 00000000000000000000000000000000
+1310752236319682:  CPU  decoded `j' type instruction, nop
+1310752236319695:  CPU  leaving decode stage
+1310752236319705:  CPU  entering writeback stage
+1310752236319718:  CPU  leaving writeback stage
+1310752236319730:  CPU  entering execute stage
+1310752236319746:  CPU  execute found dust in the pipeline
+1310752236319758:  CPU  leaving execute stage
+1310752236319783:  CPU  completing a cycle
+1310752236319824:  MEM  memory cleared
+1310752236319836:  >-----tearDown
+1310752236320163:  >-----setUp
+1310752236350554:  MEM  created 2147483-Kb of 8-byte address space
+1310752236350587:  MEM  created segment `text'	4194304..268435456
+1310752236350605:  MEM  created segment `data'	268435456..2147483647
+1310752236350621:  MEM  created segment `stack'	268435456..2147483647
+1310752236350925:  INT  created `MIPS_I' interpreter
+1310752236351009:  CPU  created a cpu
+1310752236351026:  CPU  pc is register 0x21
+1310752236351048:  >-----testExecute
+1310752236351065:  CPU  beginning a cycle
+1310752236351077:  CPU  entering fetch stage
+1310752236351114:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752236351132:  CPU  leaving fetch stage
+1310752236351144:  CPU  entering decode stage
+1310752236351165:  CPU  decode found dust in the pipeline
+1310752236351177:  CPU  leaving decode stage
+1310752236351188:  CPU  entering writeback stage
+1310752236351202:  CPU  leaving writeback stage
+1310752236351213:  CPU  entering execute stage
+1310752236351229:  CPU  execute found dust in the pipeline
+1310752236351241:  CPU  leaving execute stage
+1310752236351266:  CPU  completing a cycle
+1310752236351280:  CPU  beginning a cycle
+1310752236351294:  CPU  entering fetch stage
+1310752236351320:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752236351336:  CPU  leaving fetch stage
+1310752236351347:  CPU  entering decode stage
+1310752236351366:  CPU  decoding 00000000000000000000000000000000
+1310752236351432:  CPU  decoded `j' type instruction, nop
+1310752236351445:  CPU  leaving decode stage
+1310752236351457:  CPU  entering writeback stage
+1310752236351470:  CPU  leaving writeback stage
+1310752236351481:  CPU  entering execute stage
+1310752236351498:  CPU  execute found dust in the pipeline
+1310752236351510:  CPU  leaving execute stage
+1310752236351530:  CPU  completing a cycle
+1310752236351545:  CPU  beginning a cycle
+1310752236351557:  CPU  entering fetch stage
+1310752236351584:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752236351600:  CPU  leaving fetch stage
+1310752236351612:  CPU  entering decode stage
+1310752236351629:  CPU  decoding 00000000000000000000000000000000
+1310752236351694:  CPU  decoded `j' type instruction, nop
+1310752236351707:  CPU  leaving decode stage
+1310752236351718:  CPU  entering writeback stage
+1310752236351732:  CPU  leaving writeback stage
+1310752236351743:  CPU  entering execute stage
+1310752236351759:  CPU  execute found dust in the pipeline
+1310752236351771:  CPU  leaving execute stage
+1310752236351790:  CPU  completing a cycle
+1310752236351805:  CPU  beginning a cycle
+1310752236351817:  CPU  entering fetch stage
+1310752236351843:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310752236351859:  CPU  leaving fetch stage
+1310752236351870:  CPU  entering decode stage
+1310752236351888:  CPU  decoding 00000000000000000000000000000000
+1310752236351951:  CPU  decoded `j' type instruction, nop
+1310752236351963:  CPU  leaving decode stage
+1310752236351974:  CPU  entering writeback stage
+1310752236351987:  CPU  leaving writeback stage
+1310752236351998:  CPU  entering execute stage
+1310752236352013:  CPU  executing 00000000000000000000000000000000
+1310752236352031:  CPU  `im' is 0 (6:32)
+1310752236352045:  CPU  `op' is 0 (0:6)
+1310752236352070:  CPU  calling noop with []
+1310752236352088:  CPU  leaving execute stage
+1310752236352108:  CPU  completing a cycle
+1310752236352151:  MEM  memory cleared
+1310752236352162:  >-----tearDown
+1310752236352625:  >-----setUp
+1310752236380045:  MEM  created 2147483-Kb of 8-byte address space
+1310752236380078:  MEM  created segment `text'	4194304..268435456
+1310752236380097:  MEM  created segment `data'	268435456..2147483647
+1310752236380113:  MEM  created segment `stack'	268435456..2147483647
+1310752236380433:  INT  created `MIPS_I' interpreter
+1310752236380519:  CPU  created a cpu
+1310752236380540:  CPU  pc is register 0x21
+1310752236380568:  >-----testNoop/Fetch
+1310752236380587:  CPU  beginning a cycle
+1310752236380601:  CPU  entering fetch stage
+1310752236380640:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752236380658:  CPU  leaving fetch stage
+1310752236380670:  CPU  entering decode stage
+1310752236380691:  CPU  decode found dust in the pipeline
+1310752236380703:  CPU  leaving decode stage
+1310752236380714:  CPU  entering writeback stage
+1310752236380728:  CPU  leaving writeback stage
+1310752236380739:  CPU  entering execute stage
+1310752236380755:  CPU  execute found dust in the pipeline
+1310752236380767:  CPU  leaving execute stage
+1310752236380793:  CPU  completing a cycle
+1310752236380834:  MEM  memory cleared
+1310752236380846:  >-----tearDown
+1310752236381116:  >-----setUp
+1310752236411990:  MEM  created 2147483-Kb of 8-byte address space
+1310752236412023:  MEM  created segment `text'	4194304..268435456
+1310752236412041:  MEM  created segment `data'	268435456..2147483647
+1310752236412057:  MEM  created segment `stack'	268435456..2147483647
+1310752236412341:  INT  created `MIPS_I' interpreter
+1310752236412423:  CPU  created a cpu
+1310752236412440:  CPU  pc is register 0x21
+1310752236412462:  >-----testPipeline
+1310752236412476:  CPU  beginning a cycle
+1310752236412488:  CPU  entering fetch stage
+1310752236412524:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310752236412541:  CPU  leaving fetch stage
+1310752236412552:  CPU  entering decode stage
+1310752236412572:  CPU  decode found dust in the pipeline
+1310752236412585:  CPU  leaving decode stage
+1310752236412596:  CPU  entering writeback stage
+1310752236412609:  CPU  leaving writeback stage
+1310752236412620:  CPU  entering execute stage
+1310752236412637:  CPU  execute found dust in the pipeline
+1310752236412649:  CPU  leaving execute stage
+1310752236412674:  CPU  completing a cycle
+1310752236412688:  CPU  beginning a cycle
+1310752236412701:  CPU  entering fetch stage
+1310752236412727:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310752236412742:  CPU  leaving fetch stage
+1310752236412754:  CPU  entering decode stage
+1310752236412771:  CPU  decoding 00000000000000000000000000000000
+1310752236412837:  CPU  decoded `j' type instruction, nop
+1310752236412850:  CPU  leaving decode stage
+1310752236412861:  CPU  entering writeback stage
+1310752236412874:  CPU  leaving writeback stage
+1310752236412886:  CPU  entering execute stage
+1310752236412902:  CPU  execute found dust in the pipeline
+1310752236412914:  CPU  leaving execute stage
+1310752236412934:  CPU  completing a cycle
+1310752236412947:  CPU  beginning a cycle
+1310752236412959:  CPU  entering fetch stage
+1310752236412986:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310752236413001:  CPU  leaving fetch stage
+1310752236413013:  CPU  entering decode stage
+1310752236413030:  CPU  decoding 00000000000000000000000000000000
+1310752236413094:  CPU  decoded `j' type instruction, nop
+1310752236413106:  CPU  leaving decode stage
+1310752236413118:  CPU  entering writeback stage
+1310752236413131:  CPU  leaving writeback stage
+1310752236413142:  CPU  entering execute stage
+1310752236413158:  CPU  execute found dust in the pipeline
+1310752236413170:  CPU  leaving execute stage
+1310752236413190:  CPU  completing a cycle
+1310752236413204:  CPU  beginning a cycle
+1310752236413216:  CPU  entering fetch stage
+1310752236413242:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310752236413258:  CPU  leaving fetch stage
+1310752236413270:  CPU  entering decode stage
+1310752236413287:  CPU  decoding 00000000000000000000000000000000
+1310752236413352:  CPU  decoded `j' type instruction, nop
+1310752236413365:  CPU  leaving decode stage
+1310752236413376:  CPU  entering writeback stage
+1310752236413389:  CPU  leaving writeback stage
+1310752236413400:  CPU  entering execute stage
+1310752236413416:  CPU  executing 00000000000000000000000000000000
+1310752236413433:  CPU  `im' is 0 (6:32)
+1310752236413448:  CPU  `op' is 0 (0:6)
+1310752236413470:  CPU  calling noop with []
+1310752236413487:  CPU  leaving execute stage
+1310752236413508:  CPU  completing a cycle
+1310752236413538:  MEM  memory cleared
+1310752236413549:  >-----tearDown
+1310928214395472:  >-----setUp
+1310928214491432:  MEM  created 2147483-Kb of 8-byte address space
+1310928214491466:  MEM  created segment `text'	4194304..268435456
+1310928214491484:  MEM  created segment `data'	268435456..2147483647
+1310928214491499:  MEM  created segment `stack'	268435456..2147483647
+1310928214513342:  INT  created `MIPS_I' interpreter
+1310928214513565:  CPU  created a cpu
+1310928214513599:  CPU  pc is register 0x21
+1310928214513646:  >-----testAddInstruction
+1310928214513682:  INT  reading single line: addi $s0, $zero, 32
+1310928214513720:  INT  entering preprocessor
+1310928214514112:  INT  processed  addi $s0, $zero, 32
+1310928214514126:  INT  leaving preprocessor
+1310928214514139:  INT  entering linker
+1310928214514159:  INT  leaving linker
+1310928214514171:  INT  entering encoder
+1310928214514188:  INT  matching `addi' instruction
+1310928214514962:  INT  `rt' is $s0
+1310928214514980:  INT  `rs' is $zero
+1310928214515000:  INT  `im' is 32
+1310928214515055:  INT  encoded 00100000000100000000000000100000
+1310928214515068:  INT  leaving encoder
+1310928214515219:  MEM  memory cleared
+1310928214515247:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310928214515261:  MEM  loaded 1 word programme into memory
+1310928214515275:  CPU  beginning a cycle
+1310928214515288:  CPU  entering fetch stage
+1310928214515314:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310928214515329:  CPU  leaving fetch stage
+1310928214515340:  CPU  entering decode stage
+1310928214515365:  CPU  decode found dust in the pipeline
+1310928214515377:  CPU  leaving decode stage
+1310928214515388:  CPU  entering execute stage
+1310928214515405:  CPU  execute found dust in the pipeline
+1310928214515417:  CPU  leaving execute stage
+1310928214515428:  CPU  entering writeback stage
+1310928214515441:  CPU  leaving writeback stage
+1310928214515467:  CPU  completing a cycle
+1310928214515481:  CPU  beginning a cycle
+1310928214515493:  CPU  entering fetch stage
+1310928214515520:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928214515536:  CPU  leaving fetch stage
+1310928214515548:  CPU  entering decode stage
+1310928214515565:  CPU  decoding 00100000000100000000000000100000
+1310928214515597:  CPU  decoded `i' type instruction, addi
+1310928214515609:  CPU  leaving decode stage
+1310928214515620:  CPU  entering execute stage
+1310928214515637:  CPU  execute found dust in the pipeline
+1310928214515649:  CPU  leaving execute stage
+1310928214515660:  CPU  entering writeback stage
+1310928214515673:  CPU  leaving writeback stage
+1310928214515693:  CPU  completing a cycle
+1310928214515707:  CPU  beginning a cycle
+1310928214515719:  CPU  entering fetch stage
+1310928214515745:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928214515760:  CPU  leaving fetch stage
+1310928214515772:  CPU  entering decode stage
+1310928214515789:  CPU  decoding 00000000000000000000000000000000
+1310928214515851:  CPU  decoded `j' type instruction, nop
+1310928214515864:  CPU  leaving decode stage
+1310928214515876:  CPU  entering execute stage
+1310928214515895:  CPU  executing 00100000000100000000000000100000
+1310928214515913:  CPU  `rt' is 16 (11:16)
+1310928214515928:  CPU  `rs' is 0 (6:11)
+1310928214515943:  CPU  `im' is 32 (16:32)
+1310928214515957:  CPU  `op' is 8 (0:6)
+1310928214515986:  CPU  calling addImmediate with ['rt', 'rs', 'im']
+1310928214516025:  CPU  leaving execute stage
+1310928214516037:  CPU  entering writeback stage
+1310928214516052:  CPU  leaving writeback stage
+1310928214516073:  CPU  completing a cycle
+1310928214516085:  CPU  beginning a cycle
+1310928214516096:  CPU  entering fetch stage
+1310928214516123:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928214516139:  CPU  leaving fetch stage
+1310928214516150:  CPU  entering decode stage
+1310928214516171:  CPU  decoding 00000000000000000000000000000000
+1310928214516234:  CPU  decoded `j' type instruction, nop
+1310928214516246:  CPU  leaving decode stage
+1310928214516258:  CPU  entering execute stage
+1310928214516273:  CPU  executing 00000000000000000000000000000000
+1310928214516292:  CPU  `im' is 0 (6:32)
+1310928214516306:  CPU  `op' is 0 (0:6)
+1310928214516324:  CPU  calling noop with []
+1310928214516341:  CPU  leaving execute stage
+1310928214516353:  CPU  entering writeback stage
+1310928214516365:  CPU  leaving writeback stage
+1310928214516385:  CPU  completing a cycle
+1310928214516411:  MEM  memory cleared
+1310928214516422:  >-----tearDown
+1310928214516945:  >-----setUp
+1310928214543954:  MEM  created 2147483-Kb of 8-byte address space
+1310928214543987:  MEM  created segment `text'	4194304..268435456
+1310928214544004:  MEM  created segment `data'	268435456..2147483647
+1310928214544020:  MEM  created segment `stack'	268435456..2147483647
+1310928214544313:  INT  created `MIPS_I' interpreter
+1310928214544407:  CPU  created a cpu
+1310928214544424:  CPU  pc is register 0x21
+1310928214544449:  >-----testDecode
+1310928214544468:  CPU  beginning a cycle
+1310928214544480:  CPU  entering fetch stage
+1310928214544517:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928214544534:  CPU  leaving fetch stage
+1310928214544546:  CPU  entering decode stage
+1310928214544566:  CPU  decode found dust in the pipeline
+1310928214544578:  CPU  leaving decode stage
+1310928214544589:  CPU  entering execute stage
+1310928214544606:  CPU  execute found dust in the pipeline
+1310928214544617:  CPU  leaving execute stage
+1310928214544628:  CPU  entering writeback stage
+1310928214544641:  CPU  leaving writeback stage
+1310928214544667:  CPU  completing a cycle
+1310928214544681:  CPU  beginning a cycle
+1310928214544694:  CPU  entering fetch stage
+1310928214544720:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928214544736:  CPU  leaving fetch stage
+1310928214544748:  CPU  entering decode stage
+1310928214544765:  CPU  decoding 00000000000000000000000000000000
+1310928214544831:  CPU  decoded `j' type instruction, nop
+1310928214544844:  CPU  leaving decode stage
+1310928214544855:  CPU  entering execute stage
+1310928214544871:  CPU  execute found dust in the pipeline
+1310928214544883:  CPU  leaving execute stage
+1310928214544894:  CPU  entering writeback stage
+1310928214544906:  CPU  leaving writeback stage
+1310928214544927:  CPU  completing a cycle
+1310928214544967:  MEM  memory cleared
+1310928214544979:  >-----tearDown
+1310928214545310:  >-----setUp
+1310928214575348:  MEM  created 2147483-Kb of 8-byte address space
+1310928214575378:  MEM  created segment `text'	4194304..268435456
+1310928214575396:  MEM  created segment `data'	268435456..2147483647
+1310928214575412:  MEM  created segment `stack'	268435456..2147483647
+1310928214575696:  INT  created `MIPS_I' interpreter
+1310928214575777:  CPU  created a cpu
+1310928214575794:  CPU  pc is register 0x21
+1310928214575815:  >-----testExecute
+1310928214575832:  CPU  beginning a cycle
+1310928214575845:  CPU  entering fetch stage
+1310928214575881:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928214575898:  CPU  leaving fetch stage
+1310928214575910:  CPU  entering decode stage
+1310928214575930:  CPU  decode found dust in the pipeline
+1310928214575942:  CPU  leaving decode stage
+1310928214575954:  CPU  entering execute stage
+1310928214575970:  CPU  execute found dust in the pipeline
+1310928214575982:  CPU  leaving execute stage
+1310928214575993:  CPU  entering writeback stage
+1310928214576007:  CPU  leaving writeback stage
+1310928214576032:  CPU  completing a cycle
+1310928214576046:  CPU  beginning a cycle
+1310928214576059:  CPU  entering fetch stage
+1310928214576085:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928214576101:  CPU  leaving fetch stage
+1310928214576113:  CPU  entering decode stage
+1310928214576130:  CPU  decoding 00000000000000000000000000000000
+1310928214576195:  CPU  decoded `j' type instruction, nop
+1310928214576208:  CPU  leaving decode stage
+1310928214576219:  CPU  entering execute stage
+1310928214576235:  CPU  execute found dust in the pipeline
+1310928214576247:  CPU  leaving execute stage
+1310928214576258:  CPU  entering writeback stage
+1310928214576270:  CPU  leaving writeback stage
+1310928214576291:  CPU  completing a cycle
+1310928214576305:  CPU  beginning a cycle
+1310928214576317:  CPU  entering fetch stage
+1310928214576344:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928214576360:  CPU  leaving fetch stage
+1310928214576371:  CPU  entering decode stage
+1310928214576389:  CPU  decoding 00000000000000000000000000000000
+1310928214576451:  CPU  decoded `j' type instruction, nop
+1310928214576464:  CPU  leaving decode stage
+1310928214576474:  CPU  entering execute stage
+1310928214576489:  CPU  executing 00000000000000000000000000000000
+1310928214576507:  CPU  `im' is 0 (6:32)
+1310928214576521:  CPU  `op' is 0 (0:6)
+1310928214576542:  CPU  calling noop with []
+1310928214576559:  CPU  leaving execute stage
+1310928214576570:  CPU  entering writeback stage
+1310928214576583:  CPU  leaving writeback stage
+1310928214576604:  CPU  completing a cycle
+1310928214576617:  CPU  beginning a cycle
+1310928214576629:  CPU  entering fetch stage
+1310928214576655:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928214576671:  CPU  leaving fetch stage
+1310928214576683:  CPU  entering decode stage
+1310928214576700:  CPU  decoding 00000000000000000000000000000000
+1310928214576763:  CPU  decoded `j' type instruction, nop
+1310928214576775:  CPU  leaving decode stage
+1310928214576786:  CPU  entering execute stage
+1310928214576801:  CPU  executing 00000000000000000000000000000000
+1310928214576818:  CPU  `im' is 0 (6:32)
+1310928214576832:  CPU  `op' is 0 (0:6)
+1310928214576850:  CPU  calling noop with []
+1310928214576866:  CPU  leaving execute stage
+1310928214576878:  CPU  entering writeback stage
+1310928214576890:  CPU  leaving writeback stage
+1310928214576911:  CPU  completing a cycle
+1310928214578317:  MEM  memory cleared
+1310928214578333:  >-----tearDown
+1310928214578811:  >-----setUp
+1310928214606570:  MEM  created 2147483-Kb of 8-byte address space
+1310928214606609:  MEM  created segment `text'	4194304..268435456
+1310928214606627:  MEM  created segment `data'	268435456..2147483647
+1310928214606643:  MEM  created segment `stack'	268435456..2147483647
+1310928214606954:  INT  created `MIPS_I' interpreter
+1310928214607046:  CPU  created a cpu
+1310928214607063:  CPU  pc is register 0x21
+1310928214607089:  >-----testNoop/Fetch
+1310928214607107:  CPU  beginning a cycle
+1310928214607120:  CPU  entering fetch stage
+1310928214607157:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928214607174:  CPU  leaving fetch stage
+1310928214607186:  CPU  entering decode stage
+1310928214607206:  CPU  decode found dust in the pipeline
+1310928214607218:  CPU  leaving decode stage
+1310928214607229:  CPU  entering execute stage
+1310928214607245:  CPU  execute found dust in the pipeline
+1310928214607257:  CPU  leaving execute stage
+1310928214607267:  CPU  entering writeback stage
+1310928214607280:  CPU  leaving writeback stage
+1310928214607306:  CPU  completing a cycle
+1310928214607344:  MEM  memory cleared
+1310928214607356:  >-----tearDown
+1310928214607621:  >-----setUp
+1310928214639349:  MEM  created 2147483-Kb of 8-byte address space
+1310928214639381:  MEM  created segment `text'	4194304..268435456
+1310928214639398:  MEM  created segment `data'	268435456..2147483647
+1310928214639414:  MEM  created segment `stack'	268435456..2147483647
+1310928214639709:  INT  created `MIPS_I' interpreter
+1310928214639789:  CPU  created a cpu
+1310928214639806:  CPU  pc is register 0x21
+1310928214639828:  >-----testPipeline
+1310928214639841:  CPU  beginning a cycle
+1310928214639854:  CPU  entering fetch stage
+1310928214639889:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928214639906:  CPU  leaving fetch stage
+1310928214639918:  CPU  entering decode stage
+1310928214639938:  CPU  decode found dust in the pipeline
+1310928214639950:  CPU  leaving decode stage
+1310928214639961:  CPU  entering execute stage
+1310928214639977:  CPU  execute found dust in the pipeline
+1310928214639989:  CPU  leaving execute stage
+1310928214640000:  CPU  entering writeback stage
+1310928214640013:  CPU  leaving writeback stage
+1310928214640039:  CPU  completing a cycle
+1310928214640053:  CPU  beginning a cycle
+1310928214640065:  CPU  entering fetch stage
+1310928214640092:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928214640107:  CPU  leaving fetch stage
+1310928214640119:  CPU  entering decode stage
+1310928214640136:  CPU  decoding 00000000000000000000000000000000
+1310928214640201:  CPU  decoded `j' type instruction, nop
+1310928214640214:  CPU  leaving decode stage
+1310928214640225:  CPU  entering execute stage
+1310928214640241:  CPU  execute found dust in the pipeline
+1310928214640254:  CPU  leaving execute stage
+1310928214640265:  CPU  entering writeback stage
+1310928214640277:  CPU  leaving writeback stage
+1310928214640297:  CPU  completing a cycle
+1310928214640311:  CPU  beginning a cycle
+1310928214640323:  CPU  entering fetch stage
+1310928214640349:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928214640365:  CPU  leaving fetch stage
+1310928214640377:  CPU  entering decode stage
+1310928214640394:  CPU  decoding 00000000000000000000000000000000
+1310928214640457:  CPU  decoded `j' type instruction, nop
+1310928214640470:  CPU  leaving decode stage
+1310928214640481:  CPU  entering execute stage
+1310928214640497:  CPU  executing 00000000000000000000000000000000
+1310928214640514:  CPU  `im' is 0 (6:32)
+1310928214640529:  CPU  `op' is 0 (0:6)
+1310928214640551:  CPU  calling noop with []
+1310928214640567:  CPU  leaving execute stage
+1310928214640579:  CPU  entering writeback stage
+1310928214640591:  CPU  leaving writeback stage
+1310928214640611:  CPU  completing a cycle
+1310928214640624:  CPU  beginning a cycle
+1310928214640635:  CPU  entering fetch stage
+1310928214640662:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928214640677:  CPU  leaving fetch stage
+1310928214640689:  CPU  entering decode stage
+1310928214640706:  CPU  decoding 00000000000000000000000000000000
+1310928214640767:  CPU  decoded `j' type instruction, nop
+1310928214640780:  CPU  leaving decode stage
+1310928214640791:  CPU  entering execute stage
+1310928214640806:  CPU  executing 00000000000000000000000000000000
+1310928214640823:  CPU  `im' is 0 (6:32)
+1310928214640838:  CPU  `op' is 0 (0:6)
+1310928214640855:  CPU  calling noop with []
+1310928214640871:  CPU  leaving execute stage
+1310928214640882:  CPU  entering writeback stage
+1310928214640895:  CPU  leaving writeback stage
+1310928214640914:  CPU  completing a cycle
+1310928214641517:  MEM  memory cleared
+1310928214641532:  >-----tearDown
+1310928362563377:  >-----setUp
+1310928362594514:  MEM  created 2147483-Kb of 8-byte address space
+1310928362594546:  MEM  created segment `text'	4194304..268435456
+1310928362594563:  MEM  created segment `data'	268435456..2147483647
+1310928362594579:  MEM  created segment `stack'	268435456..2147483647
+1310928362594874:  INT  created `MIPS_I' interpreter
+1310928362594961:  CPU  created a cpu
+1310928362594978:  CPU  pc is register 0x21
+1310928362594998:  >-----testAddInstruction
+1310928362595017:  INT  reading single line: addi $s0, $zero, 32
+1310928362595035:  INT  entering preprocessor
+1310928362595412:  INT  processed  addi $s0, $zero, 32
+1310928362595426:  INT  leaving preprocessor
+1310928362595439:  INT  entering linker
+1310928362595459:  INT  leaving linker
+1310928362595472:  INT  entering encoder
+1310928362595487:  INT  matching `addi' instruction
+1310928362596192:  INT  `rt' is $s0
+1310928362596210:  INT  `rs' is $zero
+1310928362596229:  INT  `im' is 32
+1310928362596282:  INT  encoded 00100000000100000000000000100000
+1310928362596295:  INT  leaving encoder
+1310928362596450:  MEM  memory cleared
+1310928362596476:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310928362596489:  MEM  loaded 1 word programme into memory
+1310928362596503:  CPU  beginning a cycle
+1310928362596515:  CPU  entering fetch stage
+1310928362596541:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310928362596556:  CPU  leaving fetch stage
+1310928362596567:  CPU  entering decode stage
+1310928362596589:  CPU  decode found dust in the pipeline
+1310928362596602:  CPU  leaving decode stage
+1310928362596613:  CPU  entering execute stage
+1310928362596629:  CPU  execute found dust in the pipeline
+1310928362596640:  CPU  leaving execute stage
+1310928362596651:  CPU  entering writeback stage
+1310928362596664:  CPU  leaving writeback stage
+1310928362596689:  CPU  completing a cycle
+1310928362596703:  CPU  beginning a cycle
+1310928362596716:  CPU  entering fetch stage
+1310928362596742:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928362596758:  CPU  leaving fetch stage
+1310928362596770:  CPU  entering decode stage
+1310928362596787:  CPU  decoding 00100000000100000000000000100000
+1310928362596819:  CPU  decoded `i' type instruction, addi
+1310928362596832:  CPU  leaving decode stage
+1310928362596843:  CPU  entering execute stage
+1310928362596859:  CPU  execute found dust in the pipeline
+1310928362596871:  CPU  leaving execute stage
+1310928362596883:  CPU  entering writeback stage
+1310928362596895:  CPU  leaving writeback stage
+1310928362596916:  CPU  completing a cycle
+1310928362596930:  CPU  beginning a cycle
+1310928362596942:  CPU  entering fetch stage
+1310928362596969:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928362596985:  CPU  leaving fetch stage
+1310928362596996:  CPU  entering decode stage
+1310928362597013:  CPU  decoding 00000000000000000000000000000000
+1310928362597076:  CPU  decoded `j' type instruction, nop
+1310928362597089:  CPU  leaving decode stage
+1310928362597100:  CPU  entering execute stage
+1310928362597116:  CPU  executing 00100000000100000000000000100000
+1310928362597134:  CPU  `rt' is 16 (11:16)
+1310928362597148:  CPU  `rs' is 0 (6:11)
+1310928362597163:  CPU  `im' is 32 (16:32)
+1310928362597176:  CPU  `op' is 8 (0:6)
+1310928362597208:  CPU  calling addImmediate with ['rt', 'rs', 'im']
+1310928362597247:  CPU  leaving execute stage
+1310928362597259:  CPU  entering writeback stage
+1310928362597273:  CPU  leaving writeback stage
+1310928362597294:  CPU  completing a cycle
+1310928362597306:  CPU  beginning a cycle
+1310928362597317:  CPU  entering fetch stage
+1310928362597344:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928362597360:  CPU  leaving fetch stage
+1310928362597372:  CPU  entering decode stage
+1310928362597393:  CPU  decoding 00000000000000000000000000000000
+1310928362597457:  CPU  decoded `j' type instruction, nop
+1310928362597471:  CPU  leaving decode stage
+1310928362597482:  CPU  entering execute stage
+1310928362597498:  CPU  executing 00000000000000000000000000000000
+1310928362597516:  CPU  `im' is 0 (6:32)
+1310928362597531:  CPU  `op' is 0 (0:6)
+1310928362597551:  CPU  calling noop with []
+1310928362597568:  CPU  leaving execute stage
+1310928362597580:  CPU  entering writeback stage
+1310928362597593:  CPU  leaving writeback stage
+1310928362597615:  CPU  completing a cycle
+1310928362597643:  MEM  memory cleared
+1310928362597654:  >-----tearDown
+1310928362598148:  >-----setUp
+1310928362626044:  MEM  created 2147483-Kb of 8-byte address space
+1310928362626085:  MEM  created segment `text'	4194304..268435456
+1310928362626103:  MEM  created segment `data'	268435456..2147483647
+1310928362626121:  MEM  created segment `stack'	268435456..2147483647
+1310928362626558:  INT  created `MIPS_I' interpreter
+1310928362626654:  CPU  created a cpu
+1310928362626672:  CPU  pc is register 0x21
+1310928362626700:  >-----testDecode
+1310928362626719:  CPU  beginning a cycle
+1310928362626732:  CPU  entering fetch stage
+1310928362626771:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928362626788:  CPU  leaving fetch stage
+1310928362626800:  CPU  entering decode stage
+1310928362626821:  CPU  decode found dust in the pipeline
+1310928362626833:  CPU  leaving decode stage
+1310928362626844:  CPU  entering execute stage
+1310928362626860:  CPU  execute found dust in the pipeline
+1310928362626872:  CPU  leaving execute stage
+1310928362626884:  CPU  entering writeback stage
+1310928362626896:  CPU  leaving writeback stage
+1310928362626925:  CPU  completing a cycle
+1310928362626939:  CPU  beginning a cycle
+1310928362626951:  CPU  entering fetch stage
+1310928362626978:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928362626993:  CPU  leaving fetch stage
+1310928362627005:  CPU  entering decode stage
+1310928362627022:  CPU  decoding 00000000000000000000000000000000
+1310928362627092:  CPU  decoded `j' type instruction, nop
+1310928362627105:  CPU  leaving decode stage
+1310928362627117:  CPU  entering execute stage
+1310928362627133:  CPU  execute found dust in the pipeline
+1310928362627145:  CPU  leaving execute stage
+1310928362627156:  CPU  entering writeback stage
+1310928362627169:  CPU  leaving writeback stage
+1310928362627189:  CPU  completing a cycle
+1310928362627234:  MEM  memory cleared
+1310928362627246:  >-----tearDown
+1310928362627602:  >-----setUp
+1310928362659627:  MEM  created 2147483-Kb of 8-byte address space
+1310928362659673:  MEM  created segment `text'	4194304..268435456
+1310928362659691:  MEM  created segment `data'	268435456..2147483647
+1310928362659707:  MEM  created segment `stack'	268435456..2147483647
+1310928362660055:  INT  created `MIPS_I' interpreter
+1310928362660145:  CPU  created a cpu
+1310928362660164:  CPU  pc is register 0x21
+1310928362660188:  >-----testExecute
+1310928362660207:  CPU  beginning a cycle
+1310928362660220:  CPU  entering fetch stage
+1310928362660259:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928362660277:  CPU  leaving fetch stage
+1310928362660289:  CPU  entering decode stage
+1310928362660310:  CPU  decode found dust in the pipeline
+1310928362660322:  CPU  leaving decode stage
+1310928362660333:  CPU  entering execute stage
+1310928362660350:  CPU  execute found dust in the pipeline
+1310928362660362:  CPU  leaving execute stage
+1310928362660373:  CPU  entering writeback stage
+1310928362660385:  CPU  leaving writeback stage
+1310928362660413:  CPU  completing a cycle
+1310928362660428:  CPU  beginning a cycle
+1310928362660440:  CPU  entering fetch stage
+1310928362660466:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928362660482:  CPU  leaving fetch stage
+1310928362660494:  CPU  entering decode stage
+1310928362660511:  CPU  decoding 00000000000000000000000000000000
+1310928362660579:  CPU  decoded `j' type instruction, nop
+1310928362660592:  CPU  leaving decode stage
+1310928362660604:  CPU  entering execute stage
+1310928362660620:  CPU  execute found dust in the pipeline
+1310928362660632:  CPU  leaving execute stage
+1310928362660643:  CPU  entering writeback stage
+1310928362660655:  CPU  leaving writeback stage
+1310928362660675:  CPU  completing a cycle
+1310928362660689:  CPU  beginning a cycle
+1310928362660701:  CPU  entering fetch stage
+1310928362660727:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928362660744:  CPU  leaving fetch stage
+1310928362660755:  CPU  entering decode stage
+1310928362660772:  CPU  decoding 00000000000000000000000000000000
+1310928362660837:  CPU  decoded `j' type instruction, nop
+1310928362660850:  CPU  leaving decode stage
+1310928362660862:  CPU  entering execute stage
+1310928362660878:  CPU  executing 00000000000000000000000000000000
+1310928362660895:  CPU  `im' is 0 (6:32)
+1310928362660910:  CPU  `op' is 0 (0:6)
+1310928362660932:  CPU  calling noop with []
+1310928362660949:  CPU  leaving execute stage
+1310928362660961:  CPU  entering writeback stage
+1310928362660974:  CPU  leaving writeback stage
+1310928362660995:  CPU  completing a cycle
+1310928362661007:  CPU  beginning a cycle
+1310928362661019:  CPU  entering fetch stage
+1310928362661046:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928362661062:  CPU  leaving fetch stage
+1310928362661073:  CPU  entering decode stage
+1310928362661091:  CPU  decoding 00000000000000000000000000000000
+1310928362661154:  CPU  decoded `j' type instruction, nop
+1310928362661166:  CPU  leaving decode stage
+1310928362661178:  CPU  entering execute stage
+1310928362661193:  CPU  executing 00000000000000000000000000000000
+1310928362661210:  CPU  `im' is 0 (6:32)
+1310928362661225:  CPU  `op' is 0 (0:6)
+1310928362661243:  CPU  calling noop with []
+1310928362661258:  CPU  leaving execute stage
+1310928362661270:  CPU  entering writeback stage
+1310928362661283:  CPU  leaving writeback stage
+1310928362661304:  CPU  completing a cycle
+1310928362663065:  MEM  memory cleared
+1310928362663092:  >-----tearDown
+1310928362663635:  >-----setUp
+1310928362691260:  MEM  created 2147483-Kb of 8-byte address space
+1310928362691305:  MEM  created segment `text'	4194304..268435456
+1310928362691325:  MEM  created segment `data'	268435456..2147483647
+1310928362691341:  MEM  created segment `stack'	268435456..2147483647
+1310928362691656:  INT  created `MIPS_I' interpreter
+1310928362691745:  CPU  created a cpu
+1310928362691763:  CPU  pc is register 0x21
+1310928362691787:  >-----testNoop/Fetch
+1310928362691806:  CPU  beginning a cycle
+1310928362691819:  CPU  entering fetch stage
+1310928362691859:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928362691877:  CPU  leaving fetch stage
+1310928362691889:  CPU  entering decode stage
+1310928362691909:  CPU  decode found dust in the pipeline
+1310928362691922:  CPU  leaving decode stage
+1310928362691933:  CPU  entering execute stage
+1310928362691950:  CPU  execute found dust in the pipeline
+1310928362691962:  CPU  leaving execute stage
+1310928362691973:  CPU  entering writeback stage
+1310928362691986:  CPU  leaving writeback stage
+1310928362692013:  CPU  completing a cycle
+1310928362692057:  MEM  memory cleared
+1310928362692071:  >-----tearDown
+1310928362692849:  >-----setUp
+1310928362725031:  MEM  created 2147483-Kb of 8-byte address space
+1310928362725071:  MEM  created segment `text'	4194304..268435456
+1310928362725090:  MEM  created segment `data'	268435456..2147483647
+1310928362725107:  MEM  created segment `stack'	268435456..2147483647
+1310928362725447:  INT  created `MIPS_I' interpreter
+1310928362725546:  CPU  created a cpu
+1310928362725566:  CPU  pc is register 0x21
+1310928362725598:  >-----testPipeline
+1310928362725613:  CPU  beginning a cycle
+1310928362725626:  CPU  entering fetch stage
+1310928362725668:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928362725686:  CPU  leaving fetch stage
+1310928362725698:  CPU  entering decode stage
+1310928362725719:  CPU  decode found dust in the pipeline
+1310928362725731:  CPU  leaving decode stage
+1310928362725742:  CPU  entering execute stage
+1310928362725759:  CPU  execute found dust in the pipeline
+1310928362725771:  CPU  leaving execute stage
+1310928362725782:  CPU  entering writeback stage
+1310928362725795:  CPU  leaving writeback stage
+1310928362725827:  CPU  completing a cycle
+1310928362725841:  CPU  beginning a cycle
+1310928362725853:  CPU  entering fetch stage
+1310928362725880:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928362725897:  CPU  leaving fetch stage
+1310928362725908:  CPU  entering decode stage
+1310928362725926:  CPU  decoding 00000000000000000000000000000000
+1310928362725998:  CPU  decoded `j' type instruction, nop
+1310928362726011:  CPU  leaving decode stage
+1310928362726023:  CPU  entering execute stage
+1310928362726039:  CPU  execute found dust in the pipeline
+1310928362726051:  CPU  leaving execute stage
+1310928362726062:  CPU  entering writeback stage
+1310928362726075:  CPU  leaving writeback stage
+1310928362726097:  CPU  completing a cycle
+1310928362726111:  CPU  beginning a cycle
+1310928362726123:  CPU  entering fetch stage
+1310928362726150:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928362726166:  CPU  leaving fetch stage
+1310928362726178:  CPU  entering decode stage
+1310928362726195:  CPU  decoding 00000000000000000000000000000000
+1310928362726282:  CPU  decoded `j' type instruction, nop
+1310928362726296:  CPU  leaving decode stage
+1310928362726308:  CPU  entering execute stage
+1310928362726324:  CPU  executing 00000000000000000000000000000000
+1310928362726342:  CPU  `im' is 0 (6:32)
+1310928362726356:  CPU  `op' is 0 (0:6)
+1310928362726382:  CPU  calling noop with []
+1310928362726401:  CPU  leaving execute stage
+1310928362726412:  CPU  entering writeback stage
+1310928362726425:  CPU  leaving writeback stage
+1310928362726449:  CPU  completing a cycle
+1310928362726463:  CPU  beginning a cycle
+1310928362726474:  CPU  entering fetch stage
+1310928362726504:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928362726520:  CPU  leaving fetch stage
+1310928362726532:  CPU  entering decode stage
+1310928362726550:  CPU  decoding 00000000000000000000000000000000
+1310928362726614:  CPU  decoded `j' type instruction, nop
+1310928362726627:  CPU  leaving decode stage
+1310928362726638:  CPU  entering execute stage
+1310928362726653:  CPU  executing 00000000000000000000000000000000
+1310928362726671:  CPU  `im' is 0 (6:32)
+1310928362726686:  CPU  `op' is 0 (0:6)
+1310928362726704:  CPU  calling noop with []
+1310928362726721:  CPU  leaving execute stage
+1310928362726732:  CPU  entering writeback stage
+1310928362726745:  CPU  leaving writeback stage
+1310928362726767:  CPU  completing a cycle
+1310928362726800:  MEM  memory cleared
+1310928362726812:  >-----tearDown
+1310928388995968:  >-----setUp
+1310928389028654:  MEM  created 2147483-Kb of 8-byte address space
+1310928389028690:  MEM  created segment `text'	4194304..268435456
+1310928389028709:  MEM  created segment `data'	268435456..2147483647
+1310928389028725:  MEM  created segment `stack'	268435456..2147483647
+1310928389029035:  INT  created `MIPS_I' interpreter
+1310928389029122:  CPU  created a cpu
+1310928389029139:  CPU  pc is register 0x21
+1310928389029160:  >-----testAddInstruction
+1310928389029180:  INT  reading single line: addi $s0, $zero, 32
+1310928389029198:  INT  entering preprocessor
+1310928389029715:  INT  processed  addi $s0, $zero, 32
+1310928389029732:  INT  leaving preprocessor
+1310928389029745:  INT  entering linker
+1310928389029766:  INT  leaving linker
+1310928389029779:  INT  entering encoder
+1310928389029796:  INT  matching `addi' instruction
+1310928389030535:  INT  `rt' is $s0
+1310928389030553:  INT  `rs' is $zero
+1310928389030572:  INT  `im' is 32
+1310928389030627:  INT  encoded 00100000000100000000000000100000
+1310928389030639:  INT  leaving encoder
+1310928389030795:  MEM  memory cleared
+1310928389030823:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310928389030836:  MEM  loaded 1 word programme into memory
+1310928389030852:  CPU  beginning a cycle
+1310928389030864:  CPU  entering fetch stage
+1310928389030892:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310928389030907:  CPU  leaving fetch stage
+1310928389030919:  CPU  entering decode stage
+1310928389030943:  CPU  decode found dust in the pipeline
+1310928389030955:  CPU  leaving decode stage
+1310928389030966:  CPU  entering execute stage
+1310928389030983:  CPU  execute found dust in the pipeline
+1310928389030995:  CPU  leaving execute stage
+1310928389031006:  CPU  entering writeback stage
+1310928389031019:  CPU  leaving writeback stage
+1310928389031049:  CPU  completing a cycle
+1310928389031064:  CPU  beginning a cycle
+1310928389031076:  CPU  entering fetch stage
+1310928389031104:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928389031121:  CPU  leaving fetch stage
+1310928389031132:  CPU  entering decode stage
+1310928389031150:  CPU  decoding 00100000000100000000000000100000
+1310928389031184:  CPU  decoded `i' type instruction, addi
+1310928389031197:  CPU  leaving decode stage
+1310928389031208:  CPU  entering execute stage
+1310928389031224:  CPU  execute found dust in the pipeline
+1310928389031237:  CPU  leaving execute stage
+1310928389031248:  CPU  entering writeback stage
+1310928389031260:  CPU  leaving writeback stage
+1310928389031281:  CPU  completing a cycle
+1310928389031295:  CPU  beginning a cycle
+1310928389031307:  CPU  entering fetch stage
+1310928389031334:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928389031350:  CPU  leaving fetch stage
+1310928389031361:  CPU  entering decode stage
+1310928389031379:  CPU  decoding 00000000000000000000000000000000
+1310928389031443:  CPU  decoded `j' type instruction, nop
+1310928389031456:  CPU  leaving decode stage
+1310928389031467:  CPU  entering execute stage
+1310928389031486:  CPU  executing 00100000000100000000000000100000
+1310928389031505:  CPU  `rt' is 16 (11:16)
+1310928389031520:  CPU  `rs' is 0 (6:11)
+1310928389031536:  CPU  `im' is 32 (16:32)
+1310928389031550:  CPU  `op' is 8 (0:6)
+1310928389031580:  CPU  calling addImmediate with ['rt', 'rs', 'im']
+1310928389031619:  CPU  leaving execute stage
+1310928389031632:  CPU  entering writeback stage
+1310928389031646:  CPU  leaving writeback stage
+1310928389031667:  CPU  completing a cycle
+1310928389031680:  CPU  beginning a cycle
+1310928389031691:  CPU  entering fetch stage
+1310928389031718:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928389031735:  CPU  leaving fetch stage
+1310928389031746:  CPU  entering decode stage
+1310928389031767:  CPU  decoding 00000000000000000000000000000000
+1310928389031831:  CPU  decoded `j' type instruction, nop
+1310928389031845:  CPU  leaving decode stage
+1310928389031856:  CPU  entering execute stage
+1310928389031872:  CPU  executing 00000000000000000000000000000000
+1310928389031890:  CPU  `im' is 0 (6:32)
+1310928389031906:  CPU  `op' is 0 (0:6)
+1310928389031923:  CPU  calling noop with []
+1310928389031940:  CPU  leaving execute stage
+1310928389031952:  CPU  entering writeback stage
+1310928389031965:  CPU  leaving writeback stage
+1310928389031986:  CPU  completing a cycle
+1310928389032012:  MEM  memory cleared
+1310928389032023:  >-----tearDown
+1310928389032507:  >-----setUp
+1310928389059661:  MEM  created 2147483-Kb of 8-byte address space
+1310928389059695:  MEM  created segment `text'	4194304..268435456
+1310928389059713:  MEM  created segment `data'	268435456..2147483647
+1310928389059729:  MEM  created segment `stack'	268435456..2147483647
+1310928389060060:  INT  created `MIPS_I' interpreter
+1310928389060151:  CPU  created a cpu
+1310928389060168:  CPU  pc is register 0x21
+1310928389060191:  >-----testDecode
+1310928389060210:  CPU  beginning a cycle
+1310928389060223:  CPU  entering fetch stage
+1310928389060260:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928389060278:  CPU  leaving fetch stage
+1310928389060290:  CPU  entering decode stage
+1310928389060310:  CPU  decode found dust in the pipeline
+1310928389060322:  CPU  leaving decode stage
+1310928389060333:  CPU  entering execute stage
+1310928389060350:  CPU  execute found dust in the pipeline
+1310928389060362:  CPU  leaving execute stage
+1310928389060373:  CPU  entering writeback stage
+1310928389060386:  CPU  leaving writeback stage
+1310928389060412:  CPU  completing a cycle
+1310928389060427:  CPU  beginning a cycle
+1310928389060439:  CPU  entering fetch stage
+1310928389060466:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928389060482:  CPU  leaving fetch stage
+1310928389060494:  CPU  entering decode stage
+1310928389060511:  CPU  decoding 00000000000000000000000000000000
+1310928389060577:  CPU  decoded `j' type instruction, nop
+1310928389060590:  CPU  leaving decode stage
+1310928389060602:  CPU  entering execute stage
+1310928389060618:  CPU  execute found dust in the pipeline
+1310928389060630:  CPU  leaving execute stage
+1310928389060642:  CPU  entering writeback stage
+1310928389060654:  CPU  leaving writeback stage
+1310928389060675:  CPU  completing a cycle
+1310928389060718:  MEM  memory cleared
+1310928389060730:  >-----tearDown
+1310928389061088:  >-----setUp
+1310928389091344:  MEM  created 2147483-Kb of 8-byte address space
+1310928389091376:  MEM  created segment `text'	4194304..268435456
+1310928389091393:  MEM  created segment `data'	268435456..2147483647
+1310928389091410:  MEM  created segment `stack'	268435456..2147483647
+1310928389091708:  INT  created `MIPS_I' interpreter
+1310928389091789:  CPU  created a cpu
+1310928389091806:  CPU  pc is register 0x21
+1310928389091827:  >-----testExecute
+1310928389091844:  CPU  beginning a cycle
+1310928389091857:  CPU  entering fetch stage
+1310928389091892:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928389091910:  CPU  leaving fetch stage
+1310928389091923:  CPU  entering decode stage
+1310928389091943:  CPU  decode found dust in the pipeline
+1310928389091955:  CPU  leaving decode stage
+1310928389091967:  CPU  entering execute stage
+1310928389091983:  CPU  execute found dust in the pipeline
+1310928389091995:  CPU  leaving execute stage
+1310928389092006:  CPU  entering writeback stage
+1310928389092019:  CPU  leaving writeback stage
+1310928389092043:  CPU  completing a cycle
+1310928389092058:  CPU  beginning a cycle
+1310928389092070:  CPU  entering fetch stage
+1310928389092098:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928389092114:  CPU  leaving fetch stage
+1310928389092126:  CPU  entering decode stage
+1310928389092143:  CPU  decoding 00000000000000000000000000000000
+1310928389092210:  CPU  decoded `j' type instruction, nop
+1310928389092223:  CPU  leaving decode stage
+1310928389092239:  CPU  entering execute stage
+1310928389092256:  CPU  execute found dust in the pipeline
+1310928389092268:  CPU  leaving execute stage
+1310928389092280:  CPU  entering writeback stage
+1310928389092293:  CPU  leaving writeback stage
+1310928389092314:  CPU  completing a cycle
+1310928389092329:  CPU  beginning a cycle
+1310928389092341:  CPU  entering fetch stage
+1310928389092368:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928389092384:  CPU  leaving fetch stage
+1310928389092395:  CPU  entering decode stage
+1310928389092413:  CPU  decoding 00000000000000000000000000000000
+1310928389092477:  CPU  decoded `j' type instruction, nop
+1310928389092490:  CPU  leaving decode stage
+1310928389092502:  CPU  entering execute stage
+1310928389092518:  CPU  executing 00000000000000000000000000000000
+1310928389092535:  CPU  `im' is 0 (6:32)
+1310928389092550:  CPU  `op' is 0 (0:6)
+1310928389092576:  CPU  calling noop with []
+1310928389092594:  CPU  leaving execute stage
+1310928389092606:  CPU  entering writeback stage
+1310928389092619:  CPU  leaving writeback stage
+1310928389092641:  CPU  completing a cycle
+1310928389092654:  CPU  beginning a cycle
+1310928389092666:  CPU  entering fetch stage
+1310928389092693:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928389092709:  CPU  leaving fetch stage
+1310928389092721:  CPU  entering decode stage
+1310928389092738:  CPU  decoding 00000000000000000000000000000000
+1310928389092801:  CPU  decoded `j' type instruction, nop
+1310928389092813:  CPU  leaving decode stage
+1310928389092825:  CPU  entering execute stage
+1310928389092840:  CPU  executing 00000000000000000000000000000000
+1310928389092857:  CPU  `im' is 0 (6:32)
+1310928389092872:  CPU  `op' is 0 (0:6)
+1310928389092890:  CPU  calling noop with []
+1310928389092906:  CPU  leaving execute stage
+1310928389092918:  CPU  entering writeback stage
+1310928389092930:  CPU  leaving writeback stage
+1310928389092950:  CPU  completing a cycle
+1310928389094434:  MEM  memory cleared
+1310928389094454:  >-----tearDown
+1310928389094963:  >-----setUp
+1310928389122316:  MEM  created 2147483-Kb of 8-byte address space
+1310928389122353:  MEM  created segment `text'	4194304..268435456
+1310928389122371:  MEM  created segment `data'	268435456..2147483647
+1310928389122388:  MEM  created segment `stack'	268435456..2147483647
+1310928389122664:  INT  created `MIPS_I' interpreter
+1310928389122748:  CPU  created a cpu
+1310928389122768:  CPU  pc is register 0x21
+1310928389122790:  >-----testNoop/Fetch
+1310928389122810:  CPU  beginning a cycle
+1310928389122824:  CPU  entering fetch stage
+1310928389122863:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928389122881:  CPU  leaving fetch stage
+1310928389122893:  CPU  entering decode stage
+1310928389122914:  CPU  decode found dust in the pipeline
+1310928389122926:  CPU  leaving decode stage
+1310928389122938:  CPU  entering execute stage
+1310928389122954:  CPU  execute found dust in the pipeline
+1310928389122966:  CPU  leaving execute stage
+1310928389122977:  CPU  entering writeback stage
+1310928389122990:  CPU  leaving writeback stage
+1310928389123017:  CPU  completing a cycle
+1310928389123060:  MEM  memory cleared
+1310928389123073:  >-----tearDown
+1310928389123360:  >-----setUp
+1310928389154951:  MEM  created 2147483-Kb of 8-byte address space
+1310928389154988:  MEM  created segment `text'	4194304..268435456
+1310928389155007:  MEM  created segment `data'	268435456..2147483647
+1310928389155023:  MEM  created segment `stack'	268435456..2147483647
+1310928389155337:  INT  created `MIPS_I' interpreter
+1310928389155429:  CPU  created a cpu
+1310928389155447:  CPU  pc is register 0x21
+1310928389155477:  >-----testPipeline
+1310928389155491:  CPU  beginning a cycle
+1310928389155504:  CPU  entering fetch stage
+1310928389155543:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928389155560:  CPU  leaving fetch stage
+1310928389155572:  CPU  entering decode stage
+1310928389155592:  CPU  decode found dust in the pipeline
+1310928389155605:  CPU  leaving decode stage
+1310928389155616:  CPU  entering execute stage
+1310928389155632:  CPU  execute found dust in the pipeline
+1310928389155644:  CPU  leaving execute stage
+1310928389155655:  CPU  entering writeback stage
+1310928389155668:  CPU  leaving writeback stage
+1310928389155693:  CPU  completing a cycle
+1310928389155707:  CPU  beginning a cycle
+1310928389155720:  CPU  entering fetch stage
+1310928389155748:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928389155764:  CPU  leaving fetch stage
+1310928389155775:  CPU  entering decode stage
+1310928389155792:  CPU  decoding 00000000000000000000000000000000
+1310928389155863:  CPU  decoded `j' type instruction, nop
+1310928389155876:  CPU  leaving decode stage
+1310928389155888:  CPU  entering execute stage
+1310928389155904:  CPU  execute found dust in the pipeline
+1310928389155917:  CPU  leaving execute stage
+1310928389155928:  CPU  entering writeback stage
+1310928389155941:  CPU  leaving writeback stage
+1310928389155963:  CPU  completing a cycle
+1310928389155978:  CPU  beginning a cycle
+1310928389155989:  CPU  entering fetch stage
+1310928389156016:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928389156032:  CPU  leaving fetch stage
+1310928389156043:  CPU  entering decode stage
+1310928389156060:  CPU  decoding 00000000000000000000000000000000
+1310928389156125:  CPU  decoded `j' type instruction, nop
+1310928389156137:  CPU  leaving decode stage
+1310928389156149:  CPU  entering execute stage
+1310928389156164:  CPU  executing 00000000000000000000000000000000
+1310928389156182:  CPU  `im' is 0 (6:32)
+1310928389156197:  CPU  `op' is 0 (0:6)
+1310928389156219:  CPU  calling noop with []
+1310928389156236:  CPU  leaving execute stage
+1310928389156248:  CPU  entering writeback stage
+1310928389156260:  CPU  leaving writeback stage
+1310928389156282:  CPU  completing a cycle
+1310928389156294:  CPU  beginning a cycle
+1310928389156306:  CPU  entering fetch stage
+1310928389156333:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928389156349:  CPU  leaving fetch stage
+1310928389156360:  CPU  entering decode stage
+1310928389156377:  CPU  decoding 00000000000000000000000000000000
+1310928389156441:  CPU  decoded `j' type instruction, nop
+1310928389156454:  CPU  leaving decode stage
+1310928389156465:  CPU  entering execute stage
+1310928389156480:  CPU  executing 00000000000000000000000000000000
+1310928389156497:  CPU  `im' is 0 (6:32)
+1310928389156512:  CPU  `op' is 0 (0:6)
+1310928389156530:  CPU  calling noop with []
+1310928389156546:  CPU  leaving execute stage
+1310928389156558:  CPU  entering writeback stage
+1310928389156570:  CPU  leaving writeback stage
+1310928389156591:  CPU  completing a cycle
+1310928389156603:  CPU  beginning a cycle
+1310928389156615:  CPU  entering fetch stage
+1310928389156641:  MEM  loaded 00000000000000000000000000000000 from 0x400004
+1310928389156657:  CPU  leaving fetch stage
+1310928389156668:  CPU  entering decode stage
+1310928389156685:  CPU  decoding 00000000000000000000000000000000
+1310928389156748:  CPU  decoded `j' type instruction, nop
+1310928389156761:  CPU  leaving decode stage
+1310928389156772:  CPU  entering execute stage
+1310928389156788:  CPU  executing 00000000000000000000000000000000
+1310928389156806:  CPU  `im' is 0 (6:32)
+1310928389156821:  CPU  `op' is 0 (0:6)
+1310928389156838:  CPU  calling noop with []
+1310928389156854:  CPU  leaving execute stage
+1310928389156865:  CPU  entering writeback stage
+1310928389156878:  CPU  leaving writeback stage
+1310928389156899:  CPU  completing a cycle
+1310928389157491:  MEM  memory cleared
+1310928389157505:  >-----tearDown
+1310928477964755:  >-----setUp
+1310928477997046:  MEM  created 2147483-Kb of 8-byte address space
+1310928477997079:  MEM  created segment `text'	4194304..268435456
+1310928477997097:  MEM  created segment `data'	268435456..2147483647
+1310928477997113:  MEM  created segment `stack'	268435456..2147483647
+1310928477997427:  INT  created `MIPS_I' interpreter
+1310928477997514:  CPU  created a cpu
+1310928477997531:  CPU  pc is register 0x21
+1310928477997553:  >-----testAddInstruction
+1310928477997572:  INT  reading single line: addi $s0, $zero, 32
+1310928477997591:  INT  entering preprocessor
+1310928477998002:  INT  processed  addi $s0, $zero, 32
+1310928477998019:  INT  leaving preprocessor
+1310928477998032:  INT  entering linker
+1310928477998052:  INT  leaving linker
+1310928477998065:  INT  entering encoder
+1310928477998081:  INT  matching `addi' instruction
+1310928477998817:  INT  `rt' is $s0
+1310928477998834:  INT  `rs' is $zero
+1310928477998854:  INT  `im' is 32
+1310928477998909:  INT  encoded 00100000000100000000000000100000
+1310928477998922:  INT  leaving encoder
+1310928477999088:  MEM  memory cleared
+1310928477999116:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310928477999129:  MEM  loaded 1 word programme into memory
+1310928477999144:  CPU  beginning a cycle
+1310928477999157:  CPU  entering fetch stage
+1310928477999185:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310928477999201:  CPU  leaving fetch stage
+1310928477999213:  CPU  entering decode stage
+1310928477999237:  CPU  decode found dust in the pipeline
+1310928477999249:  CPU  leaving decode stage
+1310928477999260:  CPU  entering execute stage
+1310928477999278:  CPU  execute found dust in the pipeline
+1310928477999289:  CPU  leaving execute stage
+1310928477999300:  CPU  entering writeback stage
+1310928477999314:  CPU  leaving writeback stage
+1310928477999341:  CPU  completing a cycle
+1310928477999356:  CPU  beginning a cycle
+1310928477999368:  CPU  entering fetch stage
+1310928477999395:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928477999412:  CPU  leaving fetch stage
+1310928477999423:  CPU  entering decode stage
+1310928477999441:  CPU  decoding 00100000000100000000000000100000
+1310928477999474:  CPU  decoded `i' type instruction, addi
+1310928477999488:  CPU  leaving decode stage
+1310928477999499:  CPU  entering execute stage
+1310928477999515:  CPU  execute found dust in the pipeline
+1310928477999527:  CPU  leaving execute stage
+1310928477999538:  CPU  entering writeback stage
+1310928477999551:  CPU  leaving writeback stage
+1310928477999571:  CPU  completing a cycle
+1310928477999586:  CPU  beginning a cycle
+1310928477999597:  CPU  entering fetch stage
+1310928477999624:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928477999640:  CPU  leaving fetch stage
+1310928477999652:  CPU  entering decode stage
+1310928477999669:  CPU  decoding 00000000000000000000000000000000
+1310928477999736:  CPU  decoded `j' type instruction, nop
+1310928477999749:  CPU  leaving decode stage
+1310928477999761:  CPU  entering execute stage
+1310928477999779:  CPU  executing 00100000000100000000000000100000
+1310928477999797:  CPU  `rt' is 16 (11:16)
+1310928477999812:  CPU  `rs' is 0 (6:11)
+1310928477999826:  CPU  `im' is 32 (16:32)
+1310928477999841:  CPU  `op' is 8 (0:6)
+1310928477999870:  CPU  calling addImmediate with ['rt', 'rs', 'im']
+1310928477999909:  CPU  leaving execute stage
+1310928477999922:  CPU  entering writeback stage
+1310928477999936:  CPU  leaving writeback stage
+1310928477999957:  CPU  completing a cycle
+1310928477999968:  CPU  beginning a cycle
+1310928477999980:  CPU  entering fetch stage
+1310928478000007:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928478000023:  CPU  leaving fetch stage
+1310928478000035:  CPU  entering decode stage
+1310928478000051:  CPU  decoding 00000000000000000000000000000000
+1310928478000117:  CPU  decoded `j' type instruction, nop
+1310928478000130:  CPU  leaving decode stage
+1310928478000142:  CPU  entering execute stage
+1310928478000157:  CPU  executing 00000000000000000000000000000000
+1310928478000175:  CPU  `im' is 0 (6:32)
+1310928478000189:  CPU  `op' is 0 (0:6)
+1310928478000212:  CPU  calling noop with []
+1310928478000228:  CPU  leaving execute stage
+1310928478000239:  CPU  entering writeback stage
+1310928478000253:  CPU  leaving writeback stage
+1310928478000273:  CPU  completing a cycle
+1310928478000299:  MEM  memory cleared
+1310928478000309:  >-----tearDown
+1310928478000790:  >-----setUp
+1310928478028425:  MEM  created 2147483-Kb of 8-byte address space
+1310928478028459:  MEM  created segment `text'	4194304..268435456
+1310928478028477:  MEM  created segment `data'	268435456..2147483647
+1310928478028493:  MEM  created segment `stack'	268435456..2147483647
+1310928478028810:  INT  created `MIPS_I' interpreter
+1310928478028908:  CPU  created a cpu
+1310928478028926:  CPU  pc is register 0x21
+1310928478028951:  >-----testDecode
+1310928478028970:  CPU  beginning a cycle
+1310928478028984:  CPU  entering fetch stage
+1310928478029028:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928478029046:  CPU  leaving fetch stage
+1310928478029058:  CPU  entering decode stage
+1310928478029080:  CPU  decode found dust in the pipeline
+1310928478029092:  CPU  leaving decode stage
+1310928478029103:  CPU  entering execute stage
+1310928478029120:  CPU  execute found dust in the pipeline
+1310928478029131:  CPU  leaving execute stage
+1310928478029142:  CPU  entering writeback stage
+1310928478029156:  CPU  leaving writeback stage
+1310928478029184:  CPU  completing a cycle
+1310928478029198:  CPU  beginning a cycle
+1310928478029211:  CPU  entering fetch stage
+1310928478029238:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928478029254:  CPU  leaving fetch stage
+1310928478029265:  CPU  entering decode stage
+1310928478029282:  CPU  decoding 00000000000000000000000000000000
+1310928478029353:  CPU  decoded `j' type instruction, nop
+1310928478029366:  CPU  leaving decode stage
+1310928478029377:  CPU  entering execute stage
+1310928478029393:  CPU  execute found dust in the pipeline
+1310928478029405:  CPU  leaving execute stage
+1310928478029416:  CPU  entering writeback stage
+1310928478029429:  CPU  leaving writeback stage
+1310928478029449:  CPU  completing a cycle
+1310928478029493:  MEM  memory cleared
+1310928478029505:  >-----tearDown
+1310928478029847:  >-----setUp
+1310928478060454:  MEM  created 2147483-Kb of 8-byte address space
+1310928478060494:  MEM  created segment `text'	4194304..268435456
+1310928478060513:  MEM  created segment `data'	268435456..2147483647
+1310928478060529:  MEM  created segment `stack'	268435456..2147483647
+1310928478060893:  INT  created `MIPS_I' interpreter
+1310928478060978:  CPU  created a cpu
+1310928478060995:  CPU  pc is register 0x21
+1310928478061022:  >-----testExecute
+1310928478061040:  CPU  beginning a cycle
+1310928478061054:  CPU  entering fetch stage
+1310928478061090:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928478061108:  CPU  leaving fetch stage
+1310928478061120:  CPU  entering decode stage
+1310928478061141:  CPU  decode found dust in the pipeline
+1310928478061153:  CPU  leaving decode stage
+1310928478061164:  CPU  entering execute stage
+1310928478061181:  CPU  execute found dust in the pipeline
+1310928478061192:  CPU  leaving execute stage
+1310928478061203:  CPU  entering writeback stage
+1310928478061217:  CPU  leaving writeback stage
+1310928478061245:  CPU  completing a cycle
+1310928478061259:  CPU  beginning a cycle
+1310928478061272:  CPU  entering fetch stage
+1310928478061299:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928478061315:  CPU  leaving fetch stage
+1310928478061327:  CPU  entering decode stage
+1310928478061344:  CPU  decoding 00000000000000000000000000000000
+1310928478061413:  CPU  decoded `j' type instruction, nop
+1310928478061427:  CPU  leaving decode stage
+1310928478061439:  CPU  entering execute stage
+1310928478061455:  CPU  execute found dust in the pipeline
+1310928478061467:  CPU  leaving execute stage
+1310928478061479:  CPU  entering writeback stage
+1310928478061492:  CPU  leaving writeback stage
+1310928478061514:  CPU  completing a cycle
+1310928478061528:  CPU  beginning a cycle
+1310928478061540:  CPU  entering fetch stage
+1310928478061569:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928478061585:  CPU  leaving fetch stage
+1310928478061597:  CPU  entering decode stage
+1310928478061615:  CPU  decoding 00000000000000000000000000000000
+1310928478061682:  CPU  decoded `j' type instruction, nop
+1310928478061696:  CPU  leaving decode stage
+1310928478061708:  CPU  entering execute stage
+1310928478061723:  CPU  executing 00000000000000000000000000000000
+1310928478061741:  CPU  `im' is 0 (6:32)
+1310928478061755:  CPU  `op' is 0 (0:6)
+1310928478061779:  CPU  calling noop with []
+1310928478061796:  CPU  leaving execute stage
+1310928478061807:  CPU  entering writeback stage
+1310928478061820:  CPU  leaving writeback stage
+1310928478061841:  CPU  completing a cycle
+1310928478061855:  CPU  beginning a cycle
+1310928478061866:  CPU  entering fetch stage
+1310928478061894:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928478061911:  CPU  leaving fetch stage
+1310928478061922:  CPU  entering decode stage
+1310928478061940:  CPU  decoding 00000000000000000000000000000000
+1310928478062004:  CPU  decoded `j' type instruction, nop
+1310928478062017:  CPU  leaving decode stage
+1310928478062028:  CPU  entering execute stage
+1310928478062043:  CPU  executing 00000000000000000000000000000000
+1310928478062060:  CPU  `im' is 0 (6:32)
+1310928478062075:  CPU  `op' is 0 (0:6)
+1310928478062093:  CPU  calling noop with []
+1310928478062108:  CPU  leaving execute stage
+1310928478062119:  CPU  entering writeback stage
+1310928478062132:  CPU  leaving writeback stage
+1310928478062152:  CPU  completing a cycle
+1310928478062191:  MEM  memory cleared
+1310928478062203:  >-----tearDown
+1310928478062717:  >-----setUp
+1310928478090128:  MEM  created 2147483-Kb of 8-byte address space
+1310928478090166:  MEM  created segment `text'	4194304..268435456
+1310928478090185:  MEM  created segment `data'	268435456..2147483647
+1310928478090201:  MEM  created segment `stack'	268435456..2147483647
+1310928478090545:  INT  created `MIPS_I' interpreter
+1310928478090636:  CPU  created a cpu
+1310928478090655:  CPU  pc is register 0x21
+1310928478090680:  >-----testNoop/Fetch
+1310928478090700:  CPU  beginning a cycle
+1310928478090714:  CPU  entering fetch stage
+1310928478090754:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928478090773:  CPU  leaving fetch stage
+1310928478090785:  CPU  entering decode stage
+1310928478090806:  CPU  decode found dust in the pipeline
+1310928478090818:  CPU  leaving decode stage
+1310928478090829:  CPU  entering execute stage
+1310928478090845:  CPU  execute found dust in the pipeline
+1310928478090857:  CPU  leaving execute stage
+1310928478090868:  CPU  entering writeback stage
+1310928478090881:  CPU  leaving writeback stage
+1310928478090908:  CPU  completing a cycle
+1310928478090947:  MEM  memory cleared
+1310928478090960:  >-----tearDown
+1310928478091226:  >-----setUp
+1310928478123809:  MEM  created 2147483-Kb of 8-byte address space
+1310928478123847:  MEM  created segment `text'	4194304..268435456
+1310928478123866:  MEM  created segment `data'	268435456..2147483647
+1310928478123883:  MEM  created segment `stack'	268435456..2147483647
+1310928478124264:  INT  created `MIPS_I' interpreter
+1310928478124357:  CPU  created a cpu
+1310928478124376:  CPU  pc is register 0x21
+1310928478124404:  >-----testPipeline
+1310928478124419:  CPU  beginning a cycle
+1310928478124432:  CPU  entering fetch stage
+1310928478124471:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928478124489:  CPU  leaving fetch stage
+1310928478124501:  CPU  entering decode stage
+1310928478124522:  CPU  decode found dust in the pipeline
+1310928478124534:  CPU  leaving decode stage
+1310928478124545:  CPU  entering execute stage
+1310928478124562:  CPU  execute found dust in the pipeline
+1310928478124573:  CPU  leaving execute stage
+1310928478124584:  CPU  entering writeback stage
+1310928478124598:  CPU  leaving writeback stage
+1310928478124627:  CPU  completing a cycle
+1310928478124641:  CPU  beginning a cycle
+1310928478124654:  CPU  entering fetch stage
+1310928478124681:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928478124697:  CPU  leaving fetch stage
+1310928478124709:  CPU  entering decode stage
+1310928478124727:  CPU  decoding 00000000000000000000000000000000
+1310928478124796:  CPU  decoded `j' type instruction, nop
+1310928478124810:  CPU  leaving decode stage
+1310928478124822:  CPU  entering execute stage
+1310928478124839:  CPU  execute found dust in the pipeline
+1310928478124851:  CPU  leaving execute stage
+1310928478124862:  CPU  entering writeback stage
+1310928478124875:  CPU  leaving writeback stage
+1310928478124896:  CPU  completing a cycle
+1310928478124910:  CPU  beginning a cycle
+1310928478124922:  CPU  entering fetch stage
+1310928478124950:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928478124966:  CPU  leaving fetch stage
+1310928478124978:  CPU  entering decode stage
+1310928478124996:  CPU  decoding 00000000000000000000000000000000
+1310928478125060:  CPU  decoded `j' type instruction, nop
+1310928478125073:  CPU  leaving decode stage
+1310928478125085:  CPU  entering execute stage
+1310928478125100:  CPU  executing 00000000000000000000000000000000
+1310928478125118:  CPU  `im' is 0 (6:32)
+1310928478125133:  CPU  `op' is 0 (0:6)
+1310928478125156:  CPU  calling noop with []
+1310928478125174:  CPU  leaving execute stage
+1310928478125185:  CPU  entering writeback stage
+1310928478125198:  CPU  leaving writeback stage
+1310928478125219:  CPU  completing a cycle
+1310928478125231:  CPU  beginning a cycle
+1310928478125243:  CPU  entering fetch stage
+1310928478125270:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928478125287:  CPU  leaving fetch stage
+1310928478125298:  CPU  entering decode stage
+1310928478125316:  CPU  decoding 00000000000000000000000000000000
+1310928478125380:  CPU  decoded `j' type instruction, nop
+1310928478125394:  CPU  leaving decode stage
+1310928478125406:  CPU  entering execute stage
+1310928478125421:  CPU  executing 00000000000000000000000000000000
+1310928478125438:  CPU  `im' is 0 (6:32)
+1310928478125453:  CPU  `op' is 0 (0:6)
+1310928478125471:  CPU  calling noop with []
+1310928478125486:  CPU  leaving execute stage
+1310928478125497:  CPU  entering writeback stage
+1310928478125511:  CPU  leaving writeback stage
+1310928478125531:  CPU  completing a cycle
+1310928478125562:  MEM  memory cleared
+1310928478125573:  >-----tearDown
+1310928568166155:  >-----setUp
+1310928568196823:  MEM  created 2147483-Kb of 8-byte address space
+1310928568196855:  MEM  created segment `text'	4194304..268435456
+1310928568196872:  MEM  created segment `data'	268435456..2147483647
+1310928568196889:  MEM  created segment `stack'	268435456..2147483647
+1310928568197179:  INT  created `MIPS_I' interpreter
+1310928568197263:  CPU  created a cpu
+1310928568197280:  CPU  pc is register 0x21
+1310928568197299:  >-----testAddInstruction
+1310928568197317:  INT  reading single line: addi $s0, $zero, 32
+1310928568197335:  INT  entering preprocessor
+1310928568197711:  INT  processed  addi $s0, $zero, 32
+1310928568197726:  INT  leaving preprocessor
+1310928568197738:  INT  entering linker
+1310928568197758:  INT  leaving linker
+1310928568197771:  INT  entering encoder
+1310928568197786:  INT  matching `addi' instruction
+1310928568198547:  INT  `rt' is $s0
+1310928568198566:  INT  `rs' is $zero
+1310928568198585:  INT  `im' is 32
+1310928568198639:  INT  encoded 00100000000100000000000000100000
+1310928568198652:  INT  leaving encoder
+1310928568198823:  MEM  memory cleared
+1310928568198849:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310928568198863:  MEM  loaded 1 word programme into memory
+1310928568198878:  CPU  beginning a cycle
+1310928568198890:  CPU  entering fetch stage
+1310928568198918:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310928568198934:  CPU  leaving fetch stage
+1310928568198946:  CPU  entering decode stage
+1310928568199357:  MEM  memory cleared
+1310928568199373:  >-----tearDown
+1310928568199600:  >-----setUp
+1310928568226382:  MEM  created 2147483-Kb of 8-byte address space
+1310928568226423:  MEM  created segment `text'	4194304..268435456
+1310928568226441:  MEM  created segment `data'	268435456..2147483647
+1310928568226459:  MEM  created segment `stack'	268435456..2147483647
+1310928568226794:  INT  created `MIPS_I' interpreter
+1310928568226885:  CPU  created a cpu
+1310928568226903:  CPU  pc is register 0x21
+1310928568226927:  >-----testDecode
+1310928568226946:  CPU  beginning a cycle
+1310928568226959:  CPU  entering fetch stage
+1310928568226997:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928568227015:  CPU  leaving fetch stage
+1310928568227027:  CPU  entering decode stage
+1310928568227232:  MEM  memory cleared
+1310928568227246:  >-----tearDown
+1310928568227446:  >-----setUp
+1310928568257034:  MEM  created 2147483-Kb of 8-byte address space
+1310928568257078:  MEM  created segment `text'	4194304..268435456
+1310928568257097:  MEM  created segment `data'	268435456..2147483647
+1310928568257114:  MEM  created segment `stack'	268435456..2147483647
+1310928568257453:  INT  created `MIPS_I' interpreter
+1310928568257545:  CPU  created a cpu
+1310928568257563:  CPU  pc is register 0x21
+1310928568257588:  >-----testExecute
+1310928568257606:  CPU  beginning a cycle
+1310928568257619:  CPU  entering fetch stage
+1310928568257661:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928568257680:  CPU  leaving fetch stage
+1310928568257692:  CPU  entering decode stage
+1310928568257926:  MEM  memory cleared
+1310928568257941:  >-----tearDown
+1310928568258145:  >-----setUp
+1310928568285201:  MEM  created 2147483-Kb of 8-byte address space
+1310928568285246:  MEM  created segment `text'	4194304..268435456
+1310928568285265:  MEM  created segment `data'	268435456..2147483647
+1310928568285281:  MEM  created segment `stack'	268435456..2147483647
+1310928568285599:  INT  created `MIPS_I' interpreter
+1310928568285688:  CPU  created a cpu
+1310928568285705:  CPU  pc is register 0x21
+1310928568285732:  >-----testNoop/Fetch
+1310928568285750:  CPU  beginning a cycle
+1310928568285764:  CPU  entering fetch stage
+1310928568285802:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928568285820:  CPU  leaving fetch stage
+1310928568285833:  CPU  entering decode stage
+1310928568286028:  MEM  memory cleared
+1310928568286042:  >-----tearDown
+1310928568286240:  >-----setUp
+1310928568318803:  MEM  created 2147483-Kb of 8-byte address space
+1310928568318841:  MEM  created segment `text'	4194304..268435456
+1310928568318859:  MEM  created segment `data'	268435456..2147483647
+1310928568318876:  MEM  created segment `stack'	268435456..2147483647
+1310928568319207:  INT  created `MIPS_I' interpreter
+1310928568319298:  CPU  created a cpu
+1310928568319316:  CPU  pc is register 0x21
+1310928568319342:  >-----testPipeline
+1310928568319356:  CPU  beginning a cycle
+1310928568319368:  CPU  entering fetch stage
+1310928568319408:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928568319427:  CPU  leaving fetch stage
+1310928568319439:  CPU  entering decode stage
+1310928568319659:  MEM  memory cleared
+1310928568319675:  >-----tearDown
+1310928581573540:  >-----setUp
+1310928581605291:  MEM  created 2147483-Kb of 8-byte address space
+1310928581605324:  MEM  created segment `text'	4194304..268435456
+1310928581605341:  MEM  created segment `data'	268435456..2147483647
+1310928581605357:  MEM  created segment `stack'	268435456..2147483647
+1310928581605659:  INT  created `MIPS_I' interpreter
+1310928581605750:  CPU  created a cpu
+1310928581605769:  CPU  pc is register 0x21
+1310928581605793:  >-----testAddInstruction
+1310928581605814:  INT  reading single line: addi $s0, $zero, 32
+1310928581605834:  INT  entering preprocessor
+1310928581606247:  INT  processed  addi $s0, $zero, 32
+1310928581606288:  INT  leaving preprocessor
+1310928581606302:  INT  entering linker
+1310928581606322:  INT  leaving linker
+1310928581606335:  INT  entering encoder
+1310928581606351:  INT  matching `addi' instruction
+1310928581607092:  INT  `rt' is $s0
+1310928581607112:  INT  `rs' is $zero
+1310928581607132:  INT  `im' is 32
+1310928581607190:  INT  encoded 00100000000100000000000000100000
+1310928581607203:  INT  leaving encoder
+1310928581607383:  MEM  memory cleared
+1310928581607412:  MEM  stored 00100000000100000000000000100000 at 0x400000
+1310928581607425:  MEM  loaded 1 word programme into memory
+1310928581607441:  CPU  beginning a cycle
+1310928581607454:  CPU  entering fetch stage
+1310928581607483:  MEM  loaded 00100000000100000000000000100000 from 0x400000
+1310928581607499:  CPU  leaving fetch stage
+1310928581607511:  CPU  entering decode stage
+1310928581607537:  CPU  decode found dust in the pipeline
+1310928581607550:  CPU  leaving decode stage
+1310928581607561:  CPU  entering execute stage
+1310928581607579:  CPU  execute found dust in the pipeline
+1310928581607595:  CPU  leaving execute stage
+1310928581607606:  CPU  entering writeback stage
+1310928581607620:  CPU  leaving writeback stage
+1310928581607651:  CPU  completing a cycle
+1310928581607666:  CPU  beginning a cycle
+1310928581607679:  CPU  entering fetch stage
+1310928581607708:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928581607725:  CPU  leaving fetch stage
+1310928581607736:  CPU  entering decode stage
+1310928581607754:  CPU  decoding 00100000000100000000000000100000
+1310928581607787:  CPU  decoded `i' type instruction, addi
+1310928581607800:  CPU  leaving decode stage
+1310928581607811:  CPU  entering execute stage
+1310928581607828:  CPU  execute found dust in the pipeline
+1310928581607841:  CPU  leaving execute stage
+1310928581607852:  CPU  entering writeback stage
+1310928581607865:  CPU  leaving writeback stage
+1310928581607886:  CPU  completing a cycle
+1310928581607900:  CPU  beginning a cycle
+1310928581607913:  CPU  entering fetch stage
+1310928581607939:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928581607956:  CPU  leaving fetch stage
+1310928581607967:  CPU  entering decode stage
+1310928581607984:  CPU  decoding 00000000000000000000000000000000
+1310928581608047:  CPU  decoded `j' type instruction, nop
+1310928581608060:  CPU  leaving decode stage
+1310928581608072:  CPU  entering execute stage
+1310928581608090:  CPU  executing 00100000000100000000000000100000
+1310928581608108:  CPU  `rt' is 16 (11:16)
+1310928581608123:  CPU  `rs' is 0 (6:11)
+1310928581608137:  CPU  `im' is 32 (16:32)
+1310928581608152:  CPU  `op' is 8 (0:6)
+1310928581608182:  CPU  calling addImmediate with ['rt', 'rs', 'im']
+1310928581608222:  CPU  leaving execute stage
+1310928581608235:  CPU  entering writeback stage
+1310928581608250:  CPU  leaving writeback stage
+1310928581608271:  CPU  completing a cycle
+1310928581608283:  CPU  beginning a cycle
+1310928581608295:  CPU  entering fetch stage
+1310928581608322:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928581608338:  CPU  leaving fetch stage
+1310928581608350:  CPU  entering decode stage
+1310928581608367:  CPU  decoding 00000000000000000000000000000000
+1310928581608429:  CPU  decoded `j' type instruction, nop
+1310928581608443:  CPU  leaving decode stage
+1310928581608455:  CPU  entering execute stage
+1310928581608470:  CPU  executing 00000000000000000000000000000000
+1310928581608489:  CPU  `im' is 0 (6:32)
+1310928581608504:  CPU  `op' is 0 (0:6)
+1310928581608526:  CPU  calling noop with []
+1310928581608541:  CPU  leaving execute stage
+1310928581608553:  CPU  entering writeback stage
+1310928581608567:  CPU  leaving writeback stage
+1310928581608587:  CPU  completing a cycle
+1310928581608613:  MEM  memory cleared
+1310928581608625:  >-----tearDown
+1310928581609107:  >-----setUp
+1310928581635946:  MEM  created 2147483-Kb of 8-byte address space
+1310928581635979:  MEM  created segment `text'	4194304..268435456
+1310928581635996:  MEM  created segment `data'	268435456..2147483647
+1310928581636013:  MEM  created segment `stack'	268435456..2147483647
+1310928581636292:  INT  created `MIPS_I' interpreter
+1310928581636373:  CPU  created a cpu
+1310928581636390:  CPU  pc is register 0x21
+1310928581636412:  >-----testDecode
+1310928581636435:  CPU  beginning a cycle
+1310928581636448:  CPU  entering fetch stage
+1310928581636489:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928581636507:  CPU  leaving fetch stage
+1310928581636520:  CPU  entering decode stage
+1310928581636542:  CPU  decode found dust in the pipeline
+1310928581636554:  CPU  leaving decode stage
+1310928581636565:  CPU  entering execute stage
+1310928581636582:  CPU  execute found dust in the pipeline
+1310928581636594:  CPU  leaving execute stage
+1310928581636605:  CPU  entering writeback stage
+1310928581636619:  CPU  leaving writeback stage
+1310928581636648:  CPU  completing a cycle
+1310928581636662:  CPU  beginning a cycle
+1310928581636675:  CPU  entering fetch stage
+1310928581636702:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928581636719:  CPU  leaving fetch stage
+1310928581636731:  CPU  entering decode stage
+1310928581636749:  CPU  decoding 00000000000000000000000000000000
+1310928581636818:  CPU  decoded `j' type instruction, nop
+1310928581636832:  CPU  leaving decode stage
+1310928581636843:  CPU  entering execute stage
+1310928581636860:  CPU  execute found dust in the pipeline
+1310928581636872:  CPU  leaving execute stage
+1310928581636883:  CPU  entering writeback stage
+1310928581636896:  CPU  leaving writeback stage
+1310928581636917:  CPU  completing a cycle
+1310928581636959:  MEM  memory cleared
+1310928581636970:  >-----tearDown
+1310928581637304:  >-----setUp
+1310928581667302:  MEM  created 2147483-Kb of 8-byte address space
+1310928581667334:  MEM  created segment `text'	4194304..268435456
+1310928581667352:  MEM  created segment `data'	268435456..2147483647
+1310928581667368:  MEM  created segment `stack'	268435456..2147483647
+1310928581667654:  INT  created `MIPS_I' interpreter
+1310928581667734:  CPU  created a cpu
+1310928581667751:  CPU  pc is register 0x21
+1310928581667773:  >-----testExecute
+1310928581667792:  CPU  beginning a cycle
+1310928581667804:  CPU  entering fetch stage
+1310928581667839:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928581667857:  CPU  leaving fetch stage
+1310928581667869:  CPU  entering decode stage
+1310928581667889:  CPU  decode found dust in the pipeline
+1310928581667902:  CPU  leaving decode stage
+1310928581667913:  CPU  entering execute stage
+1310928581667930:  CPU  execute found dust in the pipeline
+1310928581667942:  CPU  leaving execute stage
+1310928581667954:  CPU  entering writeback stage
+1310928581667968:  CPU  leaving writeback stage
+1310928581667993:  CPU  completing a cycle
+1310928581668007:  CPU  beginning a cycle
+1310928581668020:  CPU  entering fetch stage
+1310928581668047:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928581668064:  CPU  leaving fetch stage
+1310928581668076:  CPU  entering decode stage
+1310928581668093:  CPU  decoding 00000000000000000000000000000000
+1310928581668157:  CPU  decoded `j' type instruction, nop
+1310928581668171:  CPU  leaving decode stage
+1310928581668182:  CPU  entering execute stage
+1310928581668199:  CPU  execute found dust in the pipeline
+1310928581668211:  CPU  leaving execute stage
+1310928581668222:  CPU  entering writeback stage
+1310928581668236:  CPU  leaving writeback stage
+1310928581668256:  CPU  completing a cycle
+1310928581668271:  CPU  beginning a cycle
+1310928581668282:  CPU  entering fetch stage
+1310928581668309:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928581668325:  CPU  leaving fetch stage
+1310928581668337:  CPU  entering decode stage
+1310928581668354:  CPU  decoding 00000000000000000000000000000000
+1310928581668416:  CPU  decoded `j' type instruction, nop
+1310928581668430:  CPU  leaving decode stage
+1310928581668441:  CPU  entering execute stage
+1310928581668457:  CPU  executing 00000000000000000000000000000000
+1310928581668474:  CPU  `im' is 0 (6:32)
+1310928581668489:  CPU  `op' is 0 (0:6)
+1310928581668510:  CPU  calling noop with []
+1310928581668527:  CPU  leaving execute stage
+1310928581668538:  CPU  entering writeback stage
+1310928581668552:  CPU  leaving writeback stage
+1310928581668573:  CPU  completing a cycle
+1310928581668586:  CPU  beginning a cycle
+1310928581668598:  CPU  entering fetch stage
+1310928581668624:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928581668641:  CPU  leaving fetch stage
+1310928581668652:  CPU  entering decode stage
+1310928581668669:  CPU  decoding 00000000000000000000000000000000
+1310928581668731:  CPU  decoded `j' type instruction, nop
+1310928581668744:  CPU  leaving decode stage
+1310928581668755:  CPU  entering execute stage
+1310928581668770:  CPU  executing 00000000000000000000000000000000
+1310928581668788:  CPU  `im' is 0 (6:32)
+1310928581668802:  CPU  `op' is 0 (0:6)
+1310928581668819:  CPU  calling noop with []
+1310928581668834:  CPU  leaving execute stage
+1310928581668846:  CPU  entering writeback stage
+1310928581668859:  CPU  leaving writeback stage
+1310928581668879:  CPU  completing a cycle
+1310928581668917:  MEM  memory cleared
+1310928581668929:  >-----tearDown
+1310928581669392:  >-----setUp
+1310928581696527:  MEM  created 2147483-Kb of 8-byte address space
+1310928581696563:  MEM  created segment `text'	4194304..268435456
+1310928581696581:  MEM  created segment `data'	268435456..2147483647
+1310928581696598:  MEM  created segment `stack'	268435456..2147483647
+1310928581696886:  INT  created `MIPS_I' interpreter
+1310928581696968:  CPU  created a cpu
+1310928581696985:  CPU  pc is register 0x21
+1310928581697006:  >-----testNoop/Fetch
+1310928581697025:  CPU  beginning a cycle
+1310928581697038:  CPU  entering fetch stage
+1310928581697073:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928581697091:  CPU  leaving fetch stage
+1310928581697103:  CPU  entering decode stage
+1310928581697124:  CPU  decode found dust in the pipeline
+1310928581697136:  CPU  leaving decode stage
+1310928581697147:  CPU  entering execute stage
+1310928581697165:  CPU  execute found dust in the pipeline
+1310928581697176:  CPU  leaving execute stage
+1310928581697187:  CPU  entering writeback stage
+1310928581697201:  CPU  leaving writeback stage
+1310928581697227:  CPU  completing a cycle
+1310928581697265:  MEM  memory cleared
+1310928581697278:  >-----tearDown
+1310928581697526:  >-----setUp
+1310928581729503:  MEM  created 2147483-Kb of 8-byte address space
+1310928581729536:  MEM  created segment `text'	4194304..268435456
+1310928581729553:  MEM  created segment `data'	268435456..2147483647
+1310928581729570:  MEM  created segment `stack'	268435456..2147483647
+1310928581729876:  INT  created `MIPS_I' interpreter
+1310928581729960:  CPU  created a cpu
+1310928581729977:  CPU  pc is register 0x21
+1310928581729999:  >-----testPipeline
+1310928581730013:  CPU  beginning a cycle
+1310928581730026:  CPU  entering fetch stage
+1310928581730062:  MEM  loaded 00000000000000000000000000000000 from 0x400000
+1310928581730080:  CPU  leaving fetch stage
+1310928581730093:  CPU  entering decode stage
+1310928581730113:  CPU  decode found dust in the pipeline
+1310928581730126:  CPU  leaving decode stage
+1310928581730137:  CPU  entering execute stage
+1310928581730154:  CPU  execute found dust in the pipeline
+1310928581730166:  CPU  leaving execute stage
+1310928581730177:  CPU  entering writeback stage
+1310928581730191:  CPU  leaving writeback stage
+1310928581730216:  CPU  completing a cycle
+1310928581730231:  CPU  beginning a cycle
+1310928581730243:  CPU  entering fetch stage
+1310928581730295:  MEM  loaded 00000000000000000000000000000000 from 0x400001
+1310928581730312:  CPU  leaving fetch stage
+1310928581730324:  CPU  entering decode stage
+1310928581730341:  CPU  decoding 00000000000000000000000000000000
+1310928581730407:  CPU  decoded `j' type instruction, nop
+1310928581730420:  CPU  leaving decode stage
+1310928581730432:  CPU  entering execute stage
+1310928581730449:  CPU  execute found dust in the pipeline
+1310928581730462:  CPU  leaving execute stage
+1310928581730473:  CPU  entering writeback stage
+1310928581730486:  CPU  leaving writeback stage
+1310928581730507:  CPU  completing a cycle
+1310928581730521:  CPU  beginning a cycle
+1310928581730534:  CPU  entering fetch stage
+1310928581730560:  MEM  loaded 00000000000000000000000000000000 from 0x400002
+1310928581730577:  CPU  leaving fetch stage
+1310928581730589:  CPU  entering decode stage
+1310928581730606:  CPU  decoding 00000000000000000000000000000000
+1310928581730671:  CPU  decoded `j' type instruction, nop
+1310928581730685:  CPU  leaving decode stage
+1310928581730696:  CPU  entering execute stage
+1310928581730712:  CPU  executing 00000000000000000000000000000000
+1310928581730729:  CPU  `im' is 0 (6:32)
+1310928581730744:  CPU  `op' is 0 (0:6)
+1310928581730767:  CPU  calling noop with []
+1310928581730784:  CPU  leaving execute stage
+1310928581730795:  CPU  entering writeback stage
+1310928581730809:  CPU  leaving writeback stage
+1310928581730830:  CPU  completing a cycle
+1310928581730843:  CPU  beginning a cycle
+1310928581730855:  CPU  entering fetch stage
+1310928581730882:  MEM  loaded 00000000000000000000000000000000 from 0x400003
+1310928581730899:  CPU  leaving fetch stage
+1310928581730911:  CPU  entering decode stage
+1310928581730928:  CPU  decoding 00000000000000000000000000000000
+1310928581730990:  CPU  decoded `j' type instruction, nop
+1310928581731003:  CPU  leaving decode stage
+1310928581731015:  CPU  entering execute stage
+1310928581731030:  CPU  executing 00000000000000000000000000000000
+1310928581731048:  CPU  `im' is 0 (6:32)
+1310928581731062:  CPU  `op' is 0 (0:6)
+1310928581731080:  CPU  calling noop with []
+1310928581731095:  CPU  leaving execute stage
+1310928581731106:  CPU  entering writeback stage
+1310928581731120:  CPU  leaving writeback stage
+1310928581731141:  CPU  completing a cycle
+1310928581731171:  MEM  memory cleared
+1310928581731182:  >-----tearDown

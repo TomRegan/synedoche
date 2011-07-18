@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--configuration file specifies machine architecture of r2k implementation-->
+<!--author:   Tom Regan <thomas.c.regan@gmail.com>
+    file:     machine.xml
+    since:    2011-06-17
+    modified: 2011-06-24
+-->
+
+<machine name="mips_r2k">
+  <!--(language)name: links to an instruction set specified externally-->
+  <language name="MIPS_I" />
+
+  <memory address_space="0x7fffffff">
+    <text  start="0x400000"   end="0x10000000" />
+    <data  start="0x10000000" end="0x7fffffff" />
+    <stack start="0x10000000" end="0x7fffffff" />
+  </memory>
+
+  <registers>
+    <!--(register)name:     the name recognised by the assembler-->
+    <!--(register)number:   the number used in assembly instructions-->
+    <!--(register)size:     the register size in bits (hex)-->
+    <!--(register)write:    boolean, can the register be modified-->
+    <!--(register)profile:  the intended use of the register-->
+    <register name="$zero"  number="0x00" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$at"    number="0x01" size="0x20" write="True"  profile="gp"  visible="true"/>
+    <register name="$v0"    number="0x02" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$v1"    number="0x03" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$a0"    number="0x04" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$a1"    number="0x05" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$a2"    number="0x06" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$a3"    number="0x07" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t0"    number="0x08" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t1"    number="0x09" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t2"    number="0x0a" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t3"    number="0x0b" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t4"    number="0x0c" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t5"    number="0x0d" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t6"    number="0x0e" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t7"    number="0x0f" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$s0"    number="0x10" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$s1"    number="0x11" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$s2"    number="0x12" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$s3"    number="0x13" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$s4"    number="0x14" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$s5"    number="0x15" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$s6"    number="0x16" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$s7"    number="0x17" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t8"    number="0x18" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$t9"    number="0x19" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$k0"    number="0x1a" size="0x20" write="False" profile="gp"  visible="true" />
+    <register name="$k1"    number="0x1b" size="0x20" write="False" profile="gp"  visible="true" />
+    <register name="$gp"    number="0x1c" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$sp"    number="0x1d" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$fp"    number="0x1e" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="$ra"    number="0x1f" size="0x20" write="True"  profile="gp"  visible="true" />
+    <register name="Status" number="0x20" size="0x20" write="False" profile="psw" visible="true" />
+    <register name="PC"     number="0x21" size="0x20" write="True"  profile="pc"  visible="false" />
+
+    <presets>
+      <preset number="0x1c" value="0x10008000" />
+      <preset number="0x1d" value="0x7fffffff" />
+      <preset number="0x21" value="0x400000" />
+    </presets>
+  </registers>
+
+  <pipeline>
+    <stage name="fetch" />
+    <stage name="decode" />
+    <stage name="execute" />
+    <stage name="memory" />
+  </pipeline>
+
+</machine>

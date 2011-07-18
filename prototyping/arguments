@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+''' arguments.py
+author:      Tom Regan <thomas.c.regan@gmail.com>
+since:       2011-06-30
+description: Test argument hadiling
+'''
+
+import sys
+try:
+    import argparse
+except:
+    sys.stderr.write('{0} depends on argparse'.format(PACKAGE))
+
+bugs='Report bugs to thomas.c.regan@gmail.com'
+parser=argparse.ArgumentParser(description='Process arguments.',
+                               epilog=bugs)
+parser.add_argument('-ia', metavar='', type=str, nargs=1,
+                    help='ISA infile')
+parser.add_argument('-im', metavar='', type=str, nargs=1,
+                    help='machine infile')
+args = parser.parse_args()

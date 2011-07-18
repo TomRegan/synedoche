@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--configuration file specifies instructions for use in r2k implementation-->
+<!--author:   Tom Regan <thomas.c.regan@gmail.com>
+    file:     instructions.xml
+    since:    2011-06-17
+    modified: 2011-07-6
+-->
+
+<instructions language="MIPS_I" size="0x20" api="sunray">
+
+  <formats>
+    <format type="r" size="32">
+      <field name="op" start="0x00" end="0x05" />
+      <field name="rs" start="0x06" end="0x0a" />
+      <field name="rt" start="0x0b" end="0x0f" />
+      <field name="rd" start="0x10" end="0x14" />
+      <field name="sa" start="0x15" end="0x19" />
+      <field name="fn" start="0x1a" end="0x1f" />
+    </format>
+    <format type="i" size="32">
+      <field name="op" start="0x00" end="0x05" />
+      <field name="rs" start="0x06" end="0x0a" />
+      <field name="rt" start="0x0b" end="0x0f" />
+      <field name="im" start="0x10" end="0x1f" />
+    </format>
+    <format type="j" size="32">
+      <field name="op" start="0x00" end="0x05" />
+      <field name="im" start="0x06" end="0x1f" />
+    </format>
+  </formats>
+
+  <assembler>
+    <directives>
+      <directive name=".text"   profile="text" />
+      <directive name=".globl"  profile="global" />
+      <directive name=".align"  profile="alignment" />
+      <directive name=".asciiz" profile="string" />
+    </directives>
+    <syntax>
+      <label     pattern="\w+:" />
+      <label_ref pattern="(\w+):" />
+      <comment   pattern="#.*" />
+    </syntax>
+  </assembler>
+
+  <instruction name="add" format="r"><!--add-->
+    <!--(signature) is hashed and used to id instructions during decode-->
+    <signature>
+      <!--(field)id: identifier for the signature chunk-->
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <!--(fields) are the preset values of an instruction-->
+    <fields>
+      <!--(field)name:  identifier for use as variable reference-->
+      <!--(field)value: the fixed value of the field, or 'required'-->
+      <field name="op" value="0x00" />
+      <field name="sa" value="0x00" />
+      <field name="fn" value="0x20" />
+    </fields>
+    <!--(syntax) is the format of an assembly instruction-->
+    <syntax>
+      <!--(expression)pattern:  regex describing the instruction-->
+      <!--(symbol)type:         reference to-->
+      <!--(symbol)matches:      instruction field-->
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*(\$\w+)" />
+      <symbol type="register" matches="rd" />
+      <symbol type="register" matches="rs" />
+      <symbol type="register" matches="rt" />
+    </syntax>
+    <!--(implementation) lists sequantial api calls used for execution-->
+    <implementation>
+      <!--(method)name: api call name (refer to API reference)-->
+      <!--(method)args: arguments are links to symbols above-->
+      <method name="addRegisters" args="rd rs rt" />
+    </implementation>
+  </instruction>
+
+  <instruction name="addi" format="i"><!--add immediate-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0x08" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*([-+]?\w+)" />
+      <symbol type="register" matches="rt" />
+      <symbol type="register" matches="rs" />
+      <symbol type="int"      matches="im" />
+    </syntax>
+    <implementation>
+      <method name="addImmediate" args="rt rs im" />
+    </implementation>
+  </instruction>
+
+  <instruction name="sub" format="r"><!--subtract-->
+    <signature>
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <fields>
+      <field name="op" value="0x00" />
+      <field name="sa" value="0x00" />
+      <field name="fn" value="0x22" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*(\$\w+)" />
+      <symbol type="register" matches="rd" />
+      <symbol type="register" matches="rs" />
+      <symbol type="register" matches="rt" />
+    </syntax>
+    <implementation>
+      <method name="subRegisters" args="rd rs rt" />
+    </implementation>
+  </instruction>
+
+  <instruction name="beq" format="i"><!--branch on equal-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0x04" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*([-+]?\w+)" />
+      <symbol type="operand" matches="rs" />
+      <symbol type="operand" matches="rt" />
+      <symbol type="int"     matches="im" />
+    </syntax>
+    <implementation>
+      <method name="testEqual"    args="rs rt" /><!--note A-3-->
+      <method name="addImmediate" args="PC PC im" />
+    </implementation>
+  </instruction>
+
+  <instruction name="bne" format="i"><!--branch on not equal-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0x05" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*([-+]?\w+)" />
+      <symbol type="register" matches="rs" />
+      <symbol type="register" matches="rt" />
+      <symbol type="int"      matches="im" />
+    </syntax>
+    <implementation>
+      <method name="testNotEqual" args="rs rt" />
+      <method name="addImmediate" args="PC PC im" />
+    </implementation>
+  </instruction>
+
+  <instruction name="div" format="r"><!--divide-->
+    <!--there is a discrepancy with MIPS I implementation-->
+    <signature>
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <fields>
+      <field name="op" value="0x00" />
+      <field name="sa" value="0x00" />
+      <field name="fn" value="0x1a" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*(\$\w+)" />
+      <symbol type="register" matches="rd" />
+      <symbol type="register" matches="rs" />
+      <symbol type="register" matches="rt" />
+    </syntax>
+    <implementation>
+      <method name="divRegisters" args="rd rs rt" />
+    </implementation>
+  </instruction>
+
+  <instruction name="lw" format="i"><!--load word-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0x23" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\w+)\s*\(\s*(\$\w+)\s*\)" />
+      <symbol type="register" matches="rt" />
+      <symbol type="int"      matches="im" />
+      <symbol type="register" matches="rs" />
+    </syntax>
+    <implementation>
+        <!--adding offset to a register is bad impl. need to look at this-->
+      <method name="loadWord32" args="rt rs im" />
+    </implementation>
+  </instruction>
+
+  <instruction name="sw" format="i"><!--store word-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0x2b" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\w+)\s*\(\s*(\$\w+)\s*\)" />
+      <symbol type="register" matches="rt" />
+      <symbol type="int"      matches="im" />
+      <symbol type="register" matches="rs" />
+    </syntax>
+    <implementation>
+      <method name="storeWord32" args="rt rs im" />
+    </implementation>
+  </instruction>
+
+  <instruction name="j" format="j"><!--jump-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op"  value="0x02" />
+    </fields>
+    <syntax>
+      <expression pattern="\w\s+(\w+)" />
+      <symbol type="int" matches="im" />
+    </syntax>
+    <implementation>
+      <method name="addImmediate" args="PC PC im" />
+    </implementation>
+  </instruction>
+
+  <instruction name="jal" format="j"><!--jump and link-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op"  value="0x03" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\w+)" />
+      <symbol type="int" matches="im" />
+    </syntax>
+    <implementation>
+      <method name="setRegister"  args="0x1f PC" />
+      <method name="addImmediate" args="PC PC im" />
+    </implementation>
+  </instruction>
+
+  <instruction name="jr" format="r"><!--jump register-->
+    <!--there is a discrepancy with MIPS I implementation-->
+    <signature>
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <fields>
+      <field name="op" value="0x00" />
+      <field name="rt" value="0x00" />
+      <field name="rd" value="0x00" />
+      <field name="sa" value="0x00" />
+      <field name="fn" value="0x08" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+)" />
+      <symbol type="operand" matches="rs" />
+    </syntax>
+    <implementation>
+      <method name="setRegister" args="PC rs" />
+    </implementation>
+  </instruction>
+
+  <instruction name="mul" format="r"><!--multiply-->
+    <!--there is a discrepancy with MIPS I implementation-->
+    <!--more minor than div: is is only HI/LO that we fail to update-->
+    <signature>
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <fields>
+      <field name="op" value="0x1c" />
+      <field name="sa" value="0x00" />
+      <field name="fn" value="0x02" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*(\$\w+)" />
+      <symbol type="register" matches="rd" />
+      <symbol type="register" matches="rs" />
+      <symbol type="register" matches="rt" />
+    </syntax>
+    <implementation>
+      <method name="mulRegisters" args="rd rs rt" />
+    </implementation>
+  </instruction>
+
+  <instruction name="slt" format="r"><!--set on less than-->
+    <signature>
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <fields>
+      <field name="op" value="0x00" />
+      <field name="sa" value="0x00" />
+      <field name="fn" value="0x2a" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*(\$\w+)" />
+      <symbol type="register" matches="rd" />
+      <symbol type="register" matches="rs" />
+      <symbol type="register" matches="rt" />
+    </syntax>
+    <implementation>
+      <method name="testLess"    args="rs rt" />
+      <method name="setRegister" args="rd 0x01" />
+      <method name="testGreaterOrEqual" args="rs rt" />
+      <method name="setRegister" args="rd 0x00" />
+    </implementation>
+  </instruction>
+
+  <instruction name="slti" format="i"><!--set on less than immediate-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0x0a" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*([-+]?\w+)" />
+      <symbol type="register" matches="rt" />
+      <symbol type="register" matches="rs" />
+      <symbol type="int"      matches="im" />
+    </syntax>
+    <implementation>
+      <method name="testLessImmediate"    args="rs im" />
+      <method name="setRegister" args="rt 0x01" />
+      <method name="testGreaterOrEqualImmediate" args="rs im" />
+      <method name="setRegister" args="rt 0x00" />
+    </implementation>
+  </instruction>
+
+  <instruction name="nop" format="j"><!--add immediate-->
+    <signature>
+      <field name="op" />
+      <field name="im" />
+    </signature>
+    <fields>
+      <field name="op" value="0x00" />
+      <field name="im" value="0x00" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+" />
+    </syntax>
+    <implementation>
+      <method name="noop" args="" />
+    </implementation>
+  </instruction>
+</instructions>
+
+<!--%%NOTES%%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  A-1
+  note on field types:
+  internally, references will be constructed based on a grouping of attributes
+  into tuples, for example an opcode may have several variants:
+  in this case the opcode will be treated as an n-tuple comprising
+  the opcode and its modifying fields, as an example, the
+  MIPS32 add instruction:
+    000000 (rs) (rt) (rd) 00000 100000
+  giving the tuple:
+             (000000,100000)
+  cf. the sub instruction:
+    000000 (rs) (rt) (rd) 00000 100010
+             (000000,100010)
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ A-2
+ note on implementation:
+ the implementation node contains a list of required API calls. Arguments
+ are given as references to field ids, so:
+
+   add $t1, $a0, $a1
+
+   000000 00100 00101 01001 00000 100000
+     op     rs    rt    rd    sa    fn
+
+ might be implemented:
+
+   <command>
+     <method name="addRegisters" />
+     <args a="rd" b="rs" c="rt" />
+   </command>
+
+ and represented in the code as:
+
+   addRegisters(a, b, c)
+
+ thereby passing control to the add... method, with references to the
+ registers 9, 4 and 5.
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ A-3
+ note on `blocking' commands:
+ Calls such as test[Not]Equal are `blocking' calls; the following commands
+ will not be carried out if a test... instruction is not successful.
+ Picture the following implementation:
+
+ def testEqual(a,b):
+   return a==b
+
+ if testEqual(a,b):
+   setRegister(PC, PC+im)
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+-->
