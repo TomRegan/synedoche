@@ -7,6 +7,7 @@ description: Module providing support for XML functions
 '''
 
 from xml.dom.minidom import parse
+from Functions       import asciify
 
 class XmlDocument(object):
     """Provides a basic interface to an XML file"""
@@ -75,6 +76,7 @@ class InstructionReader(XmlReader):
         self._readInstructionFormatMap()
         self._readAssembleyDirectives()
         self._read_assembler_syntax()
+        self._read_instructions()
 
     def _readLanguage(self):
         """Stores 'language' -> self.record
@@ -218,6 +220,78 @@ class InstructionReader(XmlReader):
             instructionFormats[instructionName]=instructionFormat
         self.instructionFormats=instructionFormats
 
+    def _read_instructions(self):
+        data=[]
+        instructions=self._rootNode.getElementsByTagName('instruction')
+        for instruction in instructions:
+            # add attributes
+            i_name   = asciify(instruction.attributes['name'].value)
+            i_format = asciify(instruction.attributes['format'].value)
+
+            # add signatures
+            i_signature=[]
+            s_root = instruction.getElementsByTagName('signature')[0]
+            fields = s_root.getElementsByTagName('field')
+            for field in fields:
+                f_name = asciify(field.attributes['name'].value)
+                i_signature.append(f_name)
+            i_signature = tuple(i_signature)
+
+            # add preset values
+            i_values=[]
+            f_root = instruction.getElementsByTagName('fields')[0]
+            fields = f_root.getElementsByTagName('field')
+            for field in fields:
+                f_name  = asciify(field.attributes['name'].value)
+                f_value = asciify(field.attributes['value'].value)
+                i_values.append((f_name, int(f_value, 16)))
+            i_values = tuple(i_values)
+
+            # add syntax
+            i_syntax=[]
+            s_root = instruction.getElementsByTagName('syntax')[0]
+            fields = s_root.getElementsByTagName('field')
+            expression   = s_root.getElementsByTagName('expression')[0]
+            symbols = s_root.getElementsByTagName('symbol')
+            for symbol in symbols:
+                s_kind=symbol.attributes['type'].value
+                s_match=symbol.attributes['matches'].value
+                i_syntax.append((asciify(s_match), asciify(s_kind)))
+            i_expression = asciify(expression.attributes['pattern'].value)
+            i_syntax = tuple(i_syntax)
+
+            # add implementation
+            i_implementation=[]
+            im_root = instruction.getElementsByTagName('implementation')[0]
+            methods = im_root.getElementsByTagName('method')
+            for method in methods:
+                im_name = method.attributes['name'].value
+                im_args = method.attributes['args'].value
+                i_implementation.append(asciify(im_name))
+                i_implementation.append(asciify(im_args))
+            i_implementation = tuple(i_implementation)
+
+            # add replacements
+            i_replacements=[]
+            try:
+                r_root = instruction.getElementsByTagName('replacements')[0]
+                replacements = r_root.getElementsByTagName('replacement')
+                for replacement in replacements:
+                    r_name  = asciify(replacement.attributes['name'].value)
+                    r_group = asciify(replacement.attributes['group'].value)
+                    r_type  = asciify(replacement.attributes['type'].value)
+                    i_replacements.append((r_name, r_group, r_type))
+            except Exception, e:
+                pass
+            i_replacements = tuple(i_replacements)
+
+            instruction=(i_name, i_format, i_signature,
+                         i_expression, i_values, i_syntax,
+                         i_implementation, i_replacements)
+
+            data.append(instruction)
+        self._data['instructions'] = tuple(data)
+
     def _readAssembleyDirectives(self):
         """{ name:<string> : profile:<string> } -> assembler_directives
 
@@ -296,6 +370,9 @@ class InstructionReader(XmlReader):
             (comment:str,   pattern:str)):tuple
         """
         return self._data['assembler']
+
+    def get_instructions(self):
+        return self._data['instructions']
 
 
 
@@ -438,6 +515,7 @@ class MachineReader(XmlReader):
 
 if __name__ == '__main__':
     reader=InstructionReader('../config/instructions.xml')
+    print reader.get_instructions()[8][2][0]
     #print reader.getAssembleyDirectives()
     #print reader.getAssembleySyntax()
     #language=reader.getLanguage()

@@ -227,7 +227,7 @@
       <method name="increment_pc" args="im" />
     </implementation>
     <replacements>
-      <replacement name="im" sub="1" type="absolute" />
+      <replacement name="im" group="1" type="absolute" />
     </replacements>
   </instruction>
 

@@ -17,3 +17,7 @@ def dumpAccessors(reference):
         if data[:3] == 'get':
             call=getattr(reference,data)
             print "{0}\n{1}\n".format(data,call())
+
+def asciify(string):
+    """Returns a string encoded as ascii"""
+    return string.encode('ascii')
