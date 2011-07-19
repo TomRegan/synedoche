@@ -59,7 +59,7 @@
 
     <presets>
       <preset number="0x1c" value="0x10008000" />
-      <preset number="0x1d" value="0x7fffffff" />
+      <preset number="0x1d" value="0x80000000" />
       <preset number="0x21" value="0x400000" />
     </presets>
   </registers>

@@ -362,7 +362,7 @@ class Registers(object):
         """(number:int, amount=1:int) -> ...
         Increases the value in a register
         """
-        self._registers[number]['value'] = self._registers[number]['value']+1
+        self._registers[number]['value'] = self._registers[number]['value']+amount
 
     def getPc(self):
         """-> register:int

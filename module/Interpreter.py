@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#coding=iso-8859-15
 ''' Interpreter.py
 author:      Tom Regan <thomas.c.regan@gmail.com>
 since:       2011-07-05
@@ -75,7 +76,13 @@ class Interpreter(Loggable):
             self._label_reference        = instructions.getAssemblySyntax()['label_ref']
             self._isa_size               = instructions.getSize()
             self._registers              = registers.getRegisterMappings()
-            self._text_offset            = memory.getStart('text')
+            #
+            #WARNING as of 2011-07-19 the great interface change™ is in
+            #effect. The following member functions are contradictory
+            #and must be set on a per-instance basis.
+            #
+            self._text_offset            = memory.get_start('text')
+            #self._text_offset            = memory.getStart('text')
         except Exception as e:
             raise DataMissingException('Missing data for Interpreter: '+e.message)
 

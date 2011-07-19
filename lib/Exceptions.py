@@ -5,5 +5,4 @@ since:       2011-07-15
 description: Exceptions to be used throughout the system.
 '''
 
-import Errors as Errors
-
+import Errors

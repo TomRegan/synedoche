@@ -33,8 +33,14 @@ class Loggable(object):
     log=Log()
     def openLog(self, filename):
         pass
+    def open_log(self, Logger):
+        """New interface for logger
+        Takes a reference to a logfile and attaches the object.
+        """
+        pass
     def passCommandToLogger(self, command):
-        """allows extermal objects to take control of a logfile,
+        """DEPRECATED --will be removed in a future revision!
+        Allows extermal objects to take control of a logfile,
         with some sane options for dropping calls
         """
         barred = ['open', 'write', 'buffer']

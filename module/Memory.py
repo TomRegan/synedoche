@@ -5,7 +5,17 @@ since:       2011-07-18
 description: Provides memory objects
 '''
 
-class UnallignedException(Exception):
+from lib.Interface  import *
+from lib.Logger     import *
+from lib.Functions  import binary as bin
+
+class AddressingError(Exception):
+    pass
+
+class AlignmentError(Exception):
+    pass
+
+class DataFormatException(Exception):
     pass
 
 class SegmentationFaultException(Exception):
@@ -25,7 +35,7 @@ class Enum(set):
 
 class BaseMemory(Loggable):
 
-    def openLog(self, logger):
+    def open_log(self, logger):
         """logger:object -> ...
 
         Begins logging activity with the logger object passed.
@@ -74,7 +84,7 @@ class Memory(BaseMemory):
     _address={}
     _segment={}
 
-    def __init__(self, _address_space, instructions):
+    def __init__(self, address_space, instructions):
         """Memory space:
             [_address_space]:list
             instruction:object (module.Isa.InstructionSet)
@@ -90,10 +100,11 @@ class Memory(BaseMemory):
             start and end. The can be acquired from XmlLoader.
         """
 
-        self._address_space = _address_space
-        self._byte          = 8
+        self._address_space = address_space
+        self._addressable   = 8
         self._size          = instructions.getSize()
-        self._endian        = Enum(["Big"])
+        self._types         = Enum(["Big", "Little"])
+        self._endian        = self._types.Big
 
     def add_segment(self, name, start, end):
         """(name:str, start:int, end:int) -> segment{name:[start,end]:list}:dict
@@ -123,35 +134,197 @@ class Memory(BaseMemory):
         else:
             end = start-end+1
 
+        if start > end:
+            temp  = start
+            start = end
+            end   = temp
+
         memory_slice={}
-        for i in range(end, start+1):
+        for i in range(start, end+1):
             if not self.in_range(i):
-                return memory_slice
+                raise SegmentationFaultException('{:} is out of bounds'
+                                 .format(hex(offset)[2:].replace('L','')))
             try:
-                memory_slice[int(i)]=self.getWord32(i)
+                memory_slice[int(i)]=self.get_word(i)[1]
             except:
                 memory_slice[int(i)]=0
         return memory_slice
 
 
-    def load_text(self, text, and_dump=True):
-        """[programme:int]:list -> memory{offset:value}:dict
+    def load_text(self, text, and_dump=False):
+        """([programme:int]:list, and_dump:bool)
+                -> memory{offset:value}:dict
 
-        Stores <programme> in sequential addresses in memory.
+        Stores [programme] in sequential addresses in memory.
         """
 
         if and_dump == True:
-            self.dumpMemory()
+            self.reset()
 
         offset = self.get_start('text')
         for line in text:
             if not type(line) == int and not type(line) == long:
-                raise DataFormatException('loadText: got {:} expected an int{"}'.format(line,type(line)))
+                raise DataFormatException(
+                    'loadText: got {:} expected an int{:}'
+                    .format(line,type(line)))
             if offset > self.get_end('text'):
-                raise SegmentationFaultException
-            self.setWord32(offset, line)
-            offset = offset + 1
-        self.log.buffer('loaded {0} word programme into memory'.format(len(text)))
+                raise SegmentationFaultException('{:} is out of bounds'
+                                 .format(hex(offset)[2:].replace('L','')))
+            self.set_word(offset, line, self._size)
+            offset = offset + (self._size / self._addressable)
+        self.log.buffer('loaded {0} word programme into memory'
+                        .format(len(text)))
+
+    def load_text_and_dump(self, text):
+        """Synonymous with load_text with the dump option set"""
+        self.load_text(text=text, and_dump=True)
+
+    def get_word(self, offset, size, aligned=True):
+        """(offset:int,
+            size:int
+            aligned:bool) -> value:int
+
+        Returns a tuple containing address offset and
+        the decimal value of a word at that location.
+
+        Values:
+            offset  -- the address in memory
+            size    -- the word size to get
+            aligned -- is word alligment enforced?
+
+        Raises:
+            AddressingError
+            AlignmentError
+        Allows:
+            SegmentationFaultException
+        Masks:
+            KeyValue (in _get_byte)
+        """
+        #We want to prevent addressing violations
+        if size < self._addressable:
+            self.log.buffer('Addressing error: load {:}B from {:}'
+                            .format(size/8, hex(offset)[2:]))
+            raise AddressingError('Tried to load {:}-Bytes from {:}'
+                                  .format(size/8, hex(offset)[2:]))
+
+        #We want to prevent bad allignment
+        #if aligned and int(offset) % size != 0:
+        if aligned and int(offset) % (size / self._addressable) != 0:
+            self.log.buffer('Alignment error: load {:}B from {:}'
+                            .format(size/8, hex(offset)[2:]))
+            raise AlignmentError('Tried to load {:}B from {:}'
+                                 .format(size/8, hex(offset)[2:]))
+
+        if self._endian == self._types.Little:
+            offset = offset - (size/self._addressable)
+
+        bitmap=[]
+        orig_offset=offset
+        start=0
+        end=self._addressable
+
+        for i in range(size/self._addressable):
+
+            byte = self._get_byte(offset)
+            bitmap[start:end] = bin(byte, self._addressable)[2:]
+
+            if self._endian == self._types.Big:
+                offset = offset + 1
+            else:
+                offset = offset - 1
+
+            start=end
+            end=end+self._addressable
+
+        bitmap=''.join(bitmap)
+        self.log.buffer('loaded {:} from {:}'
+                        .format(bitmap,hex(orig_offset)[2:]))
+        return int(bitmap, 2)
+
+
+    def _get_byte(self, offset):
+        #We want to prevent segmentation violations
+        if not self.in_range(offset):
+            self.log.buffer('Segmantation violation: {:} is out of bounds'
+                            .format(hex(offset)[2:].replace('L','')))
+            raise SegmentationFaultException('{:} is out of bounds'
+                                 .format(hex(offset)[2:].replace('L','')))
+        #Expect a `key error' exception, but behave as though this was
+        #a successful memory read. Return 0.
+        try:
+            return self._address[offset]
+        except KeyError, e:
+            #We will initialize the memory to avoid future exceptions
+            self._set_byte(offset, 0)
+            return 0
+
+    def set_word(self, offset, value, size, aligned=True):
+        """(offset:int,
+            value:int,
+            size:int,
+            aligned:bool) -> **memory{offset:value}:dict**
+
+        Inserts a word at the given memory offset
+
+        Values:
+            offset  -- the address in memory
+            value   -- the value to be stored
+            size    -- the word size to set
+            aligned -- is word alligment enforced?
+
+        Raises:
+            AddressingError
+            AlignmentError
+        Allows:
+            SegmentationFaultException
+        Masks:
+            None
+        """
+        #We want to prevent addressing violations
+        if size < self._addressable:
+            self.log.buffer('Addressing error: store {:} at {:}'
+                            .format(bin(value, self._size)[2:].lstrip('0'),
+                                    hex(offset)[2:].replace('L','')))
+            raise AddressingError('Tried to store {:} at {:}'
+                                  .format(bin(value, self._size)[2:],
+                                          hex(offset)[2:].replace('L','')))
+
+        #We want to prevent bad allignment
+        if aligned and int(offset) % (size / self._addressable) != 0:
+            self.log.buffer('Alignment error: store {:} at {:}'
+                            .format(bin(value, self._size)[2:],
+                                    hex(offset)[2:].replace('L','')))
+            raise AlignmentError('Tried to store {:} at {:}({:})'
+                                 .format(bin(value, self._size)[2:],
+                                         hex(offset)[2:].replace('L',''),
+                                         int(offset) % size))
+
+        if self._endian == self._types.Little:
+            offset = offset - (size/self._addressable)
+
+        orig_offset = offset
+        bitmap=bin(value, size)[2:]
+        start=0
+        end=self._addressable
+        for i in range(size/self._addressable):
+            self._set_byte(offset, int(bitmap[start:end],2))
+            start=end
+            end=end+self._addressable
+            if self._endian == self._types.Big:
+                offset = offset + 1
+            else:
+                offset = offset - 1
+                self.log.buffer('stored {:} at {:}'
+                                .format(bitmap,hex(orig_offset)[2:]))
+
+    def _set_byte(self, offset, value):
+        #We want to prevent segmentation violations
+        if not self.in_range(offset):
+            self.log.buffer('Segmantation violation: {:} is out of bounds'
+                            .format(hex(offset)[2:].replace('L','')))
+            raise SegmentationFaultException('{:} is out of bounds'
+                                 .format(hex(offset)[2:].replace('L','')))
+        self._address[offset] = value
 
     def reset(self):
         """... -> ...
@@ -159,53 +332,8 @@ class Memory(BaseMemory):
         Clears the memory address space. Good for debugging.
         """
 
-        self.log.buffer('memory cleared')
+        self.log.buffer('core dumped to null')
         self._address.clear()
-
-    def get_word(self, offset):
-        """-> value:int
-
-        Returns the decimal value of a word in memory
-        """
-        #
-        #expect a `key error' exception, but behave as though this was
-        #a successful memory read. Return 0s.
-        #
-        if not self.in_range(offset):
-            self.log.buffer('Segmantation violation')
-            raise SegmentationFaultException
-        try:
-            self.log.buffer('loaded {0} from {1}'.format(bin(self._address[offset], self._size)[2:],hex(offset)))
-            return self._address[offset]
-        except Exception:
-            self.log.buffer('loaded {0} from {1}'.format(bin(0, self._size)[2:],hex(offset)))
-            return 0
-
-    def get_byte(self, offset, value):
-        pass
-
-    def set_word(self, offset, value, endian=self._endian.Big):
-        """(offset:int, value:int) -> memory{offset:value}:dict
-
-        Inserts a word at the given memory offset
-        """
-        bitmap=bin(value, self._size)[2:]
-        start=0
-        end=self._byte
-        for i in range(self._size/self._byte):
-            self.set_byte(offset, int(bitmap[start:end],2))
-            start=end
-            end=end+self._byte
-            if endian == self._endian.Big:
-                offset = offset - self._byte
-            else:
-                offset = offset + self._byte
-        self.log.buffer('stored {0} at {1}'.format(bitmap,hex(offset)))
-
-    def set_byte(self, offset, value):
-        if not self.in_range(offset):
-            raise SegmentationFaultException
-        self._address[offset] = value
 
     def in_range(self, address):
         """address:int -> bool"""

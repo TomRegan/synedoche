@@ -12,16 +12,18 @@ from module import System
 from module import Interpreter
 from module import Cpu
 from module import Memory
+from lib.Functions import binary as bin
 from module.Memory import (AddressingError, AlignmentError,
                            SegmentationFaultException)
 
 
+
 if __name__ == '__main__':
 
-    class TestCpu(unittest.TestCase):
+    class TestMemory(unittest.TestCase):
 
         def setUp(self):
-            self.logger=Logger.Logger('cputest.log')
+            self.logger=Logger.Logger('memtest.log')
             self.logger.buffer('>-----setUp')
             machine_conf='../config/machine.xml'
             instruction_conf='../config/instructions.xml'
@@ -80,8 +82,9 @@ if __name__ == '__main__':
                 self.instructions.addAssemblySyntax(instruction,
                     instruction_assembly_syntax[instruction])
 
-            self.memory=Memory.Memory(machine_address_space, self.instructions)
-            self.memory.openLog(self.logger)
+            self.memory=Memory.Memory(machine_address_space,
+                                      self.instructions)
+            self.memory.open_log(self.logger)
 
             for segment in machine_memory:
                 start = machine_memory[segment][0]
@@ -116,57 +119,90 @@ if __name__ == '__main__':
                                      memory=self.memory,
                                      api=self.api,
                                      instructions=self.instructions)
-            self.cpu.open_log(self.logger)
+            self.cpu.openLog(self.logger)
 
         def tearDown(self):
             self.memory.reset()
             self.logger.buffer('>-----tearDown')
             self.logger.flush()
 
-        def testNoop(self):
-            self.logger.buffer('>-----testNoop/Fetch')
-            pc=self.cpu._registers.getValue(33)
-            cycles=1
-            for i in range(cycles):
-                self.cpu.cycle()
-            self.assertEquals(pc+cycles*4, self.cpu._registers.getValue(33))
-            self.assertEquals([[0]], self.cpu._pipeline)
+        def test32BitWordOperation(self):
+            """Store and Load a 32-bit word"""
+            size=32
+            value=1023
+            offset=int('0x7ffffffc',16)
+            rvalue=self.wordOperationHelper(offset, value, size)
+            self.assertEquals(value, rvalue)
 
-        def testDecode(self):
-            self.logger.buffer('>-----testDecode')
-            pc=self.cpu._registers.getValue(33)
-            cycles=2
-            for i in range(cycles):
-                self.cpu.cycle()
-            self.assertEquals(pc+cycles*4, self.cpu._registers.getValue(33))
-            self.assertEquals([[0],[0,'j','nop']], self.cpu._pipeline)
+        def test16BitWordOperation(self):
+            """Store and Load a 16-bit word"""
+            size=16
+            value=255
+            offset=int('0x7ffffffc',16)
+            rvalue=self.wordOperationHelper(offset, value, size)
+            self.assertEquals(value, rvalue)
 
-        def testExecute(self):
-            self.logger.buffer('>-----testExecute')
-            pc=self.cpu._registers.getValue(33)
-            cycles=4
-            for i in range(cycles):
-                self.cpu.cycle()
-            self.assertEquals(pc+cycles*4, self.cpu._registers.getValue(33))
-            self.assertEquals([[0],[0,'j','nop'],[0,'j','nop'],[0,'j','nop']], self.cpu._pipeline)
+        def test8BitWordOperation(self):
+            """Store and Load an 8-bit word"""
+            size=8
+            value=255
+            offset=int('0x7ffffffc',16)
+            rvalue=self.wordOperationHelper(offset, value, size)
+            self.assertEquals(value, rvalue)
 
-        def testPipeline(self):
-            self.logger.buffer('>-----testPipeline')
-            cycles=4
-            for i in range(cycles):
-                self.cpu.cycle()
-            self.assertEquals([0,0,0,0], self.cpu.get_pipeline())
+        def wordOperationHelper(self, offset, value, size):
+            self.logger.buffer('>-----test{:}BitWordOperation'
+                              .format(size))
+            self.memory.set_word(offset, value, size)
+            rvalue = self.memory.get_word(offset, size)
+            return rvalue
 
-        def testAddInstruction(self):
-            self.logger.buffer('>-----testAddInstruction')
-            pc=self.cpu._registers.getValue(33)
-            i=self.interpreter.read_lines(['addi $s0, $zero, 32'])
-            i=self.interpreter.convert(i)
-            self.memory.load_text(i)
-            cycles=4
-            for i in range(cycles):
-                self.cpu.cycle()
-            self.assertEquals(32, self.registers.getValue(16))
+        def testAlignmentError(self):
+            """Storing data other than on word boundary"""
+            self.logger.buffer('>-----testAlignmentError')
+            offset=int('0x7ffffffc',16)
+            self.memory.get_word(offset, 32)
+            offset=int('0x7ffffffd',16)
+            with self.assertRaises(AlignmentError):
+                self.memory.get_word(offset, 32)
+            with self.assertRaises(AlignmentError):
+                self.memory.get_word(offset, 16)
+            offset=int('0x7ffffffe',16)
+            self.memory.get_word(offset, 16)
 
-    tests = unittest.TestLoader().loadTestsFromTestCase(TestCpu)
+        def testAddressingError(self):
+            """Moving data which is smaller than the addressable space"""
+            self.logger.buffer('>-----testAddressingError')
+            offset=int('0x7ffffff8',16)
+            with self.assertRaises(AddressingError):
+                self.memory.get_word(offset,4)
+
+            value=255
+            with self.assertRaises(AddressingError):
+                self.memory.set_word(offset, value, 4)
+
+        def testSegmentationFaultException(self):
+            """Storing data at a protected address"""
+            self.logger.buffer('>-----testSegmentationFaultException')
+            value=1023
+            offset=32
+            self.memory.set_word(offset, value, 32)
+            rvalue=self.memory.get_word(offset, 32)
+            self.assertEquals(value, rvalue)
+            offset=int('0x80000000',16)
+            with self.assertRaises(SegmentationFaultException):
+                self.memory.set_word(offset, value, 32)
+
+        def testLoadText(self):
+            """Loading a programme into memory"""
+            self.logger.buffer('>-----testLoadText')
+            programme=[255,1023,2047,4095]
+            self.memory.load_text(programme)
+            offset=self.memory.get_start('text')
+            for i in range(len(programme)):
+                value=self.memory.get_word(offset+(i*4), 32)
+                self.assertEquals(programme[i], value)
+
+
+    tests = unittest.TestLoader().loadTestsFromTestCase(TestMemory)
     unittest.TextTestRunner(verbosity=2).run(tests)

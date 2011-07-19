@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#coding=iso-8859-15
 ''' Api.py
 author:      Tom Regan <thomas.c.regan@gmail.com>
 since:       2011-07-01
@@ -42,8 +43,14 @@ class _Api(Loggable):
             (Usually within __init__ of the CPU.)
         """
 
-        self._register = cpu.getRegisters()
-        self._memory   = cpu.getMemory()
+        #
+        #part of the great interface update™
+        #below functions need to be set per-instance
+        #
+        self._register = cpu.get_registers()
+        self._memory   = cpu.get_memory()
+        #self._register = cpu.getRegisters()
+        #self._memory   = cpu.getMemory()
         return self
 
 
