@@ -87,7 +87,7 @@ class Interpreter(Loggable):
             raise DataMissingException('Missing data for Interpreter: '+e.message)
 
 
-    def openLog(self, logger):
+    def open_log(self, logger):
         """logger:object -> ...
 
         Begins logging activity with the logger object passed.
@@ -95,7 +95,7 @@ class Interpreter(Loggable):
         self.log = InterpreterLogger(logger)
         self.log.write("created `{0}' interpreter".format(self._language))
 
-    def readFile(self, file_object):
+    def read_file(self, file_object):
         """file:object -> [instructions:str]:list
 
         Usage:

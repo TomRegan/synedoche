@@ -162,12 +162,12 @@ class Pipelined(BaseProcessor):
 
         Sends information about registers, memory and pipeline.
         """
-        registers = self.getRegisters()
-        memory    = self.getMemory()
-        pipeline  = self.getPipeline()
+        registers = self.get_registers()
+        memory    = self.get_memory()
+        pipeline  = self.get_pipeline()
         super(Pipelined, self).broadcast(registers=registers,
-                                   memory=memory,
-                                   pipeline=pipeline)
+                                         memory=memory,
+                                         pipeline=pipeline)
 
     def register(self, listener):
         """Overrides register in the base class
@@ -178,12 +178,12 @@ class Pipelined(BaseProcessor):
         """
         if not listener in self._listeners:
             self._listeners.append(listener)
-        self._broadcast
+        self.broadcast
 
 
 
 
-class Cpu(Loggable, UpdateBroadcaster):
+class PrototypePipelined(Loggable, UpdateBroadcaster):
 
     def __init__(self, registers, memory, api, instructions):
         self._instruction_decoded={}

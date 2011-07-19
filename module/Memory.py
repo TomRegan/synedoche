@@ -314,8 +314,8 @@ class Memory(BaseMemory):
                 offset = offset + 1
             else:
                 offset = offset - 1
-                self.log.buffer('stored {:} at {:}'
-                                .format(bitmap,hex(orig_offset)[2:]))
+        self.log.buffer('stored {:} at {:}'
+                        .format(bitmap,hex(orig_offset)[2:]))
 
     def _set_byte(self, offset, value):
         #We want to prevent segmentation violations

@@ -19,6 +19,7 @@ from lib import Logger
 from module import Cpu
 from module import Api
 from module import Isa
+from module import Memory
 from module import System
 from module import Interpreter
 from datetime import datetime
@@ -26,7 +27,7 @@ from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
 
 #TODO
-#as a nicity, factories for initialization
+#as a nicity, builders for initialization
 #
 
 class Simulation(object):
@@ -53,9 +54,9 @@ class Simulation(object):
             now = datetime.isoformat(datetime.now(), sep=' ')
             self.log.buffer('system started at {0}'.format(now))
         except Exception as e:
-            sys.stderr.write('FATAL: failed doing basic init\n')
+            sys.stderr.write('fatal: failed doing basic init\n')
             raise e
-        self.logSizeCheck()
+        #self.logSizeCheck()
 
         #
         #we need values from the instruction config file
@@ -75,7 +76,7 @@ class Simulation(object):
 
             self.instruction_size         = instruction_size
         except Exception as e:
-            sys.stderr.write('FATAL: failed trying to read instructions config\n')
+            sys.stderr.write('fatal: failed trying to read instructions config\n')
             raise e
 
         #
@@ -90,7 +91,7 @@ class Simulation(object):
             machine_registers         = machine_reader.getRegisters()
             machine_register_mappings = machine_reader.getRegisterMappings()
         except Exception as e:
-            sys.stderr.write('FATAL: failed trying to read machine config\n')
+            sys.stderr.write('fatal: failed trying to read machine config\n')
             raise e
 
         #
@@ -131,22 +132,22 @@ class Simulation(object):
                 self.instructions.addAssemblySyntax(instruction,
                     instruction_assembly_syntax[instruction])
         except Exception as e:
-            sys.stderr.write('FATAL: failed trying to initialize isa\n')
+            sys.stderr.write('fatal: failed trying to initialize isa\n')
             raise e
 
         #
         #we need a memory object for the CPU
         #
         try:
-            self.memory=System.Memory(machine_address_space, self.instructions)
-            self.memory.openLog(self.logger)
+            self.memory=Memory.Memory(machine_address_space, self.instructions)
+            self.memory.open_log(self.logger)
 
             for segment in machine_memory:
                 start = machine_memory[segment][0]
                 end   = machine_memory[segment][1]
-                self.memory.addSegment(segment, start, end)
+                self.memory.add_segment(segment, start, end)
         except Exception as e:
-            sys.stderr.write('FATAL: failed trying to initialize memory\n')
+            sys.stderr.write('fatal: failed trying to initialize memory\n')
             raise e
 
 
@@ -172,7 +173,7 @@ class Simulation(object):
                     machine_register_mappings[register])
 
         except Exception as e:
-            sys.stderr.write('FATAL: died trying to initialize registers\n')
+            sys.stderr.write('fatal: died trying to initialize registers\n')
             raise e
 
         #
@@ -182,7 +183,7 @@ class Simulation(object):
             self.api = Api.Sunray()
             self.api.openLog(self.logger)
         except Exception as e:
-            sys.stderr.write('FATAL: died trying to initialize api\n')
+            sys.stderr.write('fatal: died trying to initialize api\n')
             raise e
 
         #
@@ -192,19 +193,19 @@ class Simulation(object):
             self.interpreter = Interpreter.Interpreter(instructions=self.instructions,
                                                        registers=self.registers,
                                                        memory=self.memory)
-            self.interpreter.openLog(self.logger)
+            self.interpreter.open_log(self.logger)
         except Exception as e:
-            sys.stderr.write('FATAL: died trying to initialize interpreter\n')
+            sys.stderr.write('fatal: died trying to initialize interpreter\n')
             raise e
 
         #
         #finally, the CPU
         #
-        self.cpu = Cpu.Cpu(registers=self.registers,
-                           memory=self.memory,
-                           api=self.api,
-                           instructions=self.instructions)
-        self.cpu.openLog(self.logger)
+        self.cpu = Cpu.Pipelined(registers=self.registers,
+                                 memory=self.memory,
+                                 api=self.api,
+                                 instructions=self.instructions)
+        self.cpu.open_log(self.logger)
 
         self.log.buffer('initialized with no incidents')
         self.log.flush()
@@ -213,16 +214,13 @@ class Simulation(object):
         """Clients need core to be callable"""
         pass
 
-    def __del__(self):
-        self.log.write('Terminating')
-
     #
     #core interface is below
     #
-    def logSizeCheck(self):
-        size = os.path.getsize(self.logfile)
-        if size > 2**20:
-            sys.stderr.write('MESSAGE: logfile is becomming large ({0}-Kb).\n'.format(size/1000))
+    #def log_size_check(self):
+    #    size = os.path.getsize(self.logfile)
+    #    if size > 2**20:
+    #        sys.stderr.write('MESSAGE: logfile is becomming large ({0}-Kb).\n'.format(size/1000))
 
     def _authorized_client(self, client):
         return client in self._clients
@@ -230,7 +228,8 @@ class Simulation(object):
     def cycle(self, client):
         """Performs one simulation cycle."""
         if not self._authorized_client(client):
-            self.log.buffer("blocked `cycle' call from unauthorized client `{0}'".format(client.__class__.__name__))
+            self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
+                            .format(client.__class__.__name__))
             return
         self.log.buffer("`cycle' called by `{0}'".format(client.__class__.__name__))
         self.cpu.cycle()
@@ -239,9 +238,11 @@ class Simulation(object):
     def step(self, client):
         """Completes [the remainder of] one instruction execution"""
         if not self._authorized_client(client):
-            self.log.buffer("blocked `cycle' call from unauthorized client `{0}'".format(client.__class__.__name__))
+            self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
+                            .format(client.__class__.__name__))
             return
-        self.log.buffer("`step' called by `{0}'".format(client.__class__.__name__))
+        self.log.buffer("`step' called by `{0}'"
+                        .format(client.__class__.__name__))
         remaining = 4 - (self._cycles % 4)
         for i in range(remaining):
             self.cpu.cycle()
@@ -252,20 +253,22 @@ class Simulation(object):
 
     def evaluate(self, lines, connected, client):
         """Processes cycles for one instruction"""
-        assert type(lines) == list
+        #assert type(lines) == list
         if not self._authorized_client(client):
-            self.log.buffer("blocked `cycle' call from unauthorized client `{0}'".format(client.__class__.__name__))
+            self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
+                            .format(client.__class__.__name__))
             return
         #
         #this will be changed when we start loading necessary data from
         #config
         #
-        self.log.buffer("`evaluate' called by `{0}'".format( client.__class__.__name__))
+        self.log.buffer("`evaluate' called by `{0}'"
+                        .format( client.__class__.__name__))
         expression = self.interpreter.read_lines(lines)
         expression = self.interpreter.convert(expression)
         if connected:
             self.cpu.reset()
-            self.memory.loadText(expression, and_dump=False)
+            self.memory.load_text(expression, and_dump=False)
             #self.step(client)
             for i in range(len(expression)+3):
                 self.cpu.cycle()
@@ -280,10 +283,9 @@ class Simulation(object):
             return
         self.log.buffer("`load' called by `{0}'".format(client.__class__.__name__))
         file_object = open(filename, 'r')
-        programme = self.interpreter.readFile(file_object)
+        programme = self.interpreter.read_file(file_object)
         programme = self.interpreter.convert(programme)
-        self.cpu.reset()
-        self.memory.loadText(programme)
+        self.memory.load_text_and_dump(programme)
 
     def reset(self, client):
         """Resets the simulation processor"""
@@ -337,29 +339,34 @@ class Simulation(object):
         return self.instruction_size
 
 class TestListener(Interface.UpdateListener):
+    def __init__(self, simulation):
+        self.s = simulation
+
     def update(self, *args, **kwargs):
-        pass
         r=kwargs['registers']
-        print "{:-<80}\n".format('--Registers')
-        for x in r.values():
-            if x>0 and x % 5 == 0:
-                print ''
-            print "{:>2}:{:.>10}".format(hex(x)[2:],hex(r.values()[x])[2:]),
-        print "\n\n{:-<80}\n".format('--Pipeline')
-        print [hex(i,8)[2:] for i in kwargs['pipeline']],
-        print "\n\n{:-<80}\n".format('--Memory')
-        print [hex(i,8)[2:] for i in kwargs['memory'].getSlice(int('0x400000',16), int('0x40000a',16))]
-        print "\n{:-<80}\n".format('')
+        try:
+            print "{:-<80}".format('--Registers')
+            for i in r.values():
+                if i>0 and i % 4 == 0:
+                    print ''
+                name = self.s.registers.get_number_name_mappings()[i]
+                print("{:>4}({:0>2}):{:.>10}"
+                      .format(name[:4],
+                              i,
+                              hex(r.values()[i])[2:].replace('L', ''))),
+            print "\n{:-<80}".format('')
+        except:
+            pass
 
 
 if __name__ == '__main__':
     try:
-        s = Simulation(machine_conf='../xml/machine.xml',
-                       instruction_conf='../xml/instructions.xml')
-        tl = TestListener()
+        s = Simulation(machine_conf='config/machine.xml',
+                       instruction_conf='config/instructions.xml')
+        tl = TestListener(s)
         s.connect(tl)
         #s.connect(tl)
-        s.load('add.asm', client=tl)
+        s.load('asm/add.asm', client=tl)
         for i in range(8):
             s.cycle(client=tl)
         s.log.flush()

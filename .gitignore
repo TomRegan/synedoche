@@ -1,0 +1,12 @@
+# Tom Regan <thomas.c.regan@gmail.com>
+# 2011-07-19
+# Git ignore file for the project
+
+# logs #
+########
+log/*
+*.log
+
+# compiled python files #
+#########################
+*.pyc

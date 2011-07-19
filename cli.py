@@ -149,7 +149,10 @@ class Cli(UpdateListener):
                 if i>0 and i % 4 == 0:
                     print ''
                 name = self.registers.get_number_name_mappings()[i]
-                print "{:>4}({:0>2}):{:.>10}".format(name[:4], i, hex(r.values()[i])[2:]),
+                print("{:>4}({:0>2}):{:.>10}"
+                      .format(name[:4],
+                      i,
+                      hex(r.values()[i])[2:].replace('L', '')),
             print "\n{:-<80}".format('')
         except:
             pass

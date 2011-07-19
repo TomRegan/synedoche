@@ -286,7 +286,7 @@ class Sunray(_Api):
         c = instruction_decoded[args[2]]
         self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
         offset=int(c)+self._register.getValue(int(b))
-        word = self._memory.getWord32(offset)
+        word = self._memory.get_word(offset, 32)
         self._register.setValue(int(a), word)
         self.log.buffer('loading {:} into {:} from {:}'.format(word,a,offset))
         return True
@@ -313,7 +313,7 @@ class Sunray(_Api):
         self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
         value=self._register.getValue(int(a))
         offset=int(c)+self._register.getValue(int(b))
-        self._memory.setWord32(offset, value)
+        self._memory.set_word(offset, value, 32)
         self.log.buffer('storing {:} in {:}'.format(value,hex(offset)))
         return True
 
