@@ -10,3 +10,7 @@ log/*
 # compiled python files #
 #########################
 *.pyc
+
+# swap files #
+##############
+*.swp

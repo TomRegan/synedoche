@@ -42,7 +42,9 @@ class BaseMemory(Loggable):
         """
 
         self.log = MemoryLogger(logger)
-        self.log.buffer('created {0}-Kb of {1}-byte address space'.format(str(self._address_space[1])[:-3], (self._size)/4))
+        self.log.buffer('created {0}-Kb of {1}-byte address space'
+                        .format(str(self._address_space[1])[:-3],
+                                (self._size)/4))
 
     def get_memory(self):
         """-> memory:object
@@ -128,11 +130,12 @@ class Memory(BaseMemory):
 
         Values will be unsorted.
         """
-        if not start: start=self.get_end('stack')
-        if not end:
-            end = start-11
+        byte = (self._size/self._addressable)
+        if not start: start=self.get_end('stack')+1-byte
+        if end == None:
+            end = start-(byte*9)
         else:
-            end = start-end+1
+            end = start-(byte*(end-1))
 
         if start > end:
             temp  = start
@@ -140,14 +143,20 @@ class Memory(BaseMemory):
             end   = temp
 
         memory_slice={}
-        for i in range(start, end+1):
-            if not self.in_range(i):
-                raise SegmentationFaultException('{:} is out of bounds'
-                                 .format(hex(offset)[2:].replace('L','')))
-            try:
-                memory_slice[int(i)]=self.get_word(i)[1]
-            except:
-                memory_slice[int(i)]=0
+        i = start
+        while i <= end:
+            i = int(i)
+            if self.in_range(i):
+                try:
+                    memory_slice[i]=self.get_word(i,
+                                                  self._size,
+                                                  quietly=True)
+                except:
+                    memory_slice[i]=0
+            else:
+                print('not in range!')
+            i = int(i + (self._size/self._addressable))
+
         return memory_slice
 
 
@@ -179,7 +188,7 @@ class Memory(BaseMemory):
         """Synonymous with load_text with the dump option set"""
         self.load_text(text=text, and_dump=True)
 
-    def get_word(self, offset, size, aligned=True):
+    def get_word(self, offset, size, aligned=True, quietly=False):
         """(offset:int,
             size:int
             aligned:bool) -> value:int
@@ -202,16 +211,18 @@ class Memory(BaseMemory):
         """
         #We want to prevent addressing violations
         if size < self._addressable:
-            self.log.buffer('Addressing error: load {:}B from {:}'
-                            .format(size/8, hex(offset)[2:]))
+            if not quietly:
+                self.log.buffer('Addressing error: load {:}B from {:}'
+                                .format(size/8, hex(offset)[2:]))
             raise AddressingError('Tried to load {:}-Bytes from {:}'
                                   .format(size/8, hex(offset)[2:]))
 
         #We want to prevent bad allignment
         #if aligned and int(offset) % size != 0:
         if aligned and int(offset) % (size / self._addressable) != 0:
-            self.log.buffer('Alignment error: load {:}B from {:}'
-                            .format(size/8, hex(offset)[2:]))
+            if not quietly:
+                self.log.buffer('Alignment error: load {:}B from {:}'
+                                .format(size/8, hex(offset)[2:]))
             raise AlignmentError('Tried to load {:}B from {:}'
                                  .format(size/8, hex(offset)[2:]))
 
@@ -237,8 +248,10 @@ class Memory(BaseMemory):
             end=end+self._addressable
 
         bitmap=''.join(bitmap)
-        self.log.buffer('loaded {:} from {:}'
-                        .format(bitmap,hex(orig_offset)[2:]))
+        if not quietly:
+            self.log.buffer('loaded {:} from {:}'
+                            .format(bitmap,
+                                    hex(orig_offset)[2:].replace('L', '')))
         return int(bitmap, 2)
 
 

@@ -4,7 +4,5 @@ author:      Tom Regan <thomas.c.regan@gmail.com>
 since:       2011-07-15
 description: Some header varables for use by other modules.
 '''
-from Exceptions import *
-
-VERSION='r39:M3'
+VERSION='r40:M3'
 DEBUG=True

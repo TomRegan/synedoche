@@ -88,24 +88,32 @@ class Cli(UpdateListener):
                             self.print_register(*line[2:])
                         else:
                             self.print_registers()
-                    elif line[1][:4] == 'pipe':
+                    elif line[1][:3] == 'pip':
                         self.print_pipeline()
                     elif line[1][:3] == 'mem':
                         if len(line) > 2:
                             self.print_memory(end=line[2])
                         else:
                             self.print_memory()
+                    else:
+                        print("Not a print function: `{:}'"
+                              .format(line[1]))
                 else:
                     self.usage(fun='print')
-            except:
-                print 'Simulation has not started'
+            except Exception, e:
+                #print 'Simulation has not started'
+                raise e
         elif line[0][:4] == 'rese':
+            print(':reset')
             self.reset()
-        elif line[0] == 'step':
+        elif line[0][:1] == 's':
+            print(':step')
             self.step()
-        elif line[0][:4] == 'cycl':
+        elif line[0][:1] == 'c':
+            print(':cycle')
             self.cycle()
-        elif line[0] == 'load':
+        elif line[0][:1] == 'l':
+            print(':load')
             if len(line) > 1:
                 self.load(line[1])
             else: print "Please supply a filename to read"
@@ -144,16 +152,16 @@ class Cli(UpdateListener):
         """Formats and outputs a display of the registers"""
         r=self.registers
         try:
-            print "{:-<80}".format('--Registers')
+            print("{:-<80}".format('--Registers'))
             for i in r.values():
                 if i>0 and i % 4 == 0:
-                    print ''
+                    print('')
                 name = self.registers.get_number_name_mappings()[i]
                 print("{:>4}({:0>2}):{:.>10}"
                       .format(name[:4],
                       i,
-                      hex(r.values()[i])[2:].replace('L', '')),
-            print "\n{:-<80}".format('')
+                      hex(r.values()[i])[2:].replace('L', ''))),
+            print("\n{:-<80}".format(''))
         except:
             pass
 
@@ -168,51 +176,55 @@ class Cli(UpdateListener):
             number = int(args[0])
             value = self.registers.getValue(number)
         name = self.registers.get_number_name_mappings()[number]
-        print "{:}({:}):".format(name, number),
+        print("{:}({:}):".format(name, number)),
         if len(args) > 1:
             base = args[1]
         if base =='d':
-            print "{:}".format(value)
+            print("{:}".format(value))
         if base =='x':
-            print "{:}".format(hex(value)[2:])
+            print("{:}".format(hex(value)[2:].replace('L', '')))
         if base =='b':
-            print "{:}".format(bin(value, self.size)[2:])
+            print("{:}".format(bin(value, self.size)[2:]))
 
     def print_pipeline(self):
         """Formats and outputs a display of the pipeline"""
         #the if block is just a hack to make exceptions more consistant
         if self.pipeline:
-            print "{:-<80}".format('--Pipeline')
+            print("{:-<80}".format('--Pipeline'))
             for i in range(len(self.pipeline)):
-                print "Stage {:}:{:}".format(i+1,bin(int(self.pipeline[i]),self.size)[2:])
-            print "{:-<80}".format('')
+                print("Stage {:}:{:}"
+                     .format(i+1,bin(int(self.pipeline[i]),self.size)[2:]))
+            print("{:-<80}".format(''))
 
     def print_memory(self, **kwargs):
         try:
             end=int(kwargs['end'])
+            print(int(kwargs['end']))
         except:
             end=None
-        #print self.memory.get_slice()
+        #print self.memory.get_slice(end)
         memory_slice = self.memory.get_slice(end=end).items()
-        print "{:-<80}".format('--Memory')
+        print("{:-<80}".format('--Memory'))
         for address, value in sorted(memory_slice, reverse=True):
-            print " {:>8}: {:}".format(hex(address)[2:],bin(value,self.size)[2:])
-        print "{:-<80}".format('')
+            print(" {:>8}: {:}"
+                 .format(hex(address)[2:],bin(value,self.size)[2:]))
+        print("{:-<80}".format(''))
 
     def usage(self, *args, **kwargs):
         usage={'print':'print <register>|<registers>'}
         if kwargs['fun'] in usage:
-            print 'Usage: ' + usage[kwargs['fun']]
+            print('Usage: ' + usage[kwargs['fun']])
         else:
-            print "Unrecognized function: `{:}'. Try `help'".format(kwargs['fun'])
+            print("Unrecognized function: `{:}'. Try `help'"
+                  .format(kwargs['fun']))
 
     def help(self):
-        print 'help will go here'
+        print('help will go here')
 
     def exit(self, *args, **kwargs):
         if len(args) < 1:
             args=[0]
-            print "Bye!"
+            print("Bye!")
         readline.write_history_file('.cli_history')
         if callable(self.simulation):
             self.simulation.disconnect(self)
@@ -221,10 +233,10 @@ class Cli(UpdateListener):
     def exception_handler(self, e):
         if DEBUG and self.local_DEBUG >= 2:
             traceback.print_exc(file=sys.stderr)
-        try: print "Exception: {:}".format(e)
+        try: print("Exception: {:}".format(e))
         except:pass
         if DEBUG and self.local_DEBUG >= 1:
-            print 'Type: ' + e.__class__.__name__
+            print('Type: ' + e.__class__.__name__)
         self.exit(1)
 
 
