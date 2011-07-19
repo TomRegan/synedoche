@@ -1403,3 +1403,238 @@
 1311108941375348:  CPU  leaving writeback stage
 1311108941375370:  CPU  completing a cycle
 1311108941375408:  >-----tearDown
+1311116832163695:  >-----setUp
+1311116832210250:  CPU  created a cpu
+1311116832210283:  CPU  pc is register 0x21
+1311116832210328:  >-----testAddInstruction
+1311116832211565:  CPU  beginning a cycle
+1311116832211582:  CPU  entering fetch stage
+1311116832211657:  CPU  leaving fetch stage
+1311116832211670:  CPU  entering decode stage
+1311116832211693:  CPU  decode found dust in the pipeline
+1311116832211706:  CPU  leaving decode stage
+1311116832211717:  CPU  entering execute stage
+1311116832211735:  CPU  execute found dust in the pipeline
+1311116832211747:  CPU  leaving execute stage
+1311116832211757:  CPU  entering writeback stage
+1311116832211772:  CPU  leaving writeback stage
+1311116832211801:  CPU  completing a cycle
+1311116832211816:  CPU  beginning a cycle
+1311116832211829:  CPU  entering fetch stage
+1311116832211920:  CPU  leaving fetch stage
+1311116832211933:  CPU  entering decode stage
+1311116832211951:  CPU  decoding 00100000000100000000000000100000
+1311116832211983:  CPU  decoded `i' type instruction, addi
+1311116832211997:  CPU  leaving decode stage
+1311116832212008:  CPU  entering execute stage
+1311116832212025:  CPU  execute found dust in the pipeline
+1311116832212036:  CPU  leaving execute stage
+1311116832212048:  CPU  entering writeback stage
+1311116832212061:  CPU  leaving writeback stage
+1311116832212082:  CPU  completing a cycle
+1311116832212096:  CPU  beginning a cycle
+1311116832212107:  CPU  entering fetch stage
+1311116832212195:  CPU  leaving fetch stage
+1311116832212208:  CPU  entering decode stage
+1311116832212226:  CPU  decoding 00000000000000000000000000000000
+1311116832212289:  CPU  decoded `j' type instruction, nop
+1311116832212303:  CPU  leaving decode stage
+1311116832212315:  CPU  entering execute stage
+1311116832212335:  CPU  executing 00100000000100000000000000100000
+1311116832212353:  CPU  `rt' is 16 (11:16)
+1311116832212367:  CPU  `rs' is 0 (6:11)
+1311116832212381:  CPU  `im' is 32 (16:32)
+1311116832212395:  CPU  `op' is 8 (0:6)
+1311116832212425:  CPU  calling addImmediate with ['rt', 'rs', 'im']
+1311116832212460:  CPU  leaving execute stage
+1311116832212472:  CPU  entering writeback stage
+1311116832212486:  CPU  leaving writeback stage
+1311116832212506:  CPU  completing a cycle
+1311116832212519:  CPU  beginning a cycle
+1311116832212530:  CPU  entering fetch stage
+1311116832212620:  CPU  leaving fetch stage
+1311116832212633:  CPU  entering decode stage
+1311116832212651:  CPU  decoding 00000000000000000000000000000000
+1311116832212713:  CPU  decoded `j' type instruction, nop
+1311116832212727:  CPU  leaving decode stage
+1311116832212738:  CPU  entering execute stage
+1311116832212753:  CPU  executing 00000000000000000000000000000000
+1311116832212775:  CPU  `im' is 0 (6:32)
+1311116832212790:  CPU  `op' is 0 (0:6)
+1311116832212808:  CPU  calling noop with []
+1311116832212824:  CPU  leaving execute stage
+1311116832212836:  CPU  entering writeback stage
+1311116832212849:  CPU  leaving writeback stage
+1311116832212870:  CPU  completing a cycle
+1311116832212897:  >-----tearDown
+1311116832213402:  >-----setUp
+1311116832265593:  CPU  created a cpu
+1311116832265622:  CPU  pc is register 0x21
+1311116832265662:  >-----testDecode
+1311116832265683:  CPU  beginning a cycle
+1311116832265697:  CPU  entering fetch stage
+1311116832265806:  CPU  leaving fetch stage
+1311116832265820:  CPU  entering decode stage
+1311116832265841:  CPU  decode found dust in the pipeline
+1311116832265854:  CPU  leaving decode stage
+1311116832265865:  CPU  entering execute stage
+1311116832265883:  CPU  execute found dust in the pipeline
+1311116832265895:  CPU  leaving execute stage
+1311116832265906:  CPU  entering writeback stage
+1311116832265920:  CPU  leaving writeback stage
+1311116832265946:  CPU  completing a cycle
+1311116832265960:  CPU  beginning a cycle
+1311116832265973:  CPU  entering fetch stage
+1311116832266063:  CPU  leaving fetch stage
+1311116832266076:  CPU  entering decode stage
+1311116832266094:  CPU  decoding 00000000000000000000000000000000
+1311116832266169:  CPU  decoded `j' type instruction, nop
+1311116832266184:  CPU  leaving decode stage
+1311116832266195:  CPU  entering execute stage
+1311116832266213:  CPU  execute found dust in the pipeline
+1311116832266224:  CPU  leaving execute stage
+1311116832266236:  CPU  entering writeback stage
+1311116832266250:  CPU  leaving writeback stage
+1311116832266270:  CPU  completing a cycle
+1311116832266312:  >-----tearDown
+1311116832266697:  >-----setUp
+1311116832321704:  CPU  created a cpu
+1311116832321735:  CPU  pc is register 0x21
+1311116832321791:  >-----testExecute
+1311116832321812:  CPU  beginning a cycle
+1311116832321826:  CPU  entering fetch stage
+1311116832321937:  CPU  leaving fetch stage
+1311116832321950:  CPU  entering decode stage
+1311116832321972:  CPU  decode found dust in the pipeline
+1311116832321984:  CPU  leaving decode stage
+1311116832321995:  CPU  entering execute stage
+1311116832322012:  CPU  execute found dust in the pipeline
+1311116832322024:  CPU  leaving execute stage
+1311116832322035:  CPU  entering writeback stage
+1311116832322049:  CPU  leaving writeback stage
+1311116832322075:  CPU  completing a cycle
+1311116832322088:  CPU  beginning a cycle
+1311116832322101:  CPU  entering fetch stage
+1311116832322191:  CPU  leaving fetch stage
+1311116832322203:  CPU  entering decode stage
+1311116832322221:  CPU  decoding 00000000000000000000000000000000
+1311116832322290:  CPU  decoded `j' type instruction, nop
+1311116832322304:  CPU  leaving decode stage
+1311116832322315:  CPU  entering execute stage
+1311116832322332:  CPU  execute found dust in the pipeline
+1311116832322343:  CPU  leaving execute stage
+1311116832322355:  CPU  entering writeback stage
+1311116832322368:  CPU  leaving writeback stage
+1311116832322389:  CPU  completing a cycle
+1311116832322403:  CPU  beginning a cycle
+1311116832322415:  CPU  entering fetch stage
+1311116832322503:  CPU  leaving fetch stage
+1311116832322542:  CPU  entering decode stage
+1311116832322561:  CPU  decoding 00000000000000000000000000000000
+1311116832322625:  CPU  decoded `j' type instruction, nop
+1311116832322639:  CPU  leaving decode stage
+1311116832322651:  CPU  entering execute stage
+1311116832322666:  CPU  executing 00000000000000000000000000000000
+1311116832322684:  CPU  `im' is 0 (6:32)
+1311116832322699:  CPU  `op' is 0 (0:6)
+1311116832322720:  CPU  calling noop with []
+1311116832322737:  CPU  leaving execute stage
+1311116832322748:  CPU  entering writeback stage
+1311116832322762:  CPU  leaving writeback stage
+1311116832322782:  CPU  completing a cycle
+1311116832322794:  CPU  beginning a cycle
+1311116832322806:  CPU  entering fetch stage
+1311116832322897:  CPU  leaving fetch stage
+1311116832322910:  CPU  entering decode stage
+1311116832322927:  CPU  decoding 00000000000000000000000000000000
+1311116832322992:  CPU  decoded `j' type instruction, nop
+1311116832323006:  CPU  leaving decode stage
+1311116832323017:  CPU  entering execute stage
+1311116832323032:  CPU  executing 00000000000000000000000000000000
+1311116832323049:  CPU  `im' is 0 (6:32)
+1311116832323063:  CPU  `op' is 0 (0:6)
+1311116832323080:  CPU  calling noop with []
+1311116832323095:  CPU  leaving execute stage
+1311116832323106:  CPU  entering writeback stage
+1311116832323120:  CPU  leaving writeback stage
+1311116832323141:  CPU  completing a cycle
+1311116832323179:  >-----tearDown
+1311116832323656:  >-----setUp
+1311116832378579:  CPU  created a cpu
+1311116832378608:  CPU  pc is register 0x21
+1311116832378644:  >-----testNoop/Fetch
+1311116832378665:  CPU  beginning a cycle
+1311116832378678:  CPU  entering fetch stage
+1311116832378785:  CPU  leaving fetch stage
+1311116832378798:  CPU  entering decode stage
+1311116832378819:  CPU  decode found dust in the pipeline
+1311116832378831:  CPU  leaving decode stage
+1311116832378842:  CPU  entering execute stage
+1311116832378860:  CPU  execute found dust in the pipeline
+1311116832378872:  CPU  leaving execute stage
+1311116832378883:  CPU  entering writeback stage
+1311116832378897:  CPU  leaving writeback stage
+1311116832378921:  CPU  completing a cycle
+1311116832378961:  >-----tearDown
+1311116832379278:  >-----setUp
+1311116832431135:  CPU  created a cpu
+1311116832431167:  CPU  pc is register 0x21
+1311116832431215:  >-----testPipeline
+1311116832431229:  CPU  beginning a cycle
+1311116832431243:  CPU  entering fetch stage
+1311116832431357:  CPU  leaving fetch stage
+1311116832431370:  CPU  entering decode stage
+1311116832431392:  CPU  decode found dust in the pipeline
+1311116832431405:  CPU  leaving decode stage
+1311116832431416:  CPU  entering execute stage
+1311116832431434:  CPU  execute found dust in the pipeline
+1311116832431445:  CPU  leaving execute stage
+1311116832431456:  CPU  entering writeback stage
+1311116832431470:  CPU  leaving writeback stage
+1311116832431496:  CPU  completing a cycle
+1311116832431511:  CPU  beginning a cycle
+1311116832431523:  CPU  entering fetch stage
+1311116832431613:  CPU  leaving fetch stage
+1311116832431626:  CPU  entering decode stage
+1311116832431644:  CPU  decoding 00000000000000000000000000000000
+1311116832431714:  CPU  decoded `j' type instruction, nop
+1311116832431727:  CPU  leaving decode stage
+1311116832431739:  CPU  entering execute stage
+1311116832431756:  CPU  execute found dust in the pipeline
+1311116832431767:  CPU  leaving execute stage
+1311116832431787:  CPU  entering writeback stage
+1311116832431801:  CPU  leaving writeback stage
+1311116832431822:  CPU  completing a cycle
+1311116832431836:  CPU  beginning a cycle
+1311116832431848:  CPU  entering fetch stage
+1311116832431936:  CPU  leaving fetch stage
+1311116832431949:  CPU  entering decode stage
+1311116832431967:  CPU  decoding 00000000000000000000000000000000
+1311116832432031:  CPU  decoded `j' type instruction, nop
+1311116832432044:  CPU  leaving decode stage
+1311116832432057:  CPU  entering execute stage
+1311116832432072:  CPU  executing 00000000000000000000000000000000
+1311116832432089:  CPU  `im' is 0 (6:32)
+1311116832432104:  CPU  `op' is 0 (0:6)
+1311116832432126:  CPU  calling noop with []
+1311116832432144:  CPU  leaving execute stage
+1311116832432155:  CPU  entering writeback stage
+1311116832432169:  CPU  leaving writeback stage
+1311116832432189:  CPU  completing a cycle
+1311116832432201:  CPU  beginning a cycle
+1311116832432213:  CPU  entering fetch stage
+1311116832432304:  CPU  leaving fetch stage
+1311116832432317:  CPU  entering decode stage
+1311116832432335:  CPU  decoding 00000000000000000000000000000000
+1311116832432398:  CPU  decoded `j' type instruction, nop
+1311116832432412:  CPU  leaving decode stage
+1311116832432423:  CPU  entering execute stage
+1311116832432438:  CPU  executing 00000000000000000000000000000000
+1311116832432455:  CPU  `im' is 0 (6:32)
+1311116832432469:  CPU  `op' is 0 (0:6)
+1311116832432486:  CPU  calling noop with []
+1311116832432502:  CPU  leaving execute stage
+1311116832432513:  CPU  entering writeback stage
+1311116832432527:  CPU  leaving writeback stage
+1311116832432548:  CPU  completing a cycle
+1311116832432579:  >-----tearDown

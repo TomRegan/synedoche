@@ -4,5 +4,5 @@ author:      Tom Regan <thomas.c.regan@gmail.com>
 since:       2011-07-15
 description: Some header varables for use by other modules.
 '''
-VERSION='r41:M3'
+VERSION='r42:M3'
 DEBUG=True

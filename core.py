@@ -72,7 +72,7 @@ class Simulation(object):
             instruction_signatures        = instruction_reader.getSignatures()
             instruction_format_mapping    = instruction_reader.getFormatMapping()
             instruction_format_properties = instruction_reader.getFormatProperties()
-            instruction_assembly_syntax   = instruction_reader.get_assembly_syntax()
+            instruction_assembly_syntax   = instruction_reader.get_assembler_syntax()
 
             self.instruction_size         = instruction_size
         except Exception as e:
@@ -129,8 +129,8 @@ class Simulation(object):
                     instruction_format_properties[instruction])
 
             for instruction in instruction_assembly_syntax:
-                self.instructions.addAssemblySyntax(instruction,
-                    instruction_assembly_syntax[instruction])
+                self.instructions.addAssemblySyntax(instruction[0],
+                                                    instruction[1])
         except Exception as e:
             sys.stderr.write('fatal: failed trying to initialize isa\n')
             raise e
