@@ -6,5 +6,5 @@ description: Some header varables for use by other modules.
 '''
 from Exceptions import *
 
-VERSION='r35:M3'
+VERSION='r36:M3'
 DEBUG=True
