@@ -38,7 +38,7 @@
     </directives>
     <syntax>
       <label     pattern="\w+:" />
-      <label_ref pattern="(\w+):" />
+      <reference pattern="(\w+):" />
       <comment   pattern="#.*" />
     </syntax>
   </assembler>
@@ -226,6 +226,9 @@
     <implementation>
       <method name="increment_pc" args="im" />
     </implementation>
+    <replacements>
+      <replacement name="im" sub="1" type="absolute" />
+    </replacements>
   </instruction>
 
   <instruction name="jal" format="j"><!--jump and link-->

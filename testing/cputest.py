@@ -36,7 +36,7 @@ if __name__ == '__main__':
             instruction_signatures        = instruction_reader.getSignatures()
             instruction_format_mapping    = instruction_reader.getFormatMapping()
             instruction_format_properties = instruction_reader.getFormatProperties()
-            instruction_assembly_syntax   = instruction_reader.getAssemblySyntax()
+            instruction_assembly_syntax   = instruction_reader.get_assembler_syntax()
 
             machine_reader = Xml.MachineReader(machine_conf)
 
@@ -77,8 +77,8 @@ if __name__ == '__main__':
                     instruction_format_properties[instruction])
 
             for instruction in instruction_assembly_syntax:
-                self.instructions.addAssemblySyntax(instruction,
-                    instruction_assembly_syntax[instruction])
+                self.instructions.addAssemblySyntax(instruction[0],
+                                                    instruction[1])
 
             self.memory=Memory.Memory(machine_address_space, self.instructions)
             self.memory.openLog(self.logger)

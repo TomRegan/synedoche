@@ -73,7 +73,7 @@ class Interpreter(Loggable):
             self._format_mappings        = instructions.getFormatMapping()
             self._comment_pattern        = instructions.getAssemblySyntax()['comment']
             self._label_pattern          = instructions.getAssemblySyntax()['label']
-            self._label_reference        = instructions.getAssemblySyntax()['label_ref']
+            self._label_reference        = instructions.getAssemblySyntax()['reference']
             self._isa_size               = instructions.getSize()
             self._registers              = registers.getRegisterMappings()
             #
@@ -85,7 +85,6 @@ class Interpreter(Loggable):
             #self._text_offset            = memory.getStart('text')
         except Exception as e:
             raise DataMissingException('Missing data for Interpreter: '+e.message)
-
 
     def open_log(self, logger):
         """logger:object -> ...

@@ -72,7 +72,7 @@ class Simulation(object):
             instruction_signatures        = instruction_reader.getSignatures()
             instruction_format_mapping    = instruction_reader.getFormatMapping()
             instruction_format_properties = instruction_reader.getFormatProperties()
-            instruction_assembly_syntax   = instruction_reader.getAssemblySyntax()
+            instruction_assembly_syntax   = instruction_reader.get_assembly_syntax()
 
             self.instruction_size         = instruction_size
         except Exception as e:

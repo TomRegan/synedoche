@@ -2,7 +2,7 @@
 ''' XmlLoader.py
 author:      Tom Regan <thomas.c.regan@gmail.com>
 since:       2011-06-23
-modified:    2011-07-08
+modified:    2011-07-19
 description: Module providing support for XML functions
 '''
 
@@ -62,6 +62,7 @@ class InstructionReader(XmlReader):
     """
 
     def __init__(self, filename):
+        self._data={}
         self._document=XmlDocument(filename)
         self._rootNode=self._document._rootNode
         self._readLanguage()
@@ -73,7 +74,7 @@ class InstructionReader(XmlReader):
         self._readInstructionImplementationMap()
         self._readInstructionFormatMap()
         self._readAssembleyDirectives()
-        self._readAssembleySyntax()
+        self._read_assembler_syntax()
 
     def _readLanguage(self):
         """Stores 'language' -> self.record
@@ -196,7 +197,7 @@ class InstructionReader(XmlReader):
                 args=method.attributes['args'].value.encode('ascii').split()
                 #TODO
                 #This is awful. It needs cleaning up asap
-                #
+                #2011-07-19 -- okay, maybe not asap...
                 for i in range(len(args)):
                     if args[i][:2] == '0x':
                         args[i] = int(args[i],16)
@@ -232,24 +233,25 @@ class InstructionReader(XmlReader):
             profile = directive.attributes['profile'].value.encode('ascii')
             self._assembley_directives[name] = profile
 
-    def _readAssembleySyntax(self):
+    def _read_assembler_syntax(self):
         """{ name:<string> : pattern:<string> } -> assembler_syntax
 
         Reads an XML instruction specification and looks for the
         assembler syntax.
         """
 
-        self._assembley_syntax={}
-        label     = self._rootNode.getElementsByTagName('assembler')[0]\
-                    .getElementsByTagName('syntax')[0].getElementsByTagName('label')[0]
-        label_ref = self._rootNode.getElementsByTagName('assembler')[0]\
-                    .getElementsByTagName('syntax')[0].getElementsByTagName('label_ref')[0]
-        comment   = self._rootNode.getElementsByTagName('assembler')[0]\
-                    .getElementsByTagName('syntax')[0].getElementsByTagName('comment')[0]
-        for element in [label, label_ref, comment]:
+        assembler = self._rootNode.getElementsByTagName('assembler')[0]
+        assembler_syntax = assembler.getElementsByTagName('syntax')[0]
+        label     = assembler_syntax.getElementsByTagName('label')[0]
+        reference = assembler_syntax.getElementsByTagName('reference')[0]
+        comment   = assembler_syntax.getElementsByTagName('comment')[0]
+
+        data=[]
+        for element in [label, reference, comment]:
             name = element.tagName.encode('ascii')
             pattern = element.attributes['pattern'].value.encode('ascii')
-            self._assembley_syntax[name] = pattern
+            data.append((name, pattern))
+        self._data['assembler']=tuple(data)
 
     def getLanguage(self):
         """-> language:<string>"""
@@ -287,10 +289,13 @@ class InstructionReader(XmlReader):
         """-> {name:<string> : profile:<string>}"""
         return self._assembley_directives
 
-
-    def getAssemblySyntax(self):
-        """-> {name:<string> : pattern:<string>}"""
-        return self._assembley_syntax
+    def get_assembler_syntax(self):
+        """get_assembler_syntax() ->
+           ((label:str,     pattern:str),
+            (reference:str, pattern:str),
+            (comment:str,   pattern:str)):tuple
+        """
+        return self._data['assembler']
 
 
 
@@ -432,8 +437,7 @@ class MachineReader(XmlReader):
 
 
 if __name__ == '__main__':
-    pass
-    reader=InstructionReader('../../xml/instructions.xml')
+    reader=InstructionReader('../config/instructions.xml')
     #print reader.getAssembleyDirectives()
     #print reader.getAssembleySyntax()
     #language=reader.getLanguage()
@@ -448,7 +452,7 @@ if __name__ == '__main__':
     #print "Implementation: {0}\n".format(reader.getImplementation())
     #print "InstructionFormats: {0}".format(reader.getFormatMapping())
 
-    reader=MachineReader('../../xml/machine.xml')
+    reader=MachineReader('../config/machine.xml')
     #print "Success: read `{0}' from file".format(machine.language)
     #print machine.registerPrivilege
     #print reader.getLanguage()

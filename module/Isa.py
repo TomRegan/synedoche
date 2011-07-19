@@ -123,6 +123,14 @@ class InstructionSet(object):
         """
         self._assembly_syntax[name] = pattern
 
+    def add_assembler_syntax(self, name, pattern):
+        """(name:str, pattern:str)
+
+        Stores elements of assembly syntax, including labels
+        and comment patterns.
+        """
+        self._assembly_syntax[name] = pattern
+
     def addAssemblyDirective(self, name, profile):
         self._assembly_directives[name] = profile
 
@@ -155,3 +163,6 @@ class InstructionSet(object):
 
     def getAssemblyDirectives(self):
         return self._assembly_directives
+
+    def get_assembly_syntax(self):
+        return self._assembly_syntax
