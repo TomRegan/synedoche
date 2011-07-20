@@ -6,7 +6,11 @@ description: A CLI client for the system.
 '''
 
 import sys
-import readline
+
+try:
+    import readline
+except:
+    pass #never mind
 
 from core import *
 from lib.Header import *
@@ -14,6 +18,9 @@ from lib.Functions import binary as bin
 from lib.Exceptions import *
 from lib.Interface  import UpdateListener
 from lib.Evaluator  import Evaluator
+from module.Interpreter import BadInstructionOrSyntax
+from module.Interpreter import DataMissingException
+from module.Interpreter import DataConversionFromUnknownType
 
 class Cli(UpdateListener):
     """
@@ -52,7 +59,8 @@ class Cli(UpdateListener):
 
 
     def run(self):
-        print "Command Line Client ({:})\nType `help' for more information.".format(VERSION)
+        print("Command Line Client ({:})\n".format(VERSION) +
+              "Type `help' or `version' for more information.")
         while True:
             line = raw_input('>>> ')
             if len(line) > 0:
@@ -122,9 +130,8 @@ class Cli(UpdateListener):
                 evaluator = Evaluator(simulation=self.simulation,
                                       client=self)
                 evaluator.eval()
-            except Exception, e:
-                name=e.__class__.__name__.replace('_',' ')
-                print "{:}: `{:}'".format(name,e.message)
+            except BadInstructionOrSyntax, e:
+                print(e.message)
 
         elif line[0] == 'help':
             self.help()

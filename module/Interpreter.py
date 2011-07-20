@@ -7,13 +7,16 @@ modified:    2011-07-20
 description: Module containing the interpreter functions
 '''
 import re
-import lib.Errors as Errors
+#import lib.Errors as Errors
 
-from lib.Logger     import InterpreterLogger
-from lib.Functions  import binary as bin
-from lib.Interface  import Loggable
+from lib.Logger    import InterpreterLogger
+from lib.Functions import binary as bin
+from lib.Functions import hexadecimal as hex
+from lib.Interface import Loggable
 
-class Bad_instruction_or_syntax(Exception):
+BAD = 'Bad instruction or syntax: '
+
+class BadInstructionOrSyntax(Exception):
     """Signals bad syntax for the instruction just read"""
 
 class DataMissingException(Exception):
@@ -62,7 +65,7 @@ class Interpreter(Loggable):
                 programme=interpreter.readFile(file)
             except DataMissingException as e:
                 print e.message
-            except Bad_instruction_or_syntax as e:
+            except BadInstructionOrSyntax as e:
                 print e.message
         """
         try:
@@ -187,7 +190,6 @@ class Interpreter(Loggable):
                     i = i+1
             i = i+1
 
-        #print(lines)
         #we want a table mapping labels to memory locations
         self._jump_table.clear()
         for i in range(len(lines)):
@@ -236,9 +238,11 @@ class Interpreter(Loggable):
                 if mode == 'absolute':
                     base = self._text_offset
                     offset = self._jump_table[label]
-                    offset = hex(base + (offset * self._addressable))
+                    offset = hex(base + (offset * self._addressable),
+                                 self._isa_size/4)
                 elif mode == 'relative':
-                    offset = hex(self._jump_table[label] - i)
+                    offset = hex(self._jump_table[label] - i,
+                                 self._isa_size/4)
                 #finally, we can replace the label
                 lines[i] = lines[i].replace(label, offset)
             output.append(lines[i])
@@ -253,7 +257,7 @@ class Interpreter(Loggable):
         Returns a list of machine instructions.
 
         Raises:
-            Bad_instruction_or_syntax
+            BadInstructionOrSyntax
 
         +------------------------------------------------------+
         | Validation                                           |
@@ -283,7 +287,8 @@ class Interpreter(Loggable):
             if instruction in self._format_mappings:
                 syntax=self._instruction_syntax[instruction]
                 expression = '^' + syntax['expression'] + '$'
-                self.log.buffer("matching `{0}' instruction".format(instruction))
+                self.log.buffer("matching `{0}' instruction"
+                                .format(instruction))
                 if re.search(expression, line):
                     match = re.search(expression, line)
                     #
@@ -304,8 +309,9 @@ class Interpreter(Loggable):
                                 else:
                                     value=int(value)
                             except:
-                                raise Bad_instruction_or_syntax(line)
-                        self.log.buffer("`{0}' is {1}".format(field,value))
+                                raise BadInstructionOrSyntax(BAD + line)
+                        self.log.buffer("`{0}' is {1}"
+                                        .format(field,value))
                         instruction_fields[field]=value
 
                     #
@@ -330,7 +336,7 @@ class Interpreter(Loggable):
                     output.append(instruction_raw)
                     self.log.buffer("encoded {0}".format(instruction_raw))
                 else:
-                    raise Bad_instruction_or_syntax(line)
+                    raise BadInstructionOrSyntax(BAD + line)
             #elif instruction in self._special_instructions:
                 #
                 #we aren't dealing with specials yet
@@ -339,7 +345,7 @@ class Interpreter(Loggable):
                 #output.append(instruction)
                 #pass
             else:
-                raise Bad_instruction_or_syntax(line)
+                raise BadInstructionOrSyntax(BAD + line)
             instruction_fields.clear()
         self.log.buffer("leaving encoder")
         return output
@@ -450,9 +456,9 @@ if __name__ == '__main__':
 
         def testLinker(self):
             good_programme2=['addi $t0, $zero, 10',
-                             'beq $t0, $t1, 0x3',
+                             'beq $t0, $t1, 0x00000003',
                              'addi $t0, $zero, -1',
-                             'j 0x400004']
+                             'j 0x00400004']
             programme2=self.interpreter._preprocess(self.programme2)
             programme2=self.interpreter._link(programme2)
 
@@ -501,7 +507,6 @@ if __name__ == '__main__':
                           '00001000010000000000000000000100']
             file_object1=open('../asm/add.asm','r')
             result1=self.interpreter.read_file(file_object1)
-            #print result1
             self.assertEquals(good_result1, result1)
 
             file_object2=open('../asm/labels.asm','r')

@@ -8215,3 +8215,507 @@
 1311125999695924:  INT  `rt' is $s2
 1311125999695984:  INT  encoded 00000010001100100100000000100000
 1311125999695996:  INT  leaving encoder
+1311127101295303:  INT  created `MIPS_I' interpreter
+1311127101295414:  MEM  created 2147483-Kb of 8-byte address space
+1311127101295513:  INT  entering preprocessor
+1311127101296004:  INT  processed  add $t0,$s1,$s2
+1311127101296019:  INT  leaving preprocessor
+1311127101296045:  INT  entering linker
+1311127101296172:  INT  leaving linker
+1311127101296194:  INT  entering encoder
+1311127101296211:  INT  matching `add' instruction
+1311127101296814:  INT  `rd' is $t0
+1311127101296831:  INT  `rs' is $s1
+1311127101296845:  INT  `rt' is $s2
+1311127101296905:  INT  encoded 00000010001100100100000000100000
+1311127101296917:  INT  leaving encoder
+1311127101296937:  INT  entering preprocessor
+1311127101297247:  INT  mapped label `Main' to 0
+1311127101297272:  INT  processed  addi $t0, $zero, 2
+1311127101297291:  INT  processed  addi $t1, $zero, 2
+1311127101297310:  INT  processed  add $t0, $t0, $t1
+1311127101297334:  INT  mapped label `Exit' to 3
+1311127101297355:  INT  processed  addi $v0, $zero, 10
+1311127101297368:  INT  leaving preprocessor
+1311127101297379:  INT  entering linker
+1311127101297408:  INT  leaving linker
+1311127101297420:  INT  entering encoder
+1311127101297435:  INT  matching `addi' instruction
+1311127101298123:  INT  `rt' is $t0
+1311127101298140:  INT  `rs' is $zero
+1311127101298159:  INT  `im' is 2
+1311127101298204:  INT  encoded 00100000000010000000000000000010
+1311127101298221:  INT  matching `addi' instruction
+1311127101298248:  INT  `rt' is $t1
+1311127101298263:  INT  `rs' is $zero
+1311127101298278:  INT  `im' is 2
+1311127101298320:  INT  encoded 00100000000010010000000000000010
+1311127101298336:  INT  matching `add' instruction
+1311127101298362:  INT  `rd' is $t0
+1311127101298376:  INT  `rs' is $t0
+1311127101298390:  INT  `rt' is $t1
+1311127101298440:  INT  encoded 00000001000010010100000000100000
+1311127101298456:  INT  matching `addi' instruction
+1311127101298482:  INT  `rt' is $v0
+1311127101298497:  INT  `rs' is $zero
+1311127101298513:  INT  `im' is 10
+1311127101298589:  INT  encoded 00100000000000100000000000001010
+1311127101298601:  INT  leaving encoder
+1311127101331355:  INT  created `MIPS_I' interpreter
+1311127101331464:  MEM  created 2147483-Kb of 8-byte address space
+1311127101331616:  INT  entering preprocessor
+1311127101331779:  INT  mapped label `Main' to 0
+1311127101331802:  INT  processed  addi $t0, $zero, 10
+1311127101331828:  INT  mapped label `Loop' to 1
+1311127101331849:  INT  processed  beq $t0, $t1, Exit
+1311127101331868:  INT  processed  addi $t0, $zero, -1
+1311127101331885:  INT  processed  j Loop
+1311127101331909:  INT  mapped label `Exit' to 4
+1311127101331928:  INT  processed  
+1311127101331940:  INT  leaving preprocessor
+1311127101331953:  INT  entering linker
+1311127101332945:  INT  leaving linker
+1311127101368893:  INT  created `MIPS_I' interpreter
+1311127101369023:  MEM  created 2147483-Kb of 8-byte address space
+1311127101369193:  INT  entering preprocessor
+1311127101369401:  INT  mapped label `Main' to 0
+1311127101369424:  INT  processed  addi $t0, $zero, 2
+1311127101369444:  INT  processed  addi $t1, $zero, 2
+1311127101369462:  INT  processed  add $t0, $t0, $t1
+1311127101369487:  INT  mapped label `Exit' to 3
+1311127101369509:  INT  processed  addi $v0, $zero, 10
+1311127101369521:  INT  leaving preprocessor
+1311127101369559:  INT  entering preprocessor
+1311127101369681:  INT  mapped label `Main' to 0
+1311127101369704:  INT  processed  addi $t0, $zero, 10
+1311127101369729:  INT  mapped label `Loop' to 1
+1311127101369751:  INT  processed  beq $t0, $t1, Exit
+1311127101369769:  INT  processed  addi $t0, $zero, -1
+1311127101369786:  INT  processed  j Loop
+1311127101369810:  INT  mapped label `Exit' to 4
+1311127101369830:  INT  processed  
+1311127101369843:  INT  leaving preprocessor
+1311127101402268:  INT  created `MIPS_I' interpreter
+1311127101402364:  MEM  created 2147483-Kb of 8-byte address space
+1311127101402543:  INT  reading file: ../asm/add.asm
+1311127101402571:  INT  entering preprocessor
+1311127101402790:  INT  mapped label `main' to 0
+1311127101402813:  INT  processed  addi $t0, $zero, 2
+1311127101402833:  INT  processed  addi $t1, $zero, 2
+1311127101402850:  INT  processed  add $t0, $t0, $t1
+1311127101402868:  INT  processed  addi $v0, $zero, 10
+1311127101402885:  INT  processed  slt $v0, $t0, $t1
+1311127101402898:  INT  leaving preprocessor
+1311127101402910:  INT  entering linker
+1311127101402945:  INT  leaving linker
+1311127101402957:  INT  entering encoder
+1311127101402974:  INT  matching `addi' instruction
+1311127101403001:  INT  `rt' is $t0
+1311127101403016:  INT  `rs' is $zero
+1311127101403033:  INT  `im' is 2
+1311127101403086:  INT  encoded 00100000000010000000000000000010
+1311127101403101:  INT  matching `addi' instruction
+1311127101403129:  INT  `rt' is $t1
+1311127101403143:  INT  `rs' is $zero
+1311127101403158:  INT  `im' is 2
+1311127101403200:  INT  encoded 00100000000010010000000000000010
+1311127101403215:  INT  matching `add' instruction
+1311127101403242:  INT  `rd' is $t0
+1311127101403256:  INT  `rs' is $t0
+1311127101403269:  INT  `rt' is $t1
+1311127101403320:  INT  encoded 00000001000010010100000000100000
+1311127101403336:  INT  matching `addi' instruction
+1311127101403363:  INT  `rt' is $v0
+1311127101403377:  INT  `rs' is $zero
+1311127101403392:  INT  `im' is 10
+1311127101403433:  INT  encoded 00100000000000100000000000001010
+1311127101403448:  INT  matching `slt' instruction
+1311127101403474:  INT  `rd' is $v0
+1311127101403488:  INT  `rs' is $t0
+1311127101403501:  INT  `rt' is $t1
+1311127101403551:  INT  encoded 00000001000010010001000000101010
+1311127101403563:  INT  leaving encoder
+1311127101403604:  INT  reading file: ../asm/labels.asm
+1311127101403626:  INT  entering preprocessor
+1311127101403762:  INT  mapped label `Main' to 0
+1311127101403785:  INT  processed  addi $t0, $zero, 10
+1311127101403810:  INT  mapped label `Loop' to 1
+1311127101403838:  INT  processed  beq $t0, $t1, Exit
+1311127101403856:  INT  processed  addi $t0, $zero, -1
+1311127101403873:  INT  processed  j Loop
+1311127101403898:  INT  mapped label `Exit' to 4
+1311127101403917:  INT  processed  
+1311127101403929:  INT  leaving preprocessor
+1311127101403940:  INT  entering linker
+1311127101403997:  INT  leaving linker
+1311127101404010:  INT  entering encoder
+1311127101404025:  INT  matching `addi' instruction
+1311127101404052:  INT  `rt' is $t0
+1311127101404066:  INT  `rs' is $zero
+1311127101404082:  INT  `im' is 10
+1311127101404125:  INT  encoded 00100000000010000000000000001010
+1311127101404141:  INT  matching `beq' instruction
+1311127101404169:  INT  `rs' is $t0
+1311127101404183:  INT  `rt' is $t1
+1311127101404198:  INT  `im' is 3
+1311127101404239:  INT  encoded 00010001000010010000000000000011
+1311127101404255:  INT  matching `addi' instruction
+1311127101404281:  INT  `rt' is $t0
+1311127101404296:  INT  `rs' is $zero
+1311127101404311:  INT  `im' is -1
+1311127101404353:  INT  encoded 00100000000010001111111111111111
+1311127101404368:  INT  matching `j' instruction
+1311127101404663:  INT  `im' is 4194308
+1311127101404700:  INT  encoded 00001000010000000000000000000100
+1311127101404712:  INT  leaving encoder
+1311127101440496:  INT  created `MIPS_I' interpreter
+1311127101440585:  MEM  created 2147483-Kb of 8-byte address space
+1311127101440702:  INT  reading line: add $t0,$s1,$s2
+1311127101440716:  INT  entering preprocessor
+1311127101440785:  INT  processed  add $t0,$s1,$s2
+1311127101440799:  INT  leaving preprocessor
+1311127101440811:  INT  entering linker
+1311127101440831:  INT  leaving linker
+1311127101440843:  INT  entering encoder
+1311127101440858:  INT  matching `add' instruction
+1311127101440887:  INT  `rd' is $t0
+1311127101440901:  INT  `rs' is $s1
+1311127101440915:  INT  `rt' is $s2
+1311127101440974:  INT  encoded 00000010001100100100000000100000
+1311127101440987:  INT  leaving encoder
+1311127196699872:  INT  created `MIPS_I' interpreter
+1311127196699979:  MEM  created 2147483-Kb of 8-byte address space
+1311127196700074:  INT  entering preprocessor
+1311127196700571:  INT  processed  add $t0,$s1,$s2
+1311127196700586:  INT  leaving preprocessor
+1311127196700612:  INT  entering linker
+1311127196700740:  INT  leaving linker
+1311127196700764:  INT  entering encoder
+1311127196700781:  INT  matching `add' instruction
+1311127196701388:  INT  `rd' is $t0
+1311127196701405:  INT  `rs' is $s1
+1311127196701420:  INT  `rt' is $s2
+1311127196701479:  INT  encoded 00000010001100100100000000100000
+1311127196701491:  INT  leaving encoder
+1311127196701511:  INT  entering preprocessor
+1311127196701821:  INT  mapped label `Main' to 0
+1311127196701846:  INT  processed  addi $t0, $zero, 2
+1311127196701866:  INT  processed  addi $t1, $zero, 2
+1311127196701885:  INT  processed  add $t0, $t0, $t1
+1311127196701909:  INT  mapped label `Exit' to 3
+1311127196701930:  INT  processed  addi $v0, $zero, 10
+1311127196701943:  INT  leaving preprocessor
+1311127196701955:  INT  entering linker
+1311127196701984:  INT  leaving linker
+1311127196701996:  INT  entering encoder
+1311127196702011:  INT  matching `addi' instruction
+1311127196702747:  INT  `rt' is $t0
+1311127196702764:  INT  `rs' is $zero
+1311127196702783:  INT  `im' is 2
+1311127196702828:  INT  encoded 00100000000010000000000000000010
+1311127196702845:  INT  matching `addi' instruction
+1311127196702872:  INT  `rt' is $t1
+1311127196702886:  INT  `rs' is $zero
+1311127196702902:  INT  `im' is 2
+1311127196702943:  INT  encoded 00100000000010010000000000000010
+1311127196702958:  INT  matching `add' instruction
+1311127196702984:  INT  `rd' is $t0
+1311127196702999:  INT  `rs' is $t0
+1311127196703012:  INT  `rt' is $t1
+1311127196703062:  INT  encoded 00000001000010010100000000100000
+1311127196703078:  INT  matching `addi' instruction
+1311127196703104:  INT  `rt' is $v0
+1311127196703118:  INT  `rs' is $zero
+1311127196703134:  INT  `im' is 10
+1311127196703176:  INT  encoded 00100000000000100000000000001010
+1311127196703188:  INT  leaving encoder
+1311127196735665:  INT  created `MIPS_I' interpreter
+1311127196735768:  MEM  created 2147483-Kb of 8-byte address space
+1311127196735904:  INT  entering preprocessor
+1311127196736064:  INT  mapped label `Main' to 0
+1311127196736089:  INT  processed  addi $t0, $zero, 10
+1311127196736115:  INT  mapped label `Loop' to 1
+1311127196736137:  INT  processed  beq $t0, $t1, Exit
+1311127196736156:  INT  processed  addi $t0, $zero, -1
+1311127196736173:  INT  processed  j Loop
+1311127196736197:  INT  mapped label `Exit' to 4
+1311127196736217:  INT  processed  
+1311127196736229:  INT  leaving preprocessor
+1311127196736241:  INT  entering linker
+1311127196737222:  INT  leaving linker
+1311127196772163:  INT  created `MIPS_I' interpreter
+1311127196772295:  MEM  created 2147483-Kb of 8-byte address space
+1311127196772463:  INT  entering preprocessor
+1311127196772667:  INT  mapped label `Main' to 0
+1311127196772691:  INT  processed  addi $t0, $zero, 2
+1311127196772710:  INT  processed  addi $t1, $zero, 2
+1311127196772729:  INT  processed  add $t0, $t0, $t1
+1311127196772754:  INT  mapped label `Exit' to 3
+1311127196772776:  INT  processed  addi $v0, $zero, 10
+1311127196772788:  INT  leaving preprocessor
+1311127196772827:  INT  entering preprocessor
+1311127196772949:  INT  mapped label `Main' to 0
+1311127196772972:  INT  processed  addi $t0, $zero, 10
+1311127196772997:  INT  mapped label `Loop' to 1
+1311127196773018:  INT  processed  beq $t0, $t1, Exit
+1311127196773037:  INT  processed  addi $t0, $zero, -1
+1311127196773054:  INT  processed  j Loop
+1311127196773078:  INT  mapped label `Exit' to 4
+1311127196773097:  INT  processed  
+1311127196773110:  INT  leaving preprocessor
+1311127196805133:  INT  created `MIPS_I' interpreter
+1311127196805213:  MEM  created 2147483-Kb of 8-byte address space
+1311127196805352:  INT  reading file: ../asm/add.asm
+1311127196805380:  INT  entering preprocessor
+1311127196805595:  INT  mapped label `main' to 0
+1311127196805619:  INT  processed  addi $t0, $zero, 2
+1311127196805639:  INT  processed  addi $t1, $zero, 2
+1311127196805657:  INT  processed  add $t0, $t0, $t1
+1311127196805675:  INT  processed  addi $v0, $zero, 10
+1311127196805693:  INT  processed  slt $v0, $t0, $t1
+1311127196805705:  INT  leaving preprocessor
+1311127196805717:  INT  entering linker
+1311127196805752:  INT  leaving linker
+1311127196805764:  INT  entering encoder
+1311127196805780:  INT  matching `addi' instruction
+1311127196805807:  INT  `rt' is $t0
+1311127196805822:  INT  `rs' is $zero
+1311127196805840:  INT  `im' is 2
+1311127196805890:  INT  encoded 00100000000010000000000000000010
+1311127196805906:  INT  matching `addi' instruction
+1311127196805933:  INT  `rt' is $t1
+1311127196805948:  INT  `rs' is $zero
+1311127196805964:  INT  `im' is 2
+1311127196806007:  INT  encoded 00100000000010010000000000000010
+1311127196806022:  INT  matching `add' instruction
+1311127196806049:  INT  `rd' is $t0
+1311127196806063:  INT  `rs' is $t0
+1311127196806076:  INT  `rt' is $t1
+1311127196806127:  INT  encoded 00000001000010010100000000100000
+1311127196806143:  INT  matching `addi' instruction
+1311127196806170:  INT  `rt' is $v0
+1311127196806184:  INT  `rs' is $zero
+1311127196806200:  INT  `im' is 10
+1311127196806243:  INT  encoded 00100000000000100000000000001010
+1311127196806258:  INT  matching `slt' instruction
+1311127196806284:  INT  `rd' is $v0
+1311127196806298:  INT  `rs' is $t0
+1311127196806312:  INT  `rt' is $t1
+1311127196806363:  INT  encoded 00000001000010010001000000101010
+1311127196806375:  INT  leaving encoder
+1311127196806415:  INT  reading file: ../asm/labels.asm
+1311127196806437:  INT  entering preprocessor
+1311127196806612:  INT  mapped label `Main' to 0
+1311127196806636:  INT  processed  addi $t0, $zero, 10
+1311127196806661:  INT  mapped label `Loop' to 1
+1311127196806682:  INT  processed  beq $t0, $t1, Exit
+1311127196806701:  INT  processed  addi $t0, $zero, -1
+1311127196806718:  INT  processed  j Loop
+1311127196806742:  INT  mapped label `Exit' to 4
+1311127196806761:  INT  processed  
+1311127196806773:  INT  leaving preprocessor
+1311127196806784:  INT  entering linker
+1311127196806840:  INT  leaving linker
+1311127196806853:  INT  entering encoder
+1311127196806868:  INT  matching `addi' instruction
+1311127196806895:  INT  `rt' is $t0
+1311127196806910:  INT  `rs' is $zero
+1311127196806927:  INT  `im' is 10
+1311127196806971:  INT  encoded 00100000000010000000000000001010
+1311127196806987:  INT  matching `beq' instruction
+1311127196807015:  INT  `rs' is $t0
+1311127196807029:  INT  `rt' is $t1
+1311127196807045:  INT  `im' is 3
+1311127196807087:  INT  encoded 00010001000010010000000000000011
+1311127196807103:  INT  matching `addi' instruction
+1311127196807129:  INT  `rt' is $t0
+1311127196807144:  INT  `rs' is $zero
+1311127196807160:  INT  `im' is -1
+1311127196807204:  INT  encoded 00100000000010001111111111111111
+1311127196807219:  INT  matching `j' instruction
+1311127196807516:  INT  `im' is 4194308
+1311127196807551:  INT  encoded 00001000010000000000000000000100
+1311127196807563:  INT  leaving encoder
+1311127196843177:  INT  created `MIPS_I' interpreter
+1311127196843266:  MEM  created 2147483-Kb of 8-byte address space
+1311127196843383:  INT  reading line: add $t0,$s1,$s2
+1311127196843397:  INT  entering preprocessor
+1311127196843466:  INT  processed  add $t0,$s1,$s2
+1311127196843479:  INT  leaving preprocessor
+1311127196843490:  INT  entering linker
+1311127196843511:  INT  leaving linker
+1311127196843524:  INT  entering encoder
+1311127196843539:  INT  matching `add' instruction
+1311127196843568:  INT  `rd' is $t0
+1311127196843582:  INT  `rs' is $s1
+1311127196843596:  INT  `rt' is $s2
+1311127196843654:  INT  encoded 00000010001100100100000000100000
+1311127196843667:  INT  leaving encoder
+1311127271034547:  INT  created `MIPS_I' interpreter
+1311127271034661:  MEM  created 2147483-Kb of 8-byte address space
+1311127271034756:  INT  entering preprocessor
+1311127271035262:  INT  processed  add $t0,$s1,$s2
+1311127271035277:  INT  leaving preprocessor
+1311127271035303:  INT  entering linker
+1311127271035430:  INT  leaving linker
+1311127271035453:  INT  entering encoder
+1311127271035469:  INT  matching `add' instruction
+1311127271036074:  INT  `rd' is $t0
+1311127271036091:  INT  `rs' is $s1
+1311127271036105:  INT  `rt' is $s2
+1311127271036165:  INT  encoded 00000010001100100100000000100000
+1311127271036178:  INT  leaving encoder
+1311127271036198:  INT  entering preprocessor
+1311127271036504:  INT  mapped label `Main' to 0
+1311127271036530:  INT  processed  addi $t0, $zero, 2
+1311127271036549:  INT  processed  addi $t1, $zero, 2
+1311127271036568:  INT  processed  add $t0, $t0, $t1
+1311127271036593:  INT  mapped label `Exit' to 3
+1311127271036614:  INT  processed  addi $v0, $zero, 10
+1311127271036627:  INT  leaving preprocessor
+1311127271036638:  INT  entering linker
+1311127271036667:  INT  leaving linker
+1311127271036680:  INT  entering encoder
+1311127271036695:  INT  matching `addi' instruction
+1311127271037386:  INT  `rt' is $t0
+1311127271037403:  INT  `rs' is $zero
+1311127271037422:  INT  `im' is 2
+1311127271037467:  INT  encoded 00100000000010000000000000000010
+1311127271037483:  INT  matching `addi' instruction
+1311127271037510:  INT  `rt' is $t1
+1311127271037525:  INT  `rs' is $zero
+1311127271037541:  INT  `im' is 2
+1311127271037583:  INT  encoded 00100000000010010000000000000010
+1311127271037599:  INT  matching `add' instruction
+1311127271037626:  INT  `rd' is $t0
+1311127271037640:  INT  `rs' is $t0
+1311127271037654:  INT  `rt' is $t1
+1311127271037704:  INT  encoded 00000001000010010100000000100000
+1311127271037719:  INT  matching `addi' instruction
+1311127271037746:  INT  `rt' is $v0
+1311127271037764:  INT  `rs' is $zero
+1311127271037780:  INT  `im' is 10
+1311127271037822:  INT  encoded 00100000000000100000000000001010
+1311127271037833:  INT  leaving encoder
+1311127271070025:  INT  created `MIPS_I' interpreter
+1311127271070113:  MEM  created 2147483-Kb of 8-byte address space
+1311127271070238:  INT  entering preprocessor
+1311127271070389:  INT  mapped label `Main' to 0
+1311127271070413:  INT  processed  addi $t0, $zero, 10
+1311127271070439:  INT  mapped label `Loop' to 1
+1311127271070461:  INT  processed  beq $t0, $t1, Exit
+1311127271070479:  INT  processed  addi $t0, $zero, -1
+1311127271070496:  INT  processed  j Loop
+1311127271070542:  INT  mapped label `Exit' to 4
+1311127271070563:  INT  processed  
+1311127271070575:  INT  leaving preprocessor
+1311127271070587:  INT  entering linker
+1311127271071564:  INT  leaving linker
+1311127271107222:  INT  created `MIPS_I' interpreter
+1311127271107314:  MEM  created 2147483-Kb of 8-byte address space
+1311127271107429:  INT  entering preprocessor
+1311127271107611:  INT  mapped label `Main' to 0
+1311127271107634:  INT  processed  addi $t0, $zero, 2
+1311127271107653:  INT  processed  addi $t1, $zero, 2
+1311127271107671:  INT  processed  add $t0, $t0, $t1
+1311127271107696:  INT  mapped label `Exit' to 3
+1311127271107717:  INT  processed  addi $v0, $zero, 10
+1311127271107729:  INT  leaving preprocessor
+1311127271107768:  INT  entering preprocessor
+1311127271107890:  INT  mapped label `Main' to 0
+1311127271107914:  INT  processed  addi $t0, $zero, 10
+1311127271107939:  INT  mapped label `Loop' to 1
+1311127271107960:  INT  processed  beq $t0, $t1, Exit
+1311127271107979:  INT  processed  addi $t0, $zero, -1
+1311127271107997:  INT  processed  j Loop
+1311127271108021:  INT  mapped label `Exit' to 4
+1311127271108040:  INT  processed  
+1311127271108053:  INT  leaving preprocessor
+1311127271140504:  INT  created `MIPS_I' interpreter
+1311127271140588:  MEM  created 2147483-Kb of 8-byte address space
+1311127271140730:  INT  reading file: ../asm/add.asm
+1311127271140756:  INT  entering preprocessor
+1311127271140970:  INT  mapped label `main' to 0
+1311127271140994:  INT  processed  addi $t0, $zero, 2
+1311127271141014:  INT  processed  addi $t1, $zero, 2
+1311127271141032:  INT  processed  add $t0, $t0, $t1
+1311127271141050:  INT  processed  addi $v0, $zero, 10
+1311127271141067:  INT  processed  slt $v0, $t0, $t1
+1311127271141080:  INT  leaving preprocessor
+1311127271141092:  INT  entering linker
+1311127271141126:  INT  leaving linker
+1311127271141138:  INT  entering encoder
+1311127271141154:  INT  matching `addi' instruction
+1311127271141182:  INT  `rt' is $t0
+1311127271141196:  INT  `rs' is $zero
+1311127271141213:  INT  `im' is 2
+1311127271141265:  INT  encoded 00100000000010000000000000000010
+1311127271141281:  INT  matching `addi' instruction
+1311127271141308:  INT  `rt' is $t1
+1311127271141322:  INT  `rs' is $zero
+1311127271141338:  INT  `im' is 2
+1311127271141381:  INT  encoded 00100000000010010000000000000010
+1311127271141396:  INT  matching `add' instruction
+1311127271141424:  INT  `rd' is $t0
+1311127271141438:  INT  `rs' is $t0
+1311127271141452:  INT  `rt' is $t1
+1311127271141503:  INT  encoded 00000001000010010100000000100000
+1311127271141519:  INT  matching `addi' instruction
+1311127271141546:  INT  `rt' is $v0
+1311127271141560:  INT  `rs' is $zero
+1311127271141576:  INT  `im' is 10
+1311127271141618:  INT  encoded 00100000000000100000000000001010
+1311127271141633:  INT  matching `slt' instruction
+1311127271141660:  INT  `rd' is $v0
+1311127271141674:  INT  `rs' is $t0
+1311127271141688:  INT  `rt' is $t1
+1311127271141738:  INT  encoded 00000001000010010001000000101010
+1311127271141750:  INT  leaving encoder
+1311127271141791:  INT  reading file: ../asm/labels.asm
+1311127271141813:  INT  entering preprocessor
+1311127271141951:  INT  mapped label `Main' to 0
+1311127271141974:  INT  processed  addi $t0, $zero, 10
+1311127271142000:  INT  mapped label `Loop' to 1
+1311127271142021:  INT  processed  beq $t0, $t1, Exit
+1311127271142039:  INT  processed  addi $t0, $zero, -1
+1311127271142056:  INT  processed  j Loop
+1311127271142081:  INT  mapped label `Exit' to 4
+1311127271142100:  INT  processed  
+1311127271142113:  INT  leaving preprocessor
+1311127271142124:  INT  entering linker
+1311127271142178:  INT  leaving linker
+1311127271142191:  INT  entering encoder
+1311127271142206:  INT  matching `addi' instruction
+1311127271142232:  INT  `rt' is $t0
+1311127271142246:  INT  `rs' is $zero
+1311127271142262:  INT  `im' is 10
+1311127271142307:  INT  encoded 00100000000010000000000000001010
+1311127271142323:  INT  matching `beq' instruction
+1311127271142351:  INT  `rs' is $t0
+1311127271142365:  INT  `rt' is $t1
+1311127271142380:  INT  `im' is 3
+1311127271142423:  INT  encoded 00010001000010010000000000000011
+1311127271142439:  INT  matching `addi' instruction
+1311127271142465:  INT  `rt' is $t0
+1311127271142480:  INT  `rs' is $zero
+1311127271142496:  INT  `im' is -1
+1311127271142558:  INT  encoded 00100000000010001111111111111111
+1311127271142574:  INT  matching `j' instruction
+1311127271142869:  INT  `im' is 4194308
+1311127271142906:  INT  encoded 00001000010000000000000000000100
+1311127271142919:  INT  leaving encoder
+1311127271178510:  INT  created `MIPS_I' interpreter
+1311127271178618:  MEM  created 2147483-Kb of 8-byte address space
+1311127271178736:  INT  reading line: add $t0,$s1,$s2
+1311127271178750:  INT  entering preprocessor
+1311127271178821:  INT  processed  add $t0,$s1,$s2
+1311127271178834:  INT  leaving preprocessor
+1311127271178846:  INT  entering linker
+1311127271178866:  INT  leaving linker
+1311127271178878:  INT  entering encoder
+1311127271178892:  INT  matching `add' instruction
+1311127271178920:  INT  `rd' is $t0
+1311127271178935:  INT  `rs' is $s1
+1311127271178949:  INT  `rt' is $s2
+1311127271179007:  INT  encoded 00000010001100100100000000100000
+1311127271179020:  INT  leaving encoder

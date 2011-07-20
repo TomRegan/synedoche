@@ -307,10 +307,9 @@ class Memory(BaseMemory):
             self.log.buffer('Alignment error: store {:} at {:}'
                             .format(bin(value, self._size)[2:],
                                     hex(offset)[2:].replace('L','')))
-            raise AlignmentError('Tried to store {:} at {:}({:})'
+            raise AlignmentError('Tried to store {:} at {:})'
                                  .format(bin(value, self._size)[2:],
-                                         hex(offset)[2:].replace('L',''),
-                                         int(offset) % size))
+                                         hex(offset)[2:].replace('L','')))
 
         if self._endian == self._types.Little:
             offset = offset - (size/self._addressable)

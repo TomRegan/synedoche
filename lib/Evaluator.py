@@ -24,11 +24,17 @@ class Evaluator(object):
         lines=[]
 
         breaking = False
+        i=1
         while True:
             try:
-                line=raw_input('% ')
+                if not breaking:
+                    char = "{:0>2}{:} ".format(i, "%")
+                else:
+                    char = "{:.>3} ".format("")
+                line=raw_input(char)
                 line=line.strip()
                 if len(line) > 1:
+                    i = i + 1
                     breaking = False
                     if line[:1] == '\\':
                         self.eval_leader(line[1:])
