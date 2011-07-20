@@ -3,10 +3,10 @@
 <!--author:   Tom Regan <thomas.c.regan@gmail.com>
     file:     instructions.xml
     since:    2011-06-17
-    modified: 2011-07-6
+    modified: 2011-07-20
 -->
 
-<instructions language="MIPS_I" size="0x20" api="sunray">
+<instructions language="mips32" size="0x20" api="sunray">
 
   <formats>
     <format type="r" size="32">

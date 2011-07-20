@@ -64,12 +64,6 @@ class BaseMemory(Loggable):
 class Memory(BaseMemory):
     """Provides an interface that should be used to initialize the memory.
 
-    Usage:
-        memory=Memory(_address_space=(0,2147483647),
-                      text=(4194304,268435456),
-                      data=(268435456,2147483647),
-                      stack=(268435456,2147483647))
-
     This memory model is big-endian. For representations of many
     systems this will have to be extended.
 
@@ -86,27 +80,33 @@ class Memory(BaseMemory):
     _address={}
     _segment={}
 
-    def __init__(self, address_space, instructions):
-        """Memory space:
-            [_address_space]:list
-            instruction:object (module.Isa.InstructionSet)
+    def __init__(self, instructions, *data):
+        """instruction:object (module.Isa.InstructionSet)
+           (address_space:int, word:int, addressable:int)
 
             Usage:
-                memory=Memory((0,64000), instructions)
+                memory=Memory(instructions, data)
                 memory.addSegment('reserved', 0, 512)
                 memory.addSegment('text', 513, 1024)
                 memory.addSegment('data", 1025, 64000)
                 memory.addSegment('stack", 1025, 64000)
-
-            NB. _address_space should be a list of len 2,
-            start and end. The can be acquired from XmlLoader.
         """
 
-        self._address_space = address_space
-        self._addressable   = 8
-        self._size          = instructions.getSize()
+        #loaded values
+        try:
+            for thing in data:
+                if not type(thing) == int:
+                    raise DataFormatException('Data expected is integer')
+            self._address_space = data[0]
+            self._size          = data[1]
+            self._addressable   = data[2]
+        except IndexError, e:
+            raise DataFormatException("Data incomplete")
+        #constant values
         self._types         = Enum(["Big", "Little"])
         self._endian        = self._types.Big
+        #computed values
+        self._byte = (self._size/self._addressable)
 
     def add_segment(self, name, start, end):
         """(name:str, start:int, end:int) -> segment{name:[start,end]:list}:dict
@@ -130,12 +130,11 @@ class Memory(BaseMemory):
 
         Values will be unsorted.
         """
-        byte = (self._size/self._addressable)
-        if not start: start=self.get_end('stack')+1-byte
+        if not start: start=self.get_end('stack')+1-self._byte
         if end == None:
-            end = start-(byte*9)
+            end = start-(self._byte*9)
         else:
-            end = start-(byte*(end-1))
+            end = start-(self._byte*(end-1))
 
         if start > end:
             temp  = start

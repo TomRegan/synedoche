@@ -30,13 +30,7 @@ class XmlDataFormatException(Exception):
 class XmlReader(object):
     """Provides storage for derrived classes """
 
-    class _Record(object):
-        """Extracted XML data"""
-        pass
-
-    def getRecord(self):
-        """Returns a record containing data extracted from an XML file"""
-        return self
+    _data={}
 
 
 
@@ -63,7 +57,6 @@ class InstructionReader(XmlReader):
     """
 
     def __init__(self, filename):
-        self._data={}
         self._document=XmlDocument(filename)
         self._rootNode=self._document._rootNode
         self._readLanguage()
@@ -75,6 +68,8 @@ class InstructionReader(XmlReader):
         self._readInstructionImplementationMap()
         self._readInstructionFormatMap()
         self._readAssembleyDirectives()
+        self._read_replacements()
+        #below will be a part of the new api
         self._read_assembler_syntax()
         self._read_instructions()
 
@@ -220,6 +215,25 @@ class InstructionReader(XmlReader):
             instructionFormats[instructionName]=instructionFormat
         self.instructionFormats=instructionFormats
 
+    def _read_replacements(self):
+        instructions=self._rootNode.getElementsByTagName('instruction')
+        i_replacements=[]
+        for instruction in instructions:
+            i_name  = asciify(instruction.attributes['name'].value)
+            try:
+                r_root = instruction.getElementsByTagName('replacements')[0]
+                replacements = r_root.getElementsByTagName('replacement')
+                for replacement in replacements:
+                    r_name  = asciify(replacement.attributes['name'].value)
+                    r_group = asciify(replacement.attributes['group'].value)
+                    r_type  = asciify(replacement.attributes['type'].value)
+                    i_replacements.append((i_name, r_name, r_group, r_type))
+            except Exception, e:
+                #if i_name == 'j': raise e
+                #else: pass
+                pass
+        self._data['replacements'] = tuple(i_replacements)
+
     def _read_instructions(self):
         data=[]
         instructions=self._rootNode.getElementsByTagName('instruction')
@@ -363,6 +377,11 @@ class InstructionReader(XmlReader):
         """-> {name:<string> : profile:<string>}"""
         return self._assembley_directives
 
+    def get_replacements(self):
+        """get_replacements() ->
+        """
+        return self._data['replacements']
+
     def get_assembler_syntax(self):
         """get_assembler_syntax() ->
            ((label:str,     pattern:str),
@@ -412,8 +431,9 @@ class MachineReader(XmlReader):
         self._document=XmlDocument(filename)
         self._rootNode=self._document._rootNode
         self._readLanguage()
-        self._readMemory()
+        self._read_memory()
         self._readRegisters()
+        self._read_pipeline()
 
     def _readLanguage(self):
         """Stores the language recognized by the machine implementation
@@ -423,31 +443,37 @@ class MachineReader(XmlReader):
         """
         self._language=self._document._rootNode.getElementsByTagName('language')[0].attributes['name'].value.encode('ascii')
 
-    def _readMemory(self):
+    def _read_memory(self):
         """Stores a segmentation profile for the machine's memory
 
         Reads an xml machine specification and looks for details
         of its memory organization.
         """
-        memory={}
+        memory=[]
+
         memory_node=self._rootNode.getElementsByTagName('memory')[0]
-        textNode  = memory_node.getElementsByTagName('text')[0]
-        dataNode  = memory_node.getElementsByTagName('data')[0]
-        stackNode = memory_node.getElementsByTagName('stack')[0]
-        for node in [textNode, dataNode, stackNode]:
-            name  = node.tagName.encode('ascii')
-            start = node.attributes['start'].value.encode('ascii')
-            end   = node.attributes['end'].value.encode('ascii')
-            start = int(start,16)
-            end   = int(end,16)
-            memory[name]=(start,end)
+        address_space = asciify(memory_node.attributes['address_space'].value)
+        word          = asciify(memory_node.attributes['word'].value)
+        addressable   = asciify(memory_node.attributes['addressable'].value)
+
+        for attribute in [address_space, word, addressable]:
+            #readable, but a potential bug for non-hex data
+            memory.append(int(attribute, 16))
+
+        text_node  = memory_node.getElementsByTagName('text')[0]
+        data_node  = memory_node.getElementsByTagName('data')[0]
+        stack_node = memory_node.getElementsByTagName('stack')[0]
+        for segment in [text_node, data_node, stack_node]:
+            s_name  = asciify(segment.tagName)
+            s_start = int(asciify(segment.attributes['start'].value), 16)
+            s_end   = int(asciify(segment.attributes['end'].value), 16)
+            memory.append((s_name, s_start, s_end))
         #TODO
         #address space is currently hard-coded to begin at 0x00.
         #this is just a marker for future refactoring
         #
-        address_space=memory_node.attributes['address_space'].value.encode('ascii')
         self._address_space=[0,int(address_space,16)]
-        self._memory=memory
+        self._data['memory']=tuple(memory)
 
     def _readRegisters(self):
         """Stores a register profile and associated data
@@ -466,11 +492,13 @@ class MachineReader(XmlReader):
             size    = register.attributes['size'].value.encode('ascii')
             write   = register.attributes['write'].value.encode('ascii')
             profile = register.attributes['profile'].value.encode('ascii')
+            visible = asciify(register.attributes['visible'].value)
             number = int(number,16)
             self._registers[number]={}
             self._registers[number]['size']      = int(size,16)
             self._registers[number]['privilege'] = bool(write)
             self._registers[number]['profile']   = profile
+            self._registers[number]['visible']   = bool(visible)
             self._register_mappings[name]=number
             #
             #all the registers are initialized to zero
@@ -482,21 +510,34 @@ class MachineReader(XmlReader):
         presets_node=self._rootNode.getElementsByTagName('presets')
         preset_node_list=presets_node[0].getElementsByTagName('preset')
         for preset in preset_node_list:
-            number = preset.attributes['number'].value.encode('ascii')
-            value  = preset.attributes['value'].value.encode('ascii')
-            number = int(number,16)
+            number = asciify(preset.attributes['number'].value)
+            value  = asciify(preset.attributes['value'].value)
+            number = int(number, 16)
             if number in self._registers:
-                self._registers[number]['value']=int(value,16)
+                self._registers[number]['value']=int(value, 16)
             else:
                 raise XmlDataFormatException()
+
+    def _read_pipeline(self):
+        pipeline = self._rootNode.getElementsByTagName('pipeline')[0]
+        stages   = pipeline.getElementsByTagName('stage')
+
+        self._pipeline_stages = []
+        for stage in stages:
+            name = asciify(stage.attributes['name'].value)
+            self._pipeline_stages.append(name)
+
 
     def getLanguage(self):
         """-> language:string"""
         return self._language
 
-    def getMemory(self):
-        """-> """
-        return self._memory
+    def get_memory(self):
+        """get_memory() ->
+            (size:int, word:int, addressable:int,
+             (segment:str, start:int, end:int):tuple):tuple
+        """
+        return self._data['memory']
 
     def getAddressSpace(self):
         """-> address_space:int"""
@@ -510,12 +551,17 @@ class MachineReader(XmlReader):
         """-> """
         return self._register_mappings
 
+    def get_pipeline(self):
+        """get_pipeline() -> (stage:str):tuple"""
+        return tuple(self._pipeline_stages)
+
 
 
 
 if __name__ == '__main__':
     reader=InstructionReader('../config/instructions.xml')
-    print reader.get_instructions()[8][2][0]
+    #print reader.get_replacements()
+    #print reader.get_instructions()[8][2][0]
     #print reader.getAssembleyDirectives()
     #print reader.getAssembleySyntax()
     #language=reader.getLanguage()
@@ -531,35 +577,11 @@ if __name__ == '__main__':
     #print "InstructionFormats: {0}".format(reader.getFormatMapping())
 
     reader=MachineReader('../config/machine.xml')
+    #print reader.get_pipeline()
     #print "Success: read `{0}' from file".format(machine.language)
     #print machine.registerPrivilege
     #print reader.getLanguage()
     #print reader.getAddressSpace()
-    #print reader.getMemory()
+    print reader.get_memory()
     #print reader.getRegisters()
     #print reader.getRegisterMappings()
-
-
-
-
-"""
-Copyright (C) 2011 Tom Regan <thomas.c.regan@gmail.com>.
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"""

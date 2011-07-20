@@ -3,17 +3,17 @@
 <!--author:   Tom Regan <thomas.c.regan@gmail.com>
     file:     machine.xml
     since:    2011-06-17
-    modified: 2011-06-24
+    modified: 2011-07-20
 -->
 
-<machine name="mips_r2k">
+<machine name="mips32">
   <!--(language)name: links to an instruction set specified externally-->
-  <language name="MIPS_I" />
+  <language name="mips32" />
 
-  <memory address_space="0x7fffffff">
-    <text  start="0x400000"   end="0x10000000" />
-    <data  start="0x10000000" end="0x7fffffff" />
-    <stack start="0x10000000" end="0x7fffffff" />
+  <memory address_space="0x7fffffff" word="0x20" addressable="0x08" >
+    <text  start="0x400000"   end="0x10000000" restricted="False" />
+    <data  start="0x10000000" end="0x7fffffff" restricted="False" />
+    <stack start="0x10000000" end="0x7fffffff" restricted="False" />
   </memory>
 
   <registers>
@@ -68,7 +68,7 @@
     <stage name="fetch" />
     <stage name="decode" />
     <stage name="execute" />
-    <stage name="memory" />
+    <stage name="writeback" />
   </pipeline>
 
 </machine>
