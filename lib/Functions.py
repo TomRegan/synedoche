@@ -21,3 +21,10 @@ def dumpAccessors(reference):
 def asciify(string):
     """Returns a string encoded as ascii"""
     return string.encode('ascii')
+
+def size(thing):
+    """Returns the size of an object in bytes"""
+    try:
+        return thing.__sizeof__()
+    except:
+        return 0

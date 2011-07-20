@@ -159,7 +159,7 @@ class Memory(BaseMemory):
                     memory_slice[i]=0
             else:
                 print('not in range!')
-            i = int(i + (self._size/self._addressable))
+            i = int(i + (self._word_spacing))
 
         return memory_slice
 
@@ -187,6 +187,7 @@ class Memory(BaseMemory):
             offset = offset + (self._size / self._addressable)
         self.log.buffer('loaded {0} word programme into memory'
                         .format(len(text)))
+        return len(text)
 
     def load_text_and_dump(self, text):
         """Synonymous with load_text with the dump option set"""
@@ -216,19 +217,19 @@ class Memory(BaseMemory):
         #We want to prevent addressing violations
         if size < self._addressable:
             if not quietly:
-                self.log.buffer('Addressing error: {:}-bytes from {:}'
-                                .format(size/self._addressable, hex(offset)[2:]))
-            raise AddressingError('Tried to load {:}-bytes from {:}'
-                                  .format(size/self._addressable, hex(offset)[2:]))
+                message='Tried to address {:}-bytes at {:}'.format(
+                    size/self._addressable, hex(offset)[2:])
+                self.log.buffer('Addressing error: {:}'.format(message))
+            raise AddressingError(message)
 
-        #We want to prevent bad allignment
+        #We want to prevent bad alignment
         #if aligned and int(offset) % size != 0:
         if aligned and int(offset) % (size / self._addressable) != 0:
             if not quietly:
-                self.log.buffer('Alignment error: {:}-bytes from {:}'
-                                .format(size/self._addressable, hex(offset)[2:]))
-            raise AlignmentError('Tried to load {:}-bytes from {:}'
-                                 .format(size/self._addressable, hex(offset)[2:]))
+                message='Tried to load {:}-bytes from {:}'.format(
+                    size/self._addressable, hex(offset)[2:])
+                self.log.buffer('Alignment error: {:}'.format(message))
+            raise AlignmentError(message)
 
         if self._endian == self._types.Little:
             offset = offset - (size/self._addressable)

@@ -16,7 +16,7 @@ import os
 from lib import Interface
 from lib import XmlLoader as Xml
 from lib import Logger
-from module import Cpu
+from module import Processor
 from module import Api
 from module import Isa
 from module import Memory
@@ -86,10 +86,10 @@ class Simulation(object):
             machine_reader = Xml.MachineReader(machine_conf)
 
             machine_language          = machine_reader.getLanguage()
-            #machine_address_space     = machine_reader.getAddressSpace()
-            memory_data               = machine_reader.get_memory()
+            machine_memory_data       = machine_reader.get_memory()
             machine_registers         = machine_reader.getRegisters()
             machine_register_mappings = machine_reader.getRegisterMappings()
+            machine_pipeline          = machine_reader.get_pipeline()
         except Exception as e:
             sys.stderr.write('fatal: failed trying to read machine config\n')
             raise e
@@ -150,11 +150,11 @@ class Simulation(object):
         #    sys.stderr.write('fatal: failed trying to initialize memory\n')
         #    raise e
         try:
-            data = memory_data[0:3]
+            data = machine_memory_data[0:3]
             self.memory=Memory.Memory(self.instructions, data)
             self.memory.open_log(self.logger)
 
-            segments = memory_data[3:]
+            segments = machine_memory_data[3:]
             for segment in segments:
                 name  = segment[0]
                 start = segment[1]
@@ -215,10 +215,11 @@ class Simulation(object):
         #
         #finally, the CPU
         #
-        self.cpu = Cpu.Pipelined(registers=self.registers,
-                                 memory=self.memory,
-                                 api=self.api,
-                                 instructions=self.instructions)
+        self.cpu = Processor.Pipelined(registers=self.registers,
+                                       memory=self.memory,
+                                       api=self.api,
+                                       instructions=self.instructions,
+                                       pipeline=machine_pipeline)
         self.cpu.open_log(self.logger)
 
         self.log.buffer('initialized with no incidents')

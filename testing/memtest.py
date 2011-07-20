@@ -10,7 +10,8 @@ from module import Api
 from module import Isa
 from module import System
 from module import Interpreter
-from module import Cpu
+from module import Processor
+#from module import Cpu
 from module import Memory
 from lib.Functions import binary as bin
 from module.Memory import (AddressingError, AlignmentError,
@@ -46,6 +47,7 @@ if __name__ == '__main__':
             memory_data               = machine_reader.get_memory()
             machine_registers         = machine_reader.getRegisters()
             machine_register_mappings = machine_reader.getRegisterMappings()
+            machine_pipeline          = machine_reader.get_pipeline()
 
             self.instructions=Isa.InstructionSet(instruction_language,
                                                  instruction_size)
@@ -116,11 +118,12 @@ if __name__ == '__main__':
                                                        memory=self.memory)
             self.interpreter.openLog(self.logger)
 
-            self.cpu = Cpu.Pipelined(registers=self.registers,
-                                     memory=self.memory,
-                                     api=self.api,
-                                     instructions=self.instructions)
-            self.cpu.openLog(self.logger)
+            self.cpu = Processor.Pipelined(registers=self.registers,
+                                           memory=self.memory,
+                                           api=self.api,
+                                           instructions=self.instructions,
+                                           pipeline=machine_pipeline)
+            self.cpu.open_log(self.logger)
 
         def tearDown(self):
             self.memory.reset()
