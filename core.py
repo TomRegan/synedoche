@@ -86,8 +86,8 @@ class Simulation(object):
             machine_reader = Xml.MachineReader(machine_conf)
 
             machine_language          = machine_reader.getLanguage()
-            machine_address_space     = machine_reader.getAddressSpace()
-            machine_memory            = machine_reader.getMemory()
+            #machine_address_space     = machine_reader.getAddressSpace()
+            memory_data               = machine_reader.get_memory()
             machine_registers         = machine_reader.getRegisters()
             machine_register_mappings = machine_reader.getRegisterMappings()
         except Exception as e:
@@ -138,14 +138,28 @@ class Simulation(object):
         #
         #we need a memory object for the CPU
         #
+        #try:
+        #    self.memory=Memory.Memory(machine_address_space, self.instructions)
+        #    self.memory.open_log(self.logger)
+
+        #    for segment in machine_memory:
+        #        start = machine_memory[segment][0]
+        #        end   = machine_memory[segment][1]
+        #        self.memory.add_segment(segment, start, end)
+        #except Exception as e:
+        #    sys.stderr.write('fatal: failed trying to initialize memory\n')
+        #    raise e
         try:
-            self.memory=Memory.Memory(machine_address_space, self.instructions)
+            data = memory_data[0:3]
+            self.memory=Memory.Memory(self.instructions, data)
             self.memory.open_log(self.logger)
 
-            for segment in machine_memory:
-                start = machine_memory[segment][0]
-                end   = machine_memory[segment][1]
-                self.memory.add_segment(segment, start, end)
+            segments = memory_data[3:]
+            for segment in segments:
+                name  = segment[0]
+                start = segment[1]
+                end   = segment[2]
+                self.memory.add_segment(name, start, end)
         except Exception as e:
             sys.stderr.write('fatal: failed trying to initialize memory\n')
             raise e
@@ -371,8 +385,6 @@ if __name__ == '__main__':
             s.cycle(client=tl)
         s.log.flush()
     except Exception as e:
-        traceback.print_exc(file=sys.stderr)
-        try: print "Exception: " + e.message
-        except: pass
+        #traceback.print_exc(file=sys.stderr)
         try: print "Exception: " + e.message
         except: pass

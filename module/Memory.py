@@ -2,6 +2,7 @@
 ''' Memory.py
 author:      Tom Regan <thomas.c.regan@gmail.com>
 since:       2011-07-18
+modified:    2011-07-20
 description: Provides memory objects
 '''
 
@@ -43,8 +44,8 @@ class BaseMemory(Loggable):
 
         self.log = MemoryLogger(logger)
         self.log.buffer('created {0}-Kb of {1}-byte address space'
-                        .format(str(self._address_space[1])[:-3],
-                                (self._size)/4))
+                        .format(str(self._address_space)[:-3],
+                                (self._size/self._addressable)))
 
     def get_memory(self):
         """-> memory:object
@@ -80,7 +81,7 @@ class Memory(BaseMemory):
     _address={}
     _segment={}
 
-    def __init__(self, instructions, *data):
+    def __init__(self, instructions, data):
         """instruction:object (module.Isa.InstructionSet)
            (address_space:int, word:int, addressable:int)
 
@@ -96,7 +97,9 @@ class Memory(BaseMemory):
         try:
             for thing in data:
                 if not type(thing) == int:
-                    raise DataFormatException('Data expected is integer')
+                    raise DataFormatException(
+                        'Data expected is integer, got {:}.'
+                        .format(type(thing).__name__))
             self._address_space = data[0]
             self._size          = data[1]
             self._addressable   = data[2]
@@ -106,7 +109,7 @@ class Memory(BaseMemory):
         self._types         = Enum(["Big", "Little"])
         self._endian        = self._types.Big
         #computed values
-        self._byte = (self._size/self._addressable)
+        self._word_spacing = (self._size/self._addressable)
 
     def add_segment(self, name, start, end):
         """(name:str, start:int, end:int) -> segment{name:[start,end]:list}:dict
@@ -118,8 +121,10 @@ class Memory(BaseMemory):
         #values for memory offsets. We can't go on.
         #
         if not self.in_range(start) or not self.in_range(end):
-            raise Exception
-        self.log.buffer("created segment `{0}'\t{1}..{2}".format(name,start,end))
+            raise Exception('Creating segment {:}({:}..{:})'
+                            .format(name, start, end))
+        self.log.buffer("created segment `{0}'\t{1}..{2}"
+                        .format(name, start, end))
         self._segment[name]=[start,end]
 
     def get_slice(self, end=None, start=None):
@@ -130,11 +135,11 @@ class Memory(BaseMemory):
 
         Values will be unsorted.
         """
-        if not start: start=self.get_end('stack')+1-self._byte
+        if not start: start=self.get_end('stack')+1-self._word_spacing
         if end == None:
-            end = start-(self._byte*9)
+            end = start-(self._word_spacing*9)
         else:
-            end = start-(self._byte*(end-1))
+            end = start-(self._word_spacing*(end-1))
 
         if start > end:
             temp  = start
@@ -211,19 +216,19 @@ class Memory(BaseMemory):
         #We want to prevent addressing violations
         if size < self._addressable:
             if not quietly:
-                self.log.buffer('Addressing error: load {:}B from {:}'
-                                .format(size/8, hex(offset)[2:]))
-            raise AddressingError('Tried to load {:}-Bytes from {:}'
-                                  .format(size/8, hex(offset)[2:]))
+                self.log.buffer('Addressing error: {:}-bytes from {:}'
+                                .format(size/self._addressable, hex(offset)[2:]))
+            raise AddressingError('Tried to load {:}-bytes from {:}'
+                                  .format(size/self._addressable, hex(offset)[2:]))
 
         #We want to prevent bad allignment
         #if aligned and int(offset) % size != 0:
         if aligned and int(offset) % (size / self._addressable) != 0:
             if not quietly:
-                self.log.buffer('Alignment error: load {:}B from {:}'
-                                .format(size/8, hex(offset)[2:]))
-            raise AlignmentError('Tried to load {:}B from {:}'
-                                 .format(size/8, hex(offset)[2:]))
+                self.log.buffer('Alignment error: {:}-bytes from {:}'
+                                .format(size/self._addressable, hex(offset)[2:]))
+            raise AlignmentError('Tried to load {:}-bytes from {:}'
+                                 .format(size/self._addressable, hex(offset)[2:]))
 
         if self._endian == self._types.Little:
             offset = offset - (size/self._addressable)
@@ -348,7 +353,7 @@ class Memory(BaseMemory):
 
     def in_range(self, address):
         """address:int -> bool"""
-        return address >= self._address_space[0] and address <= self._address_space[1]
+        return address >= 0 and address <= self._address_space
 
     def get_start(self, name):
         """name:str -> start:int
@@ -359,7 +364,12 @@ class Memory(BaseMemory):
 
     def get_end(self, name):
         """name:str -> end:int
-
         Returns the end address of a segment.
         """
         return self._segment[name][1]
+
+    def get_word_spacing(self):
+        """get_size_of_byte() -> size:int
+        Returns the minumum addressable unit.
+        """
+        return self._word_spacing

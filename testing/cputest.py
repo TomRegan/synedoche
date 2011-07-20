@@ -10,7 +10,7 @@ from module import Api
 from module import Isa
 from module import System
 from module import Interpreter
-from module import Cpu
+from module import Processor
 from module import Memory
 from module.Memory import (AddressingError, AlignmentError,
                            SegmentationFaultException)
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     class TestCpu(unittest.TestCase):
 
         def setUp(self):
-            self.logger=Logger.Logger('cputest.log')
+            self.logger=Logger.Logger('LOGcputest.log')
             self.logger.buffer('>-----setUp')
             machine_conf='../config/machine.xml'
             instruction_conf='../config/instructions.xml'
@@ -41,10 +41,10 @@ if __name__ == '__main__':
             machine_reader = Xml.MachineReader(machine_conf)
 
             machine_language          = machine_reader.getLanguage()
-            machine_address_space     = machine_reader.getAddressSpace()
-            machine_memory            = machine_reader.getMemory()
+            memory_data               = machine_reader.get_memory()
             machine_registers         = machine_reader.getRegisters()
             machine_register_mappings = machine_reader.getRegisterMappings()
+            machine_pipeline          = machine_reader.get_pipeline()
 
             self.instructions=Isa.InstructionSet(instruction_language,
                                                  instruction_size)
@@ -80,13 +80,16 @@ if __name__ == '__main__':
                 self.instructions.addAssemblySyntax(instruction[0],
                                                     instruction[1])
 
-            self.memory=Memory.Memory(machine_address_space, self.instructions)
-            self.memory.openLog(self.logger)
+            data = memory_data[0:3]
+            self.memory=Memory.Memory(self.instructions, data)
+            self.memory.open_log(self.logger)
 
-            for segment in machine_memory:
-                start = machine_memory[segment][0]
-                end   = machine_memory[segment][1]
-                self.memory.add_segment(segment, start, end)
+            segments = memory_data[3:]
+            for segment in segments:
+                name  = segment[0]
+                start = segment[1]
+                end   = segment[2]
+                self.memory.add_segment(name, start, end)
 
             self.registers=System.Registers()
 
@@ -112,10 +115,11 @@ if __name__ == '__main__':
                                                        memory=self.memory)
             self.interpreter.openLog(self.logger)
 
-            self.cpu = Cpu.Pipelined(registers=self.registers,
-                                     memory=self.memory,
-                                     api=self.api,
-                                     instructions=self.instructions)
+            self.cpu = Processor.Pipelined(registers=self.registers,
+                                           memory=self.memory,
+                                           api=self.api,
+                                           instructions=self.instructions,
+                                           pipeline=machine_pipeline)
             self.cpu.open_log(self.logger)
 
         def tearDown(self):

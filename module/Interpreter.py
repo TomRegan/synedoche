@@ -84,10 +84,9 @@ class Interpreter(Loggable):
             #WARNING as of 2011-07-19 the great interface change™ is in
             #effect. The following member functions are contradictory
             #and must be set on a per-instance basis.
-            #
-            self._text_offset = memory.get_start('text')
-            self._addressable = 4
-            #self._text_offset            = memory.getStart('text')
+            #Below comes from the new API
+            self._text_offset  = memory.get_start('text')
+            self._word_spacing = memory.get_word_spacing()
         except Exception as e:
             raise DataMissingException('Missing data for Interpreter: '+e.message)
 
@@ -238,7 +237,7 @@ class Interpreter(Loggable):
                 if mode == 'absolute':
                     base = self._text_offset
                     offset = self._jump_table[label]
-                    offset = hex(base + (offset * self._addressable),
+                    offset = hex(base + (offset * self._word_spacing),
                                  self._isa_size/4)
                 elif mode == 'relative':
                     offset = hex(self._jump_table[label] - i,

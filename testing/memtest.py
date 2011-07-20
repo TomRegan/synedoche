@@ -23,7 +23,7 @@ if __name__ == '__main__':
     class TestMemory(unittest.TestCase):
 
         def setUp(self):
-            self.logger=Logger.Logger('memtest.log')
+            self.logger=Logger.Logger('LOGmemtest.log')
             self.logger.buffer('>-----setUp')
             machine_conf='../config/machine.xml'
             instruction_conf='../config/instructions.xml'
@@ -43,8 +43,7 @@ if __name__ == '__main__':
             machine_reader = Xml.MachineReader(machine_conf)
 
             machine_language          = machine_reader.getLanguage()
-            machine_address_space     = machine_reader.getAddressSpace()
-            machine_memory            = machine_reader.getMemory()
+            memory_data               = machine_reader.get_memory()
             machine_registers         = machine_reader.getRegisters()
             machine_register_mappings = machine_reader.getRegisterMappings()
 
@@ -82,14 +81,16 @@ if __name__ == '__main__':
                 self.instructions.add_assembler_syntax(instruction[0],
                                                        instruction[1])
 
-            self.memory=Memory.Memory(machine_address_space,
-                                      self.instructions)
+            data = memory_data[0:3]
+            self.memory=Memory.Memory(self.instructions, data)
             self.memory.open_log(self.logger)
 
-            for segment in machine_memory:
-                start = machine_memory[segment][0]
-                end   = machine_memory[segment][1]
-                self.memory.add_segment(segment, start, end)
+            segments = memory_data[3:]
+            for segment in segments:
+                name  = segment[0]
+                start = segment[1]
+                end   = segment[2]
+                self.memory.add_segment(name, start, end)
 
             self.registers=System.Registers()
 
@@ -158,7 +159,7 @@ if __name__ == '__main__':
             return rvalue
 
         def testAlignmentError(self):
-            """Storing data other than on word boundary"""
+            """Storing data other than on word boundary raises exception"""
             self.logger.buffer('>-----testAlignmentError')
             offset=int('0x7ffffffc',16)
             self.memory.get_word(offset, 32)
@@ -171,7 +172,9 @@ if __name__ == '__main__':
             self.memory.get_word(offset, 16)
 
         def testAddressingError(self):
-            """Moving data which is smaller than the addressable space"""
+            """Moving data which is smaller than the addressable space
+            raises exeption
+            """
             self.logger.buffer('>-----testAddressingError')
             offset=int('0x7ffffff8',16)
             with self.assertRaises(AddressingError):
@@ -182,7 +185,7 @@ if __name__ == '__main__':
                 self.memory.set_word(offset, value, 4)
 
         def testSegmentationFaultException(self):
-            """Storing data at a protected address"""
+            """Storing data at a protected address raises exeption"""
             self.logger.buffer('>-----testSegmentationFaultException')
             value=1023
             offset=32
