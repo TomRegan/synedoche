@@ -166,3 +166,6 @@ class InstructionSet(object):
 
     def get_assembly_syntax(self):
         return self._assembly_syntax
+
+    def get_label_replacements(self):
+        return {'j':(0, 'absolute'),'beq':(2,'relative')}

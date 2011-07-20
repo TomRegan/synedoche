@@ -74,6 +74,7 @@ class Interpreter(Loggable):
             self._comment_pattern        = instructions.getAssemblySyntax()['comment']
             self._label_pattern          = instructions.getAssemblySyntax()['label']
             self._label_reference        = instructions.getAssemblySyntax()['reference']
+            self._label_replacements     = instructions.get_label_replacements()
             self._isa_size               = instructions.getSize()
             self._registers              = registers.getRegisterMappings()
             #
@@ -81,7 +82,8 @@ class Interpreter(Loggable):
             #effect. The following member functions are contradictory
             #and must be set on a per-instance basis.
             #
-            self._text_offset            = memory.get_start('text')
+            self._text_offset = memory.get_start('text')
+            self._addressable = 4
             #self._text_offset            = memory.getStart('text')
         except Exception as e:
             raise DataMissingException('Missing data for Interpreter: '+e.message)
@@ -223,27 +225,24 @@ class Interpreter(Loggable):
         self.log.buffer("entering linker")
         output=[]
         for i in range(len(lines)):
-            output.append(lines[i].split())
-        for x in range(len(output)):
-            for y in range(len(output[x])):
-                if output[x][y] in self._jump_table:
-                    #
-                    #we will return hexadecimal references purely
-                    #so that an error raised at this point
-                    #can be easilly distinguished
-                    #
-                    substitute = self._jump_table[output[x][y]]
-                    self.log.buffer("mapped `{0}' to {1}".format(output[x][y], substitute))
-                    #TODO
-                    #this is the code to modify for linking in absolute
-                    #and relative addresses!
-                    #
-                    output[x][y] = hex(substitute)
-        #
-        #programme should be joined as a list of lines
-        #
-        for i in range(len(output)):
-            output[i] = ' '.join(output[i])
+            key = re.match('\w+', lines[i]).group()
+            if key in self._label_replacements:
+                group = self._label_replacements[key][0]
+                mode  = self._label_replacements[key][1]
+
+                pattern = self._instruction_syntax[key]['expression']
+                match = re.search(pattern, lines[i])
+                label = match.groups()[group]
+                if mode == 'absolute':
+                    base = self._text_offset
+                    offset = self._jump_table[label]
+                    offset = hex(base + (offset * self._addressable))
+                elif mode == 'relative':
+                    offset = hex(self._jump_table[label] - i)
+                #finally, we can replace the label
+                lines[i] = lines[i].replace(label, offset)
+            output.append(lines[i])
+
         self._jump_table.clear()
         self.log.buffer("leaving linker")
         return output
@@ -385,7 +384,8 @@ if __name__ == '__main__':
             self.interpreter=Interpreter(instructions, registers, memory)
 
             logger=Logger('unittest.log')
-            self.interpreter.openLog(logger)
+            self.log = logger
+            self.interpreter.open_log(logger)
             memory.open_log(logger)
             #
             #add instruction syntax to the instruction set
@@ -419,7 +419,7 @@ if __name__ == '__main__':
 
 
         def tearDown(self):
-            pass
+            self.log.flush()
 
         def testPreprocessor(self):
             #
@@ -450,9 +450,9 @@ if __name__ == '__main__':
 
         def testLinker(self):
             good_programme2=['addi $t0, $zero, 10',
-                             'beq $t0, $t1, 0x4',
+                             'beq $t0, $t1, 0x3',
                              'addi $t0, $zero, -1',
-                             'j 0x1']
+                             'j 0x400004']
             programme2=self.interpreter._preprocess(self.programme2)
             programme2=self.interpreter._link(programme2)
 
@@ -486,7 +486,7 @@ if __name__ == '__main__':
 
         def testReadLine(self):
             good_result1=['00000010001100100100000000100000']
-            result1=self.interpreter.read_lines('add $t0,$s1,$s2')
+            result1=self.interpreter.read_lines(['add $t0,$s1,$s2'])
             self.assertEquals(good_result1, result1)
 
         def testReadFile(self):
@@ -496,9 +496,9 @@ if __name__ == '__main__':
                           '00100000000000100000000000001010',
                           '00000001000010010001000000101010']
             good_result2=['00100000000010000000000000001010',
-                          '00010001000010010000000000000100',
+                          '00010001000010010000000000000011',
                           '00100000000010001111111111111111',
-                          '00001000000000000000000000000001']
+                          '00001000010000000000000000000100']
             file_object1=open('../asm/add.asm','r')
             result1=self.interpreter.read_file(file_object1)
             #print result1
