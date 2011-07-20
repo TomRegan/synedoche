@@ -3,7 +3,7 @@
 ''' Interpreter.py
 author:      Tom Regan <thomas.c.regan@gmail.com>
 since:       2011-07-05
-modified:    2011-07-09
+modified:    2011-07-20
 description: Module containing the interpreter functions
 '''
 import re
@@ -158,32 +158,42 @@ class Interpreter(Loggable):
         """
 
         self.log.buffer("entering preprocessor")
-        #
-        #An object lesson in writing comments about _why_ you're doing
-        #somethingstill, if it looks stupid but it works, it ain't that
-        #stupid.
-        #
+        #remove all newlines from the list
         lines = ''.join(lines)
         try:
             lines = re.split('\n', lines)
         except:
             self.log.buffer("file format is irregular: expecting newlines, got none")
             pass
-        #
-        #we don't want comments or blank lines
-        #
+        #we don't want comments, blank lines or whitespace
         for i in range(len(lines)):
-            lines[i] = re.sub(self._comment_pattern,'',lines[i])
+            lines[i] = re.sub(self._comment_pattern, '' , lines[i])
+            lines[i] = re.sub('\s+', ' ', lines[i])
+            lines[i] = lines[i].strip()
         lines = [line for line in lines if line != '']
-        #
-        #we want a table mapping labels to memory locations
-        #
-        self._jump_table.clear()
-        for i in range(len(lines)):
+
+        #we need to further clean the table so labels are always
+        #associated with the correct line
+        i=0
+        while i < len(lines):
             if re.search(self._label_pattern, lines[i]):
                 match = re.search(self._label_pattern, lines[i])
-                #we will want to look up the label reference, not the
-                #label itself.
+                if match.group(0) == lines[i] and i+1 < len(lines):
+                    #grab the next line to concaternate
+                    cat = lines.pop(i+1)
+                    lines[i] = lines[i] + ' ' + cat
+                    i = i+1
+            i = i+1
+
+        #print(lines)
+        #we want a table mapping labels to memory locations
+        self._jump_table.clear()
+        for i in range(len(lines)):
+            #here we find a label
+            if re.search(self._label_pattern, lines[i]):
+                match = re.search(self._label_pattern, lines[i])
+                #here we define the reference for this label
+                #this will be its lookup name in the table
                 reference = re.search(self._label_reference, match.group())
                 self._jump_table[reference.group(1)] = i
                 self.log.buffer("mapped label `{0}' to {1}".format(reference.group(1), i))
@@ -196,7 +206,7 @@ class Interpreter(Loggable):
         self.log.buffer("leaving preprocessor")
         return lines
 
-    def _link(self, input_):
+    def _link(self, lines):
         """[lines:str]:list -> [lines:str]:list
 
         Returns a version of the programme with all labels replaced
@@ -212,8 +222,8 @@ class Interpreter(Loggable):
 
         self.log.buffer("entering linker")
         output=[]
-        for i in range(len(input_)):
-            output.append(input_[i].split())
+        for i in range(len(lines)):
+            output.append(lines[i].split())
         for x in range(len(output)):
             for y in range(len(output[x])):
                 if output[x][y] in self._jump_table:
@@ -224,6 +234,10 @@ class Interpreter(Loggable):
                     #
                     substitute = self._jump_table[output[x][y]]
                     self.log.buffer("mapped `{0}' to {1}".format(output[x][y], substitute))
+                    #TODO
+                    #this is the code to modify for linking in absolute
+                    #and relative addresses!
+                    #
                     output[x][y] = hex(substitute)
         #
         #programme should be joined as a list of lines
@@ -338,6 +352,7 @@ if __name__ == '__main__':
     import unittest
     import Isa
     import System
+    import Memory
 
     from lib.Logger import Logger, InterpreterLogger
     from lib.XmlLoader import InstructionReader, MachineReader
@@ -345,23 +360,23 @@ if __name__ == '__main__':
     class TestInterpreter(unittest.TestCase):
 
         def setUp(self):
-            ir=InstructionReader('../../xml/instructions.xml')
-            mr=MachineReader('../../xml/machine.xml')
+            ir=InstructionReader('../config/instructions.xml')
+            mr=MachineReader('../config/machine.xml')
 
             address_space=mr.getAddressSpace()
             instructions=Isa.InstructionSet('MIPS_I', 32)
-            memory=System.Memory(address_space, instructions)
+            memory=Memory.Memory(address_space, instructions)
 
             registers=System.Registers()
             #
             #add assembly syntax to the instruction set
             #
-            asmsyntax=ir.getAssemblySyntax()
+            asmsyntax=ir.get_assembler_syntax()
             for element in asmsyntax:
-                instructions.addAssemblySyntax(element, asmsyntax[element])
+                instructions.addAssemblySyntax(element[0], element[1])
 
             register_mappings=mr.getRegisterMappings()
-            memory.addSegment('text', int('0x400000',16), int('0x7fffffff',16))
+            memory.add_segment('text', int('0x400000',16), int('0x7fffffff',16))
             for mapping in register_mappings:
                 registers.addRegisterMapping(mapping, register_mappings[mapping])
             #
@@ -371,7 +386,7 @@ if __name__ == '__main__':
 
             logger=Logger('unittest.log')
             self.interpreter.openLog(logger)
-            memory.openLog(logger)
+            memory.open_log(logger)
             #
             #add instruction syntax to the instruction set
             #
@@ -415,14 +430,14 @@ if __name__ == '__main__':
             #we don't expect to see comments or other
             #text-file formatting
             #
-            good_programme1=['addi  $t0, $zero, 2',
-                             'addi  $t1, $zero, 2',
-                             'add   $t0, $t0,  $t1',
+            good_programme1=['addi $t0, $zero, 2',
+                             'addi $t1, $zero, 2',
+                             'add $t0, $t0, $t1',
                              'addi $v0, $zero, 10']
-            good_programme2=['addi  $t0, $zero, 10',
-                             'beq   $t0, $t1,   Exit',
-                             'addi  $t0, $zero, -1',
-                             'j     Loop']
+            good_programme2=['addi $t0, $zero, 10',
+                             'beq $t0, $t1, Exit',
+                             'addi $t0, $zero, -1',
+                             'j Loop']
             result1=self.interpreter._preprocess(self.programme1)
 
             self.assertEquals(good_programme1, result1)
@@ -478,17 +493,19 @@ if __name__ == '__main__':
             good_result1=['00100000000010000000000000000010',
                           '00100000000010010000000000000010',
                           '00000001000010010100000000100000',
-                          '00100000000000100000000000001010']
+                          '00100000000000100000000000001010',
+                          '00000001000010010001000000101010']
             good_result2=['00100000000010000000000000001010',
                           '00010001000010010000000000000100',
                           '00100000000010001111111111111111',
                           '00001000000000000000000000000001']
-            file_object1=open('../../asm/add.asm','r')
-            result1=self.interpreter.readFile(file_object1)
+            file_object1=open('../asm/add.asm','r')
+            result1=self.interpreter.read_file(file_object1)
+            #print result1
             self.assertEquals(good_result1, result1)
 
-            file_object2=open('../../asm/labels.asm','r')
-            result2=self.interpreter.readFile(file_object2)
+            file_object2=open('../asm/labels.asm','r')
+            result2=self.interpreter.read_file(file_object2)
             self.assertEquals(good_result2, result2)
 
 
