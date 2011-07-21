@@ -4,6 +4,7 @@ import unittest
 import sys
 
 from lib import Interface
+from lib import XmlParser
 from lib import XmlLoader as Xml
 from lib import Logger
 from module import Api
@@ -46,39 +47,90 @@ if __name__ == '__main__':
             machine_register_mappings = machine_reader.getRegisterMappings()
             machine_pipeline          = machine_reader.get_pipeline()
 
-            self.instructions=Isa.InstructionSet(instruction_language,
-                                                 instruction_size)
+###########################################################################
+###########################################################################
 
-            for instruction in instruction_syntax:
-                self.instructions.addSyntax(instruction,
-                    instruction_syntax[instruction])
+            reader = XmlParser.InstructionReader(instruction_conf)
 
-            for instruction in instruction_implementation:
-                self.instructions.addImplementation(instruction,
-                    instruction_implementation[instruction])
+            instruction_language     = reader.data['language']
+            instruction_size         = reader.data['size']
+            instruction_api          = reader.data['api']
+            instruction_formats      = reader.data['formats']
+            instruction_instructions = reader.data['instructions']
+            instruction_assembler    = reader.data['assembler']
 
-            for instruction in instruction_values:
-                self.instructions.addValue(instruction,
-                    instruction_values[instruction])
+            self.instructions=Isa.Isa()
 
-            for instruction in instruction_signatures:
-                signature={}
-                for field in instruction_signatures[instruction]:
-                    value=instruction_values[instruction][field]
-                    signature[field]=value
-                self.instructions.addSignature(instruction, signature)
+            self.instructions.set_global_language(instruction_language)
+            self.instructions.set_global_size(instruction_size)
+            self.instructions.add_assembler_syntax(instruction_assembler)
+            for instruction in instruction_instructions:
+                self.instructions.add_mapping(
+                    instruction[0], instruction[1])
+                self.instructions.add_instruction_signature(
+                    instruction[0], instruction[2], instruction[4])
+                self.instructions.add_instruction_syntax(
+                    instruction[0], instruction[3], instruction[5])
+                self.instructions.add_instruction_preset(
+                    instruction[0], instruction[4])
+                self.instructions.add_instruction_implementation(
+                    instruction[0], instruction[6])
+                #self.instructions.add_instruction_replacement(
+                #    instruction[0], instruction[7])
+            for format in instruction_formats:
+                self.instructions.add_format_properties(
+                    format[0], format[2])
 
-            for instruction in instruction_format_mapping:
-                self.instructions.addFormatMapping(instruction,
-                    instruction_format_mapping[instruction])
+###########################################################################
+###########################################################################
 
-            for instruction in instruction_format_properties:
-                self.instructions.addFormatProperty(instruction,
-                    instruction_format_properties[instruction])
+            #self.instructions=Isa.InstructionSet(instruction_language,
+            #                                     instruction_size)
 
-            for instruction in instruction_assembly_syntax:
-                self.instructions.addAssemblySyntax(instruction[0],
-                                                    instruction[1])
+            #instruction_language          = instruction_reader.getLanguage()
+            #instruction_size              = instruction_reader.getSize()
+            #instruction_syntax            = instruction_reader.getSyntax()
+            #instruction_implementation    = instruction_reader.getImplementation()
+            #instruction_values            = instruction_reader.getValues()
+            #instruction_signatures        = instruction_reader.getSignatures()
+            #instruction_format_mapping    = instruction_reader.getFormatMapping()
+            #instruction_format_properties = instruction_reader.getFormatProperties()
+            #instruction_assembly_syntax   = instruction_reader.get_assembler_syntax()
+
+            #for instruction in instruction_syntax:
+            #    self.instructions.addSyntax(instruction,
+            #        instruction_syntax[instruction])
+
+            #for instruction in instruction_implementation:
+            #    self.instructions.addImplementation(instruction,
+            #        instruction_implementation[instruction])
+            #    #print instruction_implementation[instruction]
+
+            #for instruction in instruction_values:
+            #    self.instructions.addValue(instruction,
+            #        instruction_values[instruction])
+
+            #for instruction in instruction_signatures:
+            #    signature={}
+            #    for field in instruction_signatures[instruction]:
+            #        value=instruction_values[instruction][field]
+            #        signature[field]=value
+            #    self.instructions.addSignature(instruction, signature)
+
+            #for instruction in instruction_format_mapping:
+            #    self.instructions.addFormatMapping(instruction,
+            #        instruction_format_mapping[instruction])
+
+            #for instruction in instruction_format_properties:
+            #    self.instructions.addFormatProperty(instruction,
+            #        instruction_format_properties[instruction])
+
+            #for instruction in instruction_assembly_syntax:
+            #    self.instructions.addAssemblySyntax(instruction[0],
+            #                                        instruction[1])
+
+###########################################################################
+###########################################################################
 
             data = memory_data[0:3]
             self.memory=Memory.Memory(self.instructions, data)

@@ -573,7 +573,7 @@ if __name__ == '__main__':
     #print "Field values: {0}\n".format(reader.getValues())
     #print "Signatures: {0}\n".format(reader.getSignatures())
     #print "Syntax: {0}\n".format(reader.getSyntax())
-    #print "Implementation: {0}\n".format(reader.getImplementation())
+    print "Implementation: {0}\n".format(reader.getImplementation())
     #print "InstructionFormats: {0}".format(reader.getFormatMapping())
 
     reader=MachineReader('../config/machine.xml')
@@ -582,6 +582,6 @@ if __name__ == '__main__':
     #print machine.registerPrivilege
     #print reader.getLanguage()
     #print reader.getAddressSpace()
-    print reader.get_memory()
+    #print reader.get_memory()
     #print reader.getRegisters()
     #print reader.getRegisterMappings()

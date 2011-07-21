@@ -119,11 +119,13 @@ class InstructionReader(XmlReader):
             im_root = instruction.getElementsByTagName('implementation')[0]
             methods = im_root.getElementsByTagName('method')
             for method in methods:
-                im_name = method.attributes['name'].value
-                im_args = method.attributes['args'].value
-                i_implementation.append(asciify(im_name))
-                i_implementation.append(asciify(im_args))
-            i_implementation = tuple(i_implementation)
+                im_name = asciify(method.attributes['name'].value)
+                im_args = asciify(method.attributes['args'].value)
+                for i in range(len(im_args)):
+                    if im_args[i][:2] == '0x':
+                        im_args[i] = int(im_args[i],16)
+            i_implementation.append(tuple((im_name,
+                                           tuple(im_args.split()))))
 
             # add replacements
             i_replacements=[]
@@ -286,9 +288,9 @@ class MachineReader(XmlReader):
 
 if __name__ == '__main__':
     reader=InstructionReader('../config/instructions.xml')
-    #print reader.data
+    print reader.data['instructions'][0]
     del reader
 
     reader=MachineReader('../config/machine.xml')
-    print(reader.data)
+    #print(reader.data)
     del reader

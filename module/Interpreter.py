@@ -68,27 +68,40 @@ class Interpreter(Loggable):
             except BadInstructionOrSyntax as e:
                 print e.message
         """
-        try:
-            self._language               = instructions.getLanguage()
-            self._instruction_syntax     = instructions.getSyntax()
-            self._instruction_values     = instructions.getValues()
-            self._format_properties      = instructions.getFormatProperties()
-            self._format_mappings        = instructions.getFormatMapping()
-            self._comment_pattern        = instructions.getAssemblySyntax()['comment']
-            self._label_pattern          = instructions.getAssemblySyntax()['label']
-            self._label_reference        = instructions.getAssemblySyntax()['reference']
-            self._label_replacements     = instructions.get_label_replacements()
-            self._isa_size               = instructions.getSize()
-            self._registers              = registers.getRegisterMappings()
-            #
-            #WARNING as of 2011-07-19 the great interface change™ is in
-            #effect. The following member functions are contradictory
-            #and must be set on a per-instance basis.
-            #Below comes from the new API
-            self._text_offset  = memory.get_start('text')
-            self._word_spacing = memory.get_word_spacing()
-        except Exception as e:
-            raise DataMissingException('Missing data for Interpreter: '+e.message)
+        #try:
+        self._language               = instructions.getLanguage()
+        self._instruction_syntax     = instructions.getSyntax()
+        self._instruction_values     = instructions.getValues()
+        self._format_properties      = instructions.getFormatProperties()
+        self._format_mappings        = instructions.getFormatMapping()
+        self._comment_pattern        = instructions.getAssemblySyntax()['comment']
+        self._label_pattern          = instructions.getAssemblySyntax()['label']
+        self._label_reference        = instructions.getAssemblySyntax()['reference']
+        self._label_replacements     = instructions.get_label_replacements()
+        self._isa_size               = instructions.getSize()
+        self._registers              = registers.getRegisterMappings()
+        #testing
+        #print '\n\n\n'
+        #print 'lang: {:}'.format(self._language)
+        #print 'synt: {:}'.format(self._instruction_syntax)
+        #print 'pres: {:}'.format(self._instruction_values)
+        #print 'fmpr: {:}'.format(self._format_properties)
+        #print 'fmmp: {:}'.format(self._format_mappings)
+        #print 'comp: {:}'.format(self._comment_pattern)
+        #print 'labp: {:}'.format(self._label_pattern)
+        #print 'refe: {:}'.format(self._label_reference)
+        #print 'repl: {:}'.format(self._label_replacements)
+        #print 'size: {:}'.format(self._isa_size)
+        #print 'regi: {:}'.format(self._registers
+        #
+        #WARNING as of 2011-07-19 the great interface change™ is in
+        #effect. The following member functions are contradictory
+        #and must be set on a per-instance basis.
+        #Below comes from the new API
+        self._text_offset  = memory.get_start('text')
+        self._word_spacing = memory.get_word_spacing()
+        #except Exception as e:
+        #    raise DataMissingException('Missing data for Interpreter: '+e.message)
 
     def open_log(self, logger):
         """logger:object -> ...
@@ -227,7 +240,10 @@ class Interpreter(Loggable):
         output=[]
         for i in range(len(lines)):
             key = re.match('\w+', lines[i]).group()
+            #print '\n\n\nChecking label replacement'
+            #print self._label_replacements
             if key in self._label_replacements:
+                #print 'found'
                 group = self._label_replacements[key][0]
                 mode  = self._label_replacements[key][1]
 

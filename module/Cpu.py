@@ -55,7 +55,7 @@ class Pipelined(BaseProcessor):
     def cycle(self):
         self._log.buffer('beginning a cycle')
         for stage in self._pipeline_stages:
-            self._log.buffer('entering {0} stage'.format(stage[1:]))
+            self._log.buffer('entering {0} stage'.format(stage))
             call = getattr(self, stage)
             try:
                 call(self._pipeline_stages.index(stage))
@@ -67,7 +67,7 @@ class Pipelined(BaseProcessor):
             except Exception, e:
                 self._log.buffer('EXCEPTION {:}'.format(e.message))
                 raise e
-            self._log.buffer('leaving {0} stage'.format(stage[1:]))
+            self._log.buffer('leaving {0} stage'.format(stage))
         self._registers.increment(self._pc, 4)
         self.broadcast()
         self._log.buffer('completing a cycle')
@@ -212,18 +212,18 @@ class PrototypePipelined(Loggable, UpdateBroadcaster):
     def cycle(self):
         self._log.buffer('beginning a cycle')
         for stage in self._pipeline_stages:
-            self._log.buffer('entering {0} stage'.format(stage[1:]))
+            self._log.buffer('entering {0} stage'.format(stage))
             call = getattr(self, stage)
             try:
                 call(self._pipeline_stages.index(stage))
                 if len(self._pipeline) > len(self._pipeline_stages):
                     self._pipeline.pop()
             except IndexError, e:
-                self._log.buffer('{0} found dust in the pipeline'.format(stage[1:]))
+                self._log.buffer('{0} found dust in the pipeline'.format(stage))
             except Exception, e:
                 self._log.buffer('EXCEPTION {:}'.format(e.message))
                 raise e
-            self._log.buffer('leaving {0} stage'.format(stage[1:]))
+            self._log.buffer('leaving {0} stage'.format(stage))
         self._registers.increment(self._pc)
         self._broadcast()
         self._log.buffer('completing a cycle')
