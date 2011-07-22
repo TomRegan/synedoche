@@ -56,8 +56,8 @@
     <register name="$ra"    number="0x1f" size="0x20" write="True"  profile="gp"  visible="True" preset="" />
     <register name="Status" number="0x20" size="0x20" write="False" profile="psw" visible="True" preset="" />
     <register name="PC"     number="0x21" size="0x20" write="True"  profile="pc"  visible="True" preset="0x400000" />
-    <register name="hi"     number="0x22" size="0x20" write="False" profile="psw" visible="True" preset="" />
-    <register name="lo"     number="0x23" size="0x20" write="False" profile="pc"  visible="True" preset="" />
+    <register name="hi"     number="0x22" size="0x20" write="False" profile="fhi" visible="True" preset="" />
+    <register name="lo"     number="0x23" size="0x20" write="False" profile="flo" visible="True" preset="" />
 
     <presets>
       <preset number="0x1c" value="0x10008000" />

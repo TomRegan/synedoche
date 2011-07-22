@@ -157,6 +157,25 @@ class InterpreterLogger(Logger):
     def flush(self):
         self.instance.flush()
 
+class RegisterLogger(Logger):
+    def __init__(self, instance, message=None, timed=True):
+        self.instance = instance
+        if message:
+            time = ctime()
+            message = time + ': Logging Register activity\n'
+            self.instance.write(message)
+
+    def buffer(self, string, timed=True):
+        string= 'REG  ' + string
+        self.instance.buffer(string, symbol=None, timed=timed)
+
+    def write(self, string, timed=True):
+        string= 'REG  ' + string
+        self.instance.write(string, symbol=None, timed=timed)
+
+    def flush(self):
+        self.instance.flush()
+
 class ApiLogger(Logger):
     def __init__(self, instance, message=None, timed=True):
         self.instance = instance

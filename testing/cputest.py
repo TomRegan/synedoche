@@ -22,42 +22,26 @@ if __name__ == '__main__':
     class TestCpu(unittest.TestCase):
 
         def setUp(self):
-            self.logger=Logger.Logger('LOGcputest.log')
+            self.logger=Logger.Logger('logcputest.log')
             self.logger.buffer('>-----setUp')
             machine_conf='../config/machine.xml'
             instruction_conf='../config/instructions.xml'
 
-            instruction_reader = Xml.InstructionReader(instruction_conf)
-
-            instruction_language          = instruction_reader.getLanguage()
-            instruction_size              = instruction_reader.getSize()
-            instruction_syntax            = instruction_reader.getSyntax()
-            instruction_implementation    = instruction_reader.getImplementation()
-            instruction_values            = instruction_reader.getValues()
-            instruction_signatures        = instruction_reader.getSignatures()
-            instruction_format_mapping    = instruction_reader.getFormatMapping()
-            instruction_format_properties = instruction_reader.getFormatProperties()
-            instruction_assembly_syntax   = instruction_reader.get_assembler_syntax()
-
-            machine_reader = Xml.MachineReader(machine_conf)
-
-            machine_language          = machine_reader.getLanguage()
-            memory_data               = machine_reader.get_memory()
-            machine_registers         = machine_reader.getRegisters()
-            machine_register_mappings = machine_reader.getRegisterMappings()
-            machine_pipeline          = machine_reader.get_pipeline()
-
-###########################################################################
-###########################################################################
+            reader = XmlParser.MachineReader(machine_conf)
+            machine_language          = reader.data['language']
+            machine_memory            = reader.data['memory']
+            machine_registers         = reader.data['registers']
+            machine_pipeline          = reader.data['pipeline']
+            del reader
 
             reader = XmlParser.InstructionReader(instruction_conf)
-
             instruction_language     = reader.data['language']
             instruction_size         = reader.data['size']
             instruction_api          = reader.data['api']
             instruction_formats      = reader.data['formats']
             instruction_instructions = reader.data['instructions']
             instruction_assembler    = reader.data['assembler']
+            del reader
 
             self.instructions=Isa.Isa()
 
@@ -75,68 +59,20 @@ if __name__ == '__main__':
                     instruction[0], instruction[4])
                 self.instructions.add_instruction_implementation(
                     instruction[0], instruction[6])
-                #self.instructions.add_instruction_replacement(
-                #    instruction[0], instruction[7])
+                #TODO
+                #integrate instruction replacement!
+                #
+                self.instructions.add_instruction_replacement(
+                    instruction[0], instruction[7])
             for format in instruction_formats:
                 self.instructions.add_format_properties(
                     format[0], format[2])
 
-###########################################################################
-###########################################################################
-
-            #self.instructions=Isa.InstructionSet(instruction_language,
-            #                                     instruction_size)
-
-            #instruction_language          = instruction_reader.getLanguage()
-            #instruction_size              = instruction_reader.getSize()
-            #instruction_syntax            = instruction_reader.getSyntax()
-            #instruction_implementation    = instruction_reader.getImplementation()
-            #instruction_values            = instruction_reader.getValues()
-            #instruction_signatures        = instruction_reader.getSignatures()
-            #instruction_format_mapping    = instruction_reader.getFormatMapping()
-            #instruction_format_properties = instruction_reader.getFormatProperties()
-            #instruction_assembly_syntax   = instruction_reader.get_assembler_syntax()
-
-            #for instruction in instruction_syntax:
-            #    self.instructions.addSyntax(instruction,
-            #        instruction_syntax[instruction])
-
-            #for instruction in instruction_implementation:
-            #    self.instructions.addImplementation(instruction,
-            #        instruction_implementation[instruction])
-            #    #print instruction_implementation[instruction]
-
-            #for instruction in instruction_values:
-            #    self.instructions.addValue(instruction,
-            #        instruction_values[instruction])
-
-            #for instruction in instruction_signatures:
-            #    signature={}
-            #    for field in instruction_signatures[instruction]:
-            #        value=instruction_values[instruction][field]
-            #        signature[field]=value
-            #    self.instructions.addSignature(instruction, signature)
-
-            #for instruction in instruction_format_mapping:
-            #    self.instructions.addFormatMapping(instruction,
-            #        instruction_format_mapping[instruction])
-
-            #for instruction in instruction_format_properties:
-            #    self.instructions.addFormatProperty(instruction,
-            #        instruction_format_properties[instruction])
-
-            #for instruction in instruction_assembly_syntax:
-            #    self.instructions.addAssemblySyntax(instruction[0],
-            #                                        instruction[1])
-
-###########################################################################
-###########################################################################
-
-            data = memory_data[0:3]
+            data = machine_memory[0:3]
             self.memory=Memory.Memory(self.instructions, data)
             self.memory.open_log(self.logger)
 
-            segments = memory_data[3:]
+            segments = machine_memory[3:]
             for segment in segments:
                 name  = segment[0]
                 start = segment[1]
@@ -144,21 +80,21 @@ if __name__ == '__main__':
                 self.memory.add_segment(name, start, end)
 
             self.registers=System.Registers()
+            self.registers.open_log(self.logger)
 
             for register in machine_registers:
-                privilege = machine_registers[register]['privilege']
-                profile   = machine_registers[register]['profile']
-                value     = machine_registers[register]['value']
-                size      = machine_registers[register]['size']
-                self.registers.addRegister(number=register,
+                number  = register[1]
+                size    = register[2]
+                write   = register[3]
+                profile = register[4]
+                value   = register[6]
+                self.registers.addRegister(number=number,
                                            value=value,
                                            size=size,
                                            profile=profile,
-                                           privilege=privilege)
-
-            for register in machine_register_mappings:
-                self.registers.addRegisterMapping(register,
-                    machine_register_mappings[register])
+                                           privilege=write)
+                self.registers.addRegisterMapping(
+                    register[0], register[1])
 
             self.api = Api.Sunray()
 

@@ -60,6 +60,13 @@ for line in lines:
             line = re.sub(match.group(1),repl,line)
         except:
             pass
+    elif line.find('REG') >= 0:
+        line = pur + line + rst
+        try:
+            repl = blk + match.group(1) + rst + pur
+            line = re.sub(match.group(1),repl,line)
+        except:
+            pass
     elif line.find('>-----') >= 0:
         line = red + line + rst
     elif line.find('SYS') >= 0:

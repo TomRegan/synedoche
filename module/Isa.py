@@ -241,9 +241,6 @@ class InstructionSet(object):
         """
         self._assembly_syntax[name] = pattern
 
-    #def addAssemblyDirective(self, name, profile):
-    #    self._assembly_directives[name] = profile
-
     def getLanguage(self):
         return self._language
 

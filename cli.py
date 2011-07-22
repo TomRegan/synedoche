@@ -213,8 +213,9 @@ class Cli(UpdateListener):
         memory_slice = self.memory.get_slice(end=end).items()
         print("{:-<80}".format('--Memory'))
         for address, value in sorted(memory_slice, reverse=True):
-            print(" {:>8}: {:}"
-                 .format(hex(address)[2:],bin(value,self.size)[2:]))
+            print(" 0x{:0>8}: {:}  0x{:0>8}"
+                 .format(hex(address)[2:], bin(value,self.size)[2:],
+                         hex(value)[2:]))
         print("{:-<80}".format(''))
 
     def usage(self, *args, **kwargs):

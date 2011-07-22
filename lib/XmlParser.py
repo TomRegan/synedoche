@@ -1,21 +1,14 @@
 #!/usr/bin/env python
-''' XmlParser.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-20
-description: Module providing support for XML functions
-             A rewrite of XmlLoader.
-'''
+#
+# XML Parser.
+# file           : XmlParser.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-20
+# last modified  : 2011-07-22
+
 
 from xml.dom.minidom import parse
 from Functions       import asciify
-from sys             import getsizeof
-
-
-class XmlDocument(object):
-    """Provides a basic interface to an XML file"""
-    def __init__(self, filename):
-        self._xml_doc   = parse(filename)
-        self._root_node = self._xml_doc.documentElement
 
 
 
@@ -25,15 +18,20 @@ class XmlDataFormatException(Exception):
     pass
 
 
+
+
+class XmlDocument(object):
+    """Provides a basic interface to an XML file"""
+    def __init__(self, filename):
+        self._xml_doc   = parse(filename)
+        self._root_node = self._xml_doc.documentElement
+
 class XmlReader(object):
     """Provides storage for derrived classes """
     _data={}
 
     def __del__(self):
         self._data.clear()
-
-
-
 
 class InstructionReader(XmlReader):
     """A class to parse an instruction.xsd-validated isa specification"""
@@ -121,6 +119,9 @@ class InstructionReader(XmlReader):
             for method in methods:
                 im_name = asciify(method.attributes['name'].value)
                 im_args = asciify(method.attributes['args'].value)
+                #TODO
+                #replace below with lambda
+                #
                 for i in range(len(im_args)):
                     if im_args[i][:2] == '0x':
                         im_args[i] = int(im_args[i],16)
@@ -288,9 +289,9 @@ class MachineReader(XmlReader):
 
 if __name__ == '__main__':
     reader=InstructionReader('../config/instructions.xml')
-    print reader.data['instructions'][0]
+    #print reader.data['instructions'][0]
     del reader
 
     reader=MachineReader('../config/machine.xml')
-    #print(reader.data)
+    print(reader.data)
     del reader

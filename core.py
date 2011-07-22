@@ -170,6 +170,7 @@ class Simulation(object):
         #
         try:
             self.registers=System.Registers()
+            self.registers.open_log(self.logger)
 
             for register in machine_registers:
                 privilege = machine_registers[register]['privilege']
@@ -331,6 +332,7 @@ class Simulation(object):
         self.cpu.register(client)
         self._clients.append(client)
         self.log.write("attached client `{0}'".format(client.__class__.__name__))
+        self.cpu.broadcast()
         return self
 
     def disconnect(self, client):
@@ -382,10 +384,10 @@ if __name__ == '__main__':
         s.connect(tl)
         #s.connect(tl)
         s.load('asm/add.asm', client=tl)
-        for i in range(8):
+        for i in range(10):
             s.cycle(client=tl)
-        s.log.flush()
     except Exception as e:
+        s.log.flush()
         #traceback.print_exc(file=sys.stderr)
         try: print "Exception: " + e.message
         except: pass

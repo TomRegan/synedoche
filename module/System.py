@@ -10,7 +10,7 @@ import Isa
 import lib.Errors as Errors
 
 from copy import deepcopy
-from lib.Logger   import CpuLogger, MemoryLogger
+from lib.Logger   import CpuLogger, MemoryLogger, RegisterLogger
 from lib.Functions import binary as bin
 from lib.Interface import *
 
@@ -297,7 +297,7 @@ class Memory(Loggable):
 #Registers interface and implementation below
 #
 
-class Registers(object):
+class Registers(Loggable):
     """Provides an interface that should be used to build a set of registers
 
     Usage:
@@ -311,6 +311,11 @@ class Registers(object):
     _registers_iv={}
     _name_number={}
     _number_name={}
+
+    def open_log(self, logger):
+        self.log = RegisterLogger(logger)
+        self.log.buffer('created registers')
+
     def addRegister(self, number, value, size, profile, privilege):
         """(number:int, value:int, size:int, profile:str, privilege:bool)
             -> registers{register[number]:{value,size,profile,provilege}:dict
@@ -323,6 +328,8 @@ class Registers(object):
         self._registers[number]['size']      = size
         self._registers[number]['profile']   = profile
         self._registers[number]['privilege'] = privilege
+        self.log.buffer('added register: {:>2} {:>12} {:} {:>3} {:}'
+                        .format(number, value, size, profile, privilege))
         self._registers_iv = deepcopy(self._registers)
 
     def addRegisterMapping(self, name, number):
@@ -334,6 +341,7 @@ class Registers(object):
 
         self._name_number[name]=number
         self._number_name[number]=name
+        self.log.buffer("added mapping: {:} <-> {:}".format(name, number))
 
     def removeRegister(self, number):
         """number:int -> ...
