@@ -8,7 +8,7 @@
 
 from lib import XmlParser
 from module import Isa
-from module import System
+from module import Registers
 from module import Memory
 
 class Coordinator(object):
@@ -74,7 +74,7 @@ class RegisterBuilder(Builder):
     def make(self, **args):
         config = args['filename']
 
-        self.obj=System.Registers()
+        self.obj=Registers.Registers()
 
         reader = XmlParser.MachineReader(config)
         machine_registers = reader.data['registers']

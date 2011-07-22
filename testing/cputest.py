@@ -8,7 +8,7 @@ from lib import Logger
 from module import Api
 from module import Builder
 from module import Isa
-from module import System
+from module import Registers
 from module import Interpreter
 from module import Processor
 from module import Memory
@@ -102,6 +102,7 @@ if __name__ == '__main__':
             self.assertEquals([0,0,0,0], self.cpu.get_pipeline())
 
         def testAddInstruction(self):
+            """add instruction works as expected"""
             self.logger.buffer('>-----testAddInstruction')
             pc=self.cpu._registers.getValue(33)
             i=self.interpreter.read_lines(['addi $s0, $zero, 32'])
@@ -111,6 +112,20 @@ if __name__ == '__main__':
             for i in range(cycles):
                 self.cpu.cycle()
             self.assertEquals(32, self.registers.getValue(16))
+
+        def testSetOnLessInstruction(self):
+            """slt instruction works as expected"""
+            self.logger.buffer('>-----testSltInstruction')
+            pc=self.cpu._registers.getValue(33)
+            i=self.interpreter.read_lines(['addi $s1, $zero, 255\n',
+                                           'addi $s2, $zero, 1023\n',
+                                           'slt  $s0, $s1, $s2'])
+            i=self.interpreter.convert(i)
+            self.memory.load_text(i)
+            cycles = 6
+            for i in range(cycles):
+                self.cpu.cycle()
+            self.assertEquals(1, self.registers.getValue(16))
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestCpu)
     unittest.TextTestRunner(verbosity=2).run(tests)

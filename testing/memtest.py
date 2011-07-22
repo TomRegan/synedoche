@@ -7,11 +7,11 @@ from lib import Interface
 from lib import Logger
 from module import Api
 from module import Builder
-from module import Isa
-from module import System
 from module import Interpreter
-from module import Processor
+from module import Isa
 from module import Memory
+from module import Processor
+from module import Registers
 from lib.Functions import binary as bin
 from module.Memory import (AddressingError, AlignmentError,
                            SegmentationFaultException)
