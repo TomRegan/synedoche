@@ -15,7 +15,6 @@ import traceback
 import os
 
 from lib import Interface
-from lib import XmlLoader as Xml
 from lib import Logger
 from module import Processor
 from module import Api
@@ -173,9 +172,9 @@ class Simulation(object):
             return
         self.log.buffer("`load' called by `{0}'".format(client.__class__.__name__))
         file_object = open(filename, 'r')
-        programme = self.interpreter.read_file(file_object)
-        programme = self.interpreter.convert(programme)
-        self.memory.load_text_and_dump(programme)
+        (code, text) = self.interpreter.read_file(file_object)
+        programme = self.interpreter.convert(code)
+        return (self.memory.load_text_and_dump(programme), text)
 
     def reset(self, client):
         """Resets the simulation processor"""

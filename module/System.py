@@ -1,13 +1,16 @@
 #!/usr/bin/env python
-''' System.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-06-27
-modified:    2011-07-09
-description: Module providing hardware components for simulation.
-'''
+#
+# Hardware Components.
+# file           : System.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-06-27
+# last modified  : 2011-07-22
+#
+# DEPRECATED
+#
+
 
 import Isa
-import lib.Errors as Errors
 
 from copy import deepcopy
 from lib.Logger   import CpuLogger, MemoryLogger, RegisterLogger
@@ -23,10 +26,9 @@ class OpCodeNotInMemoryException(Exception):
 class SegmentationFaultException(Exception):
     pass
 
-class DataFormatException(Errors.Exception):
+class DataFormatException(Exception):
     """Signals a memory load contained non integer data"""
-    def __init__(self, message):
-        super(Errors.Exception, self).__init__(message)
+    pass
 
 class Machine(object):
     """Wraps the simulation elements.

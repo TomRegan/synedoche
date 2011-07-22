@@ -1,9 +1,11 @@
 #!/usr/bin/env python
-''' Evaluator.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-18
-description: A line evaluator for assembly instructions
-'''
+#
+# Line Evaluator.
+# file           : Evaluator.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-18
+# last modified  : 2011-07-22
+
 
 from lib.Functions import binary as bin
 
@@ -28,9 +30,9 @@ class Evaluator(object):
         while True:
             try:
                 if not breaking:
-                    char = "{:0>2}{:} ".format(i, "%")
+                    char = "% "
                 else:
-                    char = "{:.>3} ".format("")
+                    char = ". "
                 line=raw_input(char)
                 line=line.strip()
                 if len(line) > 1:

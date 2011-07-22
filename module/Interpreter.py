@@ -8,8 +8,8 @@
 # last modified  : 2011-07-22
 
 import re
-#import lib.Errors as Errors
 
+from copy          import deepcopy
 from lib.Logger    import InterpreterLogger
 from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
@@ -99,6 +99,13 @@ class Interpreter(Loggable):
         self.log = InterpreterLogger(logger)
         self.log.write("created `{0}' interpreter".format(self._language))
 
+    def _read(self, lines):
+        """[lines:str]:list -> [instructions:str]:list"""
+        lines=self._preprocess(lines)
+        lines=self._link(lines)
+        lines=self._encode(lines)
+        return lines
+
     def read_file(self, file_object):
         """file:object -> [instructions:str]:list
 
@@ -111,7 +118,7 @@ class Interpreter(Loggable):
         if type(file_object) == file:
             self.log.buffer("reading file: {0}".format(file_object.name))
             instructions = self._read(file_object.readlines())
-            return instructions
+            return (instructions, self._programme)
         else:
             raise Exception
 
@@ -127,7 +134,8 @@ class Interpreter(Loggable):
         return instruction
 
     def convert(self, lines):
-        """[lines:str]:list -> [instructions:int]:list
+        """[lines:str]:list ->
+                ([instructions:int]:list, [original:str]:list)
 
         Before attempting to load a programme that has been through
         the interpreter, it should be converted for use in the
@@ -138,13 +146,6 @@ class Interpreter(Loggable):
                 lines[i] = int(lines[i],2)
         except:
             raise DataConversionFromUnknownType('Tried to convert from unknown type: {0} {1}'.format(lines[i], type(lines[i])))
-        return lines
-
-    def _read(self, lines):
-        """[lines:str]:list -> [instructions:str]:list"""
-        lines=self._preprocess(lines)
-        lines=self._link(lines)
-        lines=self._encode(lines)
         return lines
 
     def _preprocess(self, lines):
@@ -249,6 +250,7 @@ class Interpreter(Loggable):
             output.append(lines[i])
 
         self._jump_table.clear()
+        self._programme = deepcopy(output)
         self.log.buffer("leaving linker")
         return output
 

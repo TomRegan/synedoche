@@ -192,7 +192,7 @@ class Memory(BaseMemory):
 
     def load_text_and_dump(self, text):
         """Synonymous with load_text with the dump option set"""
-        self.load_text(text=text, and_dump=True)
+        return self.load_text(text=text, and_dump=True)
 
     def get_word(self, offset, size, aligned=True, quietly=False):
         """(offset:int,

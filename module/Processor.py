@@ -132,7 +132,6 @@ class Pipelined(BaseProcessor):
 
         implementation = self._isa.getImplementation()
         name = self._pipeline[index][2]
-        print(implementation[name])
         sequential = True
         for method in implementation[name]:
             if sequential:
@@ -167,8 +166,8 @@ class Pipelined(BaseProcessor):
         return self._memory
 
     def get_pipeline(self):
-        #return [i[0] for i in self._pipeline]
-        return self._pipeline
+        return [i[0] for i in self._pipeline]
+        #return self._pipeline
 
     def broadcast(self):
         """Overrides broadcast in the base class

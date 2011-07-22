@@ -4,8 +4,6 @@ import unittest
 import sys
 
 from lib import Interface
-from lib import XmlParser
-from lib import XmlLoader as Xml
 from lib import Logger
 from module import Api
 from module import Builder

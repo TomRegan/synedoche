@@ -1,9 +1,11 @@
 #!/usr/bin/env python
-''' Logger.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-06-30
-description: Logging classes for sending output to a logfile
-'''
+#
+# Log File Tools.
+# file           : Logger.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-06-30
+# last modified  : 2011-07-22
+
 
 import sys
 

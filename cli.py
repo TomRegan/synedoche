@@ -17,13 +17,13 @@ except:
 from core import *
 from lib.Header import *
 from lib.Functions import binary as bin
-from lib.Exceptions import *
 from lib.Interface  import UpdateListener
 from lib.Evaluator  import Evaluator
 from module.Memory  import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
 from module.Interpreter import DataMissingException
 from module.Interpreter import DataConversionFromUnknownType
+from module.SystemCall  import SigTerm
 
 class Cli(UpdateListener):
     """
@@ -31,6 +31,7 @@ class Cli(UpdateListener):
     def __init__(self, instructions, machine):
         self.local_DEBUG=1
         self.simulation=None
+        self.last_cmd=None
 
         try:
             readline.read_history_file('.cli_history')
@@ -49,8 +50,6 @@ class Cli(UpdateListener):
 
         try:
             self.run()
-        except AlignmentError, e:
-            print(e)
         except KeyboardInterrupt, e:
             print('^C')
             self.exit()
@@ -68,8 +67,7 @@ class Cli(UpdateListener):
               "Type `help' or `version' for more information.")
         while True:
             line = raw_input('>>> ')
-            if len(line) > 0:
-                self.parse(line)
+            self.parse(line)
 
     def update(self, *args, **kwargs):
         self.registers = kwargs['registers']
@@ -82,7 +80,6 @@ class Cli(UpdateListener):
     def cycle(self):
         self.simulation.cycle(self)
 
-
     def parse(self, line):
         """line:str -> ...
 
@@ -93,8 +90,11 @@ class Cli(UpdateListener):
             Exceptions from other frames must be handled.
         """
         line=line.split()
-        if line[0][:2] == 'pr':
-            try:
+        try:
+            if self.last_cmd is not None and len(line) == 0:
+                line = self.last_cmd
+            self.last_cmd = line
+            if line[0][:2] == 'pr':
                 if len(line) > 1:
                     if line[1][:3] == 'reg':
                         if len(line) > 2:
@@ -108,50 +108,59 @@ class Cli(UpdateListener):
                             self.print_memory(end=line[2])
                         else:
                             self.print_memory()
+                    elif line[1][:3] == "pro":
+                        self.print_programme()
                     else:
                         print("Not a print function: `{:}'"
                               .format(line[1]))
                 else:
                     self.usage(fun='print')
-            except Exception, e:
-                #print 'Simulation has not started'
-                raise e
-        elif line[0][:4] == 'rese':
-            print(':reset')
-            self.reset()
-        elif line[0][:1] == 's':
-            print(':step')
-            self.step()
-        elif line[0][:1] == 'c':
-            print(':cycle')
-            self.cycle()
-        elif line[0][:1] == 'l':
-            print(':load')
-            if len(line) > 1:
-                self.load(line[1])
-            else: print "Please supply a filename to read"
-        elif line[0][:4] == 'eval':
-            try:
-                evaluator = Evaluator(simulation=self.simulation,
-                                      client=self)
-                evaluator.eval()
-            except BadInstructionOrSyntax, e:
-                print(e.message)
-
-        elif line[0] == 'help':
-            self.help()
-        elif line[0][:4] == 'vers':
-            print VERSION
-        elif line[0] == '__except__':
-            raise Exception('Intentionally raised exception in {:}'.format(self.__class__.__name__))
-        elif line[0] == 'quit' or line[0] == 'exit' or line[0] == '\e':
-            self.exit()
-        else:
-            self.usage(fun=' '.join(line))
+            elif line[0][:4] == 'rese':
+                if line[0] != 'reset':
+                    print(':reset')
+                self.reset()
+            elif line[0][:1] == 's':
+                if line[0] != 'step':
+                    print(':step')
+                self.step()
+            elif line[0][:1] == 'c':
+                if line[0] != 'cycle':
+                    print(':cycle')
+                self.cycle()
+            elif line[0][:1] == 'l':
+                if line[0] != 'load':
+                    print(':load')
+                if len(line) > 1:
+                    self.load(line[1])
+                else: print "Please supply a filename to read"
+            elif line[0][:4] == 'eval':
+                try:
+                    evaluator = Evaluator(simulation=self.simulation,
+                                          client=self)
+                    evaluator.eval()
+                except BadInstructionOrSyntax, e:
+                    print(e.message)
+                except Exception, e:
+                    print('fatal: {:}'.format(e))
+            elif line[0] == 'help':
+                self.help()
+            elif line[0][:4] == 'vers':
+                print(VERSION)
+            elif line[0] == '__except__':
+                raise Exception('Intentionally raised exception in {:}'.format(self.__class__.__name__))
+            elif line[0] == 'quit' or line[0] == 'exit' or line[0] == '\e':
+                self.exit()
+            else:
+                self.usage(fun=' '.join(line))
+        except SigTerm, e:
+            print('Programme finished')
 
     def load(self, filename):
         try:
-            self.simulation.load(filename, self)
+            (count, text) = self.simulation.load(filename, self)
+            self._programme_text = text
+            print("Loaded {:} word programme, `{:}'"
+                  .format(count, ''.join(filename.split('/')[-1:])))
         except IOError, e:
             sys.stderr.write("No such file: `{:}'\n".format(filename))
         except Exception, e:
@@ -160,7 +169,11 @@ class Cli(UpdateListener):
     def reset(self):
         self.simulation.reset(self)
 
-    #def print_programme(self):
+    def print_programme(self):
+        if self._programme_text:
+            print('\n'.join(self._programme_text))
+        else:
+            print('fatal: No programme loaded')
 
     def print_registers(self):
         """Formats and outputs a display of the registers"""
@@ -206,16 +219,16 @@ class Cli(UpdateListener):
         if self.pipeline:
             print("{:-<80}".format('--Pipeline'))
             for i in range(len(self.pipeline)):
-                if len(self.pipeline[i]) < 2:
-                    print("Stage {:}:{:}"
-                         .format(i+1,bin(int(self.pipeline[i][0]),
-                                         self.size)[2:]))
-                else:
-                    print("Stage {:}:{:}  {:}"
-                         .format(i+1,
-                                 bin(int(self.pipeline[i][0]),
-                                     self.size)[2:],
-                                 self.pipeline[i][2]))
+                #if len(self.pipeline[i]) < 2:
+                print("Stage {:}:{:}"
+                     .format(i+1,bin(int(self.pipeline[i]),
+                                     self.size)[2:]))
+                #else:
+                #    print("Stage {:}:{:}  {:}"
+                #         .format(i+1,
+                #                 bin(int(self.pipeline[i][0]),
+                #                     self.size)[2:],
+                #                 self.pipeline[i][2]))
             print("{:-<80}".format(''))
 
     def print_memory(self, **kwargs):
