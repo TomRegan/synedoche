@@ -26,7 +26,7 @@ class Cli(UpdateListener):
     """
     """
     def __init__(self, instructions, machine):
-        self.local_DEBUG=2
+        self.local_DEBUG=0
         self.simulation=None
 
         try:
@@ -240,7 +240,7 @@ class Cli(UpdateListener):
     def exception_handler(self, e):
         if DEBUG and self.local_DEBUG >= 2:
             traceback.print_exc(file=sys.stderr)
-        try: print("Exception: {:}".format(e))
+        try: print("Unhandled exception: {:}".format(e))
         except:pass
         if DEBUG and self.local_DEBUG >= 1:
             print('Type: ' + e.__class__.__name__)

@@ -338,7 +338,7 @@
     </implementation>
   </instruction>
 
-  <instruction name="nop" format="j"><!--add immediate-->
+  <instruction name="nop" format="j">
     <signature>
       <field name="op" />
       <field name="im" />
@@ -351,7 +351,24 @@
       <expression pattern="\w+" />
     </syntax>
     <implementation>
-      <method name="noop" args="" />
+      <method name="doNothing" args="" />
+    </implementation>
+  </instruction>
+
+  <instruction name="syscall" format="r">
+    <signature>
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <fields>
+      <field name="op" value="0x00" />
+      <field name="fn" value="0x0c" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+" />
+    </syntax>
+    <implementation>
+      <method name="systemCall" args="0x02" />
     </implementation>
   </instruction>
 </instructions>

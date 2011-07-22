@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 #coding=iso-8859-15
-''' Api.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-01
-description: The API allows user programmes to alter the state of
-             a simulated machine.
-'''
+#
+# Interface for simulation clients.
+# file           : Api.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-01
+# last modified  : 2011-07-22
+
+from SystemCall import *
 
 from lib.Logger import ApiLogger
 from lib.Interface import *
@@ -58,7 +60,7 @@ class Sunray(_Api):
     """An API implementation which primarily supports the MIPS32 ISA."""
 
     def addRegisters(self, args, instruction_decoded):
-        """[args]:list -> False
+        """args:list -> True
 
         Adds two registers and stores the result in a third.
 
@@ -92,7 +94,7 @@ class Sunray(_Api):
         return True
 
     def addImmediate(self, args, instruction_decoded):
-        """[args]:list -> False
+        """args:list -> True
 
         Adds a register to an immediate value and stores the result in
         a second register.
@@ -127,7 +129,7 @@ class Sunray(_Api):
 
 
     def subRegisters(self, args, instruction_decoded):
-        """[args]:list -> False
+        """args:list -> True
 
         Subtracts two registers and stores the result in a third.
 
@@ -161,7 +163,7 @@ class Sunray(_Api):
         return True
 
     def mulRegisters(self, args, instruction_decoded):
-        """[args]:list -> False
+        """args:list -> True
 
         Multiplies two registers and stores the product in a third.
 
@@ -195,7 +197,7 @@ class Sunray(_Api):
         return True
 
     def divRegisters(self, args, instruction_decoded):
-        """[args]:list -> False
+        """args:list -> True
 
         Divides two registers and stores the quotient in a third.
 
@@ -232,7 +234,7 @@ class Sunray(_Api):
         return True
 
     def setRegister(self, args, instruction_decoded):
-        """[args]:list -> False
+        """args:list -> True
 
         Sets the value of a register.
 
@@ -266,7 +268,7 @@ class Sunray(_Api):
         return True
 
     def loadWord32(self, args, instruction_decoded):
-        """[args]:list -> False
+        """args:list -> True
 
         Loads a word from memory.
 
@@ -292,7 +294,7 @@ class Sunray(_Api):
         return True
 
     def storeWord32(self, args, instruction_decoded):
-        """[args]:list -> False
+        """args:list -> True
 
         Loads a word from memory.
 
@@ -318,7 +320,7 @@ class Sunray(_Api):
         return True
 
     def testEqual(self, args, instruction_decoded):
-        """[args]:list -> bool
+        """args:list -> bool
 
         Returns true if a and b are equal.
         """
@@ -330,7 +332,7 @@ class Sunray(_Api):
         return self._register.getValue(a) == self._register.getValue(b)
 
     def testNotEqual(self, args, instruction_decoded):
-        """[args]:list -> bool
+        """args:list -> bool
 
         Returns false if a and b are equal.
         """
@@ -342,7 +344,7 @@ class Sunray(_Api):
         return self._register.getValue(a) != self._register.getValue(b)
 
     def testLess(self, args, instruction_decoded):
-        """[args]:list -> bool
+        """args:list -> bool
 
         Returns true if a is less than b.
         """
@@ -354,7 +356,7 @@ class Sunray(_Api):
         return self._register.getValue(a) < self._register.getValue(b)
 
     def testLessImmediate(self, args, instruction_decoded):
-        """[args]:list -> bool
+        """args:list -> bool
 
         Returns true if a is less than b.
         """
@@ -366,7 +368,7 @@ class Sunray(_Api):
         return self._register.getValue(a) < b
 
     def testGreater(self, args, instruction_decoded):
-        """[args]:list -> bool
+        """args:list -> bool
 
         Returns true if a > b.
         """
@@ -378,7 +380,7 @@ class Sunray(_Api):
         return self._register.getValue(a) > self._register.getValue(b)
 
     def testGreaterOrEqual(self, args, instruction_decoded):
-        """[args]:list -> bool
+        """args:list -> bool
 
         Returns true if a >= b.
         """
@@ -390,7 +392,7 @@ class Sunray(_Api):
         return self._register.getValue(a) >= self._register.getValue(b)
 
     def testGreaterImmediate(self, args, instruction_decoded):
-        """[args]:list -> bool
+        """args:list -> bool
 
         Returns true if a > b.
         """
@@ -402,7 +404,7 @@ class Sunray(_Api):
         return self._register.getValue(a) > b
 
     def testGreaterOrEqualImmediate(self, args, instruction_decoded):
-        """[args]:list -> bool
+        """args:list -> bool
 
         Returns true if a >= b.
         """
@@ -413,16 +415,25 @@ class Sunray(_Api):
         self.log.buffer('returning {0}'.format(self._register.getValue(a) >= b))
         return self._register.getValue(a) >= b
 
-    def increment_pc(self, args, instruction_decoded):
+    def incrementPc(self, args, instruction_decoded):
+        """args:list -> True"""
+        self.log.buffer('incrementPc called')
         a=instruction_decoded[args[0]]
         pc=self._register.getPc()
         value=self._register.getValue(pc)+a
         self._register.setValue(pc, value)
 
-    def noop(self, args, instruction_decoded):
-        """[args]:list -> False
+    def doNothing(self, args, instruction_decoded):
+        """args:list -> True"""
+        self.log.buffer('doNothing called')
+        return True
 
-        Does nothing.
-        """
-        self.log.buffer('noop called')
+    def systemCall(self, args, instruction_decoded):
+        """args:list -> True"""
+        self.log.buffer('systemCall called')
+        system_call = SystemCall()
+        a=args[0]
+        self.log.buffer('args 0:{0}'.format(a))
+        result = self._register.getValue(a)
+        system_call.service(result)
         return True
