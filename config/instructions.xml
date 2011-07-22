@@ -132,6 +132,9 @@
       <method name="testEqual"    args="rs rt" /><!--note A-3-->
       <method name="addImmediate" args="PC PC im" />
     </implementation>
+    <replacements>
+      <replacement name="im" group="3" type="relative" />
+    </replacements>
   </instruction>
 
   <instruction name="bne" format="i"><!--branch on not equal-->

@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 #coding=iso-8859-15
-''' Interpreter.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-05
-modified:    2011-07-20
-description: Module containing the interpreter functions
-'''
+#
+# Convert Assembly to Machine Instructions.
+# file           : Interpreter.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-05
+# last modified  : 2011-07-22
+
 import re
 #import lib.Errors as Errors
 
@@ -239,11 +240,10 @@ class Interpreter(Loggable):
         self.log.buffer("entering linker")
         output=[]
         for i in range(len(lines)):
+            print(self._jump_table)
+            print(self._label_replacements)
             key = re.match('\w+', lines[i]).group()
-            #print '\n\n\nChecking label replacement'
-            #print self._label_replacements
             if key in self._label_replacements:
-                #print 'found'
                 group = self._label_replacements[key][0]
                 mode  = self._label_replacements[key][1]
 
@@ -291,8 +291,8 @@ class Interpreter(Loggable):
         for line in lines:
             instruction = line.split()[0]
             #
-            #we have to do a lot of checking to make sure
-            #there aren't any key errors
+            # we have to do a lot of checking to make sure
+            # there aren't any key errors
             #
             # 1. check the instuction (add,sub..)exists
             # 2. ...has the right syntax (->match)
@@ -307,24 +307,32 @@ class Interpreter(Loggable):
                 if re.search(expression, line):
                     match = re.search(expression, line)
                     #
-                    #we want to add the recognisable fields to
-                    #the instruction we are building
+                    # we want to add the recognisable fields to
+                    # the instruction we are building
                     #
                     for i in range(len(match.groups())):
                         field=syntax['symbols'][i][0]
                         value=match.groups()[i]
                         #
-                        #fields need some validation,
-                        #register must exist OR value must be numeric
+                        # fields need some validation,
+                        # register must exist OR value must be numeric
                         #
                         if value not in self._registers and type(value) != int:
                             try:
                                 if value[:2] == '0x':
-                                    value=int(value,base_16)
+                                    value=int(value, 16)
                                 else:
+                                    # TODO FIX
+                                    # we appear to be trying to convert
+                                    # labels here 2011-07-22
+                                    #
                                     value=int(value)
+                                    #pass
                             except:
-                                raise BadInstructionOrSyntax(BAD + line)
+                                line = "`" + line + "'"
+                                raise BadInstructionOrSyntax(
+                                    BAD + line +
+                                    "\nFATAL: Failed to calculate effective address")
                         self.log.buffer("`{0}' is {1}"
                                         .format(field,value))
                         instruction_fields[field]=value

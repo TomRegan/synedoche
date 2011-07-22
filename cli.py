@@ -1,9 +1,11 @@
 #!/usr/bin/env python
-''' cli.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-15
-description: A CLI client for the system.
-'''
+#
+# Cli Client.
+# file           : cli.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-15
+# last modified  : 2011-07-22
+
 
 import sys
 
@@ -26,7 +28,7 @@ class Cli(UpdateListener):
     """
     """
     def __init__(self, instructions, machine):
-        self.local_DEBUG=0
+        self.local_DEBUG=1
         self.simulation=None
 
         try:
@@ -40,7 +42,7 @@ class Cli(UpdateListener):
                                        logfile='logs/cli.log')
 
             self.simulation.connect(self)
-            self.size = self.simulation.getInstructionSize()
+            self.size = self.simulation.get_instruction_size()
         except Exception, e:
             self.exception_handler(e)
 
@@ -239,11 +241,11 @@ class Cli(UpdateListener):
         sys.exit(args[0])
 
     def exception_handler(self, e):
-        if DEBUG and self.local_DEBUG >= 2:
+        if DEBUG and self.local_DEBUG < 1:
+            print("Unhandled exception: {:}".format(e))
+        elif DEBUG and self.local_DEBUG >= 1:
             traceback.print_exc(file=sys.stderr)
-        try: print("Unhandled exception: {:}".format(e))
-        except:pass
-        if DEBUG and self.local_DEBUG >= 1:
+        elif DEBUG and self.local_DEBUG >= 2:
             print('Type: ' + e.__class__.__name__)
         self.exit(1)
 

@@ -81,7 +81,8 @@ class Memory(BaseMemory):
     _address={}
     _segment={}
 
-    def __init__(self, instructions, data):
+    #def __init__(self, instructions, data):
+    def __init__(self, data, *args, **kwargs):
         """instruction:object (module.Isa.InstructionSet)
            (address_space:int, word:int, addressable:int)
 

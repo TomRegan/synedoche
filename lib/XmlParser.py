@@ -122,11 +122,12 @@ class InstructionReader(XmlReader):
                 #TODO
                 #replace below with lambda
                 #
+                im_args = im_args.split()
                 for i in range(len(im_args)):
                     if im_args[i][:2] == '0x':
-                        im_args[i] = int(im_args[i],16)
-            i_implementation.append(tuple((im_name,
-                                           tuple(im_args.split()))))
+                        im_args[i] = int(im_args[i], 16)
+            i_implementation.append(tuple((im_name, tuple(im_args))))
+            i_implementation = tuple(i_implementation)
 
             # add replacements
             i_replacements=[]
@@ -289,9 +290,9 @@ class MachineReader(XmlReader):
 
 if __name__ == '__main__':
     reader=InstructionReader('../config/instructions.xml')
-    #print reader.data['instructions'][0]
+    print reader.data['instructions'][13]
     del reader
 
     reader=MachineReader('../config/machine.xml')
-    print(reader.data)
+    #print(reader.data)
     del reader

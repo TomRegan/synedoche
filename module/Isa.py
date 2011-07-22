@@ -29,7 +29,7 @@ class Isa(BaseIsa):
     def add_instruction_implementation(self, instruction, methods, *args):
         if not self._data.has_key('instruction_implementation'):
                self._data['instruction_implementation'] = {}
-        self._data['instruction_implementation'][instruction]=tuple(methods)
+        self._data['instruction_implementation'][instruction]=methods
 
     def add_instruction_preset(self, instruction, presets, *args):
         if not self._data.has_key('instruction_presets'):
@@ -110,8 +110,7 @@ class Isa(BaseIsa):
         return self._data['assembler_syntax']
 
     def get_label_replacements(self):
-        #return self._data['instruction_replacement']
-        return {}
+        return self._data['instruction_replacement']
 
 class InstructionSet(object):
     """Provides an interface that should be used to load an ISA
@@ -213,9 +212,9 @@ class InstructionSet(object):
             raise Exception
         self._instruction_syntax[instruction] = syntax
 
-    def add_label_replacement(self, instruction, group, mode):
-        """instruction:str, group:int, mode:str"""
-        self._label_replacement[instruction] = (group, mode)
+    def add_label_replacement(self, instruction, replacement):
+        """instruction:str, replacement:tuple"""
+        self._label_replacement[instruction] = replacement
 
     def addFormatMapping(self, instruction, format_name):
         """(instruction:str, format_name:str) ->

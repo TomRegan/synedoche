@@ -1,13 +1,14 @@
 #!/usr/bin/env python
-''' core.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-08
-description: core wraps all of the system's modules and libraries,
-             performing initialization and providing an interface
-             that will be used to run simulations.
+#
+# core wraps all of the system's modules and libraries,
+# performing initialization and providing an interface
+# that will be used to run simulations.
+# Modules which interface with the system should use core.
+# file           : core.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-08
+# last modified  : 2011-07-22
 
-             Modules which interface with the system should use core.
-'''
 
 import sys
 import traceback
@@ -18,6 +19,7 @@ from lib import XmlLoader as Xml
 from lib import Logger
 from module import Processor
 from module import Api
+from module import Builder
 from module import Isa
 from module import Memory
 from module import System
@@ -58,169 +60,41 @@ class Simulation(object):
             raise e
         #self.logSizeCheck()
 
-        #
-        #we need values from the instruction config file
-        #
-        try:
-            instruction_reader = Xml.InstructionReader(instruction_conf)
+        coordinator = Builder.Coordinator()
 
-            instruction_language          = instruction_reader.getLanguage()
-            instruction_size              = instruction_reader.getSize()
-            instruction_syntax            = instruction_reader.getSyntax()
-            instruction_implementation    = instruction_reader.getImplementation()
-            instruction_values            = instruction_reader.getValues()
-            instruction_signatures        = instruction_reader.getSignatures()
-            instruction_format_mapping    = instruction_reader.getFormatMapping()
-            instruction_format_properties = instruction_reader.getFormatProperties()
-            instruction_assembly_syntax   = instruction_reader.get_assembler_syntax()
+        coordinator.set_builder(Builder.InstructionBuilder())
+        coordinator.make(filename=instruction_conf)
+        self.instructions = coordinator.get_object()
+        self.instruction_size = self.instructions.getSize()
 
-            self.instruction_size         = instruction_size
-        except Exception as e:
-            sys.stderr.write('fatal: failed trying to read instructions config\n')
-            raise e
+        coordinator.set_builder(Builder.RegisterBuilder())
+        coordinator.make(filename=machine_conf)
+        self.registers = coordinator.get_object()
+        self.registers.open_log(self.logger)
 
-        #
-        #we also need values from the machine configuration file
-        #
-        try:
-            machine_reader = Xml.MachineReader(machine_conf)
+        coordinator.set_builder(Builder.MemoryBuilder())
+        coordinator.make(filename=machine_conf)
+        self.memory = coordinator.get_object()
+        self.memory.open_log(self.logger)
 
-            machine_language          = machine_reader.getLanguage()
-            machine_memory_data       = machine_reader.get_memory()
-            machine_registers         = machine_reader.getRegisters()
-            machine_register_mappings = machine_reader.getRegisterMappings()
-            machine_pipeline          = machine_reader.get_pipeline()
-        except Exception as e:
-            sys.stderr.write('fatal: failed trying to read machine config\n')
-            raise e
+        coordinator.set_builder(Builder.PipelineBuilder())
+        coordinator.make(filename=machine_conf)
+        pipeline = coordinator.get_object()
 
-        #
-        #we need to build an instruction set object
-        #
-        try:
-            self.instructions=Isa.InstructionSet(instruction_language,
-                                                 instruction_size)
+        del coordinator
 
-            for instruction in instruction_syntax:
-                self.instructions.addSyntax(instruction,
-                    instruction_syntax[instruction])
+        self.api = Api.Sunray()
+        self.api.open_log(self.logger)
 
-            for instruction in instruction_implementation:
-                self.instructions.addImplementation(instruction,
-                    instruction_implementation[instruction])
+        self.interpreter = Interpreter.Interpreter(
+            instructions=self.instructions, registers=self.registers,
+            memory=self.memory)
+        self.interpreter.open_log(self.logger)
 
-            for instruction in instruction_values:
-                self.instructions.addValue(instruction,
-                    instruction_values[instruction])
-
-            for instruction in instruction_signatures:
-                signature={}
-                for field in instruction_signatures[instruction]:
-                    value=instruction_values[instruction][field]
-                    signature[field]=value
-                self.instructions.addSignature(instruction, signature)
-
-            for instruction in instruction_format_mapping:
-                self.instructions.addFormatMapping(instruction,
-                    instruction_format_mapping[instruction])
-
-            for instruction in instruction_format_properties:
-                self.instructions.addFormatProperty(instruction,
-                    instruction_format_properties[instruction])
-
-            for instruction in instruction_assembly_syntax:
-                self.instructions.addAssemblySyntax(instruction[0],
-                                                    instruction[1])
-        except Exception as e:
-            sys.stderr.write('fatal: failed trying to initialize isa\n')
-            raise e
-
-        #
-        #we need a memory object for the CPU
-        #
-        #try:
-        #    self.memory=Memory.Memory(machine_address_space, self.instructions)
-        #    self.memory.open_log(self.logger)
-
-        #    for segment in machine_memory:
-        #        start = machine_memory[segment][0]
-        #        end   = machine_memory[segment][1]
-        #        self.memory.add_segment(segment, start, end)
-        #except Exception as e:
-        #    sys.stderr.write('fatal: failed trying to initialize memory\n')
-        #    raise e
-        try:
-            data = machine_memory_data[0:3]
-            self.memory=Memory.Memory(self.instructions, data)
-            self.memory.open_log(self.logger)
-
-            segments = machine_memory_data[3:]
-            for segment in segments:
-                name  = segment[0]
-                start = segment[1]
-                end   = segment[2]
-                self.memory.add_segment(name, start, end)
-        except Exception as e:
-            sys.stderr.write('fatal: failed trying to initialize memory\n')
-            raise e
-
-
-        #
-        #registers for the CPU
-        #
-        try:
-            self.registers=System.Registers()
-            self.registers.open_log(self.logger)
-
-            for register in machine_registers:
-                privilege = machine_registers[register]['privilege']
-                profile   = machine_registers[register]['profile']
-                value     = machine_registers[register]['value']
-                size      = machine_registers[register]['size']
-                self.registers.addRegister(number=register,
-                                           value=value,
-                                           size=size,
-                                           profile=profile,
-                                           privilege=privilege)
-
-            for register in machine_register_mappings:
-                self.registers.addRegisterMapping(register,
-                    machine_register_mappings[register])
-
-        except Exception as e:
-            sys.stderr.write('fatal: died trying to initialize registers\n')
-            raise e
-
-        #
-        #we need an api object for the CPU
-        #
-        try:
-            self.api = Api.Sunray()
-            self.api.openLog(self.logger)
-        except Exception as e:
-            sys.stderr.write('fatal: died trying to initialize api\n')
-            raise e
-
-        #
-        #and an interpreter object
-        #
-        try:
-            self.interpreter = Interpreter.Interpreter(instructions=self.instructions,
-                                                       registers=self.registers,
-                                                       memory=self.memory)
-            self.interpreter.open_log(self.logger)
-        except Exception as e:
-            sys.stderr.write('fatal: died trying to initialize interpreter\n')
-            raise e
-
-        #
-        #finally, the CPU
-        #
-        self.cpu = Processor.Pipelined(registers=self.registers,
-                                       memory=self.memory,
-                                       api=self.api,
-                                       instructions=self.instructions,
-                                       pipeline=machine_pipeline)
+        self.cpu = Processor.Pipelined(
+            registers=self.registers, memory=self.memory,
+            api=self.api, instructions=self.instructions,
+            pipeline=pipeline)
         self.cpu.open_log(self.logger)
 
         self.log.buffer('initialized with no incidents')
@@ -351,7 +225,7 @@ class Simulation(object):
     def removeDaemon(self, daemon):
         pass
 
-    def getInstructionSize(self):
+    def get_instruction_size(self):
         """-> instruction_size:int"""
         return self.instruction_size
 
@@ -377,17 +251,15 @@ class TestListener(Interface.UpdateListener):
 
 
 if __name__ == '__main__':
+    s = Simulation(machine_conf='config/machine.xml',
+                   instruction_conf='config/instructions.xml')
+    tl = TestListener(s)
+    s.connect(tl)
+    s.load('asm/add.asm', client=tl)
     try:
-        s = Simulation(machine_conf='config/machine.xml',
-                       instruction_conf='config/instructions.xml')
-        tl = TestListener(s)
-        s.connect(tl)
-        #s.connect(tl)
-        s.load('asm/add.asm', client=tl)
-        for i in range(10):
+        for i in range(12):
             s.cycle(client=tl)
-    except Exception as e:
         s.log.flush()
-        #traceback.print_exc(file=sys.stderr)
-        try: print "Exception: " + e.message
-        except: pass
+    except:
+        s.log.flush()
+        traceback.print_exc(file=sys.stderr)

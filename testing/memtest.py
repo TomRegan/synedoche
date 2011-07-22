@@ -7,6 +7,7 @@ from lib import Interface
 from lib import XmlLoader as Xml
 from lib import Logger
 from module import Api
+from module import Builder
 from module import Isa
 from module import System
 from module import Interpreter
@@ -24,105 +25,45 @@ if __name__ == '__main__':
     class TestMemory(unittest.TestCase):
 
         def setUp(self):
-            self.logger=Logger.Logger('LOGmemtest.log')
+            self.logger=Logger.Logger('logmemtest.log')
             self.logger.buffer('>-----setUp')
             machine_conf='../config/machine.xml'
             instruction_conf='../config/instructions.xml'
 
-            instruction_reader = Xml.InstructionReader(instruction_conf)
+            coordinator = Builder.Coordinator()
 
-            instruction_language          = instruction_reader.getLanguage()
-            instruction_size              = instruction_reader.getSize()
-            instruction_syntax            = instruction_reader.getSyntax()
-            instruction_implementation    = instruction_reader.getImplementation()
-            instruction_values            = instruction_reader.getValues()
-            instruction_signatures        = instruction_reader.getSignatures()
-            instruction_format_mapping    = instruction_reader.getFormatMapping()
-            instruction_format_properties = instruction_reader.getFormatProperties()
-            instruction_assembly_syntax   = instruction_reader.get_assembler_syntax()
+            coordinator.set_builder(Builder.InstructionBuilder())
+            coordinator.make(filename=instruction_conf)
+            self.instructions = coordinator.get_object()
 
-            machine_reader = Xml.MachineReader(machine_conf)
+            coordinator.set_builder(Builder.RegisterBuilder())
+            coordinator.make(filename=machine_conf)
+            self.registers = coordinator.get_object()
+            self.registers.open_log(self.logger)
 
-            machine_language          = machine_reader.getLanguage()
-            memory_data               = machine_reader.get_memory()
-            machine_registers         = machine_reader.getRegisters()
-            machine_register_mappings = machine_reader.getRegisterMappings()
-            machine_pipeline          = machine_reader.get_pipeline()
-
-            self.instructions=Isa.InstructionSet(instruction_language,
-                                                 instruction_size)
-
-            for instruction in instruction_syntax:
-                self.instructions.addSyntax(instruction,
-                    instruction_syntax[instruction])
-
-            for instruction in instruction_implementation:
-                self.instructions.addImplementation(instruction,
-                    instruction_implementation[instruction])
-
-            for instruction in instruction_values:
-                self.instructions.addValue(instruction,
-                    instruction_values[instruction])
-
-            for instruction in instruction_signatures:
-                signature={}
-                for field in instruction_signatures[instruction]:
-                    value=instruction_values[instruction][field]
-                    signature[field]=value
-                self.instructions.addSignature(instruction, signature)
-
-            for instruction in instruction_format_mapping:
-                self.instructions.addFormatMapping(instruction,
-                    instruction_format_mapping[instruction])
-
-            for instruction in instruction_format_properties:
-                self.instructions.addFormatProperty(instruction,
-                    instruction_format_properties[instruction])
-
-            for instruction in instruction_assembly_syntax:
-                self.instructions.add_assembler_syntax(instruction[0],
-                                                       instruction[1])
-
-            data = memory_data[0:3]
-            self.memory=Memory.Memory(self.instructions, data)
+            coordinator.set_builder(Builder.MemoryBuilder())
+            coordinator.make(filename=machine_conf)
+            self.memory = coordinator.get_object()
             self.memory.open_log(self.logger)
 
-            segments = memory_data[3:]
-            for segment in segments:
-                name  = segment[0]
-                start = segment[1]
-                end   = segment[2]
-                self.memory.add_segment(name, start, end)
+            coordinator.set_builder(Builder.PipelineBuilder())
+            coordinator.make(filename=machine_conf)
+            pipeline = coordinator.get_object()
 
-            self.registers=System.Registers()
-
-            for register in machine_registers:
-                privilege = machine_registers[register]['privilege']
-                profile   = machine_registers[register]['profile']
-                value     = machine_registers[register]['value']
-                size      = machine_registers[register]['size']
-                self.registers.addRegister(number=register,
-                                           value=value,
-                                           size=size,
-                                           profile=profile,
-                                           privilege=privilege)
-
-            for register in machine_register_mappings:
-                self.registers.addRegisterMapping(register,
-                    machine_register_mappings[register])
+            del coordinator
 
             self.api = Api.Sunray()
+            self.api.open_log(self.logger)
 
-            self.interpreter = Interpreter.Interpreter(instructions=self.instructions,
-                                                       registers=self.registers,
-                                                       memory=self.memory)
-            self.interpreter.openLog(self.logger)
+            self.interpreter = Interpreter.Interpreter(
+                instructions=self.instructions, registers=self.registers,
+                memory=self.memory)
+            self.interpreter.open_log(self.logger)
 
-            self.cpu = Processor.Pipelined(registers=self.registers,
-                                           memory=self.memory,
-                                           api=self.api,
-                                           instructions=self.instructions,
-                                           pipeline=machine_pipeline)
+            self.cpu = Processor.Pipelined(
+                registers=self.registers, memory=self.memory,
+                api=self.api, instructions=self.instructions,
+                pipeline=pipeline)
             self.cpu.open_log(self.logger)
 
         def tearDown(self):

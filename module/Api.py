@@ -25,7 +25,7 @@ class _Api(Loggable):
     _memory   = None
     _instruction_decoded = None
 
-    def openLog(self, logger):
+    def open_log(self, logger):
         """logger:object -> ...
 
         Begins logging activity with the logger object passed.

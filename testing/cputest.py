@@ -8,6 +8,7 @@ from lib import XmlParser
 from lib import XmlLoader as Xml
 from lib import Logger
 from module import Api
+from module import Builder
 from module import Isa
 from module import System
 from module import Interpreter
@@ -27,87 +28,40 @@ if __name__ == '__main__':
             machine_conf='../config/machine.xml'
             instruction_conf='../config/instructions.xml'
 
-            reader = XmlParser.MachineReader(machine_conf)
-            machine_language          = reader.data['language']
-            machine_memory            = reader.data['memory']
-            machine_registers         = reader.data['registers']
-            machine_pipeline          = reader.data['pipeline']
-            del reader
+            coordinator = Builder.Coordinator()
 
-            reader = XmlParser.InstructionReader(instruction_conf)
-            instruction_language     = reader.data['language']
-            instruction_size         = reader.data['size']
-            instruction_api          = reader.data['api']
-            instruction_formats      = reader.data['formats']
-            instruction_instructions = reader.data['instructions']
-            instruction_assembler    = reader.data['assembler']
-            del reader
+            coordinator.set_builder(Builder.InstructionBuilder())
+            coordinator.make(filename=instruction_conf)
+            self.instructions = coordinator.get_object()
 
-            self.instructions=Isa.Isa()
-
-            self.instructions.set_global_language(instruction_language)
-            self.instructions.set_global_size(instruction_size)
-            self.instructions.add_assembler_syntax(instruction_assembler)
-            for instruction in instruction_instructions:
-                self.instructions.add_mapping(
-                    instruction[0], instruction[1])
-                self.instructions.add_instruction_signature(
-                    instruction[0], instruction[2], instruction[4])
-                self.instructions.add_instruction_syntax(
-                    instruction[0], instruction[3], instruction[5])
-                self.instructions.add_instruction_preset(
-                    instruction[0], instruction[4])
-                self.instructions.add_instruction_implementation(
-                    instruction[0], instruction[6])
-                #TODO
-                #integrate instruction replacement!
-                #
-                self.instructions.add_instruction_replacement(
-                    instruction[0], instruction[7])
-            for format in instruction_formats:
-                self.instructions.add_format_properties(
-                    format[0], format[2])
-
-            data = machine_memory[0:3]
-            self.memory=Memory.Memory(self.instructions, data)
-            self.memory.open_log(self.logger)
-
-            segments = machine_memory[3:]
-            for segment in segments:
-                name  = segment[0]
-                start = segment[1]
-                end   = segment[2]
-                self.memory.add_segment(name, start, end)
-
-            self.registers=System.Registers()
+            coordinator.set_builder(Builder.RegisterBuilder())
+            coordinator.make(filename=machine_conf)
+            self.registers = coordinator.get_object()
             self.registers.open_log(self.logger)
 
-            for register in machine_registers:
-                number  = register[1]
-                size    = register[2]
-                write   = register[3]
-                profile = register[4]
-                value   = register[6]
-                self.registers.addRegister(number=number,
-                                           value=value,
-                                           size=size,
-                                           profile=profile,
-                                           privilege=write)
-                self.registers.addRegisterMapping(
-                    register[0], register[1])
+            coordinator.set_builder(Builder.MemoryBuilder())
+            coordinator.make(filename=machine_conf)
+            self.memory = coordinator.get_object()
+            self.memory.open_log(self.logger)
+
+            coordinator.set_builder(Builder.PipelineBuilder())
+            coordinator.make(filename=machine_conf)
+            pipeline = coordinator.get_object()
+
+            del coordinator
 
             self.api = Api.Sunray()
+            self.api.open_log(self.logger)
 
-            self.interpreter = Interpreter.Interpreter(instructions=self.instructions,
-                                                       registers=self.registers,
-                                                       memory=self.memory)
-            self.interpreter.openLog(self.logger)
+            self.interpreter = Interpreter.Interpreter(
+                instructions=self.instructions, registers=self.registers,
+                memory=self.memory)
+            self.interpreter.open_log(self.logger)
 
-            self.cpu = Processor.Pipelined(registers=self.registers,
-                                           memory=self.memory,
-                                           api=self.api,
-                                           instructions=self.instructions,
-                                           pipeline=machine_pipeline)
+            self.cpu = Processor.Pipelined(
+                registers=self.registers, memory=self.memory,
+                api=self.api, instructions=self.instructions,
+                pipeline=pipeline)
             self.cpu.open_log(self.logger)
 
         def tearDown(self):
