@@ -126,7 +126,7 @@ class InstructionReader(XmlReader):
                 for i in range(len(im_args)):
                     if im_args[i][:2] == '0x':
                         im_args[i] = int(im_args[i], 16)
-            i_implementation.append(tuple((im_name, tuple(im_args))))
+                i_implementation.append(tuple((im_name, tuple(im_args))))
             i_implementation = tuple(i_implementation)
 
             # add replacements
@@ -138,10 +138,13 @@ class InstructionReader(XmlReader):
                     r_name  = asciify(replacement.attributes['name'].value)
                     r_group = asciify(replacement.attributes['group'].value)
                     r_type  = asciify(replacement.attributes['type'].value)
-                    i_replacements.append((r_name, r_group, r_type))
+                    try:
+                        i_replacements = (
+                            r_name, int(r_group, 16), r_type)
+                    except Exception, e:
+                        raise XmlDataFormatException(e)
             except Exception, e:
                 pass
-            i_replacements = tuple(i_replacements)
 
             instruction=(i_name, i_format, i_signature,
                          i_expression, i_values, i_syntax,

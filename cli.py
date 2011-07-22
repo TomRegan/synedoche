@@ -20,6 +20,7 @@ from lib.Functions import binary as bin
 from lib.Exceptions import *
 from lib.Interface  import UpdateListener
 from lib.Evaluator  import Evaluator
+from module.Memory  import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
 from module.Interpreter import DataMissingException
 from module.Interpreter import DataConversionFromUnknownType
@@ -48,11 +49,13 @@ class Cli(UpdateListener):
 
         try:
             self.run()
+        except AlignmentError, e:
+            print(e)
         except KeyboardInterrupt, e:
-            print '^C'
+            print('^C')
             self.exit()
         except EOFError, e:
-            print '^D'
+            print('^D')
             self.exit()
         except Exception, e:
             self.exception_handler(e)
@@ -157,6 +160,8 @@ class Cli(UpdateListener):
     def reset(self):
         self.simulation.reset(self)
 
+    #def print_programme(self):
+
     def print_registers(self):
         """Formats and outputs a display of the registers"""
         r=self.registers
@@ -201,8 +206,16 @@ class Cli(UpdateListener):
         if self.pipeline:
             print("{:-<80}".format('--Pipeline'))
             for i in range(len(self.pipeline)):
-                print("Stage {:}:{:}"
-                     .format(i+1,bin(int(self.pipeline[i]),self.size)[2:]))
+                if len(self.pipeline[i]) < 2:
+                    print("Stage {:}:{:}"
+                         .format(i+1,bin(int(self.pipeline[i][0]),
+                                         self.size)[2:]))
+                else:
+                    print("Stage {:}:{:}  {:}"
+                         .format(i+1,
+                                 bin(int(self.pipeline[i][0]),
+                                     self.size)[2:],
+                                 self.pipeline[i][2]))
             print("{:-<80}".format(''))
 
     def print_memory(self, **kwargs):
@@ -211,7 +224,6 @@ class Cli(UpdateListener):
             print(int(kwargs['end']))
         except:
             end=None
-        #print self.memory.get_slice(end)
         memory_slice = self.memory.get_slice(end=end).items()
         print("{:-<80}".format('--Memory'))
         for address, value in sorted(memory_slice, reverse=True):

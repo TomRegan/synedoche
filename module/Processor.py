@@ -77,7 +77,7 @@ class Pipelined(BaseProcessor):
                 self._log.buffer('EXCEPTION {:}'.format(e.message))
                 raise e
             self._log.buffer('leaving {0} stage'.format(stage))
-        self._registers.increment(self._pc, 4)
+        self._registers.increment(self._pc, self._word_space)
         self.broadcast()
         self._log.buffer('completing a cycle')
 
@@ -111,7 +111,8 @@ class Pipelined(BaseProcessor):
                     if test == signatures[signature]:
                         self._pipeline[index].append(type)
                         self._pipeline[index].append(signature)
-                        self._log.buffer("decoded `{0}' type instruction, {1}".format(type,signature))
+                        self._log.buffer("decoded `{0}' type instruction, {1}"
+                                         .format(type, signature))
                         return
 
     def _CUExecute(self, index):
@@ -131,6 +132,7 @@ class Pipelined(BaseProcessor):
 
         implementation = self._isa.getImplementation()
         name = self._pipeline[index][2]
+        print(implementation[name])
         sequential = True
         for method in implementation[name]:
             if sequential:
@@ -165,7 +167,8 @@ class Pipelined(BaseProcessor):
         return self._memory
 
     def get_pipeline(self):
-        return [i[0] for i in self._pipeline]
+        #return [i[0] for i in self._pipeline]
+        return self._pipeline
 
     def broadcast(self):
         """Overrides broadcast in the base class

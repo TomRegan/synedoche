@@ -356,6 +356,8 @@ class Registers(Loggable):
         """
         if number not in self.keys():
             return
+        name = self._number_name[number]
+        self.log.buffer("setting {:} to {:}".format(name, hex(value)))
         self._registers[number]['value']=value
 
     def getValue(self, number):
@@ -370,7 +372,11 @@ class Registers(Loggable):
         """(number:int, amount=1:int) -> ...
         Increases the value in a register
         """
+        name = self._number_name[number]
+        self.log.buffer("adding {:} to {:}".format(amount, name))
         self._registers[number]['value'] = self._registers[number]['value']+amount
+        self.log.buffer("new value is {:}"
+                        .format(hex(self._registers[number]['value'])))
 
     def getPc(self):
         """-> register:int
@@ -381,6 +387,7 @@ class Registers(Loggable):
 
     def reset(self):
         """Resets all registers to beginning values"""
+        self.log.buffer("clearing register values")
         self._registers = deepcopy(self._registers_iv)
 
     def keys(self):

@@ -183,7 +183,7 @@ class Memory(BaseMemory):
                     .format(line,type(line)))
             if offset > self.get_end('text'):
                 raise SegmentationFaultException('{:} is out of bounds'
-                                 .format(hex(offset)[2:].replace('L','')))
+                                 .format(hex(offset).replace('L','')))
             self.set_word(offset, line, self._size)
             offset = offset + (self._size / self._addressable)
         self.log.buffer('loaded {0} word programme into memory'
@@ -219,7 +219,7 @@ class Memory(BaseMemory):
         if size < self._addressable:
             if not quietly:
                 message='Tried to address {:}-bytes at {:}'.format(
-                    size/self._addressable, hex(offset)[2:])
+                    size/self._addressable, hex(offset))
                 self.log.buffer('Addressing error: {:}'.format(message))
             raise AddressingError(message)
 
@@ -228,7 +228,7 @@ class Memory(BaseMemory):
         if aligned and int(offset) % (size / self._addressable) != 0:
             if not quietly:
                 message='Tried to load {:}-bytes from {:}'.format(
-                    size/self._addressable, hex(offset)[2:])
+                    size/self._addressable, hex(offset))
                 self.log.buffer('Alignment error: {:}'.format(message))
             raise AlignmentError(message)
 
@@ -257,7 +257,7 @@ class Memory(BaseMemory):
         if not quietly:
             self.log.buffer('loaded {:} from {:}'
                             .format(bitmap,
-                                    hex(orig_offset)[2:].replace('L', '')))
+                                    hex(orig_offset).replace('L', '')))
         return int(bitmap, 2)
 
 
@@ -265,9 +265,9 @@ class Memory(BaseMemory):
         #We want to prevent segmentation violations
         if not self.in_range(offset):
             self.log.buffer('Segmantation violation: {:} is out of bounds'
-                            .format(hex(offset)[2:].replace('L','')))
+                            .format(hex(offset).replace('L','')))
             raise SegmentationFaultException('{:} is out of bounds'
-                                 .format(hex(offset)[2:].replace('L','')))
+                                 .format(hex(offset).replace('L','')))
         #Expect a `key error' exception, but behave as though this was
         #a successful memory read. Return 0.
         try:
@@ -303,19 +303,19 @@ class Memory(BaseMemory):
         if size < self._addressable:
             self.log.buffer('Addressing error: store {:} at {:}'
                             .format(bin(value, self._size)[2:].lstrip('0'),
-                                    hex(offset)[2:].replace('L','')))
+                                    hex(offset).replace('L','')))
             raise AddressingError('Tried to store {:} at {:}'
                                   .format(bin(value, self._size)[2:],
-                                          hex(offset)[2:].replace('L','')))
+                                          hex(offset).replace('L','')))
 
         #We want to prevent bad allignment
         if aligned and int(offset) % (size / self._addressable) != 0:
             self.log.buffer('Alignment error: store {:} at {:}'
                             .format(bin(value, self._size)[2:],
-                                    hex(offset)[2:].replace('L','')))
+                                    hex(offset).replace('L','')))
             raise AlignmentError('Tried to store {:} at {:})'
                                  .format(bin(value, self._size)[2:],
-                                         hex(offset)[2:].replace('L','')))
+                                         hex(offset).replace('L','')))
 
         if self._endian == self._types.Little:
             offset = offset - (size/self._addressable)
@@ -333,15 +333,15 @@ class Memory(BaseMemory):
             else:
                 offset = offset - 1
         self.log.buffer('stored {:} at {:}'
-                        .format(bitmap,hex(orig_offset)[2:]))
+                        .format(bitmap,hex(orig_offset)))
 
     def _set_byte(self, offset, value):
         #We want to prevent segmentation violations
         if not self.in_range(offset):
             self.log.buffer('Segmantation violation: {:} is out of bounds'
-                            .format(hex(offset)[2:].replace('L','')))
+                            .format(hex(offset).replace('L','')))
             raise SegmentationFaultException('{:} is out of bounds'
-                                 .format(hex(offset)[2:].replace('L','')))
+                                 .format(hex(offset).replace('L','')))
         self._address[offset] = value
 
     def reset(self):

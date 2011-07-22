@@ -129,11 +129,11 @@
       <symbol type="int"     matches="im" />
     </syntax>
     <implementation>
-      <method name="testEqual"    args="rs rt" /><!--note A-3-->
-      <method name="addImmediate" args="PC PC im" />
+      <method name="testEqual"      args="rs rt" /><!--note A-3-->
+      <method name="branchRelative" args="im" />
     </implementation>
     <replacements>
-      <replacement name="im" group="3" type="relative" />
+      <replacement name="im" group="0x03" type="relative" />
     </replacements>
   </instruction>
 
@@ -151,9 +151,12 @@
       <symbol type="int"      matches="im" />
     </syntax>
     <implementation>
-      <method name="testNotEqual" args="rs rt" />
-      <method name="addImmediate" args="PC PC im" />
+      <method name="testNotEqual"   args="rs rt" />
+      <method name="branchRelative" args="im" />
     </implementation>
+    <replacements>
+      <replacement name="im" group="0x03" type="relative" />
+    </replacements>
   </instruction>
 
   <instruction name="div" format="r"><!--divide-->
@@ -227,10 +230,10 @@
       <symbol type="int" matches="im" />
     </syntax>
     <implementation>
-      <method name="increment_pc" args="im" />
+      <method name="branchAbsolute" args="im" />
     </implementation>
     <replacements>
-      <replacement name="im" group="1" type="absolute" />
+      <replacement name="im" group="0x01" type="absolute" />
     </replacements>
   </instruction>
 
@@ -246,9 +249,11 @@
       <symbol type="int" matches="im" />
     </syntax>
     <implementation>
-      <method name="setRegister"  args="0x1f PC" />
-      <method name="addImmediate" args="PC PC im" />
+      <method name="branchAbsolute" args="im" />
     </implementation>
+    <replacements>
+      <replacement name="im" group="0x01" type="absolute" />
+    </replacements>
   </instruction>
 
   <instruction name="jr" format="r"><!--jump register-->
@@ -269,6 +274,7 @@
       <symbol type="operand" matches="rs" />
     </syntax>
     <implementation>
+      <method name="branchRelative" args="im" />
       <method name="setRegister" args="PC rs" />
     </implementation>
   </instruction>

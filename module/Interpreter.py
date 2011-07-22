@@ -81,19 +81,6 @@ class Interpreter(Loggable):
         self._label_replacements     = instructions.get_label_replacements()
         self._isa_size               = instructions.getSize()
         self._registers              = registers.getRegisterMappings()
-        #testing
-        #print '\n\n\n'
-        #print 'lang: {:}'.format(self._language)
-        #print 'synt: {:}'.format(self._instruction_syntax)
-        #print 'pres: {:}'.format(self._instruction_values)
-        #print 'fmpr: {:}'.format(self._format_properties)
-        #print 'fmmp: {:}'.format(self._format_mappings)
-        #print 'comp: {:}'.format(self._comment_pattern)
-        #print 'labp: {:}'.format(self._label_pattern)
-        #print 'refe: {:}'.format(self._label_reference)
-        #print 'repl: {:}'.format(self._label_replacements)
-        #print 'size: {:}'.format(self._isa_size)
-        #print 'regi: {:}'.format(self._registers
         #
         #WARNING as of 2011-07-19 the great interface change™ is in
         #effect. The following member functions are contradictory
@@ -240,16 +227,15 @@ class Interpreter(Loggable):
         self.log.buffer("entering linker")
         output=[]
         for i in range(len(lines)):
-            print(self._jump_table)
-            print(self._label_replacements)
             key = re.match('\w+', lines[i]).group()
             if key in self._label_replacements:
-                group = self._label_replacements[key][0]
-                mode  = self._label_replacements[key][1]
+                group = self._label_replacements[key][1]
+                mode  = self._label_replacements[key][2]
 
                 pattern = self._instruction_syntax[key]['expression']
                 match = re.search(pattern, lines[i])
-                label = match.groups()[group]
+                label = match.group(group)
+                #label = match.groups()[group]
                 if mode == 'absolute':
                     base = self._text_offset
                     offset = self._jump_table[label]

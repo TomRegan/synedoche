@@ -45,14 +45,8 @@ class _Api(Loggable):
             (Usually within __init__ of the CPU.)
         """
 
-        #
-        #part of the great interface update™
-        #below functions need to be set per-instance
-        #
         self._register = cpu.get_registers()
         self._memory   = cpu.get_memory()
-        #self._register = cpu.getRegisters()
-        #self._memory   = cpu.getMemory()
         return self
 
 
@@ -415,6 +409,36 @@ class Sunray(_Api):
         self.log.buffer('returning {0}'.format(self._register.getValue(a) >= b))
         return self._register.getValue(a) >= b
 
+    def branchAbsolute(self, args, instruction_decoded):
+        """args:list, instruction_decoded:dict -> True"""
+        self.log.buffer('branchAbsolute called')
+        a=instruction_decoded[args[0]]
+        pc=self._register.getPc()
+        self._register.setValue(pc, a)
+        return True
+
+    def branchRelative(self, args, instruction_decoded):
+        """args:list, instruction_decoded:dict -> True
+        Takes an optional delay if control will return
+        to a distant place"""
+        self.log.buffer('branchRelative called')
+        a=instruction_decoded[args[0]]
+        self.log.buffer('args 0:{0}'.format(a))
+        # add branch delay
+        if len(args) > 1:
+            b=args[1]
+            a = a + b
+        pc = self._register.getPc()
+        value = self._register.getValue(pc)
+        self.log.buffer('pc is {:}'.format(hex(value)))
+        word_space = self._memory.get_word_spacing()
+        self.log.buffer('word-space is {:}'.format(word_space))
+        a = a * word_space
+        self.log.buffer('increment is {:}'.format(a))
+        a = value + a
+        self._register.setValue(pc, a)
+        return True
+
     def incrementPc(self, args, instruction_decoded):
         """args:list -> True"""
         self.log.buffer('incrementPc called')
@@ -422,6 +446,7 @@ class Sunray(_Api):
         pc=self._register.getPc()
         value=self._register.getValue(pc)+a
         self._register.setValue(pc, value)
+        return True
 
     def doNothing(self, args, instruction_decoded):
         """args:list -> True"""

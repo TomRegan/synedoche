@@ -1,10 +1,12 @@
 #!/usr/bin/env python
-''' header.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-15
-description: Some header varables for use by other modules.
-'''
-VERSION='r51:M3'
+#
+# Some variables for use by other modules.
+# file           : Header.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-15
+# last modified  : 2011-07-22
+
+VERSION='r52:M3'
 RELEASE_NAME=''
 PROGRAMME_NAME=''
 DEBUG=True
