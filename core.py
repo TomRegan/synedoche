@@ -21,7 +21,7 @@ from module import Api
 from module import Builder
 from module import Isa
 from module import Memory
-from module import System
+#from module import System
 from module import Interpreter
 from datetime import datetime
 from lib.Functions import binary as bin

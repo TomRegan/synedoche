@@ -64,7 +64,7 @@ class Cli(UpdateListener):
 
     def run(self):
         print("Command Line Client ({:})\n".format(VERSION) +
-              "Type `help' or `version' for more information.")
+              "Type `help', `license' or `version' for more information.")
         while True:
             line = raw_input('>>> ')
             self.parse(line)
@@ -115,6 +115,12 @@ class Cli(UpdateListener):
                               .format(line[1]))
                 else:
                     self.usage(fun='print')
+            elif line[0] == 'help':
+                self.help()
+            elif line[0][:4] == 'vers':
+                print(VERSION)
+            elif line[0][:4] == 'lice':
+                print(LICENSE)
             elif line[0][:4] == 'rese':
                 if line[0] != 'reset':
                     print(':reset')
@@ -142,13 +148,12 @@ class Cli(UpdateListener):
                     print(e.message)
                 except Exception, e:
                     print('fatal: {:}'.format(e))
-            elif line[0] == 'help':
-                self.help()
-            elif line[0][:4] == 'vers':
-                print(VERSION)
             elif line[0] == '__except__':
-                raise Exception('Intentionally raised exception in {:}'.format(self.__class__.__name__))
-            elif line[0] == 'quit' or line[0] == 'exit' or line[0] == '\e':
+                raise Exception('Intentionally raised exception in {:}'
+                                .format(self.__class__.__name__))
+            elif line[0] == 'quit'\
+                or line[0] == 'exit'\
+                or line[0] == '\e':
                 self.exit()
             else:
                 self.usage(fun=' '.join(line))
@@ -167,10 +172,11 @@ class Cli(UpdateListener):
             self.exception_handler(e)
 
     def reset(self):
+        del self._programme_text
         self.simulation.reset(self)
 
     def print_programme(self):
-        if self._programme_text:
+        if "_programme_text" in dir():
             print('\n'.join(self._programme_text))
         else:
             print('fatal: No programme loaded')
