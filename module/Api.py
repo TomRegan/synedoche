@@ -156,20 +156,31 @@ class Sunray(_Api):
         self.log.buffer('setting register {0} to {1}'.format(a,result))
         return True
 
-    def mulRegisters(self, args, instruction_decoded):
+    def copyRegister(self, args, instruction_decoded):
+        self.log.buffer('moveRegister called')
+        a = args[0]
+        b = instruction_decoded[args[1]]
+        self.log.buffer('args 0:{:}, 1:{:}'.format(a, b))
+        for operand in [a, b]:
+            if operand not in self._register.keys():
+                raise RegisterReferenceException
+        value = self._register.getValue(a)
+        self.log.buffer('setting register {0} to {1}'.format(b, value))
+        self._register.setValue(b, value)
+        return True
+
+    def mulSpecial(self, args, instruction_decoded):
         """args:list -> True
 
-        Multiplies two registers and stores the product in a third.
+        Multiplies two registers and stores the product in hi and lo
+        registers.
 
         Args:
             Each argument should be the number of a register.
-            args[0]:int (result)
-            args[1]:int (operand)
+            args[0]:int (high result register)
+            args[1]:int (low result register)
             args[2]:int (operand)
-
-        State changed:
-            register[a]['value'] <-
-                register[b]['value'] * register[c]['value']
+            args[3]:int (operand)
 
         Returns:
             Always returns True
@@ -177,17 +188,55 @@ class Sunray(_Api):
         Raises:
             RegisterReferenceException
         """
-        self.log.buffer('mulRegisters called')
-        a = instruction_decoded[args[0]]
-        b = instruction_decoded[args[1]]
+        self.log.buffer('multiplySpecial called')
+        a = args[0]
+        b = args[1]
         c = instruction_decoded[args[2]]
-        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c))
-        for operand in [a, b, c]:
+        d = instruction_decoded[args[3]]
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}, 3:{:}'.format(a,b,c,d))
+        for operand in [a, b, c, d]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.getValue(b) * self._register.getValue(c)
-        self._register.setValue(a, result)
-        self.log.buffer('setting register {0} to {1}'.format(a,result))
+        result = self._register.getValue(c) * self._register.getValue(d)
+        self._register.setValue(b, result)
+        self.log.buffer('setting register {0} to {1}'.format(b, result))
+        return True
+
+    def divSpecial(self, args, instruction_decoded):
+        """args:list -> True
+
+        Divides two registers and stores the divident in lo and
+        remainder in hi registers.
+
+        Args:
+            Each argument should be the number of a register.
+            args[0]:int (high result register)
+            args[1]:int (low result register)
+            args[2]:int (operand)
+            args[3]:int (operand)
+
+        Returns:
+            Always returns True
+
+        Raises:
+            ArithmeticError
+            RegisterReferenceException
+        """
+        self.log.buffer('divideSpecial called')
+        a = args[0]
+        b = args[1]
+        c = instruction_decoded[args[2]]
+        d = instruction_decoded[args[3]]
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}, 3:{:}'.format(a,b,c,d))
+        if d == 0:
+            raise ArithmeticError
+        for operand in [a, b, c, d]:
+            if operand not in self._register.keys():
+                raise RegisterReferenceException
+        dividend  = self._register.getValue(c) / self._register.getValue(d)
+        remainder = self._register.getValue(c) % self._register.getValue(d)
+        self._register.setValue(a, remainder)
+        self._register.setValue(b, dividend)
         return True
 
     def divRegisters(self, args, instruction_decoded):
@@ -217,7 +266,7 @@ class Sunray(_Api):
         b = instruction_decoded[args[1]]
         c = instruction_decoded[args[2]]
         self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c))
-        if b == 0 or c == 0:
+        if c == 0:
             raise ArithmeticError
         for operand in [a, b, c]:
             if operand not in self._register.keys():

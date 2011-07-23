@@ -167,17 +167,17 @@
     </signature>
     <fields>
       <field name="op" value="0x00" />
+      <field name="rd" value="0x00" />
       <field name="sa" value="0x00" />
       <field name="fn" value="0x1a" />
     </fields>
     <syntax>
-      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*(\$\w+)" />
-      <symbol type="register" matches="rd" />
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+)" />
       <symbol type="register" matches="rs" />
       <symbol type="register" matches="rt" />
     </syntax>
     <implementation>
-      <method name="divRegisters" args="rd rs rt" />
+      <method name="divSpecial" args="0x22 0x23 rs rt" />
     </implementation>
   </instruction>
 
@@ -257,7 +257,6 @@
   </instruction>
 
   <instruction name="jr" format="r"><!--jump register-->
-    <!--there is a discrepancy with MIPS I implementation-->
     <signature>
       <field name="op" />
       <field name="fn" />
@@ -279,26 +278,66 @@
     </implementation>
   </instruction>
 
-  <instruction name="mul" format="r"><!--multiply-->
-    <!--there is a discrepancy with MIPS I implementation-->
-    <!--more minor than div: is is only HI/LO that we fail to update-->
+  <instruction name="mflo" format="r">
+    <signature>
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <fields>
+      <field name="op" value="0x00" />
+      <field name="rs" value="0x00" />
+      <field name="rt" value="0x00" />
+      <field name="sa" value="0x00" />
+      <field name="fn" value="0x12" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+)" />
+      <symbol type="register" matches="rd" />
+    </syntax>
+    <implementation>
+      <method name="copyRegister" args="0x23 rd" />
+    </implementation>
+  </instruction>
+
+  <instruction name="mfhi" format="r">
+    <signature>
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <fields>
+      <field name="op" value="0x00" />
+      <field name="rs" value="0x00" />
+      <field name="rt" value="0x00" />
+      <field name="sa" value="0x00" />
+      <field name="fn" value="0x10" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+)" />
+      <symbol type="register" matches="rd" />
+    </syntax>
+    <implementation>
+      <method name="copyRegister" args="0x22 rd" />
+    </implementation>
+  </instruction>
+
+  <instruction name="mult" format="r"><!--multiply-->
     <signature>
       <field name="op" />
       <field name="fn" />
     </signature>
     <fields>
       <field name="op" value="0x1c" />
+      <field name="rd" value="0x00" />
       <field name="sa" value="0x00" />
       <field name="fn" value="0x02" />
     </fields>
     <syntax>
-      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*(\$\w+)" />
-      <symbol type="register" matches="rd" />
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+)" />
       <symbol type="register" matches="rs" />
       <symbol type="register" matches="rt" />
     </syntax>
     <implementation>
-      <method name="mulRegisters" args="rd rs rt" />
+      <method name="multiplySpecial" args="0x22 0x23 rs rt" />
     </implementation>
   </instruction>
 
