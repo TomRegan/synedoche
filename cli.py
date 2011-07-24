@@ -17,6 +17,7 @@ except:
 from core import *
 from lib.Header import *
 from lib.Functions import binary as bin
+from lib.Functions import hexadecimal as hex
 from lib.Interface  import UpdateListener
 from lib.Evaluator  import Evaluator
 from module.Memory  import AlignmentError
@@ -32,6 +33,7 @@ class Cli(UpdateListener):
         self.local_DEBUG=1
         self.simulation=None
         self.last_cmd=None
+        self._programme_text=None
 
         try:
             readline.read_history_file('.cli_history')
@@ -191,9 +193,8 @@ class Cli(UpdateListener):
                     print('')
                 name = self.registers.get_number_name_mappings()[i]
                 print("{:>4}({:0>2}):{:.>10}"
-                      .format(name[:4],
-                      i,
-                      hex(r.values()[i])[2:].replace('L', ''))),
+                      .format(name[:4], i,
+                      hex(r.values()[i])[2:].replace('L', ''), 8)),
             print("\n{:-<80}".format(''))
         except:
             pass

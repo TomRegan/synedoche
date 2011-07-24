@@ -1,12 +1,13 @@
 #!/usr/bin/env python
-''' Isa.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-05
-modified:    2011-07-09
-description: Instruction set architecture features
-'''
+#
+# Instructions.
+# file           : Isa.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-05
+# last modified  : 2011-07-24
 
-from lib.Functions import dumpAccessors
+
+from lib.Functions import dump_accessors
 
 class BaseIsa(object):
     _data={}

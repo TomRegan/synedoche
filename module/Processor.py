@@ -10,6 +10,7 @@
 from lib.Interface import *
 from lib.Logger import *
 from lib.Functions import binary as bin
+from lib.Functions import integer as int
 
 class BaseProcessor(Loggable, UpdateBroadcaster):
     def __init__(self, registers, memory, api, instructions):
@@ -118,7 +119,7 @@ class Pipelined(BaseProcessor):
     def _CUExecute(self, index):
         instruction_decoded={}
         i=bin(self._pipeline[index][0],self._size)[2:]
-        self._log.buffer("executing {0}".format(i))
+        self._log.buffer("executing {:}".format(i))
         type=self._pipeline[index][1]
         properties=self._isa.getFormatProperties()
         for field in properties[type]:
@@ -126,9 +127,9 @@ class Pipelined(BaseProcessor):
             end  =properties[type][field][1]+1
             #because we have to read bitfields, this next line is going to
             #look a bit nasty.
-            instruction_decoded[field]=int(i[start:end], 2)
-            self._log.buffer("`{0}' is {1} ({2}:{3})"
-                             .format(field,int(i[start:end],2),start,end))
+            instruction_decoded[field] = i[start:end]
+            self._log.buffer("`{:}' is {:} ({:}:{:})"
+                             .format(field, i[start:end], start, end))
 
         implementation = self._isa.getImplementation()
         name = self._pipeline[index][2]

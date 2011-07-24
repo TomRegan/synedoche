@@ -337,7 +337,7 @@
       <symbol type="register" matches="rt" />
     </syntax>
     <implementation>
-      <method name="multiplySpecial" args="0x22 0x23 rs rt" />
+      <method name="mulSpecial" args="0x22 0x23 rs rt" />
     </implementation>
   </instruction>
 
