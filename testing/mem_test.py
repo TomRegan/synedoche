@@ -2,6 +2,7 @@
 
 import unittest
 import sys
+sys.path.append('../')
 
 from lib import Interface
 from lib import Logger
@@ -23,7 +24,7 @@ if __name__ == '__main__':
     class TestMemory(unittest.TestCase):
 
         def setUp(self):
-            self.logger=Logger.Logger('logmemtest.log')
+            self.logger=Logger.Logger('logs/mem_test.log')
             self.logger.buffer('>-----setUp')
             machine_conf='../config/machine.xml'
             instruction_conf='../config/instructions.xml'

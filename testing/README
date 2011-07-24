@@ -1,0 +1,15 @@
+### Usage ###
+Make sure the root system directory is on PYTHONPATH. In existing
+tests this is achieved by appending the parent directory using
+sys.path.
+
+### Notes ###
+Test coverage is currently focussed on the Processor and Memory
+files because they contain the most frequent cause of errors.
+Coverage will be improved to include Interpreter at a later
+date.
+
+In-file unit testing exists for some early files but is no longer
+maintained.
+
+Tom Regan (thomas.c.regan@gmail.com) 2011-07-23
