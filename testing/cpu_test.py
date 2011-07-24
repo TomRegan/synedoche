@@ -93,7 +93,15 @@ if __name__ == '__main__':
             for i in range(cycles):
                 self.cpu.cycle()
             self.assertEquals(pc+cycles*4, self.cpu._registers.getValue(33))
-            self.assertEquals([[0],[0,'j','nop'],[0,'j','nop'],[0,'j','nop']], self.cpu._pipeline)
+            self.assertEquals([[0],
+                               [0,'j','nop'],
+                               [0,'j','nop',{'im':
+                                              '00000000000000000000000000',
+                                              'op': '000000'}],
+                               [0,'j','nop',{'im':
+                                              '00000000000000000000000000',
+                                              'op': '000000'}]],
+                              self.cpu._pipeline)
 
         def testPipeline(self):
             self.logger.buffer('>-----testPipeline')

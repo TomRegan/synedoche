@@ -68,8 +68,8 @@
 
   <pipeline>
     <stage name="fetch" />
-    <stage name="decode" />
     <stage name="execute" />
+    <stage name="memory" />
     <stage name="writeback" />
   </pipeline>
 

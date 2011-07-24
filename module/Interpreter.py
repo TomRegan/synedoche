@@ -13,6 +13,7 @@ from copy          import deepcopy
 from lib.Logger    import InterpreterLogger
 from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
+from lib.Functions import integer as int
 from lib.Interface import Loggable
 
 BAD = 'Bad instruction or syntax: '
@@ -236,15 +237,13 @@ class Interpreter(Loggable):
                 pattern = self._instruction_syntax[key]['expression']
                 match = re.search(pattern, lines[i])
                 label = match.group(group)
-                #label = match.groups()[group]
                 if mode == 'absolute':
                     base = self._text_offset
                     offset = self._jump_table[label]
                     offset = hex(base + (offset * self._word_spacing),
                                  self._isa_size/4)
                 elif mode == 'relative':
-                    offset = hex(self._jump_table[label] - i,
-                                 self._isa_size/4)
+                    offset = str(self._jump_table[label] - i)
                 #finally, we can replace the label
                 lines[i] = lines[i].replace(label, offset)
             output.append(lines[i])
@@ -271,9 +270,6 @@ class Interpreter(Loggable):
         """
 
         self.log.buffer("entering encoder")
-        base_16 = 16
-        base_2  =  2
-        base    = base_16
         output=[]
         instruction_fields={}
         for line in lines:
@@ -310,19 +306,21 @@ class Interpreter(Loggable):
                                 if value[:2] == '0x':
                                     value=int(value, 16)
                                 else:
-                                    # TODO FIX
-                                    # we appear to be trying to convert
-                                    # labels here 2011-07-22
-                                    #
-                                    value=int(value)
-                                    #pass
+                                    try:
+                                        # TODO
+                                        # problem with decimal, binary
+                                        #
+                                        #value=int(value, 2, signed=True)
+                                        value=int(value)
+                                    except:
+                                        value=int(value)
                             except:
                                 line = "`" + line + "'"
                                 raise BadInstructionOrSyntax(
                                     BAD + line +
                                     "\nFATAL: Failed to calculate effective address")
                         self.log.buffer("`{0}' is {1}"
-                                        .format(field,value))
+                                        .format(field, value))
                         instruction_fields[field]=value
 
                     #

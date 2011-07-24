@@ -9,6 +9,7 @@
 from copy import deepcopy
 from lib.Logger   import RegisterLogger
 from lib.Functions import binary as bin
+from lib.Functions import hexadecimal as hex
 from lib.Interface import *
 
 class BaseRegister(object):
@@ -74,7 +75,7 @@ class Registers(Loggable):
         if number not in self.keys():
             return
         name = self._number_name[number]
-        self.log.buffer("setting {:} to {:}".format(name, hex(value)))
+        self.log.buffer("setting {:} to {:}".format(name, hex(value, 8)))
         self._registers[number]['value']=value
 
     def getValue(self, number):
@@ -93,7 +94,7 @@ class Registers(Loggable):
         self.log.buffer("adding {:} to {:}".format(amount, name))
         self._registers[number]['value'] = self._registers[number]['value']+amount
         self.log.buffer("new value is {:}"
-                        .format(hex(self._registers[number]['value'])))
+                        .format(hex(self._registers[number]['value'], 8)))
 
     def getPc(self):
         """-> register:int

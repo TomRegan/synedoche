@@ -11,6 +11,7 @@ from lib.Interface import *
 from lib.Logger import *
 from lib.Functions import binary as bin
 from lib.Functions import integer as int
+from copy import deepcopy
 
 class BaseProcessor(Loggable, UpdateBroadcaster):
     def __init__(self, registers, memory, api, instructions):
@@ -45,6 +46,9 @@ class Pipelined(BaseProcessor):
 
         self._pipeline = []
         self._pipeline_stages=pipeline
+        self._pipeline_flags=['FI', 'FD']
+
+        self.__special_flags = {}
 
     def open_log(self, logger):
         """logger:object -> ...
@@ -58,10 +62,11 @@ class Pipelined(BaseProcessor):
 
     def cycle(self):
         self._log.buffer('beginning a cycle')
+        self.__special_flags['increment'] = False
         for stage in self._pipeline_stages:
             self._log.buffer('entering {0} stage'.format(stage))
             #a little string transformation to help avoid accidents
-            stagecall = '_CU' + stage.title()
+            stagecall = '_BARS' + stage.title()
             try:
                 call = getattr(self, stagecall)
                 call(self._pipeline_stages.index(stage))
@@ -72,25 +77,42 @@ class Pipelined(BaseProcessor):
                                  .format(stage))
                 raise e
             except IndexError, e:
-                self._log.buffer('{0} found dust in the pipeline'
+                self._log.buffer('{0} found nothing in the pipeline'
                                  .format(stage))
             except Exception, e:
                 self._log.buffer('EXCEPTION {:}'.format(e.message))
                 raise e
             self._log.buffer('leaving {0} stage'.format(stage))
-        self._registers.increment(self._pc, self._word_space)
         self.broadcast()
         self._log.buffer('completing a cycle')
 
-    def _CUFetch(self, index):
+    def _BARSFetch(self, index):
+        self.__fetch(index)
+        if 'FD' in self._pipeline_flags:
+            self.__decode(index)
+
+    def _BARSDecode(self, index):
+        if not 'FD' in self._pipeline_flage:
+            self.__decode(index)
+
+    def _BARSExecute(self, index):
+        self.__execute(index)
+
+    def _BARSMemory(self, index):
+        pass
+
+    def _BARSWriteback(self, index):
+        self.__writeback(index)
+
+    def __fetch(self, index):
         i=self._memory.get_word(self._registers.getValue(self._pc),
                                 self._size)
         self._pipeline.insert(0,[i])
+        if 'FI' in self._pipeline_flags:
+            self._registers.increment(self._pc, self._word_space)
+            self.__special_flags['increment'] = True
 
-    def _CUDecode(self, index):
-        """index:int -> _modifies self._pipeline_
-
-        """
+    def __decode(self, index):
         properties=self._isa.getFormatProperties()
         signatures=self._isa.getSignatures()
         mappings = self._isa.getFormatMapping()
@@ -116,36 +138,43 @@ class Pipelined(BaseProcessor):
                                          .format(type, signature))
                         return
 
-    def _CUExecute(self, index):
-        instruction_decoded={}
+    def __execute(self, index):
+        self._pipeline[index].append({})
         i=bin(self._pipeline[index][0],self._size)[2:]
-        self._log.buffer("executing {:}".format(i))
         type=self._pipeline[index][1]
         properties=self._isa.getFormatProperties()
         for field in properties[type]:
-            start=properties[type][field][0]
-            end  =properties[type][field][1]+1
+            start = properties[type][field][0]
+            end   = properties[type][field][1]+1
             #because we have to read bitfields, this next line is going to
             #look a bit nasty.
-            instruction_decoded[field] = i[start:end]
-            self._log.buffer("`{:}' is {:} ({:}:{:})"
-                             .format(field, i[start:end], start, end))
+            self._pipeline[index][3][field] = i[start:end]
+            self._log.buffer("`{:}' is {:}"
+                             .format(field, i[start:end]))
 
+        self._log.buffer("executing {:}".format(i))
         implementation = self._isa.getImplementation()
         name = self._pipeline[index][2]
+        branch_offset = index
+        if self.__special_flags['increment']:
+            branch_offset = branch_offset + 1
         sequential = True
         for method in implementation[name]:
             if sequential:
                 call = getattr(self._api, method[0])
                 args = method[1]
                 self._log.buffer("calling {0} with {1}".format(call.__name__, args))
-                sequential = call(args, instruction_decoded)
+                sequential = call(args,
+                                  self._pipeline[index][3],
+                                  branch_offset=branch_offset)
             else:
                 self._log.buffer('skipping an API call')
                 sequential = True
-        instruction_decoded.clear()
+        if 'EI' in self._pipeline_flags:
+            self._registers.increment(self._pc, self._word_space)
+            self.__special_flags['increment'] = True
 
-    def _CUWriteback(self, index):
+    def __writeback(self, index):
         pass
 
     def reset(self):
@@ -158,7 +187,6 @@ class Pipelined(BaseProcessor):
         self._pipeline=[]
         self._log.buffer('RESET completed')
         self.broadcast()
-
 
     def get_registers(self):
         return self._registers

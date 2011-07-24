@@ -6,7 +6,7 @@
 # since          : 2011-07-15
 # last modified  : 2011-07-22
 
-VERSION='r58:M3'
+VERSION='r59:M3'
 RELEASE_NAME=''
 PROGRAMME_NAME=''
 DEBUG=True
