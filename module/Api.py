@@ -156,8 +156,16 @@ class Sunray(_Api):
 
     def copyRegister(self, args, instruction_decoded, **named_args):
         self.log.buffer('moveRegister called')
-        a = args[0]
-        b = instruction_decoded[args[1]]
+        if type(args[0]) == int:
+            a = args[0]
+        else:
+            a = int(instruction_decoded[args[0]], 2)
+        if type(args[1]) == int:
+            b = args[1]
+        else:
+            b = int(instruction_decoded[args[1]], 2)
+        #a = args[0]
+        #b = instruction_decoded[args[1]]
         self.log.buffer('args 0:{:}, 1:{:}'.format(a, b))
         for operand in [a, b]:
             if operand not in self._register.keys():
@@ -299,15 +307,27 @@ class Sunray(_Api):
         #This is a special case! No other instruction has
         #numerical values in the implementation.
         #
-        try:
+        if args[0] in instruction_decoded.keys():
             a = int(instruction_decoded[args[0]], 2)
-        except:
-            a = int(args[0])
-
-        try:
-            b = int(args[1])
-        except:
+            self.log.buffer('a is not int')
+        else:
+            a = args[0]
+            self.log.buffer('a is int')
+        if args[1] in instruction_decoded.keys():
             b = int(instruction_decoded[args[1]], 2)
+            self.log.buffer('b is not int')
+        else:
+            b = args[1]
+            self.log.buffer('b is int')
+        #try:
+        #    a = int(instruction_decoded[args[0]], 2)
+        #except:
+        #    a = int(args[0])
+
+        #try:
+        #    b = int(args[1])
+        #except:
+        #    b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
         self._register.setValue(a, b)
         return True

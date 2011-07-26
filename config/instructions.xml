@@ -251,7 +251,7 @@
     </syntax>
     <implementation>
       <method name="branchAbsolute" args="im 0x01" />
-      <method name="setRegister" args="0x1f 0x21" />
+      <method name="copyRegister" args="0x21 0x1f" />
     </implementation>
     <replacements>
       <replacement name="im" group="0x01" type="absolute" />
