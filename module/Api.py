@@ -155,21 +155,18 @@ class Sunray(_Api):
         return True
 
     def copyRegister(self, args, instruction_decoded, **named_args):
-        self.log.buffer('moveRegister called')
-        if type(args[0]) == int:
-            a = args[0]
-        else:
+        self.log.buffer('copyRegister called')
+        if args[0] in instruction_decoded.keys():
             a = int(instruction_decoded[args[0]], 2)
-        if type(args[1]) == int:
-            b = args[1]
         else:
+            a = args[0]
+        if args[1] in instruction_decoded.keys():
             b = int(instruction_decoded[args[1]], 2)
+        else:
+            b = args[1]
         #a = args[0]
         #b = instruction_decoded[args[1]]
         self.log.buffer('args 0:{:}, 1:{:}'.format(a, b))
-        for operand in [a, b]:
-            if operand not in self._register.keys():
-                raise RegisterReferenceException
         value = self._register.getValue(a)
         self._register.setValue(b, value)
         return True
@@ -303,10 +300,6 @@ class Sunray(_Api):
             Always returns True
         """
         self.log.buffer('setRegister called')
-        #
-        #This is a special case! No other instruction has
-        #numerical values in the implementation.
-        #
         if args[0] in instruction_decoded.keys():
             a = int(instruction_decoded[args[0]], 2)
             self.log.buffer('a is not int')
@@ -506,7 +499,7 @@ class Sunray(_Api):
             word_space = self._memory.get_word_spacing()
             b = b * word_space
             a = a + b
-        print('')
+        self.log.buffer('')
         pc=self._register.getPc()
         self._register.setValue(pc, a)
         return True
