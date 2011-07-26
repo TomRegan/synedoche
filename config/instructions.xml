@@ -177,7 +177,8 @@
       <symbol type="register" matches="rt" />
     </syntax>
     <implementation>
-      <method name="divSpecial" args="0x22 0x23 rs rt" />
+      <method name="divRegisters" args="0x23 rs rt" />
+      <method name="remRegisters" args="0x22 rs rt" />
     </implementation>
   </instruction>
 
@@ -249,7 +250,8 @@
       <symbol type="int" matches="im" />
     </syntax>
     <implementation>
-      <method name="branchAbsolute" args="im" />
+      <method name="branchAbsolute" args="im 0x01" />
+      <method name="setRegister" args="0x1f 0x21" />
     </implementation>
     <replacements>
       <replacement name="im" group="0x01" type="absolute" />
@@ -273,8 +275,7 @@
       <symbol type="operand" matches="rs" />
     </syntax>
     <implementation>
-      <method name="branchRelative" args="im" />
-      <method name="setRegister" args="PC rs" />
+      <method name="setRegister" args="0x21 rs" />
     </implementation>
   </instruction>
 
@@ -337,7 +338,7 @@
       <symbol type="register" matches="rt" />
     </syntax>
     <implementation>
-      <method name="mulSpecial" args="0x22 0x23 rs rt" />
+      <method name="mulRegisters" args="0x23 rs rt" />
     </implementation>
   </instruction>
 

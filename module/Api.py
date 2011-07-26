@@ -85,7 +85,6 @@ class Sunray(_Api):
                 raise RegisterReferenceException
         result = self._register.getValue(b) + self._register.getValue(c)
         self._register.setValue(a, result)
-        self.log.buffer('setting register {0} to {1}'.format(a,result))
         return True
 
     def addImmediate(self, args, instruction_decoded, **named_args):
@@ -119,7 +118,6 @@ class Sunray(_Api):
                 raise RegisterReferenceException
         result = self._register.getValue(b) + c
         self._register.setValue(a, result)
-        self.log.buffer('setting register {0} to {1}'.format(a,result))
         return True
 
 
@@ -154,7 +152,6 @@ class Sunray(_Api):
                 raise RegisterReferenceException
         result = self._register.getValue(b) - self._register.getValue(c)
         self._register.setValue(a, result)
-        self.log.buffer('setting register {0} to {1}'.format(a,result))
         return True
 
     def copyRegister(self, args, instruction_decoded, **named_args):
@@ -166,11 +163,10 @@ class Sunray(_Api):
             if operand not in self._register.keys():
                 raise RegisterReferenceException
         value = self._register.getValue(a)
-        self.log.buffer('setting register {0} to {1}'.format(b, value))
         self._register.setValue(b, value)
         return True
 
-    def mulSpecial(self, args, instruction_decoded, **named_args):
+    def mulRegisters(self, args, instruction_decoded, **named_args):
         """args:list -> True
 
         Multiplies two registers and stores the product in hi and lo
@@ -189,55 +185,19 @@ class Sunray(_Api):
         Raises:
             RegisterReferenceException
         """
-        self.log.buffer('mulSpecial called')
-        a = args[0]
-        b = args[1]
+        self.log.buffer('mulRegisters called')
+        try:
+            a = int(instruction_decoded[args[0]], 2)
+        except:
+            a = args[0]
+        b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
-        d = int(instruction_decoded[args[3]], 2)
-        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}, 3:{:}'.format(a,b,c,d))
-        for operand in [a, b, c, d]:
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
+        for operand in [b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.getValue(c) * self._register.getValue(d)
-        self._register.setValue(b, result)
-        self.log.buffer('setting register {0} to {1}'.format(b, result))
-        return True
-
-    def divSpecial(self, args, instruction_decoded, **named_args):
-        """args:list -> True
-
-        Divides two registers and stores the divident in lo and
-        remainder in hi registers.
-
-        Args:
-            Each argument should be the number of a register.
-            args[0]:int (high result register)
-            args[1]:int (low result register)
-            args[2]:int (operand)
-            args[3]:int (operand)
-
-        Returns:
-            Always returns True
-
-        Raises:
-            ArithmeticError
-            RegisterReferenceException
-        """
-        self.log.buffer('divSpecial called')
-        a = args[0]
-        b = args[1]
-        c = int(instruction_decoded[args[2]], 2)
-        d = int(instruction_decoded[args[3]], 2)
-        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}, 3:{:}'.format(a,b,c,d))
-        if d == 0:
-            raise ArithmeticError
-        for operand in [a, b, c, d]:
-            if operand not in self._register.keys():
-                raise RegisterReferenceException
-        dividend  = self._register.getValue(c) / self._register.getValue(d)
-        remainder = self._register.getValue(c) % self._register.getValue(d)
-        self._register.setValue(a, remainder)
-        self._register.setValue(b, dividend)
+        result = self._register.getValue(b) * self._register.getValue(c)
+        self._register.setValue(a, result)
         return True
 
     def divRegisters(self, args, instruction_decoded, **named_args):
@@ -263,18 +223,59 @@ class Sunray(_Api):
             RegisterReferenceException
         """
         self.log.buffer('divRegisters called')
-        a = int(instruction_decoded[args[0]], 2)
+        try:
+            a = int(instruction_decoded[args[0]], 2)
+        except:
+            a = args[0]
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c))
-        if c == 0:
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
+        if self._register.getValue(c) == 0:
             raise ArithmeticError
-        for operand in [a, b, c]:
+        for operand in [b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
         result = self._register.getValue(b) / self._register.getValue(c)
         self._register.setValue(a, result)
-        self.log.buffer('setting register {0} to {1}'.format(a,result))
+        return True
+
+    def remRegisters(self, args, instruction_decoded, **named_args):
+        """args:list -> True
+
+        Divides two registers and stores the remainder in a third.
+
+        Args:
+            Each argument should be the number of a register.
+            args[0]:int (result)
+            args[1]:int (operand)
+            args[2]:int (operand)
+
+        State changed:
+            register[a]['value'] <-
+                register[b]['value'] % register[c]['value']
+
+        Returns:
+            Always returns True
+
+        Raises:
+            ArithmeticError
+            RegisterReferenceException
+        """
+        self.log.buffer('remRegisters called')
+        try:
+            a = int(instruction_decoded[args[0]], 2)
+        except:
+            a = args[0]
+        b = int(instruction_decoded[args[1]], 2)
+        c = int(instruction_decoded[args[2]], 2)
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
+        if self._register.getValue(c) == 0:
+            raise ArithmeticError
+        for operand in [b, c]:
+            if operand not in self._register.keys():
+                raise RegisterReferenceException
+        result = self._register.getValue(b) % self._register.getValue(c)
+        self._register.setValue(a, result)
         return True
 
     def setRegister(self, args, instruction_decoded, **named_args):
@@ -299,9 +300,9 @@ class Sunray(_Api):
         #numerical values in the implementation.
         #
         try:
-            a = int(args[0])
-        except:
             a = int(instruction_decoded[args[0]], 2)
+        except:
+            a = int(args[0])
 
         try:
             b = int(args[1])
@@ -463,18 +464,41 @@ class Sunray(_Api):
         self.log.buffer('returning {0}'.format(self._register.getValue(a) >= b))
         return self._register.getValue(a) >= b
 
-    def branchAbsolute(self, args, instruction_decoded):
-        """args:list, instruction_decoded:dict -> True"""
+    def branchAbsolute(self, args, instruction_decoded, **named_args):
+        """Sets the instruction pointer to a new memory address.
+
+        Values:
+            a = int
+           [b = int]
+
+           Takes an optional second argument which can be used
+           to simulate a jump return offset amongst other things.
+
+        Returns True
+        """
         self.log.buffer('branchAbsolute called')
         a = int(instruction_decoded[args[0]], 2)
+        self.log.buffer('args 0:{:}'.format(a)),
+        # add branch delay
+        if len(args) > 1:
+            b = int(self._register.getValue(args[1]))
+            self.log.buffer('args 1:{:}'.format(b)),
+            word_space = self._memory.get_word_spacing()
+            b = b * word_space
+            a = a + b
+        print('')
         pc=self._register.getPc()
         self._register.setValue(pc, a)
         return True
 
     def branchRelative(self, args, instruction_decoded, **named_args):
-        """args:list, instruction_decoded:dict -> True
-        Takes an optional delay if control will return
-        to a distant place"""
+        """Adds a computed offset to the instruction pointer.
+
+        Values:
+            a = int
+
+        Returns True
+        """
         self.log.buffer('branchRelative called')
         a = int(instruction_decoded[args[0]], 2, signed=True)
         self.log.buffer('args 0:{0}'.format(a))
