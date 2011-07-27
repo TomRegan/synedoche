@@ -28,6 +28,10 @@ class BaseMonitor(object):
         """Increments an integer value"""
         pass
 
+    def decrement(self, key, deincrement=None):
+        """Decrements an integer value"""
+        pass
+
     def toggle(self, key):
         """Toggles a boolean value on/off"""
         pass
@@ -79,6 +83,12 @@ class Monitor(BaseMonitor):
             self.data['int_prop'][key] = self.get_int_prop(key) + increment
         else:
             self.data['int_prop'][key] = increment
+
+    def decrement(self, key, decrement=1):
+        if key in self.data['int_prop']:
+            self.data['int_prop'][key] = self.get_int_prop(key) - decrement
+        else:
+            self.data['int_prop'][key] = -decrement
 
     def toggle(self, key):
         if key in self.data['bool_prop']:

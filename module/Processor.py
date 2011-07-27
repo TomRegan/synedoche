@@ -15,7 +15,7 @@ from copy      import deepcopy
 from lib.Functions import binary as bin
 from lib.Functions import integer as int
 
-class BaseProcessor(Loggable, UpdateBroadcaster):
+class BaseProcessor(Loggable, UpdateBroadcaster, MonitorNode):
     def __init__(self, registers, memory, api, instructions):
         pass
     def cycle(self):
@@ -57,9 +57,6 @@ class Pipelined(BaseProcessor):
         self._pipeline_flags=['FI', 'FD']
 
         self.__special_flags = {}
-
-        self._mon = Monitor.BaseMonitor()
-        self._log = BaseLogger()
 
     def open_log(self, logger):
         self._log = CpuLogger(logger)

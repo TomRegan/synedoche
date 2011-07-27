@@ -6,28 +6,22 @@
 # since          : 2011-07-08
 # last modified  : 2011-07-27
 
-from Logger import BaseLogger
+from Logger  import BaseLogger
+from Monitor import BaseMonitor
 
 
 class Loggable(object):
 
     log = BaseLogger()
-    def openLog(self, filename):
-        pass
+    _log = log
     def open_log(self, Logger):
-        """New interface for logger
-        Takes a reference to a logfile and attaches the object.
-        """
         pass
-    def passCommandToLogger(self, command):
-        """DEPRECATED --will be removed in a future revision!
-        Allows extermal objects to take control of a logfile,
-        with some sane options for dropping calls
-        """
-        barred = ['open', 'write', 'buffer']
-        if command in barred or command[0] == '_':
-            return False
-        return True
+
+class MonitorNode(object):
+    mon = BaseMonitor()
+    _mon = mon
+    def open_monitor(self, Monitor):
+        pass
 
 class UpdateListener(object):
     def update(self, *args, **kwargs):
