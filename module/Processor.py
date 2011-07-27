@@ -24,13 +24,19 @@ class BaseProcessor(Loggable, UpdateBroadcaster):
     def reset(self):
         """Resets the processor's state"""
         pass
-    def getRegisters(self):
+    def get_registers(self):
+        """Returns a reference or copy of processor registers"""
         pass
-    def getMemory(self):
+    def get_memory(self):
+        """Returns a reference or copy of memory"""
         pass
-    def getPipeline(self):
+    def get_pipeline(self):
+        """Returns a reference or copy of processor pipeline"""
         pass
-    pass
+    def open_monitor(self, monitor):
+        pass
+    def open_log(self, logger):
+        pass
 
 class Pipelined(BaseProcessor):
     """Pipelined CPU Implementation"""
@@ -56,14 +62,15 @@ class Pipelined(BaseProcessor):
         self._log = BaseLogger()
 
     def open_log(self, logger):
-        """logger:object -> ...
-
-        Begins logging activity with the logger object passed.
-        """
-
         self._log = CpuLogger(logger)
-        self._log.buffer('created a cpu')
+        self._log.buffer("created a cpu, `{:}'"
+                         .format(self.__class__.__name__))
         self._log.buffer("pc is register {0}".format(hex(self._pc)))
+
+    def open_monitor(self, monitor):
+        self._mon = monitor
+        self._log.buffer("attached a monitor, `{:}'"
+                         .format(monitor.__class__.__name__))
 
     def cycle(self):
         self._log.buffer('beginning a cycle')

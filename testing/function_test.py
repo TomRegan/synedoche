@@ -10,8 +10,8 @@ import unittest
 import sys
 sys.path.append('../')
 
-from lib.Functions import binary as bin
-from lib.Functions import integer as int
+from module.lib.Functions import binary as bin
+from module.lib.Functions import integer as int
 
 if __name__ == '__main__':
 

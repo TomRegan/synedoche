@@ -14,14 +14,15 @@ import sys
 import traceback
 import os
 
-from module   import Api
-from module   import Builder
-from module   import Interface
-from module   import Interpreter
-from module   import Isa
-from module   import Logger
-from module   import Memory
-from module   import Processor
+from module import Api
+from module import Builder
+from module import Interface
+from module import Interpreter
+from module import Isa
+from module import Logger
+from module import Memory
+from module import Monitor
+from module import Processor
 
 from datetime import datetime
 from module.lib.Functions import binary as bin
@@ -42,17 +43,18 @@ class Simulation(object):
         #as well as a connection to the logfile
         #
         try:
-            self._cycles =0
+            self._cycles = 0
             self._clients=[]
             self._daemons=[]
             self.logfile=logfile
+            self.monitor=Monitor.Monitor()
             self.logger = Logger.Logger(self.logfile)
             self.log = Logger.SystemLogger(self.logger)
             now = datetime.isoformat(datetime.now(), sep=' ')
             self.log.buffer('system started at {0}'.format(now))
         except Exception as e:
-            sys.stderr.write('fatal: failed doing basic init\n')
-            raise e
+            sys.stderr.write('fatal: failed doing basic init\n{:}\n'
+                             .format(e.message))
         #self.logSizeCheck()
 
         coordinator = Builder.Coordinator()
@@ -91,6 +93,7 @@ class Simulation(object):
             api=self.api, instructions=self.instructions,
             pipeline=pipeline)
         self.cpu.open_log(self.logger)
+        self.cpu.open_monitor(self.monitor)
 
         self.log.buffer('initialized with no incidents')
         self.log.flush()
@@ -230,19 +233,20 @@ class TestListener(Interface.UpdateListener):
 
     def update(self, *args, **kwargs):
         r=kwargs['registers']
-        try:
-            print "{:-<80}".format('--Registers')
-            for i in r.values():
-                if i>0 and i % 4 == 0:
-                    print ''
-                name = self.s.registers.get_number_name_mappings()[i]
-                print("{:>4}({:0>2}):{:.>10}"
-                      .format(name[:4],
-                              i,
-                              hex(r.values()[i])[2:].replace('L', ''))),
-            print "\n{:-<80}".format('')
-        except:
-            pass
+        if False == True:
+            try:
+                print "{:-<80}".format('--Registers')
+                for i in r.values():
+                    if i>0 and i % 4 == 0:
+                        print ''
+                    name = self.s.registers.get_number_name_mappings()[i]
+                    print("{:>4}({:0>2}):{:.>10}"
+                          .format(name[:4],
+                                  i,
+                                  hex(r.values()[i])[2:].replace('L', ''))),
+                print "\n{:-<80}".format('')
+            except:
+                pass
 
 
 if __name__ == '__main__':
@@ -255,6 +259,8 @@ if __name__ == '__main__':
         for i in range(12):
             s.cycle(client=tl)
         s.log.flush()
+        print(s.monitor)
     except:
+        print(s.monitor.data)
         s.log.flush()
-        traceback.print_exc(file=sys.stderr)
+        #traceback.print_exc(file=sys.stderr)

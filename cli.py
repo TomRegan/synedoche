@@ -66,7 +66,8 @@ class Cli(UpdateListener):
 
 
     def run(self):
-        print("Command Line Client ({:})\n".format(VERSION) +
+        print("Command Line Client (r{:}:{:})\n"
+              .format(VERSION, RELEASE_NAME) +
               "Type `help', `license' or `version' for more information.")
         while True:
             line = raw_input('>>> ')

@@ -6,8 +6,8 @@
 # since          : 2011-07-15
 # last modified  : 2011-07-27
 
-VERSION='r64:M4'
-RELEASE_NAME=''
+VERSION='65'
+RELEASE_NAME='M4'
 PROGRAMME_NAME=''
 DEBUG=True
 LICENSE="""Copyright 2011 Tom Regan (thomas.c.regan@gmail.com)

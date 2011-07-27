@@ -33,7 +33,8 @@ class Registers(Loggable):
 
     def open_log(self, logger):
         self.log = RegisterLogger(logger)
-        self.log.buffer('created registers')
+        self.log.buffer("created registers, `{:}'"
+                        .format(self.__class__.__name__))
 
     def addRegister(self, number, value, size, profile, privilege):
         """(number:int, value:int, size:int, profile:str, privilege:bool)

@@ -33,7 +33,8 @@ class _Api(Loggable):
         """
 
         self.log = ApiLogger(logger)
-        self.log.buffer('created an api')
+        self.log.buffer("created an api, `{:}'"
+                        .format(self.__class__.__name__))
 
     def getApiReference(self, cpu):
         """cpu:object -> api:object
