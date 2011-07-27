@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 #
-# Helper Function Unit Tests.
-# file           : number_functions.py
+# Helper Function Tests.
+# file           : function_test.py
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-24
-# last modified  : 2011-07-24
+# last modified  : 2011-07-27
 
 import unittest
 import sys
@@ -35,4 +35,4 @@ if __name__ == '__main__':
             self.assertEquals(4, d)
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestHelperFunctions)
-    unittest.TextTestRunner(verbosity=2).run(tests)
+    unittest.TextTestRunner(verbosity=1).run(tests)

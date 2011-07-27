@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+#
+# Processor Tests.
+# file           : cpu_test.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-10
+# last modified  : 2011-07-27
 
 import unittest
 import sys
@@ -143,4 +149,4 @@ if __name__ == '__main__':
             self.assertEquals(1, self.registers.getValue(16))
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestCpu)
-    unittest.TextTestRunner(verbosity=2).run(tests)
+    unittest.TextTestRunner(verbosity=1).run(tests)

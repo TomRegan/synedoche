@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+#
+# Memory Tests.
+# file           : mem_test.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-10
+# last modified  : 2011-07-27
+
 
 import unittest
 import sys
@@ -151,4 +158,4 @@ if __name__ == '__main__':
 
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestMemory)
-    unittest.TextTestRunner(verbosity=2).run(tests)
+    unittest.TextTestRunner(verbosity=1).run(tests)

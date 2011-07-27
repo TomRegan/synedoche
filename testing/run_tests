@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Unit Test Runner.
+# file           : run_tests
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-27
+# last modified  : 2011-07-27
+
+for test in *test.py; do
+  ./${test};
+done;
