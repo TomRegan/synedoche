@@ -9,8 +9,8 @@
 
 from SystemCall import *
 
-from lib.Logger import ApiLogger
-from lib.Interface import *
+from Logger import ApiLogger
+from Interface import *
 from lib.Functions import integer as int
 
 class _Api(Loggable):
@@ -495,11 +495,10 @@ class Sunray(_Api):
         # add branch delay
         if len(args) > 1:
             b = int(self._register.getValue(args[1]))
-            self.log.buffer('args 1:{:}'.format(b)),
+            self.log.buffer('args 1:{:}'.format(b))
             word_space = self._memory.get_word_spacing()
             b = b * word_space
             a = a + b
-        self.log.buffer('')
         pc=self._register.getPc()
         self._register.setValue(pc, a)
         return True

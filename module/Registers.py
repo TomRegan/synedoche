@@ -7,10 +7,10 @@
 # last modified  : 2011-07-22
 
 from copy import deepcopy
-from lib.Logger   import RegisterLogger
+from Logger    import RegisterLogger
+from Interface import *
 from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
-from lib.Interface import *
 
 class BaseRegister(object):
     def open_log(self, logger):

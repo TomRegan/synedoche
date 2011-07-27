@@ -24,7 +24,7 @@ class BaseMonitor(object):
         """Sets a value in the booleans table"""
         pass
 
-    def increment(self, key, increment):
+    def increment(self, key, increment=None):
         """Increments an integer value"""
         pass
 
@@ -54,19 +54,19 @@ class Monitor(BaseMonitor):
 
     def get_int_prop(self, key=None):
         if key != None:
-            return self.data['int_prop'][key]
-        try:
+            try:
+                return self.data['int_prop'][key]
+            except:
+                0
             return self.data['int_prop']
-        except:
-            0
 
     def get_bool_prop(self, key=None):
         if key != None:
-            return self.data['bool_prop'][key]
-        try:
+            try:
+                return self.data['bool_prop'][key]
+            except:
+                return False
             return self.data['bool_prop']
-        except:
-            return False
 
     def set_int_prop(self, key, value):
         self.data['int_prop'][key] = value
@@ -75,7 +75,13 @@ class Monitor(BaseMonitor):
         self.data['bool_prop'][key] = value
 
     def increment(self, key, increment=1):
-        self.data['int_prop'][key] = self.data['int_prop'][key] + increment
+        if key in self.data['int_prop']:
+            self.data['int_prop'][key] = self.get_int_prop(key) + increment
+        else:
+            self.data['int_prop'][key] = increment
 
     def toggle(self, key):
-        self.data['bool_prop'][key] = (not self.data['bool_prop'][key])
+        if key in self.data['bool_prop']:
+            self.data['bool_prop'][key] = (not self.data['bool_prop'][key])
+        else:
+            self.data['bool_prop'][key] = True

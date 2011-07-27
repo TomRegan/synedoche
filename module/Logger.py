@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Log File Tools.
+# Logging Tools.
 # file           : Logger.py
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-06-30
@@ -8,11 +8,35 @@
 
 
 import sys
-
-from Interface import Log, Logfile
 from time import time, ctime
 
-class Logger(Log):
+class Logfile(object):
+    def open(self, filename, string):
+        pass
+    def close(self):
+        pass
+    def writelines(self, string):
+        pass
+    def write(self, string):
+        pass
+
+
+class BaseLogger(object):
+    def __init__(self):
+        self.filename=None
+        self.timed=None
+        self.ready=None
+        self.lines=None
+        self.instance=None
+    def buffer(self, string):
+        pass
+    def write(self, string):
+        pass
+    def flush(self):
+        pass
+
+
+class Logger(BaseLogger):
     """Logger(filename, [message=None, timed=False]) -> Logger
 
     Example usage:

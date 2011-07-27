@@ -10,8 +10,8 @@ import unittest
 import sys
 sys.path.append('../')
 
-from lib import Interface
-from lib import Logger
+from module import Interface
+from module import Logger
 from module import Api
 from module import Builder
 from module import Isa

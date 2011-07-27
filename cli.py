@@ -4,27 +4,28 @@
 # file           : cli.py
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-15
-# last modified  : 2011-07-22
+# last modified  : 2011-07-27
 
 
 import sys
-
 try:
     import readline
 except:
     pass #never mind
 
 from core import *
-from lib.Header import *
-from lib.Functions import binary as bin
-from lib.Functions import hexadecimal as hex
-from lib.Interface  import UpdateListener
-from lib.Evaluator  import Evaluator
-from module.Memory  import AlignmentError
+
+from module.Interface   import UpdateListener
+from module.Evaluator   import Evaluator
+from module.Memory      import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
 from module.Interpreter import DataMissingException
 from module.Interpreter import DataConversionFromUnknownType
 from module.SystemCall  import SigTerm
+
+from module.lib.Header    import *
+from module.lib.Functions import binary as bin
+from module.lib.Functions import hexadecimal as hex
 
 class Cli(UpdateListener):
     """

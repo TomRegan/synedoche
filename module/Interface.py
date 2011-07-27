@@ -1,36 +1,17 @@
 #!/usr/bin/env python
-''' Interface.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-08
-description: Provides support to functions using the logger
-'''
+#
+# Interfaces For Objects.
+# file           : Interface.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-08
+# last modified  : 2011-07-27
 
-class Log(object):
-    filename=None
-    timed=None
-    ready=None
-    lines=None
-    instance=None
-    def buffer(self, string):
-        pass
-    def write(self, string):
-        pass
-    def flush(self):
-        pass
+from Logger import BaseLogger
 
-class Logfile(object):
-    def open(self, filename, string):
-        pass
-    def close(self):
-        pass
-    def writelines(self, string):
-        pass
-    def write(self, string):
-        pass
 
 class Loggable(object):
 
-    log=Log()
+    log = BaseLogger()
     def openLog(self, filename):
         pass
     def open_log(self, Logger):

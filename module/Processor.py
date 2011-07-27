@@ -6,12 +6,14 @@
 # since          : 2011-07-20
 # last modified  : 2011-07-22
 
+import Monitor
 
-from lib.Interface import *
-from lib.Logger import *
+from Interface import *
+from Logger    import *
+from copy      import deepcopy
+
 from lib.Functions import binary as bin
 from lib.Functions import integer as int
-from copy import deepcopy
 
 class BaseProcessor(Loggable, UpdateBroadcaster):
     def __init__(self, registers, memory, api, instructions):
@@ -50,6 +52,9 @@ class Pipelined(BaseProcessor):
 
         self.__special_flags = {}
 
+        self._mon = Monitor.BaseMonitor()
+        self._log = BaseLogger()
+
     def open_log(self, logger):
         """logger:object -> ...
 
@@ -84,6 +89,7 @@ class Pipelined(BaseProcessor):
                 raise e
             self._log.buffer('leaving {0} stage'.format(stage))
         self.broadcast()
+        self._mon.increment('cycles')
         self._log.buffer('completing a cycle')
 
     def _BARSFetch(self, index):

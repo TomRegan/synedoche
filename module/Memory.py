@@ -1,13 +1,14 @@
 #!/usr/bin/env python
-''' Memory.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
-since:       2011-07-18
-modified:    2011-07-20
-description: Provides memory objects
-'''
+#
+# Memory Objects.
+# file           : Memory.py
+# author         : Tom Regan (thomas.c.regan@gmail.com)
+# since          : 2011-07-18
+# last modified  : 2011-07-27
 
-from lib.Interface  import *
-from lib.Logger     import *
+
+from Interface  import *
+from Logger     import *
 from lib.Functions  import binary as bin
 
 class AddressingError(Exception):

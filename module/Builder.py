@@ -6,7 +6,7 @@
 # since          : 2011-07-22
 # last modified  : 2011-07-22
 
-from lib import XmlParser
+from module import XmlParser
 from module import Isa
 from module import Registers
 from module import Memory

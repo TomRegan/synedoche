@@ -7,29 +7,25 @@
 # file           : core.py
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-08
-# last modified  : 2011-07-22
+# last modified  : 2011-07-27
 
 
 import sys
 import traceback
 import os
 
-from lib import Interface
-from lib import Logger
-from module import Processor
-from module import Api
-from module import Builder
-from module import Isa
-from module import Memory
-#from module import System
-from module import Interpreter
-from datetime import datetime
-from lib.Functions import binary as bin
-from lib.Functions import hexadecimal as hex
+from module   import Api
+from module   import Builder
+from module   import Interface
+from module   import Interpreter
+from module   import Isa
+from module   import Logger
+from module   import Memory
+from module   import Processor
 
-#TODO
-#as a nicity, builders for initialization
-#
+from datetime import datetime
+from module.lib.Functions import binary as bin
+from module.lib.Functions import hexadecimal as hex
 
 class Simulation(object):
     def __init__(self,

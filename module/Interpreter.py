@@ -9,12 +9,13 @@
 
 import re
 
-from copy          import deepcopy
-from lib.Logger    import InterpreterLogger
+from copy      import deepcopy
+from Logger    import InterpreterLogger
+from Interface import Loggable
+
 from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
 from lib.Functions import integer as int
-from lib.Interface import Loggable
 
 BAD = 'Bad instruction or syntax: '
 
@@ -53,10 +54,6 @@ class Interpreter(Loggable):
         Returns:
             file:object -> [instructions:str]:list
             line:str    -> [instructions:str]:list
-        Initialization:
-            instructions:object -> modules.Isa.InstructionSet
-            registers:object    -> modules.System.Registers
-            memory:object       -> modules.System.Memory
 
         Raises:
             DataMissingException
@@ -365,7 +362,7 @@ class Interpreter(Loggable):
 if __name__ == '__main__':
     import unittest
     import Isa
-    import System
+    import Registers
     import Memory
 
     from lib.Logger import Logger, InterpreterLogger
@@ -381,7 +378,7 @@ if __name__ == '__main__':
             instructions=Isa.InstructionSet('MIPS_I', 32)
             memory=Memory.Memory(address_space, instructions)
 
-            registers=System.Registers()
+            registers=Registers.Registers()
             #
             #add assembly syntax to the instruction set
             #

@@ -8,7 +8,7 @@
 
 
 from xml.dom.minidom import parse
-from Functions       import asciify
+from lib.Functions   import asciify
 
 
 
