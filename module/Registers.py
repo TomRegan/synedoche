@@ -30,7 +30,7 @@ class Registers(BaseRegisters):
         registers=Registers()
         registers.addRegister(number=0, value=2147483647, size=32,
                               profile='gp', privilege=True)
-        registers.removeRegister(0)
+        registers.remove_register(0)
     """
 
     _registers={}
@@ -38,7 +38,7 @@ class Registers(BaseRegisters):
     _name_number={}
     _number_name={}
 
-    def addRegister(self, number, value, size, profile, privilege):
+    def add_register(self, number, value, size, profile, privilege):
         """(number:int, value:int, size:int, profile:str, privilege:bool)
             -> registers{register[number]:{value,size,profile,provilege}:dict
 
@@ -54,7 +54,7 @@ class Registers(BaseRegisters):
                         .format(number, value, size, profile, privilege))
         self._registers_iv = deepcopy(self._registers)
 
-    def addRegisterMapping(self, name, number):
+    def add_register_mapping(self, name, number):
         """(name:str, number:int) -> register{name:number}:dict
 
         Creates a map of names to registers which can be used to
@@ -64,14 +64,14 @@ class Registers(BaseRegisters):
         self._name_number[name]=number
         self._number_name[number]=name
 
-    def removeRegister(self, number):
+    def remove_register(self, number):
         """number:int -> ...
         Deletes a register.
         """
 
         del self._registers[number]
 
-    def setValue(self, number, value):
+    def set_value(self, number, value):
         """number:int -> ...
         Stores a value in a register.
         """
@@ -82,7 +82,7 @@ class Registers(BaseRegisters):
         self._registers[number]['value']=value
         self._monitor.increment('register_reads')
 
-    def getValue(self, number):
+    def get_value(self, number):
         """number:int -> number:int
         Returns the value stored in a register.
         """
@@ -98,9 +98,9 @@ class Registers(BaseRegisters):
         name = self._number_name[number]
         self.log.buffer("adding {:} to {:}".format(amount, name))
         value = self._registers[number]['value']+amount
-        self.setValue(number, value)
+        self.set_value(number, value)
 
-    def getPc(self):
+    def get_pc(self):
         """-> register:int
         Returns the number of the register with the programme counter.
         """
@@ -122,7 +122,7 @@ class Registers(BaseRegisters):
             values[register]=self._registers[register]['value']
         return values
 
-    def getRegisters(self):
+    def get_registers(self):
         """... -> registers:object
 
         Returns a reference to register object.
@@ -130,7 +130,7 @@ class Registers(BaseRegisters):
 
         return self
 
-    def getRegisterMappings(self):
+    def get_register_mappings(self):
         """... -> registers{name:str->number:int}:dict
 
         Returns a dict of register mappings.

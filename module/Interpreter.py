@@ -86,7 +86,7 @@ class Interpreter(BaseInterpreter):
         self._label_reference        = instructions.getAssemblySyntax()['reference']
         self._label_replacements     = instructions.get_label_replacements()
         self._isa_size               = instructions.getSize()
-        self._registers              = registers.getRegisterMappings()
+        self._registers              = registers.get_register_mappings()
 
         self._text_offset  = memory.get_start('text')
         self._word_spacing = memory.get_word_spacing()
@@ -394,10 +394,10 @@ if __name__ == '__main__':
             for element in asmsyntax:
                 instructions.addAssemblySyntax(element[0], element[1])
 
-            register_mappings=mr.getRegisterMappings()
+            register_mappings=mr.get_register_mappings()
             memory.add_segment('text', int('0x400000',16), int('0x7fffffff',16))
             for mapping in register_mappings:
-                registers.addRegisterMapping(mapping, register_mappings[mapping])
+                registers.add_register_mapping(mapping, register_mappings[mapping])
             #
             #interpreter is created here
             #

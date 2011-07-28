@@ -133,7 +133,7 @@ class InstructionSet(object):
 
         Usage:
             instructions=InstructionSet('intel_IA64')
-            instructions.addImplementation('add', [('addRegisters', ['rd','rs','rt'])])
+            instructions.addImplementation('add', [('add_registers', ['rd','rs','rt'])])
             ...
             instructions.addValues('add': {'sa': 0, 'fn': 32, 'op': 0})
             instructions.addSignature('add', {'op', [0, 5]}, {'fn', [26, 31]})

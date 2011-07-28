@@ -50,12 +50,12 @@ class Pipelined(BaseProcessor):
     def __init__(self, pipeline, **objects):
         self._instruction_decoded={}
         self._memory    = objects['memory'].get_memory()
-        self._registers = objects['registers'].getRegisters()
+        self._registers = objects['registers'].get_registers()
         self._api       = objects['api'].get_api_reference(self)
         self._isa       = objects['instructions']
 
         self._size       = self._isa.getSize()
-        self._pc         = self._registers.getPc()
+        self._pc         = self._registers.get_pc()
         self._word_space = self._memory.get_word_spacing()
 
         self._pipeline = []
@@ -113,7 +113,7 @@ class Pipelined(BaseProcessor):
         self.__writeback(index)
 
     def __fetch(self, index):
-        i=self._memory.get_word(self._registers.getValue(self._pc),
+        i=self._memory.get_word(self._registers.get_value(self._pc),
                                 self._size)
         self._pipeline.insert(0,[i])
         if 'FI' in self._pipeline_flags:

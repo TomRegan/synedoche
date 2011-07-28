@@ -104,16 +104,13 @@ class Simulation(object):
         """Clients need core to be callable"""
         pass
 
-    #
-    #core interface is below
-    #
+#
+# interface
+#
     #def log_size_check(self):
     #    size = os.path.getsize(self.logfile)
     #    if size > 2**20:
     #        sys.stderr.write('MESSAGE: logfile is becomming large ({0}-Kb).\n'.format(size/1000))
-
-    def _authorized_client(self, client):
-        return client in self._clients
 
     def cycle(self, client):
         """Performs one simulation cycle."""
@@ -138,7 +135,7 @@ class Simulation(object):
             self.cpu.cycle()
             self._cycles = self._cycles + 1
 
-    def complete(self, client):
+    def run(self, client):
         pass
 
     def evaluate(self, lines, connected, client):
@@ -180,7 +177,8 @@ class Simulation(object):
     def reset(self, client):
         """Resets the simulation processor"""
         if not self._authorized_client(client):
-            self.log.buffer("blocked `load' call from unauthorized client `{0}'".format(client.__class__.__name__))
+            self.log.buffer("blocked `load' call from unauthorized client `{0}'"
+                            .format(client.__class__.__name__))
             return
         self.cpu.reset()
 
@@ -192,12 +190,15 @@ class Simulation(object):
         This is to protect against exceptions caused by incomplete
         clients.
         """
-        if not isinstance(client, Interface.UpdateListener):
-            sys.stderr.write("ERROR: failed to connect client `{0}': it is not an UpdateListener\n".format(client.__class__.__name__))
-            self.log.write("failed to connect client `{0}': it is not an UpdateListener".format(client.__class__.__name__))
+        if not hasattr(client, 'update'):
+            sys.stderr.write("ERROR: failed to connect client `{0}': it does not implement `update'\n"
+                             .format(client.__class__.__name__))
+            self.log.write("failed to connect client `{0}': it is not an UpdateListener"
+                           .format(client.__class__.__name__))
             return
         if client in self._clients:
-            self.log.write("failed to connect `{0}': it is already connected".format(client.__class__.__name__))
+            self.log.write("failed to connect `{0}': it is already connected"
+                           .format(client.__class__.__name__))
             return
         #
         #we want the client to be an UpdateListener to the CPU to
@@ -216,18 +217,23 @@ class Simulation(object):
             self.log.write('detatched a client')
         self.log.flush()
 
-    def runDaemons(self):
-        pass
-
-    def addDaemon(self, daemon):
-        pass
-
-    def removeDaemon(self, daemon):
-        pass
-
     def get_instruction_size(self):
         """-> instruction_size:int"""
         return self.instruction_size
+#
+# worker functions
+#
+    def _authorized_client(self, client):
+        return client in self._clients
+
+    def _run_daemons(self):
+        pass
+
+    def _add_daemon(self, daemon):
+        pass
+
+    def _remove_daemon(self, daemon):
+        pass
 
 class TestListener(Interface.UpdateListener):
     def __init__(self, simulation):

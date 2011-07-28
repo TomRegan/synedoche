@@ -84,8 +84,8 @@ class Sunray(BaseApi):
         for operand in [a, b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.getValue(b) + self._register.getValue(c)
-        self._register.setValue(a, result)
+        result = self._register.get_value(b) + self._register.get_value(c)
+        self._register.set_value(a, result)
         return True
 
     def addImmediate(self, args, instruction_decoded, **named_args):
@@ -117,8 +117,8 @@ class Sunray(BaseApi):
         for operand in [a, b]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.getValue(b) + c
-        self._register.setValue(a, result)
+        result = self._register.get_value(b) + c
+        self._register.set_value(a, result)
         return True
 
 
@@ -151,8 +151,8 @@ class Sunray(BaseApi):
         for operand in [a, b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.getValue(b) - self._register.getValue(c)
-        self._register.setValue(a, result)
+        result = self._register.get_value(b) - self._register.get_value(c)
+        self._register.set_value(a, result)
         return True
 
     def copyRegister(self, args, instruction_decoded, **named_args):
@@ -168,8 +168,8 @@ class Sunray(BaseApi):
         #a = args[0]
         #b = instruction_decoded[args[1]]
         self.log.buffer('args 0:{:}, 1:{:}'.format(a, b))
-        value = self._register.getValue(a)
-        self._register.setValue(b, value)
+        value = self._register.get_value(a)
+        self._register.set_value(b, value)
         return True
 
     def mulRegisters(self, args, instruction_decoded, **named_args):
@@ -202,8 +202,8 @@ class Sunray(BaseApi):
         for operand in [b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.getValue(b) * self._register.getValue(c)
-        self._register.setValue(a, result)
+        result = self._register.get_value(b) * self._register.get_value(c)
+        self._register.set_value(a, result)
         return True
 
     def divRegisters(self, args, instruction_decoded, **named_args):
@@ -236,13 +236,13 @@ class Sunray(BaseApi):
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
         self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
-        if self._register.getValue(c) == 0:
+        if self._register.get_value(c) == 0:
             raise ArithmeticError
         for operand in [b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.getValue(b) / self._register.getValue(c)
-        self._register.setValue(a, result)
+        result = self._register.get_value(b) / self._register.get_value(c)
+        self._register.set_value(a, result)
         return True
 
     def remRegisters(self, args, instruction_decoded, **named_args):
@@ -275,13 +275,13 @@ class Sunray(BaseApi):
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
         self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
-        if self._register.getValue(c) == 0:
+        if self._register.get_value(c) == 0:
             raise ArithmeticError
         for operand in [b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.getValue(b) % self._register.getValue(c)
-        self._register.setValue(a, result)
+        result = self._register.get_value(b) % self._register.get_value(c)
+        self._register.set_value(a, result)
         return True
 
     def setRegister(self, args, instruction_decoded, **named_args):
@@ -319,7 +319,7 @@ class Sunray(BaseApi):
         #except:
         #    b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self._register.setValue(a, b)
+        self._register.set_value(a, b)
         return True
 
     def loadWord32(self, args, instruction_decoded, **named_args):
@@ -342,9 +342,9 @@ class Sunray(BaseApi):
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
         self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
-        offset=int(c)+self._register.getValue(int(b))
+        offset=int(c)+self._register.get_value(int(b))
         word = self._memory.get_word(offset, 32)
-        self._register.setValue(int(a), word)
+        self._register.set_value(int(a), word)
         self.log.buffer('loading {:} into {:} from {:}'.format(word,a,offset))
         return True
 
@@ -368,8 +368,8 @@ class Sunray(BaseApi):
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
         self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
-        value=self._register.getValue(int(a))
-        offset=int(c)+self._register.getValue(int(b))
+        value=self._register.get_value(int(a))
+        offset=int(c)+self._register.get_value(int(b))
         self._memory.set_word(offset, value, 32)
         self.log.buffer('storing {:} in {:}'.format(value,hex(offset)))
         return True
@@ -383,8 +383,8 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.getValue(a) == self._register.getValue(b)))
-        return self._register.getValue(a) == self._register.getValue(b)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) == self._register.get_value(b)))
+        return self._register.get_value(a) == self._register.get_value(b)
 
     def testNotEqual(self, args, instruction_decoded, **named_args):
         """args:list -> bool
@@ -395,8 +395,8 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.getValue(a) != self._register.getValue(b)))
-        return self._register.getValue(a) != self._register.getValue(b)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) != self._register.get_value(b)))
+        return self._register.get_value(a) != self._register.get_value(b)
 
     def testLess(self, args, instruction_decoded, **named_args):
         """args:list -> bool
@@ -407,8 +407,8 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.getValue(a) < self._register.getValue(b)))
-        return self._register.getValue(a) < self._register.getValue(b)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) < self._register.get_value(b)))
+        return self._register.get_value(a) < self._register.get_value(b)
 
     def testLessImmediate(self, args, instruction_decoded, **named_args):
         """args:list -> bool
@@ -419,8 +419,8 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.getValue(a) < b))
-        return self._register.getValue(a) < b
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) < b))
+        return self._register.get_value(a) < b
 
     def testGreater(self, args, instruction_decoded, **named_args):
         """args:list -> bool
@@ -431,8 +431,8 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.getValue(a) > self._register.getValue(b)))
-        return self._register.getValue(a) > self._register.getValue(b)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) > self._register.get_value(b)))
+        return self._register.get_value(a) > self._register.get_value(b)
 
     def testGreaterOrEqual(self, args, instruction_decoded, **named_args):
         """args:list -> bool
@@ -443,8 +443,8 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.getValue(a) >= self._register.getValue(b)))
-        return self._register.getValue(a) >= self._register.getValue(b)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) >= self._register.get_value(b)))
+        return self._register.get_value(a) >= self._register.get_value(b)
 
     def testGreaterImmediate(self, args, instruction_decoded, **named_args):
         """args:list -> bool
@@ -455,8 +455,8 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.getValue(a) > b))
-        return self._register.getValue(a) > b
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) > b))
+        return self._register.get_value(a) > b
 
     def testGreaterOrEqualImmediate(self, args, instruction_decoded, **named_args):
         """args:list -> bool
@@ -471,8 +471,8 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.getValue(a) >= b))
-        return self._register.getValue(a) >= b
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) >= b))
+        return self._register.get_value(a) >= b
 
     def branchAbsolute(self, args, instruction_decoded, **named_args):
         """Sets the instruction pointer to a new memory address.
@@ -491,13 +491,13 @@ class Sunray(BaseApi):
         self.log.buffer('args 0:{:}'.format(a)),
         # add branch delay
         if len(args) > 1:
-            b = int(self._register.getValue(args[1]))
+            b = int(self._register.get_value(args[1]))
             self.log.buffer('args 1:{:}'.format(b))
             word_space = self._memory.get_word_spacing()
             b = b * word_space
             a = a + b
-        pc=self._register.getPc()
-        self._register.setValue(pc, a)
+        pc=self._register.get_pc()
+        self._register.set_value(pc, a)
         return True
 
     def branchRelative(self, args, instruction_decoded, **named_args):
@@ -515,8 +515,8 @@ class Sunray(BaseApi):
         if len(args) > 1:
             b=args[1]
             a = a + b
-        pc = self._register.getPc()
-        pc_value = self._register.getValue(pc)
+        pc = self._register.get_pc()
+        pc_value = self._register.get_value(pc)
         self.log.buffer('pc is {:}'.format(hex(pc_value)))
         word_space = self._memory.get_word_spacing()
         self.log.buffer('word-space is {:}'.format(word_space))
@@ -525,16 +525,16 @@ class Sunray(BaseApi):
         a = a * word_space
         self.log.buffer('increment is {:}'.format(a))
         a = pc_value + a
-        self._register.setValue(pc, a)
+        self._register.set_value(pc, a)
         return True
 
     def incrementPc(self, args, instruction_decoded, **named_args):
         """args:list -> True"""
         self.log.buffer('incrementPc called')
         a = int(instruction_decoded[args[0]], 2)
-        pc=self._register.getPc()
-        value=self._register.getValue(pc)+a
-        self._register.setValue(pc, value)
+        pc=self._register.get_pc()
+        value=self._register.get_value(pc)+a
+        self._register.set_value(pc, value)
         return True
 
     def doNothing(self, args, instruction_decoded, **named_args):
@@ -548,6 +548,6 @@ class Sunray(BaseApi):
         system_call = SystemCall()
         a=args[0]
         self.log.buffer('args 0:{0}'.format(a))
-        result = self._register.getValue(a)
+        result = self._register.get_value(a)
         system_call.service(result)
         return True

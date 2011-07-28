@@ -79,20 +79,20 @@ if __name__ == '__main__':
 
         def testNoop(self):
             self.logger.buffer('>-----testNoop/Fetch')
-            pc=self.cpu._registers.getValue(33)
+            pc=self.cpu._registers.get_value(33)
             cycles=1
             for i in range(cycles):
                 self.cpu.cycle()
-            self.assertEquals(pc+cycles*4, self.cpu._registers.getValue(33))
+            self.assertEquals(pc+cycles*4, self.cpu._registers.get_value(33))
             self.assertEquals([[0, 'j', 'nop']], self.cpu._pipeline)
 
         def testDecode(self):
             self.logger.buffer('>-----testDecode')
-            pc=self.cpu._registers.getValue(33)
+            pc=self.cpu._registers.get_value(33)
             cycles=2
             for i in range(cycles):
                 self.cpu.cycle()
-            self.assertEquals(pc+cycles*4, self.cpu._registers.getValue(33))
+            self.assertEquals(pc+cycles*4, self.cpu._registers.get_value(33))
             self.assertEquals([[0, 'j', 'nop'],
                                [0,'j','nop',{'im':
                                               '00000000000000000000000000',
@@ -101,11 +101,11 @@ if __name__ == '__main__':
 
         def testExecute(self):
             self.logger.buffer('>-----testExecute')
-            pc=self.cpu._registers.getValue(33)
+            pc=self.cpu._registers.get_value(33)
             cycles=4
             for i in range(cycles):
                 self.cpu.cycle()
-            self.assertEquals(pc+cycles*4, self.cpu._registers.getValue(33))
+            self.assertEquals(pc+cycles*4, self.cpu._registers.get_value(33))
             self.assertEquals([[0, 'j', 'nop'],
                                [0,'j','nop',{'im':
                                               '00000000000000000000000000',
@@ -128,19 +128,19 @@ if __name__ == '__main__':
         def testAddInstruction(self):
             """add instruction works as expected"""
             self.logger.buffer('>-----testAddInstruction')
-            pc=self.cpu._registers.getValue(33)
+            pc=self.cpu._registers.get_value(33)
             i=self.interpreter.read_lines(['addi $s0, $zero, 32'])
             i=self.interpreter.convert(i)
             self.memory.load_text(i)
             cycles=4
             for i in range(cycles):
                 self.cpu.cycle()
-            self.assertEquals(32, self.registers.getValue(16))
+            self.assertEquals(32, self.registers.get_value(16))
 
         def testSetOnLessInstruction(self):
             """slt instruction works as expected"""
             self.logger.buffer('>-----testSltInstruction')
-            pc=self.cpu._registers.getValue(33)
+            pc=self.cpu._registers.get_value(33)
             i=self.interpreter.read_lines(['addi $s1, $zero, 255\n',
                                            'addi $s2, $zero, 1023\n',
                                            'slt  $s0, $s1, $s2'])
@@ -149,7 +149,7 @@ if __name__ == '__main__':
             cycles = 6
             for i in range(cycles):
                 self.cpu.cycle()
-            self.assertEquals(1, self.registers.getValue(16))
+            self.assertEquals(1, self.registers.get_value(16))
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestCpu)
     unittest.TextTestRunner(verbosity=1).run(tests)

@@ -86,12 +86,12 @@ class RegisterBuilder(Builder):
             write   = register[3]
             profile = register[4]
             value   = register[6]
-            self.obj.addRegister(number=number,
+            self.obj.add_register(number=number,
                                  value=value,
                                  size=size,
                                  profile=profile,
                                  privilege=write)
-            self.obj.addRegisterMapping(
+            self.obj.add_register_mapping(
                 register[0], register[1])
 
 class MemoryBuilder(Builder):

@@ -28,7 +28,8 @@ from module.lib.Functions import binary as bin
 from module.lib.Functions import hexadecimal as hex
 
 class Cli(UpdateListener):
-    """
+    """``Cli is just this guy, you know?''
+                                    --Gag Halfrunt
     """
     def __init__(self, instructions, machine):
         self.local_DEBUG=1
@@ -180,7 +181,7 @@ class Cli(UpdateListener):
         self.simulation.reset(self)
 
     def print_programme(self):
-        if "_programme_text" in dir():
+        if hasattr(self, "_programme_text"):
             print('\n'.join(self._programme_text))
         else:
             print('fatal: No programme loaded')
