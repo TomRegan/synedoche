@@ -10,16 +10,15 @@ from Logger  import BaseLogger
 from Monitor import BaseMonitor
 
 
-class Loggable(object):
-
+class LoggerClient(object):
     log = BaseLogger()
     _log = log
     def open_log(self, Logger):
         pass
 
-class MonitorNode(object):
-    mon = BaseMonitor()
-    _mon = mon
+class MonitorClient(object):
+    monitor = BaseMonitor()
+    _monitor = monitor
     def open_monitor(self, Monitor):
         pass
 
@@ -29,7 +28,6 @@ class UpdateListener(object):
 
 class UpdateBroadcaster(object):
     _listeners=[]
-
     def register(self, listener):
         if not listener in self._listeners:
             self._listeners.append(listener)

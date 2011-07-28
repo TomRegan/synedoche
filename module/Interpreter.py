@@ -5,13 +5,13 @@
 # file           : Interpreter.py
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-05
-# last modified  : 2011-07-22
+# last modified  : 2011-07-22 (minor revisions; this is stable)
 
 import re
 
 from copy      import deepcopy
 from Logger    import InterpreterLogger
-from Interface import Loggable
+from Interface import *
 
 from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
@@ -30,8 +30,16 @@ class DataConversionFromUnknownType(Exception):
 
 
 
-class Interpreter(Loggable):
+class BaseInterpreter(LoggerClient):
+    def open_log(self, logger):
+        """logger:object -> ...
 
+        Begins logging activity with the logger object passed.
+        """
+        self.log = InterpreterLogger(logger)
+        self.log.write("created `{0}' interpreter".format(self._language))
+
+class Interpreter(BaseInterpreter):
     _comment_pattern=None #regex describing comments
     _label_pattern=None   #regex describing a lable
     _label_reference=None #regex for a label reference
@@ -67,7 +75,7 @@ class Interpreter(Loggable):
             except BadInstructionOrSyntax as e:
                 print e.message
         """
-        #try:
+
         self._language               = instructions.getLanguage()
         self._instruction_syntax     = instructions.getSyntax()
         self._instruction_values     = instructions.getValues()
@@ -79,31 +87,14 @@ class Interpreter(Loggable):
         self._label_replacements     = instructions.get_label_replacements()
         self._isa_size               = instructions.getSize()
         self._registers              = registers.getRegisterMappings()
-        #
-        #WARNING as of 2011-07-19 the great interface change™ is in
-        #effect. The following member functions are contradictory
-        #and must be set on a per-instance basis.
-        #Below comes from the new API
+
         self._text_offset  = memory.get_start('text')
         self._word_spacing = memory.get_word_spacing()
-        #except Exception as e:
-        #    raise DataMissingException('Missing data for Interpreter: '+e.message)
 
-    def open_log(self, logger):
-        """logger:object -> ...
 
-        Begins logging activity with the logger object passed.
-        """
-        self.log = InterpreterLogger(logger)
-        self.log.write("created `{0}' interpreter".format(self._language))
-
-    def _read(self, lines):
-        """[lines:str]:list -> [instructions:str]:list"""
-        lines=self._preprocess(lines)
-        lines=self._link(lines)
-        lines=self._encode(lines)
-        return lines
-
+#
+#interface
+#
     def read_file(self, file_object):
         """file:object -> [instructions:str]:list
 
@@ -144,6 +135,16 @@ class Interpreter(Loggable):
                 lines[i] = int(lines[i],2)
         except:
             raise DataConversionFromUnknownType('Tried to convert from unknown type: {0} {1}'.format(lines[i], type(lines[i])))
+        return lines
+
+#
+#worker functions
+#
+    def _read(self, lines):
+        """[lines:str]:list -> [instructions:str]:list"""
+        lines=self._preprocess(lines)
+        lines=self._link(lines)
+        lines=self._encode(lines)
         return lines
 
     def _preprocess(self, lines):
@@ -307,6 +308,8 @@ class Interpreter(Loggable):
                                         # TODO
                                         # problem with decimal, binary
                                         #
+                                        # NEEDS REVIEW (still a problem?)
+                                        # 2011-07-28
                                         #value=int(value, 2, signed=True)
                                         value=int(value)
                                     except:
@@ -360,6 +363,11 @@ class Interpreter(Loggable):
 
 
 if __name__ == '__main__':
+    # UNIT TEST DEPRECATED -- results are uncertain
+    # The tests below are long deprecated. By all means spruce up
+    # and reuse (UTs are now in PR_ROOT/testing) but don't run.
+    # 2011-07-28
+    #
     import unittest
     import Isa
     import Registers

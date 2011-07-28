@@ -8,6 +8,10 @@
 
 class BaseMonitor(object):
     """Provides storage for statistical data."""
+
+    def __init__(self):
+        self.data = {}
+
     def get_int_prop(self):
         """Returns a value from the integers table"""
         pass

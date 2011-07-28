@@ -68,6 +68,7 @@ class Simulation(object):
         coordinator.make(filename=machine_conf)
         self.registers = coordinator.get_object()
         self.registers.open_log(self.logger)
+        self.registers.open_monitor(self.monitor)
 
         coordinator.set_builder(Builder.MemoryBuilder())
         coordinator.make(filename=machine_conf)

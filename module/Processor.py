@@ -15,7 +15,7 @@ from copy      import deepcopy
 from lib.Functions import binary as bin
 from lib.Functions import integer as int
 
-class BaseProcessor(Loggable, UpdateBroadcaster, MonitorNode):
+class BaseProcessor(UpdateBroadcaster, LoggerClient, MonitorClient):
     def __init__(self, registers, memory, api, instructions):
         pass
     def cycle(self):
@@ -33,10 +33,16 @@ class BaseProcessor(Loggable, UpdateBroadcaster, MonitorNode):
     def get_pipeline(self):
         """Returns a reference or copy of processor pipeline"""
         pass
-    def open_monitor(self, monitor):
-        pass
     def open_log(self, logger):
-        pass
+        self._log = CpuLogger(logger)
+        self._log.buffer("created a cpu, `{:}'"
+                         .format(self.__class__.__name__))
+        self._log.buffer("pc is register {0}".format(hex(self._pc)))
+
+    def open_monitor(self, monitor):
+        self._monitor = monitor
+        self._log.buffer("attached a monitor, `{:}'"
+                         .format(monitor.__class__.__name__))
 
 class Pipelined(BaseProcessor):
     """Pipelined CPU Implementation"""
@@ -45,7 +51,7 @@ class Pipelined(BaseProcessor):
         self._instruction_decoded={}
         self._memory    = objects['memory'].get_memory()
         self._registers = objects['registers'].getRegisters()
-        self._api       = objects['api'].getApiReference(self)
+        self._api       = objects['api'].get_api_reference(self)
         self._isa       = objects['instructions']
 
         self._size       = self._isa.getSize()
@@ -58,24 +64,13 @@ class Pipelined(BaseProcessor):
 
         self.__special_flags = {}
 
-    def open_log(self, logger):
-        self._log = CpuLogger(logger)
-        self._log.buffer("created a cpu, `{:}'"
-                         .format(self.__class__.__name__))
-        self._log.buffer("pc is register {0}".format(hex(self._pc)))
-
-    def open_monitor(self, monitor):
-        self._mon = monitor
-        self._log.buffer("attached a monitor, `{:}'"
-                         .format(monitor.__class__.__name__))
-
     def cycle(self):
         self._log.buffer('beginning a cycle')
         self.__special_flags['increment'] = False
         for stage in self._pipeline_stages:
             self._log.buffer('entering {0} stage'.format(stage))
             #a little string transformation to help avoid accidents
-            stagecall = '_BARS' + stage.title()
+            stagecall = '_' + stage + '_coordinator'
             try:
                 call = getattr(self, stagecall)
                 call(self._pipeline_stages.index(stage))
@@ -93,25 +88,28 @@ class Pipelined(BaseProcessor):
                 raise e
             self._log.buffer('leaving {0} stage'.format(stage))
         self.broadcast()
-        self._mon.increment('cycles')
+        self._monitor.increment('processor_cycles')
         self._log.buffer('completing a cycle')
 
-    def _BARSFetch(self, index):
+    def _fetch_coordinator(self, index):
         self.__fetch(index)
         if 'FD' in self._pipeline_flags:
             self.__decode(index)
+        self._monitor.increment('processor_fetched')
 
-    def _BARSDecode(self, index):
+    def _decode_coordinator(self, index):
         if not 'FD' in self._pipeline_flage:
             self.__decode(index)
+        self._monitor.increment('processor_decoded')
 
-    def _BARSExecute(self, index):
+    def _execute_coordinator(self, index):
         self.__execute(index)
+        self._monitor.increment('processor_executed')
 
-    def _BARSMemory(self, index):
+    def _memory_coordinator(self, index):
         pass
 
-    def _BARSWriteback(self, index):
+    def _writeback_coordinator(self, index):
         self.__writeback(index)
 
     def __fetch(self, index):

@@ -4,7 +4,7 @@
 # file           : Registers.py
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-11
-# last modified  : 2011-07-22
+# last modified  : 2011-07-28
 
 from copy import deepcopy
 from Logger    import RegisterLogger
@@ -12,11 +12,18 @@ from Interface import *
 from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
 
-class BaseRegister(object):
+class BaseRegisters(LoggerClient, MonitorClient):
     def open_log(self, logger):
-        pass
+        self.log = RegisterLogger(logger)
+        self.log.buffer("created registers, `{:}'"
+                        .format(self.__class__.__name__))
 
-class Registers(Loggable):
+    def open_monitor(self, monitor):
+        self._monitor = monitor
+        self._log.buffer("attached a monitor, `{:}'"
+                         .format(monitor.__class__.__name__))
+
+class Registers(BaseRegisters):
     """Provides an interface that should be used to build a set of registers
 
     Usage:
@@ -30,11 +37,6 @@ class Registers(Loggable):
     _registers_iv={}
     _name_number={}
     _number_name={}
-
-    def open_log(self, logger):
-        self.log = RegisterLogger(logger)
-        self.log.buffer("created registers, `{:}'"
-                        .format(self.__class__.__name__))
 
     def addRegister(self, number, value, size, profile, privilege):
         """(number:int, value:int, size:int, profile:str, privilege:bool)
@@ -78,6 +80,7 @@ class Registers(Loggable):
         name = self._number_name[number]
         self.log.buffer("setting {:} to {:}".format(name, hex(value, 8)))
         self._registers[number]['value']=value
+        self._monitor.increment('register_reads')
 
     def getValue(self, number):
         """number:int -> number:int
@@ -85,6 +88,7 @@ class Registers(Loggable):
         """
         if number not in self.keys():
             return
+        self._monitor.increment('register_writes')
         return self._registers[number]['value']
 
     def increment(self, number, amount=1):
@@ -93,9 +97,8 @@ class Registers(Loggable):
         """
         name = self._number_name[number]
         self.log.buffer("adding {:} to {:}".format(amount, name))
-        self._registers[number]['value'] = self._registers[number]['value']+amount
-        self.log.buffer("new value is {:}"
-                        .format(hex(self._registers[number]['value'], 8)))
+        value = self._registers[number]['value']+amount
+        self.setValue(number, value)
 
     def getPc(self):
         """-> register:int
@@ -108,6 +111,7 @@ class Registers(Loggable):
         """Resets all registers to beginning values"""
         self.log.buffer("clearing register values")
         self._registers = deepcopy(self._registers_iv)
+        self._monitor.increment('registers_resets')
 
     def keys(self):
         return self._registers.keys()
@@ -138,63 +142,3 @@ class Registers(Loggable):
         Returns a dict of register mappings.
         """
         return self._number_name
-
-
-
-
-#class Registers(object):
-#    """Provides an interface that should be used to build a set of registers
-#
-#    Usage:
-#        registers=Registers()
-#        registers.addRegister(number=0, value=2147483647, size=32,
-#                              profile='gp', privilege=True)
-#        registers.removeRegister(0)
-#    """
-#
-#    _registers={}
-#    _register_mappings={}
-#    def addRegister(self, number, value, size, profile, privilege):
-#        """(number:int, value:int, size:int, profile:str, privilege:bool)
-#            -> registers{register[number]:{value,size,profile,provilege}:dict
-#
-#        Adds a register.
-#        """
-#
-#        self._registers[number]={}
-#        self._registers[number]['value']     = value
-#        self._registers[number]['size']      = size
-#        self._registers[number]['profile']   = profile
-#        self._registers[number]['privilege'] = privilege
-#
-#    def addRegisterMapping(self, name, number):
-#        """(name:str, number:int) -> register{name:number}:dict
-#
-#        Creates a map of names to registers which can be used to
-#        assist decoding assembly instructions.
-#        """
-#
-#        self._register_mappings[name]=number
-#
-#    def removeRegister(self, number):
-#        """number:int -> ...
-#
-#        Deletes a register.
-#        """
-#
-#        del self._registers[number]
-#
-#    def getRegisters(self):
-#        """... -> registers:object
-#
-#        Returns a reference to register object.
-#        """
-#
-#        return self._registers
-#
-#    def getRegisterMappings(self):
-#        """... -> registers{name:number}:dict
-#
-#        Returns a dict of register mappings.
-#        """
-#        return self._register_mappings

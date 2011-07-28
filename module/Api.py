@@ -13,7 +13,7 @@ from Logger import ApiLogger
 from Interface import *
 from lib.Functions import integer as int
 
-class _Api(Loggable):
+class BaseApi(LoggerClient):
     """Base class which provides the necessary storage and initialization
     for derrived Api implementations
     """
@@ -36,13 +36,13 @@ class _Api(Loggable):
         self.log.buffer("created an api, `{:}'"
                         .format(self.__class__.__name__))
 
-    def getApiReference(self, cpu):
+    def get_api_reference(self, cpu):
         """cpu:object -> api:object
 
         Takes a reference to a Cpu object and links the CPU and API.
 
         Usage:
-            api = Api.getApiReference(cpu)
+            api = Api.get_api_reference(cpu)
 
             (Usually within __init__ of the CPU.)
         """
@@ -52,7 +52,7 @@ class _Api(Loggable):
         return self
 
 
-class Sunray(_Api):
+class Sunray(BaseApi):
     """An API implementation which primarily supports the MIPS32 ISA."""
 
     def addRegisters(self, args, instruction_decoded, **named_args):
@@ -303,16 +303,12 @@ class Sunray(_Api):
         self.log.buffer('setRegister called')
         if args[0] in instruction_decoded.keys():
             a = int(instruction_decoded[args[0]], 2)
-            self.log.buffer('a is not int')
         else:
             a = args[0]
-            self.log.buffer('a is int')
         if args[1] in instruction_decoded.keys():
             b = int(instruction_decoded[args[1]], 2)
-            self.log.buffer('b is not int')
         else:
             b = args[1]
-            self.log.buffer('b is int')
         #try:
         #    a = int(instruction_decoded[args[0]], 2)
         #except:

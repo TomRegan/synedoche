@@ -34,7 +34,7 @@ class Enum(set):
 
 
 
-class BaseMemory(Loggable, MonitorNode):
+class BaseMemory(LoggerClient, MonitorClient):
 
     def open_log(self, logger):
         """logger:object -> ...
@@ -48,7 +48,7 @@ class BaseMemory(Loggable, MonitorNode):
                                 (self._size/self._addressable)))
 
     def open_monitor(self, monitor):
-        self._mon = monitor
+        self._monitor = monitor
         self._log.buffer("attached a monitor, `{:}'"
                          .format(monitor.__class__.__name__))
 
@@ -78,10 +78,10 @@ class Memory(BaseMemory):
     """
 
     #
-    #Memory is implemented as a dict. To avoid wasted (real) memory,
-    #a range is stored indicating the bounds of each segment, but
-    #no space is reserved. This makes sense for 32-bit+ ISAs, and
-    #spares us the embarrasment trying to malloc 4GB.
+    # Memory is implemented as a dict. To avoid wasted (real) memory,
+    # a range is stored indicating the bounds of each segment, but
+    # no space is reserved. This makes sense for 32-bit+ ISAs, and
+    # spares us the embarrasment trying to malloc 4GB.
     #
     _address={}
     _segment={}
@@ -194,7 +194,7 @@ class Memory(BaseMemory):
             offset = offset + (self._size / self._addressable)
         self.log.buffer('loaded {0} word programme into memory'
                         .format(len(text)))
-        self._mon['programme_length'] = len(text)
+        self._monitor['programme_length'] = len(text)
         return len(text)
 
     def load_text_and_dump(self, text):
@@ -277,7 +277,7 @@ class Memory(BaseMemory):
                                  .format(hex(offset).replace('L','')))
         #Expect a `key error' exception, but behave as though this was
         #a successful memory read. Return 0.
-        self._mon.increment('memory_bytes_loaded')
+        self._monitor.increment('memory_bytes_loaded')
         try:
             return self._address[offset]
         except KeyError, e:
@@ -351,7 +351,7 @@ class Memory(BaseMemory):
             raise SegmentationFaultException('{:} is out of bounds'
                                  .format(hex(offset).replace('L','')))
         self._address[offset] = value
-        self._mon.increment('memory_bytes_stored')
+        self._monitor.increment('memory_bytes_stored')
 
     def reset(self):
         """... -> ...
