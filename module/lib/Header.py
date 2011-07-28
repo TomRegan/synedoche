@@ -6,7 +6,7 @@
 # since          : 2011-07-15
 # last modified  : 2011-07-27
 
-VERSION='66'
+VERSION='67'
 RELEASE_NAME='M4'
 PROGRAMME_NAME=''
 DEBUG=True

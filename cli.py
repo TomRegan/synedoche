@@ -35,7 +35,6 @@ class Cli(UpdateListener):
         self.local_DEBUG=1
         self.simulation=None
         self.last_cmd=None
-        self._programme_text=None
 
         try:
             readline.read_history_file('.cli_history')
@@ -173,6 +172,8 @@ class Cli(UpdateListener):
                   .format(count, ''.join(filename.split('/')[-1:])))
         except IOError, e:
             sys.stderr.write("No such file: `{:}'\n".format(filename))
+        except BadInstructionOrSyntax, e:
+            print('File contains errors:\n{:}'.format(e.message))
         except Exception, e:
             self.exception_handler(e)
 
@@ -184,7 +185,7 @@ class Cli(UpdateListener):
         if hasattr(self, "_programme_text"):
             print('\n'.join(self._programme_text))
         else:
-            print('fatal: No programme loaded')
+            print('No programme loaded')
 
     def print_registers(self):
         """Formats and outputs a display of the registers"""
