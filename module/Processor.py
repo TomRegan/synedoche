@@ -6,6 +6,8 @@
 # since          : 2011-07-20
 # last modified  : 2011-07-22
 
+# TODO: Make update a deepcopy operation (2011-07-31)
+
 import Monitor
 
 from Interface import *
