@@ -140,7 +140,6 @@ class Simulation(object):
 
     def evaluate(self, lines, connected, client):
         """Processes cycles for one instruction"""
-        #assert type(lines) == list
         if not self._authorized_client(client):
             self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
                             .format(client.__class__.__name__))

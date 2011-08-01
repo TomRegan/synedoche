@@ -4,12 +4,9 @@
 # file           : Processor.py
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-20
-# last modified  : 2011-07-22
+# last modified  : 2011-08-01
 
-# TODO: Make update a deepcopy operation (2011-07-31)
-
-import Monitor
-
+# TODO: Replace __all__ with classes. (2011-08-01)
 from Interface import *
 from Logger    import *
 from copy      import deepcopy
@@ -206,7 +203,6 @@ class Pipelined(BaseProcessor):
 
     def get_pipeline(self):
         return [i[0] for i in self._pipeline]
-        #return self._pipeline
 
     def broadcast(self):
         """Overrides broadcast in the base class
@@ -216,9 +212,9 @@ class Pipelined(BaseProcessor):
         registers = self.get_registers()
         memory    = self.get_memory()
         pipeline  = self.get_pipeline()
-        super(Pipelined, self).broadcast(registers=registers,
-                                         memory=memory,
-                                         pipeline=pipeline)
+        super(Pipelined, self).broadcast(registers=deepcopy(registers),
+                                         memory=deepcopy(memory),
+                                         pipeline=deepcopy(pipeline))
 
     def register(self, listener):
         """Overrides register in the base class

@@ -6,6 +6,10 @@
 # since          : 2011-07-15
 # last modified  : 2011-07-27
 
+# TODO: Refactor parser into seperate class. (2011-07-22)
+# TODO: Reorganize code into cleaner blocks. (2011-08-01)
+# TODO: ^^^MVC FFS^^^. (2011-08-01)
+
 
 import sys
 try:
@@ -32,9 +36,12 @@ class Cli(UpdateListener):
                                     --Gag Halfrunt
     """
     def __init__(self, instructions, machine):
-        self.local_DEBUG=1
-        self.simulation=None
-        self.last_cmd=None
+        self.local_DEBUG = 1
+        self.simulation  = None
+        self.last_cmd    = None
+        self.registers   = []
+        self.memory      = []
+        self.pipeline    = []
 
         try:
             readline.read_history_file('.cli_history')
@@ -61,9 +68,6 @@ class Cli(UpdateListener):
             self.exit()
         except Exception, e:
             self.exception_handler(e)
-
-
-
 
     def run(self):
         print("Command Line Client (r{:}:{:})\n"
@@ -270,7 +274,7 @@ class Cli(UpdateListener):
     def exit(self, *args, **kwargs):
         if len(args) < 1:
             args=[0]
-            print("Bye!")
+            print("Exit")
         readline.write_history_file('.cli_history')
         if callable(self.simulation):
             self.simulation.disconnect(self)
