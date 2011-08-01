@@ -8,6 +8,7 @@
 
 from copy import deepcopy
 from Logger    import RegisterLogger
+# TODO: Specify __all__ imports by name. (2011-08-01)
 from Interface import *
 from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
@@ -80,7 +81,7 @@ class Registers(BaseRegisters):
         name = self._number_name[number]
         self.log.buffer("setting {:} to {:}".format(name, hex(value, 8)))
         self._registers[number]['value']=value
-        self._monitor.increment('register_reads')
+        self._monitor.increment('register_writes')
 
     def get_value(self, number):
         """number:int -> number:int
@@ -88,7 +89,7 @@ class Registers(BaseRegisters):
         """
         if number not in self.keys():
             return
-        self._monitor.increment('register_writes')
+        self._monitor.increment('register_reads')
         return self._registers[number]['value']
 
     def increment(self, number, amount=1):
@@ -128,7 +129,7 @@ class Registers(BaseRegisters):
         Returns a reference to register object.
         """
 
-        return self
+        return deepcopy(self)
 
     def get_register_mappings(self):
         """... -> registers{name:str->number:int}:dict

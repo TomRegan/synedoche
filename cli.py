@@ -18,6 +18,7 @@ except:
     pass #never mind
 
 from core import *
+from copy import deepcopy
 
 from module.Interface   import UpdateListener
 from module.Evaluator   import Evaluator
@@ -82,6 +83,9 @@ class Cli(UpdateListener):
             if len(memento) > 10:
                 memento.pop(0)
         self.registers.append(kwargs['registers'])
+        # Fixme: This is a heinous hack to fix deepcopy problem
+        # until it is understood. (2011-08-01)
+        self.registers[-1]._registers = deepcopy(kwargs['registers']._registers)
         self.memory.append(kwargs['memory'])
         self.pipeline.append(kwargs['pipeline'])
 
@@ -105,17 +109,14 @@ class Cli(UpdateListener):
             if self.last_cmd is not None and len(line) == 0:
                 line = self.last_cmd
             self.last_cmd = line
-            # Todo: Shorter names to print registers. (2011-08-01)
             if line[0][:2] == 'pr':
                 if len(line) > 1:
-                    if line[1] == 'register':
+                    if line[1][:3] == 'reg':
                         if len(line) > 2:
-                            self.print_register(*line[2:])
-                        else:
-                            self.print_registers()
-                    if line[1] == 'registers':
-                        if len(line) > 2:
-                            self.print_registers(rewind=line[2])
+                            if line[2][:2] == 're':
+                                self.print_registers(rewind=line[3])
+                            else:
+                                self.print_register(line[2:])
                         else:
                             self.print_registers()
                     elif line[1][:3] == 'pip':
@@ -201,23 +202,23 @@ class Cli(UpdateListener):
         else:
             print('No programme loaded')
 
-    # Fixme: Rewinding is not reliable. (2011-08-01)
     def print_registers(self, **args):
         """Formats and outputs a display of the registers"""
         if args.has_key('rewind'):
-            time = -int(args['rewind'])
+            time = -(int(args['rewind'])+1)
+            args.clear()
         else:
             time = -1
         try:
             r=self.registers[time]
         except IndexError:
-            print("Can't rewind to {:}, only {:} values stored."
-                  .format(abs(time), len(self.registers)))
+            print("Can't rewind {:}, only {:} values stored."
+                  .format(abs(time)-1, len(self.registers)))
             return
         try:
             if time != -1:
-                print("{:-<80}".format("--Registers (Rewind-{:})"
-                                       .format(abs(time))))
+                print("{:-<80}".format("--Registers (DEBUG-Rewind-{:})"
+                                       .format(hex(id(r))[2:].replace('L', ''))))
             else:
                 print("{:-<80}".format("--Registers"))
             for i in r.values():
@@ -226,7 +227,7 @@ class Cli(UpdateListener):
                 name = self.registers[time].get_number_name_mappings()[i]
                 print("{:>4}({:0>2}):{:.>10}"
                       .format(name[:4], i,
-                      hex(r.values()[i])[2:].replace('L', ''), 8)),
+                      hex(r.get_value(i))[2:].replace('L', ''), 8)),
             print("\n{:-<80}".format(''))
         except:
             pass
