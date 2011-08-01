@@ -3,7 +3,7 @@
 #
 # Convert Assembly to Machine Instructions.
 # file           : Interpreter.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-05
 # last modified  : 2011-07-22 (minor revisions; this is stable)
 

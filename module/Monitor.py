@@ -2,7 +2,7 @@
 #
 # Statistical Data Monitoring.
 # file           : Monitor.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-27
 # last modified  : 2011-07-27
 

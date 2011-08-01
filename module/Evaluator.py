@@ -2,7 +2,7 @@
 #
 # Line Evaluator.
 # file           : Evaluator.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-18
 # last modified  : 2011-07-22
 

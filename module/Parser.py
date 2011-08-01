@@ -2,7 +2,7 @@
 #
 # Command Line Parser.
 # file           : Parser.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-28
 # last modified  : 2011-07-28
 

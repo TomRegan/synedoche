@@ -2,7 +2,7 @@
 #
 # Logging Tools.
 # file           : Logger.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-06-30
 # last modified  : 2011-07-22
 

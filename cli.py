@@ -2,13 +2,13 @@
 #
 # Cli Client.
 # file           : cli.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-15
 # last modified  : 2011-07-27
 
-# TODO: Refactor parser into seperate class. (2011-07-22)
-# TODO: Reorganize code into cleaner blocks. (2011-08-01)
-# TODO: ^^^MVC FFS^^^. (2011-08-01)
+# Todo: Refactor parser into seperate class. (2011-07-22)
+# Todo: Reorganize code into cleaner blocks. (2011-08-01)
+# Todo: ^^^MVC FFS^^^. (2011-08-01)
 
 
 import sys
@@ -78,9 +78,12 @@ class Cli(UpdateListener):
             self.parse(line)
 
     def update(self, *args, **kwargs):
-        self.registers = kwargs['registers']
-        self.memory    = kwargs['memory']
-        self.pipeline  = kwargs['pipeline']
+        for memento in [self.registers, self.memory, self.pipeline]:
+            if len(memento) > 10:
+                memento.pop(0)
+        self.registers.append(kwargs['registers'])
+        self.memory.append(kwargs['memory'])
+        self.pipeline.append(kwargs['pipeline'])
 
     def step(self):
         self.simulation.step(self)
@@ -102,11 +105,17 @@ class Cli(UpdateListener):
             if self.last_cmd is not None and len(line) == 0:
                 line = self.last_cmd
             self.last_cmd = line
+            # Todo: Shorter names to print registers. (2011-08-01)
             if line[0][:2] == 'pr':
                 if len(line) > 1:
-                    if line[1][:3] == 'reg':
+                    if line[1] == 'register':
                         if len(line) > 2:
                             self.print_register(*line[2:])
+                        else:
+                            self.print_registers()
+                    if line[1] == 'registers':
+                        if len(line) > 2:
+                            self.print_registers(rewind=line[2])
                         else:
                             self.print_registers()
                     elif line[1][:3] == 'pip':
@@ -182,7 +191,8 @@ class Cli(UpdateListener):
             self.exception_handler(e)
 
     def reset(self):
-        del self._programme_text
+        if hasattr(self, "_programme_text"):
+            del self._programme_text
         self.simulation.reset(self)
 
     def print_programme(self):
@@ -191,15 +201,29 @@ class Cli(UpdateListener):
         else:
             print('No programme loaded')
 
-    def print_registers(self):
+    # Fixme: Rewinding is not reliable. (2011-08-01)
+    def print_registers(self, **args):
         """Formats and outputs a display of the registers"""
-        r=self.registers
+        if args.has_key('rewind'):
+            time = -int(args['rewind'])
+        else:
+            time = -1
         try:
-            print("{:-<80}".format('--Registers'))
+            r=self.registers[time]
+        except IndexError:
+            print("Can't rewind to {:}, only {:} values stored."
+                  .format(abs(time), len(self.registers)))
+            return
+        try:
+            if time != -1:
+                print("{:-<80}".format("--Registers (Rewind-{:})"
+                                       .format(abs(time))))
+            else:
+                print("{:-<80}".format("--Registers"))
             for i in r.values():
                 if i>0 and i % 4 == 0:
                     print('')
-                name = self.registers.get_number_name_mappings()[i]
+                name = self.registers[time].get_number_name_mappings()[i]
                 print("{:>4}({:0>2}):{:.>10}"
                       .format(name[:4], i,
                       hex(r.values()[i])[2:].replace('L', ''), 8)),
@@ -212,12 +236,12 @@ class Cli(UpdateListener):
         base = 'd'
         if not args[0].isdigit():
             number = int(args[0][:-1])
-            value = self.registers.getValue(number)
+            value = self.registers[-1].getValue(number)
             base = args[0][-1:]
         else:
             number = int(args[0])
-            value = self.registers.getValue(number)
-        name = self.registers.get_number_name_mappings()[number]
+            value = self.registers[-1].getValue(number)
+        name = self.registers[-1].get_number_name_mappings()[number]
         print("{:}({:}):".format(name, number)),
         if len(args) > 1:
             base = args[1]
@@ -231,12 +255,12 @@ class Cli(UpdateListener):
     def print_pipeline(self):
         """Formats and outputs a display of the pipeline"""
         #the if block is just a hack to make exceptions more consistant
-        if self.pipeline:
+        if self.pipeline[-1]:
             print("{:-<80}".format('--Pipeline'))
-            for i in range(len(self.pipeline)):
+            for i in range(len(self.pipeline[-1])):
                 #if len(self.pipeline[i]) < 2:
                 print("Stage {:}:{:}"
-                     .format(i+1,bin(int(self.pipeline[i]),
+                     .format(i+1,bin(int(self.pipeline[-1][i]),
                                      self.size)[2:]))
                 #else:
                 #    print("Stage {:}:{:}  {:}"
@@ -252,7 +276,7 @@ class Cli(UpdateListener):
             print(int(kwargs['end']))
         except:
             end=None
-        memory_slice = self.memory.get_slice(end=end).items()
+        memory_slice = self.memory[-1].get_slice(end=end).items()
         print("{:-<80}".format('--Memory'))
         for address, value in sorted(memory_slice, reverse=True):
             print(" 0x{:0>8}: {:}  0x{:0>8}"
