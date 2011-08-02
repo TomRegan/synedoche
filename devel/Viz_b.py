@@ -2,7 +2,7 @@
 #
 # Visualization Test: Triangle.
 # file           : Viz_b.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-31
 # last modified  : 2011-07-31
 
@@ -10,11 +10,10 @@ import vtk
 
 # build points
 points = vtk.vtkPoints()
-points.InsertNextPoint(1.8, 1.8, 1.0)
-points.InsertNextPoint(-1.0, 1.0, 1.0)
-points.InsertNextPoint(-1.0, -1.0, 1.0)
-points.InsertNextPoint(1.0, -1.0, 1.0)
 points.InsertNextPoint(0.0, 0.0, 0.0)
+points.InsertNextPoint(1.0, -1.0, 0.0) # bottom left
+points.InsertNextPoint(-1.0, -1.0, 0.0) # bottom right
+points.InsertNextPoint(0.0, 1.0, 0.0) # top
 
 pyramid = vtk.vtkPyramid()
 pyramid.GetPointIds().SetId(0, 0)

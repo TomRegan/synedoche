@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #
 # Testing Visualizer Config.
-# file           : Viz.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# file           : Viz_a.py
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-29
 # last modified  : 2011-07-29
 
