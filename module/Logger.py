@@ -9,6 +9,7 @@
 
 import sys
 from time import time, ctime
+from lib.Header  import LOG_HARD_LIMIT
 
 class Logfile(object):
     def open(self, filename, string):
@@ -70,10 +71,12 @@ class Logger(BaseLogger):
             self.ready=True
             self.logfile.close()
         except IOError as (clobber, detail):
-            sys.stderr.write("Logging error: {0} opening `{1}'\nContinuing without logging.\n".format(detail.lower(),self.filename))
+            sys.stderr.write("Logging error: {0} opening `{1}'\nContinuing without logging.\n"
+                             .format(detail.lower(),self.filename))
             pass
         except Exception as detail:
-            sys.stderr.write("Logging error: {0} opening `{1}'\nContinuing without logging.\n".format(detail,self.filename))
+            sys.stderr.write("Logging error: {0} opening `{1}'\nContinuing without logging.\n"
+                             .format(detail,self.filename))
             pass
 
     def _open(self):
@@ -82,10 +85,12 @@ class Logger(BaseLogger):
             self.logfile = open(self.filename, 'a')
             self.ready=True
         except IOError as (clobber, detail):
-            sys.stderr.write("Logging error: {0} opening `{1}'\nContinuing without logging.\n".format(detail.lower(),self.filename))
+            sys.stderr.write("Logging error: {0} opening `{1}'\nContinuing without logging.\n"
+                             .format(detail.lower(),self.filename))
             pass
         except Exception as detail:
-            sys.stderr.write("Logging error: {0} opening `{1}'\nContinuing without logging.\n".format(detail,self.filename))
+            sys.stderr.write("Logging error: {0} opening `{1}'\nContinuing without logging.\n"
+                             .format(detail,self.filename))
             pass
 
     def _close(self):
@@ -110,11 +115,19 @@ class Logger(BaseLogger):
             self.lines=[]
 
     def buffer(self, string, timed=True, symbol=False):
+        #
+        # Buffering can degrade performance substantially. LOG_HARD_SIZE
+        # is a parameter set in lib.Header to control the frequency
+        # of write-outs (regular writes tend to improve simulation
+        # cycle rate)
+        #
         if timed:
             string = self._addTime(string)
         if type(symbol) == str:
             string = self._addSymbol(string, symbol)
         self.lines.append(string)
+        if sys.getsizeof(self.lines) > LOG_HARD_LIMIT:
+            self.flush()
 
     def write(self, string, timed=True, symbol=False):
         if self.ready:

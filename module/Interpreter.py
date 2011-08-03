@@ -305,9 +305,7 @@ class Interpreter(BaseInterpreter):
                                     value=int(value, 16)
                                 else:
                                     try:
-                                        # TODO
-                                        # problem with decimal, binary
-                                        #
+                                        # TODO: problem with decimal, binary
                                         # NEEDS REVIEW (still a problem?)
                                         # 2011-07-28
                                         #value=int(value, 2, signed=True)

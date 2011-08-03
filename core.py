@@ -11,21 +11,19 @@
 
 
 import sys
-import traceback
-import os
+#import traceback
+#import os
 
 from module import Api
 from module import Builder
 from module import Interface
 from module import Interpreter
-from module import Isa
 from module import Logger
-from module import Memory
 from module import Monitor
 from module import Processor
 
 from datetime import datetime
-from module.lib.Functions import binary as bin
+# used for the TestListener
 from module.lib.Functions import hexadecimal as hex
 
 class Simulation(object):
@@ -101,16 +99,17 @@ class Simulation(object):
         self.log.flush()
 
     def __call__(self):
-        """Clients need core to be callable"""
+        # Clients need core to be callable
         pass
 
 #
 # interface
 #
-    #def log_size_check(self):
-    #    size = os.path.getsize(self.logfile)
-    #    if size > 2**20:
-    #        sys.stderr.write('MESSAGE: logfile is becomming large ({0}-Kb).\n'.format(size/1000))
+    def run(self, client):
+        """Run for a long time."""
+        start = 0
+        while start < 1000:
+            self.cycle(client)
 
     def cycle(self, client):
         """Performs one simulation cycle."""
@@ -118,7 +117,8 @@ class Simulation(object):
             self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
                             .format(client.__class__.__name__))
             return
-        self.log.buffer("`cycle' called by `{0}'".format(client.__class__.__name__))
+        self.log.buffer("`cycle' called by `{0}'"
+                        .format(client.__class__.__name__))
         self.cpu.cycle()
         self._cycles = self._cycles + 1
 
@@ -130,13 +130,11 @@ class Simulation(object):
             return
         self.log.buffer("`step' called by `{0}'"
                         .format(client.__class__.__name__))
+        # TODO: Get 'remaining' data from pipeline length. (2011-08-03)
         remaining = 4 - (self._cycles % 4)
         for i in range(remaining):
             self.cpu.cycle()
             self._cycles = self._cycles + 1
-
-    def run(self, client):
-        pass
 
     def evaluate(self, lines, connected, client):
         """Processes cycles for one instruction"""
@@ -144,9 +142,9 @@ class Simulation(object):
             self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
                             .format(client.__class__.__name__))
             return
-        #
-        #this will be changed when we start loading necessary data from
-        #config
+        # TODO
+        # This will be changed when we start loading necessary data from
+        # config
         #
         self.log.buffer("`evaluate' called by `{0}'"
                         .format( client.__class__.__name__))
@@ -155,7 +153,6 @@ class Simulation(object):
         if connected:
             self.cpu.reset()
             self.memory.load_text(expression, and_dump=False)
-            #self.step(client)
             for i in range(len(expression)+3):
                 self.cpu.cycle()
                 self._cycles = self._cycles + 1
@@ -169,6 +166,7 @@ class Simulation(object):
             return
         self.log.buffer("`load' called by `{0}'".format(client.__class__.__name__))
         file_object = open(filename, 'r')
+        # TODO: Alter this to get instruction/offset. (2011-08-03)
         (code, text) = self.interpreter.read_file(file_object)
         programme = self.interpreter.convert(code)
         return (self.memory.load_text_and_dump(programme), text)
@@ -233,6 +231,12 @@ class Simulation(object):
 
     def _remove_daemon(self, daemon):
         pass
+
+    #def _log_size_check(self):
+    #    size = os.path.getsize(self.logfile)
+    #    if size > 2**20:
+    #        sys.stderr.write('MESSAGE: logfile is becomming large ({0}-Kb).\n'.format(size/1000))
+
 
 class TestListener(Interface.UpdateListener):
     def __init__(self, simulation):

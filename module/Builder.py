@@ -4,7 +4,7 @@
 # file           : Builder.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-22
-# last modified  : 2011-07-22
+# last modified  : 2011-08-03
 
 from module import XmlParser
 from module import Isa
@@ -41,6 +41,8 @@ class InstructionBuilder(Builder):
         reader = XmlParser.InstructionReader(config)
         instruction_language     = reader.data['language']
         instruction_size         = reader.data['size']
+        # We're not currently using this data. It can links the config
+        # to a specific api implementation.
         instruction_api          = reader.data['api']
         instruction_formats      = reader.data['formats']
         instruction_instructions = reader.data['instructions']
@@ -61,9 +63,7 @@ class InstructionBuilder(Builder):
                 instruction[0], instruction[4])
             self.obj.add_instruction_implementation(
                 instruction[0], instruction[6])
-            #TODO
-            #integrate instruction replacement!
-            #
+            #TODO: Integrate instruction replacement!
             self.obj.add_instruction_replacement(
                 instruction[0], instruction[7])
         for format in instruction_formats:

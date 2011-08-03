@@ -61,6 +61,7 @@ class Monitor(BaseMonitor):
             self.set_bool_prop(key, value)
 
     def get_int_prop(self, key=None):
+        """Returns a stored integer property."""
         if key != None:
             try:
                 return self.data['int_prop'][key]
@@ -69,6 +70,7 @@ class Monitor(BaseMonitor):
             return self.data['int_prop']
 
     def get_bool_prop(self, key=None):
+        """Returns a stored boolean property."""
         if key != None:
             try:
                 return self.data['bool_prop'][key]
@@ -77,24 +79,29 @@ class Monitor(BaseMonitor):
             return self.data['bool_prop']
 
     def set_int_prop(self, key, value):
+        """Stores an integer property."""
         self.data['int_prop'][key] = value
 
     def set_bool_prop(self, key, value):
+        """Stores an boolean property."""
         self.data['bool_prop'][key] = value
 
     def increment(self, key, increment=1):
+        """Increments a stored integer property."""
         if key in self.data['int_prop']:
             self.data['int_prop'][key] = self.get_int_prop(key) + increment
         else:
             self.data['int_prop'][key] = increment
 
     def decrement(self, key, decrement=1):
+        """Decrements a stored integer property."""
         if key in self.data['int_prop']:
             self.data['int_prop'][key] = self.get_int_prop(key) - decrement
         else:
             self.data['int_prop'][key] = -decrement
 
     def toggle(self, key):
+        """Toggles a stored boolean property."""
         if key in self.data['bool_prop']:
             self.data['bool_prop'][key] = (not self.data['bool_prop'][key])
         else:

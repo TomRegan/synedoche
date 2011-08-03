@@ -119,9 +119,7 @@ class InstructionReader(XmlReader):
             for method in methods:
                 im_name = asciify(method.attributes['name'].value)
                 im_args = asciify(method.attributes['args'].value)
-                #TODO
-                #replace below with lambda
-                #
+                #TODO: Replace below with lambda
                 im_args = im_args.split()
                 for i in range(len(im_args)):
                     if im_args[i][:2] == '0x':
@@ -239,10 +237,8 @@ class MachineReader(XmlReader):
                 memory.append((s_name, s_start, s_end))
         except Exception, e:
             raise XmlDataFormatException(e.message)
-        #TODO
-        #address space is currently hard-coded to begin at 0x00.
-        #this is just a marker for future refactoring
-        #
+        #TODO: address space is currently hard-coded to begin at 0x00.
+        # this is just a marker for future refactoring
         self._data['memory']=tuple(memory)
 
     def _parse_registers(self):
