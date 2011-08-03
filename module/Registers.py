@@ -39,6 +39,16 @@ class Registers(BaseRegisters):
     _name_number={}
     _number_name={}
 
+    def __copy__(self):
+        #
+        # Overriding copy instead of deepcopy because it's simpler.
+        # Beucoup problems showing up in UTs reading data from _registers
+        # although problem wasn't obvious in use with cli client.
+        #
+        new = Registers()
+        new._registers = deepcopy(self._registers)
+        return new
+
     def add_register(self, number, value, size, profile, privilege):
         """(number:int, value:int, size:int, profile:str, privilege:bool)
             -> registers{register[number]:{value,size,profile,provilege}:dict

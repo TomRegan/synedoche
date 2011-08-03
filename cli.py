@@ -28,6 +28,7 @@ from module.Interpreter import DataMissingException
 from module.Interpreter import DataConversionFromUnknownType
 from module.SystemCall  import SigTerm
 
+# TODO: Replace __all__ imports with named. (2011-08-03)
 from module.lib.Header    import *
 from module.lib.Functions import binary as bin
 from module.lib.Functions import hexadecimal as hex
@@ -83,9 +84,6 @@ class Cli(UpdateListener):
             if len(memento) > 10:
                 memento.pop(0)
         self.registers.append(kwargs['registers'])
-        # Fixme: This is a heinous hack to fix deepcopy problem
-        # until it is understood. (2011-08-01)
-        self.registers[-1]._registers = deepcopy(kwargs['registers']._registers)
         self.memory.append(kwargs['memory'])
         self.pipeline.append(kwargs['pipeline'])
 
@@ -113,7 +111,7 @@ class Cli(UpdateListener):
                 if len(line) > 1:
                     if line[1][:3] == 'reg':
                         if len(line) > 2:
-                            if line[2][:2] == 're':
+                            if line[2][:2] == 're' and len(line) > 3:
                                 self.print_registers(rewind=line[3])
                             else:
                                 self.print_register(line[2:])
@@ -204,19 +202,26 @@ class Cli(UpdateListener):
 
     def print_registers(self, **args):
         """Formats and outputs a display of the registers"""
+        # We can do rewinds, which pulls a previous register state off
+        # the stack and displays that. Frames are minus indexed from the
+        # top of the stack, possibly because of idiocy, possibly it was
+        # a good decision at the time.
         if args.has_key('rewind'):
-            time = -(int(args['rewind'])+1)
+            frame = -(int(args['rewind'])+1)
             args.clear()
         else:
-            time = -1
+            # The default frame is -1, the top of the stack.
+            frame = -1
         try:
-            r=self.registers[time]
+            # grab the correct frame if rewind is requested
+            r=self.registers[frame]
         except IndexError:
             print("Can't rewind {:}, only {:} values stored."
-                  .format(abs(time)-1, len(self.registers)))
+                  .format(abs(frame)-1, len(self.registers)))
             return
         try:
-            if time != -1:
+            if frame != -1:
+                # TODO: Are we still debugging? (2011-08-03)
                 print("{:-<80}".format("--Registers (DEBUG-Rewind-{:})"
                                        .format(hex(id(r))[2:].replace('L', ''))))
             else:
@@ -224,38 +229,44 @@ class Cli(UpdateListener):
             for i in r.values():
                 if i>0 and i % 4 == 0:
                     print('')
-                name = self.registers[time].get_number_name_mappings()[i]
+                name = self.registers[frame].get_number_name_mappings()[i]
                 print("{:>4}({:0>2}):{:.>10}"
                       .format(name[:4], i,
                       hex(r.get_value(i))[2:].replace('L', ''), 8)),
             print("\n{:-<80}".format(''))
-        except:
-            pass
+        except Exception, e:
+            print("An error occurred fetching data from registers:\n{:}"
+                  .format(e.message))
 
-    def print_register(self, *args):
+    def print_register(self, args):
         """Formats and outputs display of a single register"""
-        base = 'd'
+        base   = 'd'
+        number = 0
         if not args[0].isdigit():
             number = int(args[0][:-1])
-            value = self.registers[-1].getValue(number)
-            base = args[0][-1:]
+            value  = self.registers[-1].get_value(number)
+            base   = args[0][-1:]
         else:
             number = int(args[0])
-            value = self.registers[-1].getValue(number)
+            value = self.registers[-1].get_value(number)
         name = self.registers[-1].get_number_name_mappings()[number]
         print("{:}({:}):".format(name, number)),
         if len(args) > 1:
             base = args[1]
         if base =='d':
             print("{:}".format(value))
-        if base =='x':
+        elif base =='x' or base == 'h':
             print("{:}".format(hex(value)[2:].replace('L', '')))
-        if base =='b':
+        elif base =='b':
             print("{:}".format(bin(value, self.size)[2:]))
+        else:
+            # Frowny is the closest we're getting to an easter egg.
+            print(":-(\n{:} is not a number format (d:dec, [h,x]:hex, b:bin)"
+                 .format(base))
 
     def print_pipeline(self):
         """Formats and outputs a display of the pipeline"""
-        #the if block is just a hack to make exceptions more consistant
+        #the if block is just a hack to make exceptions more consistent
         if self.pipeline[-1]:
             print("{:-<80}".format('--Pipeline'))
             for i in range(len(self.pipeline[-1])):

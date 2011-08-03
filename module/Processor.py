@@ -9,7 +9,7 @@
 # TODO: Replace __all__ with classes. (2011-08-01)
 from Interface import *
 from Logger    import *
-from copy      import deepcopy
+from copy      import copy, deepcopy
 
 from lib.Functions import binary as bin
 from lib.Functions import integer as int
@@ -212,7 +212,7 @@ class Pipelined(BaseProcessor):
         registers = self.get_registers()
         memory    = self.get_memory()
         pipeline  = self.get_pipeline()
-        super(Pipelined, self).broadcast(registers=deepcopy(registers),
+        super(Pipelined, self).broadcast(registers=copy(registers),
                                          memory=deepcopy(memory),
                                          pipeline=deepcopy(pipeline))
 
