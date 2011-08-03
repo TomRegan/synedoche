@@ -80,10 +80,10 @@ if __name__ == '__main__':
         def test_initialization(self):
             self.logger.buffer('>-----test_initialization')
             cycles=100
-            self.vis.render()
             for i in range(cycles):
-                self.monitor.increment('processor_cycles')
                 self.cpu.cycle()
+                self.vis.render()
+            self.assertEquals(True, True) # Whatever. It gets here, it's fine.
 
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestHelperFunctions)
