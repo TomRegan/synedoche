@@ -138,8 +138,8 @@ class Registers(BaseRegisters):
 
         Returns a reference to register object.
         """
-
-        return deepcopy(self)
+        # Do _not_ f__k with this. Making it deepcopy breaks lots.
+        return self
 
     def get_register_mappings(self):
         """... -> registers{name:str->number:int}:dict

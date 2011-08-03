@@ -34,6 +34,8 @@ class BaseLogger(object):
         pass
     def flush(self):
         pass
+    def get_log(self):
+        return self
 
 
 class Logger(BaseLogger):
