@@ -67,7 +67,8 @@ class Monitor(BaseMonitor):
                 return self.data['int_prop'][key]
             except:
                 0
-            return self.data['int_prop']
+            return 0
+            #return self.data['int_prop']
 
     def get_bool_prop(self, key=None):
         """Returns a stored boolean property."""

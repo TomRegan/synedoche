@@ -66,8 +66,10 @@ if __name__ == '__main__':
                 api=self.api, instructions=self.instructions,
                 pipeline=pipeline)
             self.cpu.open_log(self.logger)
+            self.cpu.open_monitor(self.monitor)
+            #self.monitor.set_int_prop('processor_cycles', 3)
 
-            self.vis = Visualizer.Visualizer()
+            self.vis = Visualizer.Visualizer(self.monitor)
             self.vis.add_data_source(self.cpu)
 
         def tearDown(self):
@@ -77,8 +79,10 @@ if __name__ == '__main__':
 
         def test_initialization(self):
             self.logger.buffer('>-----test_initialization')
-            cycles=10
+            cycles=100
+            self.vis.render()
             for i in range(cycles):
+                self.monitor.increment('processor_cycles')
                 self.cpu.cycle()
 
 
