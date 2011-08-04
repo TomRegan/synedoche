@@ -4,11 +4,7 @@
 # file           : cli.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-15
-# last modified  : 2011-07-27
-
-# Todo: Refactor parser into seperate class. (2011-07-22)
-# Todo: Reorganize code into cleaner blocks. (2011-08-01)
-# Todo: ^^^MVC FFS^^^. (2011-08-01)
+# last modified  : 2011-08-04
 
 
 import sys
@@ -61,7 +57,7 @@ class Cli(UpdateListener):
 
             # Authorization from the system
             self.simulation.connect(self)
-            # Fix: Legacy? 2011-08-04
+        # FIX: Legacy? 2011-08-04
             self.size = self.simulation.get_instruction_size()
         except Exception, e:
             self.exception_handler(e)
@@ -123,6 +119,7 @@ class Cli(UpdateListener):
 
     def complete(self):
         """Go Forever."""
+        self.simulation.run(self)
 
     def evaluate(self):
         try:
@@ -136,6 +133,7 @@ class Cli(UpdateListener):
     def load(self, filename=False):
         if filename:
             try:
+                self.reset()
                 text = self.simulation.load(filename, self)
                 self._programme_text = text
                 print("Loaded {:} word programme, `{:}'"
@@ -189,6 +187,8 @@ class Cli(UpdateListener):
             return
         try:
             if self.local_DEBUG > 0:
+                # Print frame information for debugging.
+                # Include object id and clean up the hex string.
                 print("{:-<80}".format("--Registers DEBUG-Frame-{:}"
                                        .format(hex(id(r))[2:].replace('L', ''))))
             else:
@@ -196,7 +196,9 @@ class Cli(UpdateListener):
             for i in r.values():
                 if i>0 and i % 4 == 0:
                     print('')
+                # Get the name of the register.
                 name = self.registers[frame].get_number_name_mappings()[i]
+                # Print name, number and hex value.
                 print("{:>4}({:0>2}):{:.>10}"
                       .format(name[:4], i,
                       hex(r.get_value(i))[2:].replace('L', ''), 8)),
@@ -236,11 +238,16 @@ class Cli(UpdateListener):
         """Formats and outputs a display of the pipeline"""
         #the if block is just a hack to make exceptions more consistent
         #print(self._programme_text)
+        # FIX: Pipeline is not updated on last cycle. (2011-08-04)
         print("{:-<80}".format('--Pipeline'))
         if len(self.pipeline[-1]) == 0:
             print(" Begin simulation to see the pipeline")
         else:
             for i in range(len(self.pipeline[-1])):
+                if i > len(self._programme_text[1]):
+                    # Probably some error with the programme, maybe
+                    # not serious. Return to avoid crashing.
+                    return
                 index = self._programme_text[1].index(self.pipeline[-1][i])
                 print("Stage {:}:{:}  {:}"
                      .format(i+1,

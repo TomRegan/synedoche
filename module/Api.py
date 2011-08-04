@@ -5,13 +5,13 @@
 # file           : Api.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-01
-# last modified  : 2011-07-24
+# last modified  : 2011-08-04
 
-from SystemCall import *
-
-from Logger import ApiLogger
-from Interface import *
+from SystemCall    import *
+from Logger        import ApiLogger
+from Interface     import *
 from lib.Functions import integer as int
+from lib.Functions import binary as bin
 
 class BaseApi(LoggerClient):
     """Base class which provides the necessary storage and initialization
@@ -85,6 +85,9 @@ class Sunray(BaseApi):
             if operand not in self._register.keys():
                 raise RegisterReferenceException
         result = self._register.get_value(b) + self._register.get_value(c)
+        #result = self._register.get_value(b) + c
+        #result = int(bin(result, len(instruction_decoded[args[2]])), 2)
+        self.log.buffer('result is {0}'.format(result))
         self._register.set_value(a, result)
         return True
 
@@ -113,11 +116,13 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2, signed=True)
-        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c))
+        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a, b, c))
         for operand in [a, b]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
         result = self._register.get_value(b) + c
+        result = int(bin(result, len(instruction_decoded[args[2]])), 2)
+        self.log.buffer('result is {0}'.format(result))
         self._register.set_value(a, result)
         return True
 
@@ -371,7 +376,7 @@ class Sunray(BaseApi):
         value=self._register.get_value(int(a))
         offset=int(c)+self._register.get_value(int(b))
         self._memory.set_word(offset, value, 32)
-        self.log.buffer('storing {:} in {:}'.format(value,hex(offset)))
+        self.log.buffer('storing {:} in {:}'.format(value, hex(offset)))
         return True
 
     def testEqual(self, args, instruction_decoded, **named_args):

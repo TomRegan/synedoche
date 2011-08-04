@@ -41,6 +41,10 @@ class Parser(BaseParser):
             if command != 'step':
                 print(':step')
             return ('step', ())
+        elif command[:2] == 'co':
+            if command != 'continue':
+                print(":continue")
+                return ("complete", ())
         elif command[:1] == 'c':
             if command != 'cycle':
                 print(':cycle')
@@ -51,7 +55,7 @@ class Parser(BaseParser):
             return self._load(tokens)
         elif command[:4] == 'eval':
             if command != 'evaluate':
-                print("evaluate")
+                print(":evaluate")
             return ('evaluate', ())
         elif command == '__except__':
             raise Exception('Intentionally raised exception in {:} object'
@@ -62,13 +66,12 @@ class Parser(BaseParser):
             return ('exit')
         else:
             return ('usage', {'fun': command})
-            #self.usage(fun=' '.join(line))
 
     def _print(self, tokens):
         if len(tokens) > 0:
             if tokens[0][:3] == 'reg':
                 if len(tokens) > 1:
-                    if tokens[1][:2] == 're' and len(tokens) > 2:
+                    if tokens[1] == 'show' and len(tokens) > 2:
                         return ('print_registers', {'rewind':tokens[2]})
                     else:
                         return ('print_register', (tokens[1]))
