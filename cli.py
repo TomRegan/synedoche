@@ -48,6 +48,8 @@ class Cli(UpdateListener):
         self.pipeline    = []
 
         try:
+            # We can try to use a history file, but readline may not
+            # be present on the host system.
             readline.read_history_file('.cli_history')
         except:
             pass
@@ -57,12 +59,15 @@ class Cli(UpdateListener):
                                        machine_conf=machine,
                                        logfile='logs/cli.log')
 
+            # Authorization from the system
             self.simulation.connect(self)
+            # Fix: Legacy? 2011-08-04
             self.size = self.simulation.get_instruction_size()
         except Exception, e:
             self.exception_handler(e)
 
         try:
+            # Loop forever.
             self.run()
         except KeyboardInterrupt, e:
             print('^C')
@@ -72,6 +77,14 @@ class Cli(UpdateListener):
             self.exit()
         except Exception, e:
             self.exception_handler(e)
+
+    def update(self, *args, **kwargs):
+        for memento in [self.registers, self.memory, self.pipeline]:
+            if len(memento) > 10:
+                memento.pop(0)
+        self.registers.append(kwargs['registers'])
+        self.memory.append(kwargs['memory'])
+        self.pipeline.append(kwargs['pipeline'])
 
     def run(self):
         print("Command Line Client (r{:}:{:})\n"
@@ -97,10 +110,15 @@ class Cli(UpdateListener):
                 print('Programme finished')
 
     def step(self):
+        """Execute one instruction."""
         self.simulation.step(self)
 
     def cycle(self):
+        """Process one CPU cycle."""
         self.simulation.cycle(self)
+
+    def complete(self):
+        """Go Forever."""
 
     def evaluate(self):
         try:
@@ -272,13 +290,6 @@ class Cli(UpdateListener):
             print('Type: ' + e.__class__.__name__)
         self.exit(1)
 
-    def update(self, *args, **kwargs):
-        for memento in [self.registers, self.memory, self.pipeline]:
-            if len(memento) > 10:
-                memento.pop(0)
-        self.registers.append(kwargs['registers'])
-        self.memory.append(kwargs['memory'])
-        self.pipeline.append(kwargs['pipeline'])
 
 
 if __name__ == '__main__':
