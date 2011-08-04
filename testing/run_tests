@@ -4,8 +4,10 @@
 # file           : run_tests
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-27
-# last modified  : 2011-07-27
+# last modified  : 2011-08-03
 
 for test in *test.py; do
+  echo $test | sed 's/_/\ /;s/\.py//;s/\(\w\)\(\w\+\)/\U\1\L\2/g'
   ./${test};
+  echo
 done;

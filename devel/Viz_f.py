@@ -85,6 +85,7 @@ view.ColorVerticesOn()
 
 renderer = view.GetRenderer()
 renderer.SetBackground(Colours.BASE02)
+renderer.GradientBackgroundOff()
 
 window = vtk.vtkRenderWindow()
 window.AddRenderer(renderer)
