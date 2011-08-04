@@ -22,6 +22,16 @@ class UnknownRepresentationException(Exception):
     pass
 
 class Visualizer(UpdateListener):
+    """Displays representations of data.
+
+    Usage:
+        m = Monitor.Monitor()
+        v = Visualizer.Visualizer(m)
+        v.add_representation_from_data('processor_cycles')
+        v.initialize('Window Name')
+        for i in range(100):
+            v.render()
+    """
 
     def __init__(self, Monitor):
         self.sources={}
@@ -30,16 +40,23 @@ class Visualizer(UpdateListener):
         self.actors=[]
         self.mappers=[]
 
-
 #
 # Interface
 #
 
     def initialize(self, name='Vizualizer'):
+        """Initialize creates a render and window required before
+        the visualization can be displayed."""
         self._init_renderer()
         self._init_window(name=name)
 
     def render(self):
+        """Render causes the visualization display to update.
+
+        Usage:
+            render should be called whenever there is new/updated
+            data to display, eg: once per client cycle.
+        """
         cycles = self.monitor.get_int_prop('processor_cycles')
         for rep in self.representations:
             rep.SetRadius(float(cycles)/1000)
@@ -60,17 +77,20 @@ class Visualizer(UpdateListener):
     def add_representation_from_data(self,
                                      int_prop,
                                      opacity=1.0,
+                                     position=[0, 0, 0],
                                      colour="blue"):
         if hasattr(self.monitor, 'get_int_prop'):
             self.monitor.get_int_prop(int_prop)
-            self.representations.append(
-                self._init_representation())
+            self.representations.append(self._init_representation())
             try:
                 colour = getattr(Colours, colour.upper())
             except:
                 colour = Colours.BLUE
             self._init_mapper()
-            self._init_actor(opacity=opacity, colour=colour)
+            self._init_actor(opacity=opacity,
+                             colour=colour,
+                             position=position
+                            )
 
     def add_representation_from_broadcast_data(self, source):
         pass
@@ -95,10 +115,10 @@ class Visualizer(UpdateListener):
         except Exception, e:
             raise UnknownRepresentationException(e.message)
         try:
-            representation.SetRadius(0.1)
-            representation.SetCentre(0.0, 0.0, 0.0)
-            representation.SetThetaResolution(30)
-            representation.SetPhiResolution(30)
+            representation.SetRadius(1.0)
+            representation.SetThetaResolution(20)
+            representation.SetPhiResolution(20)
+            #representation.SetCentre([0.0, 0.0, 0.0])
             #representation.SetInnerRadius(0.0)
             #representation.SetCircumferentialResolution(30)
         except: pass
@@ -106,12 +126,15 @@ class Visualizer(UpdateListener):
 
     def _init_actor(self,
                     colour=Colours.BLUE,
-                    opacity=1.0
+                    opacity=1.0,
+                    position=[0, 0, 0]
                    ):
+        p = position
         actor = vtkActor()
         actor.SetMapper(self.mapper)
         actor.GetProperty().SetColor(colour)
         actor.GetProperty().SetOpacity(opacity)
+        actor.SetPosition(p[0], p[1], p[2])
         self.actors.append(actor)
         #actor.GetProperty().SetInterpolationToFlat()
         #actor.GetProperty().EdgeVisibilityOn()

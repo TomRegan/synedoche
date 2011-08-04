@@ -12,16 +12,18 @@
 
 
 import sys
+import traceback
 try:
     import readline
 except:
-    pass #never mind
+    pass # never mind, too system specific
 
 from core import *
 from copy import deepcopy
 
 from module.Interface   import UpdateListener
 from module.Evaluator   import Evaluator
+from module.Parser      import Parser
 from module.Memory      import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
 from module.Interpreter import DataMissingException
@@ -38,7 +40,7 @@ class Cli(UpdateListener):
                                     --Gag Halfrunt
     """
     def __init__(self, instructions, machine):
-        self.local_DEBUG = 1
+        self.local_DEBUG = 2
         self.simulation  = None
         self.last_cmd    = None
         self.registers   = []
@@ -75,17 +77,24 @@ class Cli(UpdateListener):
         print("Command Line Client (r{:}:{:})\n"
               .format(VERSION, RELEASE_NAME) +
               "Type `help', `license' or `version' for more information.")
+        parser = Parser()
         while True:
-            line = raw_input('>>> ')
-            self.parse(line)
-
-    def update(self, *args, **kwargs):
-        for memento in [self.registers, self.memory, self.pipeline]:
-            if len(memento) > 10:
-                memento.pop(0)
-        self.registers.append(kwargs['registers'])
-        self.memory.append(kwargs['memory'])
-        self.pipeline.append(kwargs['pipeline'])
+            try:
+                line = raw_input(">>> ")
+                (function, args) = parser.parse(line)
+                if self.local_DEBUG >= 2:
+                    print("DEBUG {:}".format(args))
+                try:
+                    call = getattr(self, function)
+                    if args:
+                        call(args)
+                    else:
+                        call()
+                except Exception, e:
+                    #self.usage({'fun':function})
+                    raise e
+            except SigTerm:
+                print('Programme finished')
 
     def step(self):
         self.simulation.step(self)
@@ -93,101 +102,30 @@ class Cli(UpdateListener):
     def cycle(self):
         self.simulation.cycle(self)
 
-    def parse(self, line):
-        """line:str -> ...
-
-        Reads a line of input, executing any commands recognized.
-
-        Raises:
-            Exception.
-            Exceptions from other frames must be handled.
-        """
-        line=line.split()
+    def evaluate(self):
         try:
-            if self.last_cmd is not None and len(line) == 0:
-                line = self.last_cmd
-            self.last_cmd = line
-            if line[0][:2] == 'pr':
-                if len(line) > 1:
-                    if line[1][:3] == 'reg':
-                        if len(line) > 2:
-                            if line[2][:2] == 're' and len(line) > 3:
-                                self.print_registers(rewind=line[3])
-                            else:
-                                self.print_register(line[2:])
-                        else:
-                            self.print_registers()
-                    elif line[1][:3] == 'pip':
-                        self.print_pipeline()
-                    elif line[1][:3] == 'mem':
-                        if len(line) > 2:
-                            self.print_memory(end=line[2])
-                        else:
-                            self.print_memory()
-                    elif line[1][:3] == "pro":
-                        self.print_programme()
-                    else:
-                        print("Not a print function: `{:}'"
-                              .format(line[1]))
-                else:
-                    self.usage(fun='print')
-            elif line[0] == 'help':
-                self.help()
-            elif line[0][:4] == 'vers':
-                print(VERSION)
-            elif line[0][:4] == 'lice':
-                print(LICENSE)
-            elif line[0][:4] == 'rese':
-                if line[0] != 'reset':
-                    print(':reset')
-                self.reset()
-            elif line[0][:1] == 's':
-                if line[0] != 'step':
-                    print(':step')
-                self.step()
-            elif line[0][:1] == 'c':
-                if line[0] != 'cycle':
-                    print(':cycle')
-                self.cycle()
-            elif line[0][:1] == 'l':
-                if line[0] != 'load':
-                    print(':load')
-                if len(line) > 1:
-                    self.load(line[1])
-                else: print "Please supply a filename to read"
-            elif line[0][:4] == 'eval':
-                try:
-                    evaluator = Evaluator(simulation=self.simulation,
-                                          client=self)
-                    evaluator.eval()
-                except BadInstructionOrSyntax, e:
-                    print(e.message)
-                except Exception, e:
-                    print('fatal: {:}'.format(e))
-            elif line[0] == '__except__':
-                raise Exception('Intentionally raised exception in {:}'
-                                .format(self.__class__.__name__))
-            elif line[0] == 'quit'\
-                or line[0] == 'exit'\
-                or line[0] == '\e':
-                self.exit()
-            else:
-                self.usage(fun=' '.join(line))
-        except SigTerm, e:
-            print('Programme finished')
-
-    def load(self, filename):
-        try:
-            (count, text) = self.simulation.load(filename, self)
-            self._programme_text = text
-            print("Loaded {:} word programme, `{:}'"
-                  .format(count, ''.join(filename.split('/')[-1:])))
-        except IOError, e:
-            sys.stderr.write("No such file: `{:}'\n".format(filename))
+            evaluator = Evaluator(simulation=self.simulation, client=self)
+            evaluator.eval()
         except BadInstructionOrSyntax, e:
-            print('File contains errors:\n{:}'.format(e.message))
+            print(e.message)
         except Exception, e:
-            self.exception_handler(e)
+            print('fatal: {:}'.format(e))
+
+    def load(self, filename=False):
+        if filename:
+            try:
+                (count, text) = self.simulation.load(filename, self)
+                self._programme_text = text
+                print("Loaded {:} word programme, `{:}'"
+                      .format(count, ''.join(filename.split('/')[-1:])))
+            except IOError, e:
+                sys.stderr.write("No such file: `{:}'\n".format(filename))
+            except BadInstructionOrSyntax, e:
+                print('File contains errors:\n{:}'.format(e.message))
+            except Exception, e:
+                self.exception_handler(e)
+        else:
+            print("Please supply a filename to read")
 
     def reset(self):
         if hasattr(self, "_programme_text"):
@@ -200,13 +138,13 @@ class Cli(UpdateListener):
         else:
             print('No programme loaded')
 
-    def print_registers(self, **args):
+    def print_registers(self, args=None):
         """Formats and outputs a display of the registers"""
         # We can do rewinds, which pulls a previous register state off
         # the stack and displays that. Frames are minus indexed from the
         # top of the stack, possibly because of idiocy, possibly it was
         # a good decision at the time.
-        if args.has_key('rewind'):
+        if type(args) == dict and args.has_key('rewind'):
             frame = -(int(args['rewind'])+1)
             args.clear()
         else:
@@ -220,9 +158,8 @@ class Cli(UpdateListener):
                   .format(abs(frame)-1, len(self.registers)))
             return
         try:
-            if frame != -1:
-                # TODO: Are we still debugging? (2011-08-03)
-                print("{:-<80}".format("--Registers (DEBUG-Rewind-{:})"
+            if self.local_DEBUG > 0:
+                print("{:-<80}".format("--Registers DEBUG-Frame-{:}"
                                        .format(hex(id(r))[2:].replace('L', ''))))
             else:
                 print("{:-<80}".format("--Registers"))
@@ -240,8 +177,10 @@ class Cli(UpdateListener):
 
     def print_register(self, args):
         """Formats and outputs display of a single register"""
+        print("len(args): {:}".format(len(args)))
         base   = 'd'
         number = 0
+        args = args.split()
         if not args[0].isdigit():
             number = int(args[0][:-1])
             value  = self.registers[-1].get_value(number)
@@ -296,16 +235,24 @@ class Cli(UpdateListener):
                          hex(value)[2:]))
         print("{:-<80}".format(''))
 
-    def usage(self, *args, **kwargs):
-        usage={'print':'print <register>|<registers>'}
-        if kwargs['fun'] in usage:
-            print('Usage: ' + usage[kwargs['fun']])
+    def usage(self, args):
+        usage   = {'print':'print <reg[ister[s]]>|<prog[ramme]>'}
+        command = ''
+        if args.has_key('fun'):
+            command = args['fun']
+        if usage.has_key(command):
+            print('Usage: ' + usage[command])
         else:
-            print("Unrecognized function: `{:}'. Try `help'"
-                  .format(kwargs['fun']))
+            print("Bad command: `{:}'. Try `help'".format(command))
 
     def help(self):
         print('help will go here')
+
+    def license(self):
+        print(LICENSE)
+
+    def version(self):
+        print(VERSION)
 
     def exit(self, *args, **kwargs):
         if len(args) < 1:
@@ -324,6 +271,14 @@ class Cli(UpdateListener):
         elif DEBUG and self.local_DEBUG >= 2:
             print('Type: ' + e.__class__.__name__)
         self.exit(1)
+
+    def update(self, *args, **kwargs):
+        for memento in [self.registers, self.memory, self.pipeline]:
+            if len(memento) > 10:
+                memento.pop(0)
+        self.registers.append(kwargs['registers'])
+        self.memory.append(kwargs['memory'])
+        self.pipeline.append(kwargs['pipeline'])
 
 
 if __name__ == '__main__':

@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 #
-# Command Line Parser.
+# String Parser.
 # file           : Parser.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-28
-# last modified  : 2011-07-28
+# last modified  : 2011-08-04
 
 class BaseParser(object):
     def parse(self, line):
@@ -12,91 +12,79 @@ class BaseParser(object):
 
 class Parser(BaseParser):
     def parse(self, line):
-        """line:str -> ...
-
-        Reads a line of input, executing any commands recognized.
+        """Reads a line of input and returns a tuple:
+            (method:str, args:tuple)
 
         Raises:
             Exception.
-            Exceptions from other frames must be handled.
+            NB: Exceptions from other frames must be handled.
         """
-        line=line.split()
-        if line[0][:2] == 'pr':
-            if len(line) > 1:
-                if line[1][:3] == 'reg':
-                    if len(line) > 2:
-                        return ('print_register', line[2:])
-                        #self.print_register(*line[2:])
-                    else:
-                        return ('print_registers')
-                        #self.print_registers()
-                elif line[1][:3] == 'pip':
-                    return ('print_pipeline')
-                    #self.print_pipeline()
-                elif line[1][:3] == 'mem':
-                    if len(line) > 2:
-                        return ('print_memory', line[2])
-                        #self.print_memory(end=line[2])
-                    else:
-                        return ('print_memory')
-                        #self.print_memory()
-                elif line[1][:3] == "pro":
-                    return ('print_programme')
-                    #self.print_programme()
-                else:
-                    print("Not a print function: `{:}'"
-                          .format(line[1]))
-            else:
-                return ('usage')
-                #self.usage(fun='print')
-        elif line[0] == 'help':
-            return ('help')
-            #self.help()
-        elif line[0][:4] == 'vers':
-            return ('version')
-            #print(VERSION)
-        elif line[0][:4] == 'lice':
-            return ('license')
-            #print(LICENSE)
-        elif line[0][:4] == 'rese':
-            if line[0] != 'reset':
+        tokens  = line.split()
+        command = tokens.pop(0)
+        if command[:2] == 'pr':
+            return self._print(tokens)
+        elif command == 'help':
+            return ('help', ())
+        elif command == 'usage':
+            return ('usage', {'fun':tokens[0]})
+        elif command[:4] == 'vers':
+            return ('version', ())
+        elif command[:4] == 'lice':
+            return ('license', ())
+        elif command[:4] == 'rese':
+            if command != 'reset':
                 print(':reset')
-            return ('reset')
-            #self.reset()
-        elif line[0][:1] == 's':
-            if line[0] != 'step':
+            return ('reset', ())
+        elif command[:1] == 's':
+            if command != 'step':
                 print(':step')
-            return ('step')
-            #self.step()
-        elif line[0][:1] == 'c':
-            if line[0] != 'cycle':
+            return ('step', ())
+        elif command[:1] == 'c':
+            if command != 'cycle':
                 print(':cycle')
-            return ('step')
-            self.cycle()
-        elif line[0][:1] == 'l':
-            if line[0] != 'load':
+            return ('cycle', ())
+        elif command[:1] == 'l':
+            if command != 'load':
                 print(':load')
-            if len(line) > 1:
-                return ('load', line[1])
-                self.load(line[1])
-            else: print "Please supply a filename to read"
-        elif line[0][:4] == 'eval':
-            try:
-                evaluator = Evaluator(simulation=self.simulation,
-                                      client=self)
-                evaluator.eval()
-            except BadInstructionOrSyntax, e:
-                print(e.message)
-            except Exception, e:
-                print('fatal: {:}'.format(e))
-        elif line[0] == '__except__':
-            raise Exception('Intentionally raised exception in {:}'
-                            .format(self.__class__.__name__))
-        elif line[0] == 'quit'\
-            or line[0] == 'exit'\
-            or line[0] == '\e':
+            return self._load(tokens)
+        elif command[:4] == 'eval':
+            if command != 'evaluate':
+                print("evaluate")
+            return ('evaluate', ())
+        elif command == '__except__':
+            raise Exception('Intentionally raised exception in {:} object'
+                            .format(self.__class__.__name__.lower()))
+        elif command == 'quit'\
+            or command == 'exit'\
+            or command == '\e':
             return ('exit')
-            #self.exit()
         else:
-            return ('usage', {'fun':' '.join(line)})
+            return ('usage', {'fun': command})
             #self.usage(fun=' '.join(line))
+
+    def _print(self, tokens):
+        if len(tokens) > 0:
+            if tokens[0][:3] == 'reg':
+                if len(tokens) > 1:
+                    if tokens[1][:2] == 're' and len(tokens) > 2:
+                        return ('print_registers', {'rewind':tokens[2]})
+                    else:
+                        return ('print_register', (tokens[1]))
+                else:
+                    return ('print_registers', ())
+            elif tokens[0][:3] == 'pip':
+                return ('print_pipeline', ())
+            elif tokens[0][:3] == 'mem':
+                return ('print_memory', ())
+            elif tokens[0][:3] == "pro":
+                return ('print_programme', ())
+            else:
+                pass
+        else:
+            return ('usage', {'fun':'print'})
+
+    def _load(self, tokens):
+        if len(tokens) > 0:
+            return ('load', tokens[0])
+        else:
+            return ('load', False)

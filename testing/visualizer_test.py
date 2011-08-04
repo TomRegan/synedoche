@@ -73,6 +73,7 @@ if __name__ == '__main__':
             self.memory.reset()
             self.logger.buffer(">-----tearDown")
             self.logger.flush()
+            del self.vis
 
         def test_initialization(self):
             self.logger.buffer(">-----test_initialization")
@@ -88,10 +89,30 @@ if __name__ == '__main__':
             self.vis.add_representation_from_data("processor_cycles",
                                                   opacity=1.0,
                                                   colour='magenta')
-            self.vis.add_representation_from_data("processor_cycles",
-                                                  opacity=0.0,
-                                                  colour='blue')
             self.vis.initialize(name="Test Monitor Source Update")
+            cycles=100
+            for i in range(cycles):
+                self.cpu.cycle()
+                self.vis.render()
+            self.assertEquals(True, True) # Whatever. It gets here, it's fine.
+
+        def test_multiple_representations(self):
+            self.logger.buffer(">-----test_monitor_source_update")
+
+            self.vis = Visualizer.Visualizer(self.monitor)
+            self.vis.add_representation_from_data("processor_cycles",
+                                                  opacity=1.0,
+                                                  position=[0.0, 0.1, 0],
+                                                  colour='red')
+            self.vis.add_representation_from_data("processor_cycles",
+                                                  opacity=1.0,
+                                                  position=[-0.1, -0.1, 0],
+                                                  colour='yellow')
+            self.vis.add_representation_from_data("processor_cycles",
+                                                  opacity=1.0,
+                                                  position=[0.1, -0.1, 0],
+                                                  colour='blue')
+            self.vis.initialize(name="Test Multiple Representations")
 
             cycles=100
             for i in range(cycles):
