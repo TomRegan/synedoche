@@ -45,6 +45,10 @@ class Parser(BaseParser):
             if command != 'continue':
                 print(":continue")
                 return ("complete", ())
+        elif command[:1] == 'r':
+            if command != 'run':
+                print(":run")
+                return ("complete", ())
         elif command[:1] == 'c':
             if command != 'cycle':
                 print(':cycle')
