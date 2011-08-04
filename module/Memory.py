@@ -172,16 +172,26 @@ class Memory(BaseMemory):
 
 
     def load_text(self, text, and_dump=False):
-        """([programme:int]:list, and_dump:bool)
-                -> memory{offset:value}:dict
+        """Stores a programme at sequential addressing in memory.
 
-        Stores [programme] in sequential addresses in memory.
+        Notes:
+            Hard coded to load from TEXT in memory. This is not
+            realistic.
+
+        Returns:
+            Tuple containing instructions and their memory addresses.
         """
 
         if and_dump == True:
             self.reset()
 
+        # TODO: Review offset. Is text segment okay?. (2011-08-04)
+
+        # offset is the location to load programme
         offset = self.get_start('text')
+        # programme_loaded is instructions and offsets
+        binary  = []
+        address = []
         for line in text:
             if not type(line) == int and not type(line) == long:
                 raise DataFormatException(
@@ -191,11 +201,14 @@ class Memory(BaseMemory):
                 raise SegmentationFaultException('{:} is out of bounds'
                                  .format(hex(offset).replace('L','')))
             self.set_word(offset, line, self._size)
+            # bit silly, but in line with interpreter's return tuple
+            binary.append(line)
+            address.append(offset)
             offset = offset + (self._size / self._addressable)
         self.log.buffer('loaded {0} word programme into memory'
                         .format(len(text)))
         self._monitor['programme_length'] = len(text)
-        return len(text)
+        return (binary, address)
 
     def load_text_and_dump(self, text):
         """Synonymous with load_text with the dump option set"""

@@ -20,7 +20,9 @@ class Parser(BaseParser):
             NB: Exceptions from other frames must be handled.
         """
         tokens  = line.split()
-        command = tokens.pop(0)
+        command = ''
+        if len(tokens) > 0:
+            command = tokens.pop(0)
         if command[:2] == 'pr':
             return self._print(tokens)
         elif command == 'help':

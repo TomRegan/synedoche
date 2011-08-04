@@ -130,8 +130,8 @@ class Simulation(object):
             return
         self.log.buffer("`step' called by `{0}'"
                         .format(client.__class__.__name__))
-        # TODO: Get 'remaining' data from pipeline length. (2011-08-03)
-        remaining = 4 - (self._cycles % 4)
+        pipeline_length = self.cpu.get_pipeline_length()
+        remaining = pipeline_length - (self._cycles % pipeline_length)
         for i in range(remaining):
             self.cpu.cycle()
             self._cycles = self._cycles + 1
@@ -152,6 +152,7 @@ class Simulation(object):
         expression = self.interpreter.convert(expression)
         if connected:
             self.cpu.reset()
+            # TODO: review this and comment: why no dumping? 2011-08-04
             self.memory.load_text(expression, and_dump=False)
             for i in range(len(expression)+3):
                 self.cpu.cycle()
@@ -167,9 +168,10 @@ class Simulation(object):
         self.log.buffer("`load' called by `{0}'".format(client.__class__.__name__))
         file_object = open(filename, 'r')
         # TODO: Alter this to get instruction/offset. (2011-08-03)
-        (code, text) = self.interpreter.read_file(file_object)
-        programme = self.interpreter.convert(code)
-        return (self.memory.load_text_and_dump(programme), text)
+        (binary, assembly) = self.interpreter.read_file(file_object)
+        programme = self.interpreter.convert(binary)
+        (chomp, offset) = self.memory.load_text_and_dump(programme)
+        return (assembly, binary, offset)
 
     def reset(self, client):
         """Resets the simulation processor"""

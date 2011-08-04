@@ -32,6 +32,9 @@ class BaseProcessor(UpdateBroadcaster, LoggerClient, MonitorClient):
     def get_pipeline(self):
         """Returns a reference or copy of processor pipeline"""
         pass
+    def get_pipeline_length(self):
+        """Returns the number of stages in the pipeline."""
+        pass
     def open_log(self, logger):
         self._log = CpuLogger(logger)
         self._log.buffer("created a cpu, `{:}'"
@@ -57,9 +60,9 @@ class Pipelined(BaseProcessor):
         self._pc         = self._registers.get_pc()
         self._word_space = self._memory.get_word_spacing()
 
-        self._pipeline = []
-        self._pipeline_stages=pipeline
-        self._pipeline_flags=['FI', 'FD']
+        self._pipeline        = []
+        self._pipeline_stages = pipeline
+        self._pipeline_flags  = ['FI', 'FD']
 
         self.__special_flags = {}
 
@@ -203,6 +206,9 @@ class Pipelined(BaseProcessor):
 
     def get_pipeline(self):
         return [i[0] for i in self._pipeline]
+
+    def get_pipeline_length(self):
+        return len(self._pipeline_stages)
 
     def broadcast(self):
         """Overrides broadcast in the base class

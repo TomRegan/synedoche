@@ -134,7 +134,9 @@ class Interpreter(BaseInterpreter):
             for i in range(len(lines)):
                 lines[i] = int(lines[i],2)
         except:
-            raise DataConversionFromUnknownType('Tried to convert from unknown type: {0} {1}'.format(lines[i], type(lines[i])))
+            raise DataConversionFromUnknownType(
+                'Tried to convert from unknown type: {0} {1}'
+                .format(lines[i], type(lines[i])))
         return lines
 
 #

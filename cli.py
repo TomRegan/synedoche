@@ -40,7 +40,7 @@ class Cli(UpdateListener):
                                     --Gag Halfrunt
     """
     def __init__(self, instructions, machine):
-        self.local_DEBUG = 2
+        self.local_DEBUG = 1
         self.simulation  = None
         self.last_cmd    = None
         self.registers   = []
@@ -94,6 +94,10 @@ class Cli(UpdateListener):
         while True:
             try:
                 line = raw_input(">>> ")
+                if len(line) > 0:
+                    self.last_command = line
+                elif len(self.last_command) > 0:
+                    line = self.last_command
                 (function, args) = parser.parse(line)
                 if self.local_DEBUG >= 2:
                     print("DEBUG {:}".format(args))
@@ -132,10 +136,10 @@ class Cli(UpdateListener):
     def load(self, filename=False):
         if filename:
             try:
-                (count, text) = self.simulation.load(filename, self)
+                text = self.simulation.load(filename, self)
                 self._programme_text = text
                 print("Loaded {:} word programme, `{:}'"
-                      .format(count, ''.join(filename.split('/')[-1:])))
+                      .format(len(text[0]), ''.join(filename.split('/')[-1:])))
             except IOError, e:
                 sys.stderr.write("No such file: `{:}'\n".format(filename))
             except BadInstructionOrSyntax, e:
@@ -152,7 +156,15 @@ class Cli(UpdateListener):
 
     def print_programme(self):
         if hasattr(self, "_programme_text"):
-            print('\n'.join(self._programme_text))
+            print("{:-<80}".format("--Programme"))
+            #print(self._programme_text)
+            for i in range(len(self._programme_text[0])):
+                print("{:<12}{:<24}{:}".format(hex(self._programme_text[2][i]),
+                                        self._programme_text[0][i],
+                                        bin(self._programme_text[1][i],
+                                           self.size)[2:]
+                                       ))
+            print("{:-<80}".format(''))
         else:
             print('No programme loaded')
 
@@ -195,7 +207,6 @@ class Cli(UpdateListener):
 
     def print_register(self, args):
         """Formats and outputs display of a single register"""
-        print("len(args): {:}".format(len(args)))
         base   = 'd'
         number = 0
         args = args.split()
@@ -224,20 +235,19 @@ class Cli(UpdateListener):
     def print_pipeline(self):
         """Formats and outputs a display of the pipeline"""
         #the if block is just a hack to make exceptions more consistent
-        if self.pipeline[-1]:
-            print("{:-<80}".format('--Pipeline'))
+        #print(self._programme_text)
+        print("{:-<80}".format('--Pipeline'))
+        if len(self.pipeline[-1]) == 0:
+            print(" Begin simulation to see the pipeline")
+        else:
             for i in range(len(self.pipeline[-1])):
-                #if len(self.pipeline[i]) < 2:
-                print("Stage {:}:{:}"
-                     .format(i+1,bin(int(self.pipeline[-1][i]),
-                                     self.size)[2:]))
-                #else:
-                #    print("Stage {:}:{:}  {:}"
-                #         .format(i+1,
-                #                 bin(int(self.pipeline[i][0]),
-                #                     self.size)[2:],
-                #                 self.pipeline[i][2]))
-            print("{:-<80}".format(''))
+                index = self._programme_text[1].index(self.pipeline[-1][i])
+                print("Stage {:}:{:}  {:}"
+                     .format(i+1,
+                             bin(int(self.pipeline[-1][i]), self.size)[2:],
+                             self._programme_text[0][index]
+                            ))
+        print("{:-<80}".format(''))
 
     def print_memory(self, **kwargs):
         try:
