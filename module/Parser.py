@@ -93,8 +93,7 @@ class Parser(BaseParser):
                 return ('print_visualization_modules', ())
             else:
                 pass
-        else:
-            return ('usage', {'fun':'print'})
+        return ('usage', {'fun':'print'})
 
     def _load(self, tokens):
         if len(tokens) > 0:

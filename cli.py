@@ -20,7 +20,6 @@ from copy import deepcopy
 from module.Interface   import UpdateListener
 from module.Evaluator   import Evaluator
 from module.Parser      import Parser
-from module.Visualizer  import Visualizer
 from module.Memory      import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
 from module.Interpreter import DataMissingException
@@ -192,6 +191,7 @@ class Cli(UpdateListener):
             print('fatal: {:}'.format(e))
 
     def visualize(self, args=None):
+        from module.Visualizer  import Visualizer
         # Instance of visualizer if there ain't one
         if args == "kill":
             if hasattr(self, 'visualizer'):
