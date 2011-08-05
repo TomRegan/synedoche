@@ -44,11 +44,11 @@ class Parser(BaseParser):
         elif command[:2] == 'co':
             if command != 'continue':
                 print(":continue")
-                return ("complete", ())
+            return ("complete", ())
         elif command[:1] == 'r':
             if command != 'run':
                 print(":run")
-                return ("complete", ())
+            return ("complete", ())
         elif command[:1] == 'c':
             if command != 'cycle':
                 print(':cycle')
@@ -67,7 +67,7 @@ class Parser(BaseParser):
         elif command == 'quit'\
             or command == 'exit'\
             or command == '\e':
-            return ('exit')
+            return ('exit', ())
         else:
             return ('usage', {'fun': command})
 

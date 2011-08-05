@@ -110,6 +110,7 @@ class Simulation(object):
         start = 0
         while start < 1000:
             self.cycle(client)
+            start = start + 1
 
     def cycle(self, client):
         """Performs one simulation cycle."""

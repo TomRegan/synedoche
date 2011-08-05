@@ -36,7 +36,15 @@ class Cli(UpdateListener):
                                     --Gag Halfrunt
     """
     def __init__(self, instructions, machine):
-        self.local_DEBUG = 0
+
+        # DEBUG Levels:
+        # 1: minimal feedback, short traceback and frame data
+        # 2: normal feedback, full traceback
+        # ...
+        # 11: reserved for _really_ annoying messages that are
+        #     rarely useful.
+        self.local_DEBUG = 2
+
         self.simulation  = None
         self.last_cmd    = None
         self.registers   = []
@@ -44,8 +52,8 @@ class Cli(UpdateListener):
         self.pipeline    = []
 
         try:
-            # We can try to use a history file, but readline may not
-            # be present on the host system.
+        # We can try to use a history file, but readline may not
+        # be present on the host system.
             readline.read_history_file('.cli_history')
         except:
             pass
@@ -55,7 +63,10 @@ class Cli(UpdateListener):
                                        machine_conf=machine,
                                        logfile='logs/cli.log')
 
-            # Authorization from the system
+        # Avoid some unnecessary crashes:
+        # Authorization from the system ensures necessary methods
+        # are implemented in the client. This is NOT done by base
+        # class checking, so client is not required to be a subclass.
             self.simulation.connect(self)
         # FIX: Legacy? 2011-08-04
             self.size = self.simulation.get_instruction_size()
@@ -63,7 +74,7 @@ class Cli(UpdateListener):
             self.exception_handler(e)
 
         try:
-            # Loop forever.
+        # Loop forever.
             self.run()
         except KeyboardInterrupt, e:
             print('^C')
@@ -97,7 +108,9 @@ class Cli(UpdateListener):
                 elif len(self.last_command) > 0:
                     line = self.last_command
                 (function, args) = parser.parse(line)
-                if self.local_DEBUG >= 2:
+                # Special debug level, 11, because this warning is simply
+                # f..king anoying.
+                if self.local_DEBUG >= 11:
                     print("DEBUG {:}".format(args))
                 try:
                     call = getattr(self, function)
@@ -106,7 +119,6 @@ class Cli(UpdateListener):
                     else:
                         call()
                 except Exception, e:
-                    #self.usage({'fun':function})
                     raise e
             except SigTerm:
                 print('Programme finished')
@@ -157,7 +169,6 @@ class Cli(UpdateListener):
     def print_programme(self):
         if hasattr(self, "_programme_text"):
             print("{:-<80}".format("--Programme"))
-            #print(self._programme_text)
             for i in range(len(self._programme_text[0])):
                 print("{:<12}{:<24}{:}".format(hex(self._programme_text[2][i]),
                                         self._programme_text[0][i],
@@ -178,10 +189,10 @@ class Cli(UpdateListener):
             frame = -(int(args['rewind'])+1)
             args.clear()
         else:
-            # The default frame is -1, the top of the stack.
+        # The default frame is -1, the top of the stack.
             frame = -1
         try:
-            # grab the correct frame if rewind is requested
+        # grab the correct frame if rewind is requested
             r=self.registers[frame]
         except IndexError:
             print("Can't rewind {:}, only {:} values stored."
@@ -189,8 +200,8 @@ class Cli(UpdateListener):
             return
         try:
             if self.local_DEBUG > 0:
-                # Print frame information for debugging.
-                # Include object id and clean up the hex string.
+            # Print frame information for debugging.
+            # Include object id and clean up the hex string.
                 print("{:-<80}".format("--Registers DEBUG-Frame-{:}"
                                        .format(hex(id(r))[2:].replace('L', ''))))
             else:
@@ -232,7 +243,7 @@ class Cli(UpdateListener):
         elif base =='b':
             print("{:}".format(bin(value, self.size)[2:]))
         else:
-            # Frowny is the closest we're getting to an easter egg.
+        # Frowny is the closest we're getting to an easter egg.
             print(":-(\n{:} is not a number format (d:dec, [h,x]:hex, b:bin)"
                  .format(base))
 
@@ -247,8 +258,8 @@ class Cli(UpdateListener):
         else:
             for i in range(len(self.pipeline[-1])):
                 if i > len(self._programme_text[1]):
-                    # Probably some error with the programme, maybe
-                    # not serious. Return to avoid crashing.
+                # Probably some error with the programme, maybe
+                # not serious. Return to avoid crashing.
                     return
                 index = self._programme_text[1].index(self.pipeline[-1][i])
                 print("Stage {:}:{:}  {:}"
