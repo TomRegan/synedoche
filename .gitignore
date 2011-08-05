@@ -16,3 +16,7 @@ testing/*.log
 # swap files #
 ##############
 *.swp
+
+# cruft #
+#########
+.cli_history

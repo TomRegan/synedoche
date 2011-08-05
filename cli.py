@@ -36,7 +36,7 @@ class Cli(UpdateListener):
                                     --Gag Halfrunt
     """
     def __init__(self, instructions, machine):
-        self.local_DEBUG = 1
+        self.local_DEBUG = 0
         self.simulation  = None
         self.last_cmd    = None
         self.registers   = []
@@ -83,6 +83,8 @@ class Cli(UpdateListener):
         self.pipeline.append(kwargs['pipeline'])
 
     def run(self):
+        # FIX: Run is causing a crash, NoneType is not iterable.
+        # Source is parser.parse(line) in Parser. (2011-08-05)
         print("Command Line Client (r{:}:{:})\n"
               .format(VERSION, RELEASE_NAME) +
               "Type `help', `license' or `version' for more information.")

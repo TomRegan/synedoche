@@ -34,10 +34,10 @@ class Registers(BaseRegisters):
         registers.remove_register(0)
     """
 
-    _registers={}
-    _registers_iv={}
-    _name_number={}
-    _number_name={}
+    _registers    = {}
+    _registers_iv = {}
+    _name_number  = {}
+    _number_name  = {}
 
     def __copy__(self):
         #
@@ -56,7 +56,7 @@ class Registers(BaseRegisters):
         Adds a register.
         """
 
-        self._registers[number]={}
+        self._registers[number] = {}
         self._registers[number]['value']     = value
         self._registers[number]['size']      = size
         self._registers[number]['profile']   = profile
@@ -72,14 +72,11 @@ class Registers(BaseRegisters):
         assist decoding assembly instructions.
         """
 
-        self._name_number[name]=number
-        self._number_name[number]=name
+        self._name_number[name]   = number
+        self._number_name[number] = name
 
     def remove_register(self, number):
-        """number:int -> ...
-        Deletes a register.
-        """
-
+        """Deletes a register."""
         del self._registers[number]
 
     def set_value(self, number, value):
@@ -94,13 +91,18 @@ class Registers(BaseRegisters):
         self._monitor.increment('register_writes')
 
     def get_value(self, number):
-        """number:int -> number:int
-        Returns the value stored in a register.
-        """
+        """Returns the value stored in a register."""
         if number not in self.keys():
+            # TODO: Raise register reference exception? (2011-08-05)
             return
         self._monitor.increment('register_reads')
         return self._registers[number]['value']
+
+    def get_size(self, number):
+        """Returns the width of a register in bits."""
+        if number not in self.keys():
+            return 0
+        return self._registers[number]['size']
 
     def increment(self, number, amount=1):
         """(number:int, amount=1:int) -> ...

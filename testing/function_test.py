@@ -23,7 +23,7 @@ if __name__ == '__main__':
         def tearDown(self):
             pass
 
-        def testSignExtension(self):
+        def test_signed_int(self):
             """lib.functions.binary extends sign correctly"""
             a = bin(-4, 8)[2:]
             b = bin(4, 8)[2:]

@@ -28,7 +28,7 @@ def integer(number, *args, **kwargs):
     return int(number, *args)
 
 def hexadecimal(number, size=1):
-    """Improved hex funciton that can return two's complement numbers"""
+    """Improved hex function that can return two's complement numbers"""
     if number < 0:
         number = 2**size + number
     return '0x' + hex(number)[2:].zfill(size)

@@ -56,9 +56,7 @@ class Sunray(BaseApi):
     """An API implementation which primarily supports the MIPS32 ISA."""
 
     def addRegisters(self, args, instruction_decoded, **named_args):
-        """args:list -> True
-
-        Adds two registers and stores the result in a third.
+        """Adds two registers and stores the result in a third.
 
         Args:
             Each argument should be the number of a register.
@@ -84,24 +82,36 @@ class Sunray(BaseApi):
         for operand in [a, b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.get_value(b) + self._register.get_value(c)
-        #result = self._register.get_value(b) + c
-        #result = int(bin(result, len(instruction_decoded[args[2]])), 2)
+        b_size = self._register.get_size(b)
+        c_size = self._register.get_size(c)
+        # We want 2's comp values for b and c...
+        bin_bvalue = bin(self._register.get_value(b), size=b_size)
+        bin_cvalue = bin(self._register.get_value(c), size=c_size)
+        bvalue = int(bin_bvalue[2:], 2, signed=True)
+        cvalue = int(bin_cvalue[2:], 2, signed=True)
+        result = bvalue + cvalue
+        # ... and we want to store the result as a signed number.
+        a_size = self._register.get_size(a)
+        # NB: we don't use signed arg to give correct 2's comp result 
+        result = int(bin(result, a_size), 2)
         self.log.buffer('result is {0}'.format(result))
         self._register.set_value(a, result)
         return True
 
     def addImmediate(self, args, instruction_decoded, **named_args):
-        """args:list -> True
+        """Adds a register to an immediate value and stores the
+        result in a second register.
 
-        Adds a register to an immediate value and stores the result in
-        a second register.
+        addImmediate performs twos complement arithmetic, so
+        the value stored as a result of -1 + -1 will be 0xfffffffe.
 
-        Args:
+        For unsigned calculations, use addImmediateUnsigned.
+
+        Arguments:
             Args 1 and 2 should be the numbers of registers.
             args[0]:int (register)
             args[1]:int (register)
-            args[2]:int (signed)
+            args[2]:int (immediate)
 
         State changed:
              register[a]['value'] <- register[b]['value'] + c:int
@@ -115,13 +125,21 @@ class Sunray(BaseApi):
         self.log.buffer('addImmediate called')
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
+        # This will be a signed immediate value.
         c = int(instruction_decoded[args[2]], 2, signed=True)
         self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a, b, c))
         for operand in [a, b]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
-        result = self._register.get_value(b) + c
-        result = int(bin(result, len(instruction_decoded[args[2]])), 2)
+        # Convert to binary to get the correct 2's comp value.
+        b_size = self._register.get_size(b)
+        bin_bvalue = bin(self._register.get_value(b), size=b_size)
+        bvalue = int(bin_bvalue[2:], 2, signed=True)
+        #result = int(bin(self._register.get_value(b))[2:], 2, signed=True)
+        result = bvalue + c
+        # Need size of a, the register to be written to, for correct sign.
+        size = self._register.get_size(a)
+        result = int(bin(result, size), 2)
         self.log.buffer('result is {0}'.format(result))
         self._register.set_value(a, result)
         return True
