@@ -20,6 +20,7 @@ from copy import deepcopy
 from module.Interface   import UpdateListener
 from module.Evaluator   import Evaluator
 from module.Parser      import Parser
+from module.Visualizer  import Visualizer
 from module.Memory      import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
 from module.Interpreter import DataMissingException
@@ -74,7 +75,6 @@ class Cli(UpdateListener):
             self.exception_handler(e)
 
         try:
-        # Loop forever.
             self.run()
         except KeyboardInterrupt, e:
             print('^C')
@@ -85,17 +85,11 @@ class Cli(UpdateListener):
         except Exception, e:
             self.exception_handler(e)
 
-    def update(self, *args, **kwargs):
-        for memento in [self.registers, self.memory, self.pipeline]:
-            if len(memento) > 10:
-                memento.pop(0)
-        self.registers.append(kwargs['registers'])
-        self.memory.append(kwargs['memory'])
-        self.pipeline.append(kwargs['pipeline'])
+#
+# Loop
+#
 
     def run(self):
-        # FIX: Run is causing a crash, NoneType is not iterable.
-        # Source is parser.parse(line) in Parser. (2011-08-05)
         print("Command Line Client (r{:}:{:})\n"
               .format(VERSION, RELEASE_NAME) +
               "Type `help', `license' or `version' for more information.")
@@ -123,26 +117,9 @@ class Cli(UpdateListener):
             except SigTerm:
                 print('Programme finished')
 
-    def step(self):
-        """Execute one instruction."""
-        self.simulation.step(self)
-
-    def cycle(self):
-        """Process one CPU cycle."""
-        self.simulation.cycle(self)
-
-    def complete(self):
-        """Go Forever."""
-        self.simulation.run(self)
-
-    def evaluate(self):
-        try:
-            evaluator = Evaluator(simulation=self.simulation, client=self)
-            evaluator.eval()
-        except BadInstructionOrSyntax, e:
-            print(e.message)
-        except Exception, e:
-            print('fatal: {:}'.format(e))
+#
+# Basic Control
+#
 
     def load(self, filename=False):
         if filename:
@@ -165,6 +142,85 @@ class Cli(UpdateListener):
         if hasattr(self, "_programme_text"):
             del self._programme_text
         self.simulation.reset(self)
+
+    def exit(self, *args, **kwargs):
+        """Exit the simulation cleanly."""
+        if len(args) < 1:
+            args=[0]
+            print("Exit")
+        readline.write_history_file('.cli_history')
+        if callable(self.simulation):
+            self.simulation.disconnect(self)
+        sys.exit(args[0])
+
+#
+# Update Functions
+#
+
+    def step(self):
+        """Execute one instruction."""
+        self.simulation.step(self)
+
+    def cycle(self):
+        """Process one CPU cycle."""
+        self.simulation.cycle(self)
+
+    def complete(self):
+        """Go Forever."""
+        self.simulation.run(self)
+
+    def update(self, *args, **kwargs):
+        """Callback for Broadcaster object."""
+        for memento in [self.registers, self.memory, self.pipeline]:
+            if len(memento) > 10:
+                memento.pop(0)
+        self.registers.append(kwargs['registers'])
+        self.memory.append(kwargs['memory'])
+        self.pipeline.append(kwargs['pipeline'])
+
+#
+# Modules Providing Functions
+#
+
+    def evaluate(self):
+        try:
+            evaluator = Evaluator(simulation=self.simulation, client=self)
+            evaluator.eval()
+        except BadInstructionOrSyntax, e:
+            print(e.message)
+        except Exception, e:
+            print('fatal: {:}'.format(e))
+
+    def visualize(self, args=None):
+        # Instance of visualizer if there ain't one
+        if args == "kill":
+            if hasattr(self, 'visualizer'):
+                self.visualizer.__del__()
+                del self.visualizer
+            return
+        if not hasattr(self, 'visualizer'):
+            self.visualizer = Visualizer(
+                self.simulation.get_monitor())
+        # Initialize if not yet done. These are once only actions.
+        if not self.visualizer.is_initialized():
+            self.visualizer.add_representation_from_data(
+                "processor_cycles", opacity=1.0, colour='magenta')
+        # Need a boradcast source, at least for update notifications
+        # (UpdateListener).
+            self.visualizer.add_broadcast_data_source(
+                self.simulation.get_processor())
+        # We will link-render, which sets the window to redraw when
+        # there is a change in the broadcaster (Processor).
+            window_title = "CLI::Visualizer (r{:}:{:})".format(
+                VERSION, RELEASE_NAME)
+            self.visualizer.initialize(
+                name=window_title, link_render=True)
+        # One off render to display the window.
+        self.visualizer.render()
+
+#
+# Print Functions
+#
 
     def print_programme(self):
         if hasattr(self, "_programme_text"):
@@ -270,6 +326,8 @@ class Cli(UpdateListener):
         print("{:-<80}".format(''))
 
     def print_memory(self, **kwargs):
+        """Format and print a view of the memory."""
+        # TODO: Select which memory slice to print. (2011-08-05)
         try:
             end=int(kwargs['end'])
             print(int(kwargs['end']))
@@ -282,6 +340,14 @@ class Cli(UpdateListener):
                  .format(hex(address)[2:], bin(value,self.size)[2:],
                          hex(value)[2:]))
         print("{:-<80}".format(''))
+
+    def print_visualization_modules(self):
+        print '\n'.join(
+            self.simulation.get_monitor().list_int_props())
+
+#
+# Documentation Functions
+#
 
     def usage(self, args):
         usage   = {'print':'print <reg[ister[s]]>|<prog[ramme]>'}
@@ -302,15 +368,9 @@ class Cli(UpdateListener):
     def version(self):
         print(VERSION)
 
-    def exit(self, *args, **kwargs):
-        if len(args) < 1:
-            args=[0]
-            print("Exit")
-        readline.write_history_file('.cli_history')
-        if callable(self.simulation):
-            self.simulation.disconnect(self)
-        sys.exit(args[0])
-
+#
+# Helper Functions
+#
     def exception_handler(self, e):
         if DEBUG and self.local_DEBUG < 1:
             print("Unhandled exception: {:}".format(e))
@@ -319,6 +379,7 @@ class Cli(UpdateListener):
         elif DEBUG and self.local_DEBUG >= 2:
             print('Type: ' + e.__class__.__name__)
         self.exit(1)
+
 
 
 

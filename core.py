@@ -36,24 +36,23 @@ class Simulation(object):
             All exceptions must be caught by the client.
         """
 
-        #
-        #we need a logger object that will co-ordinate logging,
-        #as well as a connection to the logfile
-        #
         try:
-            self._cycles = 0
-            self._clients=[]
-            self._daemons=[]
-            self.logfile=logfile
-            self.monitor=Monitor.Monitor()
-            self.logger = Logger.Logger(self.logfile)
+            self._cycles  = 0
+            self._clients = []
+            self._daemons = []
+            self.logfile  = logfile
+            self.monitor  = Monitor.Monitor()
+            self.logger   = Logger.Logger(self.logfile)
+
+        # We need a logger object that will co-ordinate logging,
+        # as well as a connection to the logfile
             self.log = Logger.SystemLogger(self.logger)
-            now = datetime.isoformat(datetime.now(), sep=' ')
+            now = datetime.isoformat(datetime.now(), sep = ' ')
             self.log.buffer('system started at {0}'.format(now))
         except Exception as e:
             sys.stderr.write('fatal: failed doing basic init\n{:}\n'
                              .format(e.message))
-        #self.logSizeCheck()
+            raise e
 
         coordinator = Builder.Coordinator()
 
@@ -103,7 +102,7 @@ class Simulation(object):
         pass
 
 #
-# interface
+# Control Functions
 #
     def run(self, client):
         """Run for a long time."""
@@ -143,10 +142,6 @@ class Simulation(object):
             self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
                             .format(client.__class__.__name__))
             return
-        # TODO
-        # This will be changed when we start loading necessary data from
-        # config
-        #
         self.log.buffer("`evaluate' called by `{0}'"
                         .format( client.__class__.__name__))
         expression = self.interpreter.read_lines(lines)
@@ -168,7 +163,7 @@ class Simulation(object):
             return
         self.log.buffer("`load' called by `{0}'".format(client.__class__.__name__))
         file_object = open(filename, 'r')
-        # TODO: Alter this to get instruction/offset. (2011-08-03)
+        # We will collect assembly binary and offset data, mainly to print.
         (binary, assembly) = self.interpreter.read_file(file_object)
         programme = self.interpreter.convert(binary)
         (chomp, offset) = self.memory.load_text_and_dump(programme)
@@ -180,7 +175,12 @@ class Simulation(object):
             self.log.buffer("blocked `load' call from unauthorized client `{0}'"
                             .format(client.__class__.__name__))
             return
+        self.monitor.reset()
         self.cpu.reset()
+
+#
+# Authorization
+#
 
     def connect(self, client):
         """Connects a client while ensuring it implements the correct
@@ -217,11 +217,23 @@ class Simulation(object):
             self.log.write('detatched a client')
         self.log.flush()
 
-    def get_instruction_size(self):
-        """-> instruction_size:int"""
-        return self.instruction_size
 #
-# worker functions
+# Accessors
+#
+
+    def get_instruction_size(self):
+        """Returns instruction_size:int."""
+        return self.instruction_size
+
+    def get_monitor(self):
+        """Returns a reference to the monitor object."""
+        return self.monitor
+
+    def get_processor(self):
+        """Returns a reference to the processor object."""
+        return self.cpu
+#
+# Worker functions
 #
     def _authorized_client(self, client):
         return client in self._clients

@@ -40,6 +40,14 @@ class BaseMonitor(object):
         """Toggles a boolean value on/off"""
         pass
 
+    def list_bool_props(self):
+        """Returns a list of bool props."""
+        pass
+
+    def list_int_props(self):
+        """Returns a list of int props."""
+        pass
+
 
 class Monitor(BaseMonitor):
 
@@ -107,3 +115,11 @@ class Monitor(BaseMonitor):
             self.data['bool_prop'][key] = (not self.data['bool_prop'][key])
         else:
             self.data['bool_prop'][key] = True
+
+    def list_int_props(self):
+        return self.data['int_prop'].keys()
+
+    def reset(self):
+        del self.data
+        self.data = {'int_prop':{}, 'bool_prop':{}}
+

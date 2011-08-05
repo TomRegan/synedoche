@@ -34,21 +34,29 @@ class Visualizer(UpdateListener):
     """
 
     def __init__(self, Monitor):
-        self.sources={}
-        self.monitor = Monitor
-        self.representations=[]
-        self.actors=[]
-        self.mappers=[]
+        self.sources         = []
+        self.monitor         = Monitor
+        self.representations = []
+        self.actors          = []
+        self.mappers         = []
+        self.initialized     = False
+
+    def __del__(self):
+        for source in self.sources:
+            source.remove(self)
+        del self
 
 #
 # Interface
 #
 
-    def initialize(self, name='Vizualizer'):
+    def initialize(self, name='Visualizer', link_render=False):
         """Initialize creates a render and window required before
         the visualization can be displayed."""
         self._init_renderer()
         self._init_window(name=name)
+        self.initialized = True
+        self.link_render = link_render
 
     def render(self):
         """Render causes the visualization display to update.
@@ -59,7 +67,7 @@ class Visualizer(UpdateListener):
         """
         cycles = self.monitor.get_int_prop('processor_cycles')
         for rep in self.representations:
-            rep.SetRadius(float(cycles)/1000)
+            rep.SetRadius(float(cycles)/100)
         self.window.Render()
 
     def add_broadcast_data_source(self, obj):
@@ -72,7 +80,8 @@ class Visualizer(UpdateListener):
             v.add_broadcast_data_source(p)
         """
         if hasattr(obj, 'register'):
-            self.sources['registers']=[]
+            obj.register(self)
+            self.sources.append(obj)
 
     def add_representation_from_data(self,
                                      int_prop,
@@ -93,17 +102,28 @@ class Visualizer(UpdateListener):
                             )
 
     def add_representation_from_broadcast_data(self, source):
-        pass
+        if hasattr(source, 'register'):
+            source.register(self)
 
     def add_representation_from_source(self, source):
-        pass
+        if hasattr(source, 'register'):
+            source.register(self)
+
+#
+# Accessor Functions
+#
+
+    def is_initialized(self):
+        return self.initialized
 
 #
 # Worker Functions
 #
     def update(self, *args, **kwargs):
         """Called by broadcaster object, not public interface."""
-        self.sources['registers'].append(kwargs['registers'])
+        #self.sources['registers'].append(kwargs['registers'])
+        if self.link_render:
+            self.render()
 
     def _init_representation(self, name='sphere'):
         import vtk
@@ -150,7 +170,8 @@ class Visualizer(UpdateListener):
         for actor in self.actors:
             self.renderer.AddActor(actor)
         self.renderer.SetBackground(Colours.BASE03)
-        self.renderer.GetActiveCamera().Azimuth(1)
+        # Automatically set the camera to a pleasing sort of position.
+        self.renderer.ResetCamera()
 
     def _init_window(self, dimx=640, dimy=640, name=''):
         self.window = vtkRenderWindow()

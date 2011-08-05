@@ -29,6 +29,8 @@ class Parser(BaseParser):
             return ('help', ())
         elif command == 'usage':
             return ('usage', {'fun':tokens[0]})
+        elif command[:3] == 'vis':
+            return self._visualize(tokens)
         elif command[:4] == 'vers':
             return ('version', ())
         elif command[:4] == 'lice':
@@ -87,6 +89,8 @@ class Parser(BaseParser):
                 return ('print_memory', ())
             elif tokens[0][:3] == "pro":
                 return ('print_programme', ())
+            elif tokens[0][:3] == 'vis':
+                return ('print_visualization_modules', ())
             else:
                 pass
         else:
@@ -97,3 +101,9 @@ class Parser(BaseParser):
             return ('load', tokens[0])
         else:
             return ('load', False)
+
+    def _visualize(self, tokens):
+        if len(tokens) > 0:
+            return ('visualize', tokens[0])
+        else:
+            return ('visualize', False)
