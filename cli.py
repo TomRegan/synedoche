@@ -35,7 +35,7 @@ class Cli(UpdateListener):
     """``Cli is just this guy, you know?''
                                     --Gag Halfrunt
     """
-    def __init__(self, instructions, machine):
+    def __init__(self, config):
 
         # DEBUG Levels:
         # 1: minimal feedback, short traceback and frame data
@@ -59,8 +59,7 @@ class Cli(UpdateListener):
             pass
 
         try:
-            self.simulation=Simulation(instruction_conf=instructions,
-                                       machine_conf=machine,
+            self.simulation=Simulation(config=config,
                                        logfile='logs/cli.log')
 
         # Avoid some unnecessary crashes:
@@ -384,7 +383,7 @@ class Cli(UpdateListener):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 2:
-        Cli(sys.argv[1], sys.argv[2])
+    if len(sys.argv) > 1:
+        Cli(sys.argv[1])
     else:
-        sys.stderr.write('Usage: cli <instruction config> <machine config>\n')
+        sys.stderr.write('Usage: cli <config package>\n')

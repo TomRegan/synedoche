@@ -37,7 +37,7 @@ class InstructionReader(XmlReader):
     """A class to parse an instruction.xsd-validated isa specification"""
 
     def __init__(self, filename):
-        self._document=XmlDocument(filename)
+        self._document=XmlDocument(filename + 'instructions.xml')
         self._root_node=self._document._root_node
         self._parse_root()
         self._parse_formats()
@@ -187,7 +187,7 @@ class MachineReader(XmlReader):
     _register_mappings={}
 
     def __init__(self, filename):
-        self._document=XmlDocument(filename)
+        self._document=XmlDocument(filename + 'machine.xml')
         self._root_node=self._document._root_node
         self._parse_root()
         self._parse_language()

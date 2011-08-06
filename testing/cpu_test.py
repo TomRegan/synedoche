@@ -32,28 +32,27 @@ if __name__ == '__main__':
             self.logger=Logger.Logger('logs/cpu_test.log')
             self.monitor=Monitor.Monitor()
             self.logger.buffer('>-----setUp')
-            machine_conf='../config/machine.xml'
-            instruction_conf='../config/instructions.xml'
+            config='../config/mips32/'
 
             coordinator = Builder.Coordinator()
 
             coordinator.set_builder(Builder.InstructionBuilder())
-            coordinator.make(filename=instruction_conf)
+            coordinator.make(filename=config)
             self.instructions = coordinator.get_object()
 
             coordinator.set_builder(Builder.RegisterBuilder())
-            coordinator.make(filename=machine_conf)
+            coordinator.make(filename=config)
             self.registers = coordinator.get_object()
             self.registers.open_log(self.logger)
 
             coordinator.set_builder(Builder.MemoryBuilder())
-            coordinator.make(filename=machine_conf)
+            coordinator.make(filename=config)
             self.memory = coordinator.get_object()
             self.memory.open_log(self.logger)
             self.memory.open_monitor(self.monitor)
 
             coordinator.set_builder(Builder.PipelineBuilder())
-            coordinator.make(filename=machine_conf)
+            coordinator.make(filename=config)
             pipeline = coordinator.get_object()
 
             del coordinator
