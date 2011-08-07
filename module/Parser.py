@@ -31,6 +31,8 @@ class Parser(BaseParser):
             return ('usage', {'fun':tokens[0]})
         elif command[:3] == 'vis':
             return self._visualize(tokens)
+        elif command[:2] == 'br':
+            return self._break(tokens)
         elif command[:4] == 'vers':
             return ('version', ())
         elif command[:4] == 'lice':
@@ -89,6 +91,8 @@ class Parser(BaseParser):
                 return ('print_memory', ())
             elif tokens[0][:3] == "pro":
                 return ('print_programme', ())
+            elif tokens[0][:2] == "br":
+                return ('print_breakpoints', ())
             elif tokens[0][:3] == 'vis':
                 return ('print_visualization_modules', ())
             else:
@@ -106,3 +110,19 @@ class Parser(BaseParser):
             return ('visualize', tokens[0])
         else:
             return ('visualize', False)
+
+    def _break(self, tokens):
+        rvalue = 0
+        if len(tokens) > 1:
+            if tokens[0][:3] == 'del':
+                try:
+                    return ('remove_breakpoint', int(tokens[1]))
+                except:
+                    return ('usage', {'fun':'break'})
+        elif len(tokens) > 0:
+            try:
+                rvalue = int(tokens[0], 16)
+            except:
+                return ('usage', {'fun':'break'})
+            return ('add_breakpoint', rvalue)
+        return ('usage', {'fun':'break'})

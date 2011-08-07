@@ -24,7 +24,7 @@ from module.Memory      import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
 from module.Interpreter import DataMissingException
 from module.Interpreter import DataConversionFromUnknownType
-from module.SystemCall  import SigTerm
+from module.SystemCall  import SigTerm, SigTrap
 
 # TODO: Replace __all__ imports with named. (2011-08-03)
 from module.lib.Header    import *
@@ -68,6 +68,8 @@ class Cli(UpdateListener):
         # class checking, so client is not required to be a subclass.
             self.simulation.connect(self)
         # FIX: Legacy? 2011-08-04
+        # TODO: Verify what we're actually using self.size
+        # to test. Is it instruction set related? (2011-08-07)
             self.size = self.simulation.get_instruction_size()
         except Exception, e:
             self.exception_handler(e)
@@ -114,6 +116,8 @@ class Cli(UpdateListener):
                     raise e
             except SigTerm:
                 print('Programme finished')
+            except SigTrap:
+                print('Breaking')
 
 #
 # Basic Control
@@ -140,6 +144,14 @@ class Cli(UpdateListener):
         if hasattr(self, "_programme_text"):
             del self._programme_text
         self.simulation.reset(self)
+
+    def add_breakpoint(self, offset):
+        self.simulation.get_processor().add_break_point(offset)
+
+    def remove_breakpoint(self, number):
+        processor = self.simulation.get_processor()
+        if number in range(len(processor.get_break_points())+1):
+            processor.remove_break_point(number-1)
 
     def exit(self, *args, **kwargs):
         """Exit the simulation cleanly."""
@@ -316,6 +328,8 @@ class Cli(UpdateListener):
                 # Probably some error with the programme, maybe
                 # not serious. Return to avoid crashing.
                     return
+                # Get the assembly relating to the integer value in the pipe-
+                # line
                 index = self._programme_text[1].index(self.pipeline[-1][i])
                 print("Stage {:}:{:}  {:}"
                      .format(i+1,
@@ -343,6 +357,20 @@ class Cli(UpdateListener):
     def print_visualization_modules(self):
         print '\n'.join(
             self.simulation.get_monitor().list_int_props())
+
+    def print_breakpoints(self):
+        breakpoints = self.simulation.get_processor().get_break_points()
+        print("{:-<80}".format('--Breakpoints'))
+        try:
+            for i in range(len(breakpoints)):
+                # Look for the offset in programme text.
+                index = self._programme_text[2].index(breakpoints[i])
+                print("{:}: {:.>8}  {:}".format(i+1,
+                                           hex(breakpoints[i]),
+                                           self._programme_text[0][index]))
+        except:
+            print("There is a problem with the debugger. Try `reset'")
+        print("{:-<80}".format(''))
 
 #
 # Documentation Functions
