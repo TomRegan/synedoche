@@ -12,14 +12,10 @@ sys.path.append('../')
 
 from module import Api
 from module import Builder
-from module import Interface
 from module import Interpreter
-from module import Isa
 from module import Logger
-from module import Memory
 from module import Monitor
 from module import Processor
-from module import Registers
 from module.Memory import (AddressingError, AlignmentError,
                            SegmentationFaultException)
 
@@ -76,7 +72,7 @@ if __name__ == '__main__':
             self.logger.buffer('>-----tearDown')
             self.logger.flush()
 
-        def testNoop(self):
+        def test_noop(self):
             self.logger.buffer('>-----testNoop/Fetch')
             pc=self.cpu._registers.get_value(33)
             cycles=1
@@ -85,7 +81,7 @@ if __name__ == '__main__':
             self.assertEquals(pc+cycles*4, self.cpu._registers.get_value(33))
             self.assertEquals([[0, 'j', 'nop']], self.cpu._pipeline)
 
-        def testDecode(self):
+        def test_decode(self):
             self.logger.buffer('>-----testDecode')
             pc=self.cpu._registers.get_value(33)
             cycles=2
@@ -98,7 +94,7 @@ if __name__ == '__main__':
                                               'op': '000000'}]],
                               self.cpu._pipeline)
 
-        def testExecute(self):
+        def test_execute(self):
             self.logger.buffer('>-----testExecute')
             pc=self.cpu._registers.get_value(33)
             cycles=4
@@ -117,17 +113,16 @@ if __name__ == '__main__':
                                               'op': '000000'}]],
                               self.cpu._pipeline)
 
-        def testPipeline(self):
+        def test_pipeline(self):
             self.logger.buffer('>-----testPipeline')
             cycles=4
             for i in range(cycles):
                 self.cpu.cycle()
             self.assertEquals([0,0,0,0], self.cpu.get_pipeline())
 
-        def testAddInstruction(self):
+        def test_add_instruction(self):
             """add instruction works as expected"""
             self.logger.buffer('>-----testAddInstruction')
-            pc=self.cpu._registers.get_value(33)
             i=self.interpreter.read_lines(['addi $s0, $zero, 32'])
             i=self.interpreter.convert(i)
             self.memory.load_text(i)
@@ -136,10 +131,9 @@ if __name__ == '__main__':
                 self.cpu.cycle()
             self.assertEquals(32, self.registers.get_value(16))
 
-        def testSetOnLessInstruction(self):
+        def test_set_on_less_instruction(self):
             """slt instruction works as expected"""
             self.logger.buffer('>-----testSltInstruction')
-            pc=self.cpu._registers.get_value(33)
             i=self.interpreter.read_lines(['addi $s1, $zero, 255\n',
                                            'addi $s2, $zero, 1023\n',
                                            'slt  $s0, $s1, $s2'])
@@ -149,6 +143,12 @@ if __name__ == '__main__':
             for i in range(cycles):
                 self.cpu.cycle()
             self.assertEquals(1, self.registers.get_value(16))
+
+        def test_get_pc_value(self):
+            """get_pc_value() returns pc value."""
+            self.assertEquals(4194304, self.cpu.get_pc_value())
+            self.cpu.cycle()
+            self.assertEquals(4194308, self.cpu.get_pc_value())
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestCpu)
     unittest.TextTestRunner(verbosity=1).run(tests)

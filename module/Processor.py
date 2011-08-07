@@ -4,11 +4,10 @@
 # file           : Processor.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-20
-# last modified  : 2011-08-01
+# last modified  : 2011-08-07
 
-# TODO: Replace __all__ with classes. (2011-08-01)
-from Interface import *
-from Logger    import *
+from Interface import UpdateBroadcaster, LoggerClient, MonitorClient
+from Logger    import CpuLogger
 from copy      import copy, deepcopy
 
 from lib.Functions import binary as bin
@@ -34,6 +33,9 @@ class BaseProcessor(UpdateBroadcaster, LoggerClient, MonitorClient):
         pass
     def get_pipeline_length(self):
         """Returns the number of stages in the pipeline."""
+        pass
+    def get_pc_value(self):
+        """Returns the value of the programme counter."""
         pass
     def open_log(self, logger):
         self._log = CpuLogger(logger)
@@ -209,6 +211,9 @@ class Pipelined(BaseProcessor):
 
     def get_pipeline_length(self):
         return len(self._pipeline_stages)
+
+    def get_pc_value(self):
+        return self._registers.get_value(self._registers.get_pc())
 
     def broadcast(self):
         """Overrides broadcast in the base class

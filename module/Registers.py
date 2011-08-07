@@ -140,7 +140,7 @@ class Registers(BaseRegisters):
 
         Returns a reference to register object.
         """
-        # Do _not_ f__k with this. Making it deepcopy breaks lots.
+        # Do _not_ .... with this. Making it deepcopy breaks lots.
         return self
 
     def get_register_mappings(self):

@@ -100,8 +100,8 @@ class Cli(UpdateListener):
                 elif len(self.last_command) > 0:
                     line = self.last_command
                 (function, args) = parser.parse(line)
-                # Special debug level, 11, because this warning is simply
-                # f..king anoying.
+                # Special debug level, 11, because this warning is usually
+                # ....... anoying.
                 if self.local_DEBUG >= 11:
                     print("DEBUG {:}".format(args))
                 try:
