@@ -4,7 +4,7 @@
 # file           : cli.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-15
-# last modified  : 2011-08-04
+# last modified  : 2011-08-07
 
 
 import sys
@@ -67,9 +67,8 @@ class Cli(UpdateListener):
         # are implemented in the client. This is NOT done by base
         # class checking, so client is not required to be a subclass.
             self.simulation.connect(self)
-        # FIX: Legacy? 2011-08-04
-        # TODO: Verify what we're actually using self.size
-        # to test. Is it instruction set related? (2011-08-07)
+        # FIX: This seems to be broken: we're using the instruction
+        # size to determine the size of the address bus. (2011-08-07)
             self.size = self.simulation.get_instruction_size()
         except Exception, e:
             self.exception_handler(e)

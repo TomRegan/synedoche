@@ -111,7 +111,10 @@ class Isa(BaseIsa):
         return self._data['assembler_syntax']
 
     def get_label_replacements(self):
-        return self._data['instruction_replacement']
+        try:
+            return self._data['instruction_replacement']
+        except:
+            return {}
 
 class InstructionSet(object):
     """Provides an interface that should be used to load an ISA

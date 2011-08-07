@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--author:   Tom Regan <thomas.c.regan@gmail.com>
+    file:     instructions.xml
+    since:    2011-08-07
+-->
+
+<instructions language="8085" size="0x08" api="sunray">
+
+  <!--Instruction formats are those described at:
+      http://www.cavehill.uwi.edu/fpas/cmp/online/el21c/lesson18.html
+  -->
+  <formats>
+    <format type="r" size="8">
+      <field name="op"  start="0x00" end="0x04" />
+      <field name="sss" start="0x05" end="0x07" />
+    </format>
+    <format type="M" size="8">
+      <field name="op" start="0x00" end="0x07" />
+    </format>
+    <!--Laughably described as `three format' ISA, the one byte instructions
+         are fractured so will require several special cases-->
+    <format type="n" size="16">
+      <field name="op" start="0x00" end="0x07" />
+      <field name="d0" start="0x08" end="0x0f" />
+    </format>
+    <format type="3-byte" size="24">
+      <field name="op" start="0x00" end="0x07" />
+      <field name="d0" start="0x08" end="0x0f" />
+      <field name="d1" start="0x10" end="0x17" />
+    </format>
+  </formats>
+
+  <assembler>
+    <!--not currently in use-->
+    <directives>
+      <directive name=".text"   profile="text" />
+      <directive name=".globl"  profile="global" />
+      <directive name=".align"  profile="alignment" />
+      <directive name=".asciiz" profile="string" />
+    </directives>
+    <syntax>
+      <label     pattern="\w+:" />
+      <reference pattern="(\w+):" />
+      <comment   pattern=";.*" />
+    </syntax>
+  </assembler>
+
+  <instruction name="ADD" format="r"><!--add-->
+    <signature>
+      <!--(field)id: identifier for the signature chunk-->
+      <field name="op" />
+    </signature>
+    <!--(fields) are the preset values of an instruction-->
+    <fields>
+      <!--(field)name:  identifier for use as variable reference-->
+      <!--(field)value: the fixed value of the field, or 'required'-->
+      <field name="op"  value="0x10" />
+      <field name="sss" value="0x00" />
+    </fields>
+    <!--(syntax) is the format of an assembly instruction-->
+    <syntax>
+      <!--(expression)pattern:  regex describing the instruction-->
+      <!--(symbol)type:         reference to-->
+      <!--(symbol)matches:      instruction field-->
+      <expression pattern="\w+\s+(\w+)" />
+      <symbol type="register" matches="sss" />
+    </syntax>
+    <!--(implementation) lists sequantial api calls used for execution-->
+    <implementation>
+      <!--(method)name: api call name (refer to API reference)-->
+      <!--(method)args: arguments are links to symbols above-->
+      <method name="addRegisters" args="0x00 sss 0x00" />
+    </implementation>
+  </instruction>
+
+  <instruction name="ADI" format="n"><!--add immediate-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0xc6" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\d+)h" />
+      <symbol type="int"      matches="d0" />
+    </syntax>
+    <implementation>
+      <method name="addImmediate" args="0x00 im 0x00" />
+    </implementation>
+  </instruction>
+
+  <instruction name="NOP" format="M">
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0x00" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+" />
+    </syntax>
+    <implementation>
+      <method name="doNothing" args="" />
+    </implementation>
+  </instruction>
+
+  <instruction name="HLT" format="M">
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0x76" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+" />
+    </syntax>
+    <implementation>
+      <method name="systemCall" args="0x02" />
+    </implementation>
+  </instruction>
+</instructions>
