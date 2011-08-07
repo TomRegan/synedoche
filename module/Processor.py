@@ -79,42 +79,39 @@ class Pipelined(BaseProcessor):
         self.__special_flags = {}
 
         self._breakpoints = []
+        self._debug       = False
 
     def cycle(self):
         self._log.buffer('beginning a cycle')
         self.__special_flags['increment'] = False
-        for stage in self._pipeline_stages:
-            self._log.buffer('entering {0} stage'.format(stage))
-            # A little string transformation to help avoid accidents.
-            stagecall = '_' + stage + '_coordinator'
-            try:
-            # Dispatch to one of the instance's methods.
-                call = getattr(self, stagecall)
-                call(self._pipeline_stages.index(stage))
-                if len(self._pipeline) > len(self._pipeline_stages):
-                    self._pipeline.pop()
-            except AttributeError, e:
-                self._log.buffer('no such pipeline stage: {:}'
-                                 .format(stage))
-                raise e
-            except IndexError, e:
-            # Routine, particularly for first cycles.
-                self._log.buffer('{0} found nothing in the pipeline'
-                                 .format(stage))
-            except Exception, e:
-                self._log.buffer('EXCEPTION {:}'.format(e.message))
-                raise e
-            self._log.buffer('leaving {0} stage'.format(stage))
+        try:
+            for stage in self._pipeline_stages:
+                self._log.buffer('entering {0} stage'.format(stage))
+                # A little string transformation to help avoid accidents.
+                stagecall = '_' + stage + '_coordinator'
+                try:
+                # Dispatch to one of the instance's methods.
+                    call = getattr(self, stagecall)
+                    call(self._pipeline_stages.index(stage))
+                except AttributeError, e:
+                    self._log.buffer('no such pipeline stage: {:}'
+                                     .format(stage))
+                    raise e
+                except IndexError, e:
+                # Routine, particularly for first cycles.
+                    self._log.buffer('{0} found nothing in the pipeline'
+                                     .format(stage))
+                self._log.buffer('leaving {0} stage'.format(stage))
+            # Do any housekeeping.
+            self.__retire_cycle()
+        except Exception, e:
+            self._log.buffer('EXCEPTION {:}'.format(e.message))
+            raise e
         # Update listeners.
         self.broadcast()
         self._monitor.increment('processor_cycles')
         self._log.buffer('completing a cycle')
 
-        # Cooperate with any required debuggery.
-        if self.get_pc_value() in self._breakpoints:
-            # Call for a SigTrap
-            system_call = SystemCall()
-            system_call.service(16435934)
 
     def _fetch_coordinator(self, index):
         self.__fetch(index)
@@ -196,7 +193,8 @@ class Pipelined(BaseProcessor):
             if sequential:
                 call = getattr(self._api, method[0])
                 args = method[1]
-                self._log.buffer("calling {0} with {1}".format(call.__name__, args))
+                self._log.buffer("calling {0} with {1}"
+                                 .format(call.__name__, args))
                 sequential = call(args,
                                   self._pipeline[index][3],
                                   branch_offset=branch_offset)
@@ -210,6 +208,16 @@ class Pipelined(BaseProcessor):
     def __writeback(self, index):
         pass
 
+    def __retire_cycle(self):
+        # Retire completed instructions.
+        if len(self._pipeline) > len(self._pipeline_stages):
+            self._pipeline.pop()
+        # Cooperate with any debuggery.
+        if self._debug and self.get_pc_value() in self._breakpoints:
+            # Call for a SigTrap
+            system_call = SystemCall()
+            system_call.service(16435934)
+
     def reset(self):
         """Reset the processor to starting values."""
         self._log.buffer('RESET performing reset')
@@ -221,6 +229,21 @@ class Pipelined(BaseProcessor):
         self._breakpoints = []
         self._log.buffer('RESET completed')
         self.broadcast()
+
+    def add_break_point(self, offset):
+        self._log.buffer('breakpoint at {:}'.format(hex(offset)))
+        self._breakpoints.append(offset)
+        self._debug = True
+
+    def remove_break_point(self, number):
+        try:
+            offset = self._breakpoints.pop(number)
+            if len(self._breakpoints) == 0:
+                self._debug = False
+            self._log.buffer('breakpoint removed at {:}'
+                             .format(hex(offset)))
+        except:
+            pass
 
     def get_registers(self):
         return self._registers
@@ -236,15 +259,6 @@ class Pipelined(BaseProcessor):
 
     def get_pc_value(self):
         return self._registers.get_value(self._registers.get_pc())
-
-    def add_break_point(self, offset):
-        self._breakpoints.append(offset)
-
-    def remove_break_point(self, number):
-        try:
-            self._breakpoints.pop(number)
-        except:
-            pass
 
     def get_break_points(self):
         return self._breakpoints

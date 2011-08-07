@@ -6,7 +6,7 @@
 # since          : 2011-07-15
 # last modified  : 2011-08-02
 
-VERSION='85'
+VERSION='86'
 RELEASE_NAME='M4'
 PROGRAMME_NAME=''
 DEBUG=True
