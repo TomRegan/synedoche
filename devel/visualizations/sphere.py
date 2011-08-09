@@ -39,21 +39,36 @@ disk.SetCircumferentialResolution(30)
 mapper = vtk.vtkPolyDataMapper()
 mapper.SetInputConnection(disk.GetOutputPort())
 
+window = vtk.vtkRenderWindow()
+interactor = vtk.vtkRenderWindowInteractor()
+interactor.SetRenderWindow(window)
+
 actor = vtk.vtkActor()
 actor.SetMapper(mapper)
 actor.GetProperty().SetColor(Colours.MAGENTA)
-actor.GetProperty().SetOpacity(0.9)
+#actor.GetProperty().SetOpacity(0.9)
+
+# caption widget
+caption = vtk.vtkCaptionRepresentation()
+caption.GetCaptionActor2D().SetCaption("Test Caption")
+caption.SetAnchorPosition([0.0, 0.0, 0.0])
+caption.GetCaptionActor2D().ThreeDimensionalLeaderOff()
+caption.GetCaptionActor2D().AttachEdgeOnlyOn()
+
+widget = vtk.vtkCaptionWidget()
+widget.SetInteractor(interactor)
+widget.SetRepresentation(caption)
 
 renderer = vtk.vtkRenderer()
 renderer.AddActor( actor )
 renderer.SetBackground(Colours.BASE03)
 
-renWin = vtk.vtkRenderWindow()
-renWin.AddRenderer( renderer )
-renWin.SetSize( 900, 400 )
+window.AddRenderer( renderer )
+window.SetSize( 600, 600 )
 
 
 for i in range(100):
     disk.SetOuterRadius(float(i)/1000)
-    renWin.Render()
-    time.sleep(0.5)
+    window.Render()
+    widget.On()
+    time.sleep(0.05)

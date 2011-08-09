@@ -9,11 +9,14 @@
 from Interface import UpdateListener
 from lib.Enumerations import Colours
 
-from vtk  import vtkActor
-from vtk  import vtkPolyDataMapper
-from vtk  import vtkRenderer
-from vtk  import vtkRenderWindow
-from vtk  import vtkRenderWindowInteractor
+from vtk import vtkActor
+from vtk import vtkLineSource
+from vtk import vtkPolyDataMapper
+from vtk import vtkRenderer
+from vtk import vtkRenderWindow
+from vtk import vtkRenderWindowInteractor
+from vtk import vtkBalloonWidget
+from vtk import vtkBalloonRepresentation
 #from vtk  import vtkInteractorStyleTrackballActor
 #from sys  import getsizeof
 
@@ -34,12 +37,23 @@ class Visualizer(UpdateListener):
     """
 
     def __init__(self, Monitor):
-        self.sources         = []
+        self.initialized     = False
         self.monitor         = Monitor
+        self.sources         = []
         self.representations = []
         self.actors          = []
+        self.lines           = []
         self.mappers         = []
-        self.initialized     = False
+
+        self.representation_count = 0
+        self.layout_grid = [
+            [ 0.0,  0.0,  0.0],
+            [-3.0,  3.0,  0.0],
+            [ 3.0,  3.0,  0.0],
+            [-4.0, -2.0,  0.0],
+            [ 4.0, -2.0,  0.0],
+            [ 0.0, -4.0,  0.0]
+        ]
 
     def __del__(self):
         for source in self.sources:
@@ -55,8 +69,15 @@ class Visualizer(UpdateListener):
         the visualization can be displayed."""
         self._init_renderer()
         self._init_window(name=name)
+        #self._init_balloons()
         self.initialized = True
         self.link_render = link_render
+
+    def update(self, *args, **kwargs):
+        """Called by broadcaster object, not public interface."""
+        #self.sources['registers'].append(kwargs['registers'])
+        if self.link_render:
+            self.render()
 
     def render(self):
         """Render causes the visualization display to update.
@@ -86,8 +107,10 @@ class Visualizer(UpdateListener):
     def add_representation_from_data(self,
                                      int_prop,
                                      opacity=1.0,
-                                     position=[0, 0, 0],
+                                     position=None,
                                      colour="blue"):
+        if self.representation_count >= len(self.layout_grid):
+            return
         if hasattr(self.monitor, 'get_int_prop'):
             self.monitor.get_int_prop(int_prop)
             self.representations.append(self._init_representation())
@@ -95,19 +118,15 @@ class Visualizer(UpdateListener):
                 colour = getattr(Colours, colour.upper())
             except:
                 colour = Colours.BLUE
+            if position == None:
+                position = self.layout_grid[self.representation_count]
+            self._add_line(self.layout_grid[0], position)
             self._init_mapper()
             self._init_actor(opacity=opacity,
                              colour=colour,
                              position=position
                             )
-
-    def add_representation_from_broadcast_data(self, source):
-        if hasattr(source, 'register'):
-            source.register(self)
-
-    def add_representation_from_source(self, source):
-        if hasattr(source, 'register'):
-            source.register(self)
+            self.representation_count = self.representation_count + 1
 
 #
 # Accessor Functions
@@ -119,12 +138,6 @@ class Visualizer(UpdateListener):
 #
 # Worker Functions
 #
-    def update(self, *args, **kwargs):
-        """Called by broadcaster object, not public interface."""
-        #self.sources['registers'].append(kwargs['registers'])
-        if self.link_render:
-            self.render()
-
     def _init_representation(self, name='sphere'):
         import vtk
         # stage the name
@@ -141,17 +154,18 @@ class Visualizer(UpdateListener):
             #representation.SetCentre([0.0, 0.0, 0.0])
             #representation.SetInnerRadius(0.0)
             #representation.SetCircumferentialResolution(30)
+            representation.Update()
         except: pass
         return representation
 
     def _init_actor(self,
-                    colour=Colours.BLUE,
-                    opacity=1.0,
-                    position=[0, 0, 0]
+                    colour,
+                    opacity,
+                    position
                    ):
         p = position
         actor = vtkActor()
-        actor.SetMapper(self.mapper)
+        actor.SetMapper(self.representation_mapper)
         actor.GetProperty().SetColor(colour)
         actor.GetProperty().SetOpacity(opacity)
         actor.SetPosition(p[0], p[1], p[2])
@@ -160,10 +174,21 @@ class Visualizer(UpdateListener):
         #actor.GetProperty().EdgeVisibilityOn()
         #actor.GetProperty().SetEdgeColor(Colours.BASE3)
 
+    def _init_lines(self):
+        # FIX: Nothing to do with lines is working. (2011-08-08)
+        actor = vtkActor()
+        actor.SetMapper(self.line_mapper)
+        actor.GetProperty().SetLineWidth(4)
+        self.actors.append(actor)
+
     def _init_mapper(self):
-        self.mapper = vtkPolyDataMapper()
-        self.mapper.SetInputConnection(
+        self.representation_mapper = vtkPolyDataMapper()
+        self.representation_mapper.SetInputConnection(
             self.representations[0].GetOutputPort())
+        # FIX: Nothing to do with lines is working. (2011-08-08)
+        self.line_mapper = vtkPolyDataMapper()
+        self.line_mapper.SetInputConnection(
+            self.lines[0].GetOutputPort())
 
     def _init_renderer(self):
         self.renderer = vtkRenderer()
@@ -177,10 +202,25 @@ class Visualizer(UpdateListener):
         self.window = vtkRenderWindow()
         self.window.AddRenderer(self.renderer)
         self.window.SetSize(dimx, dimy)
-        # Fix: Style isn't achieving anything. (2011-08-04)
-        #self.style = vtkInteractorStyleTrackballActor()
         self.interactor = vtkRenderWindowInteractor()
-        #self.interactor.SetInteractorStyle(self.style)
         self.interactor.SetRenderWindow(self.window)
         self.window.SetWindowName(name)
 
+    def _init_balloons(self):
+        for actor in self.actors:
+            balloon = vtkBalloonRepresentation()
+            balloon.SetBalloonLayoutToImageRight()
+            widget = vtkBalloonWidget()
+            widget.SetRepresentation(balloon)
+            widget.SetInteractor(self.interactor)
+            widget.AddBalloon(actor, "This is a sphere")
+            widget.EnabledOn()
+
+
+    def _add_line(self, start, end):
+        # FIX: Nothing to do with lines is working. (2011-08-08)
+        line = vtkLineSource()
+        line.SetPoint1(start)
+        line.SetPoint2(end)
+        line.Update()
+        self.lines.append(line)

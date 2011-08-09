@@ -11,6 +11,7 @@ import sys
 sys.path.append('../')
 
 from module import Visualizer
+from module import Graphics
 from module import Logger
 from module import Monitor
 from module import Builder
@@ -23,8 +24,8 @@ if __name__ == '__main__':
     class TestVisualization(unittest.TestCase):
 
         def setUp(self):
-            self.logger=Logger.Logger('logs/vis_test.log')
-            self.monitor=Monitor.Monitor()
+            self.logger  = Logger.Logger('logs/vis_test.log')
+            self.monitor = Monitor.Monitor()
             self.logger.buffer('>-----setUp')
             config='../config/mips32/'
 
@@ -72,17 +73,16 @@ if __name__ == '__main__':
             self.memory.reset()
             self.logger.buffer(">-----tearDown")
             self.logger.flush()
-            del self.vis
 
-        def test_initialization(self):
-            self.logger.buffer(">-----test_initialization")
+        def test_visual_initialization(self):
+            self.logger.buffer(">-----test_visual_initialization")
             self.vis = Visualizer.Visualizer(self.monitor)
             self.vis.add_representation_from_data('processor_cycles')
             self.vis.initialize(name="Test Initialization")
             self.assertEquals(True, True)
 
-        def test_monitor_source_update(self):
-            self.logger.buffer(">-----test_monitor_source_update")
+        def test_visual_monitor_source_update(self):
+            self.logger.buffer(">-----test_visual_monitor_source_update")
 
             self.vis = Visualizer.Visualizer(self.monitor)
             self.vis.add_representation_from_data("processor_cycles",
@@ -95,29 +95,68 @@ if __name__ == '__main__':
                 self.vis.render()
             self.assertEquals(True, True) # Whatever. It gets here, it's fine.
 
-        def test_multiple_representations(self):
-            self.logger.buffer(">-----test_monitor_source_update")
+        def test_visual_multiple_representations(self):
+            self.logger.buffer(">-----test_visual_multiple_representations")
 
             self.vis = Visualizer.Visualizer(self.monitor)
             self.vis.add_representation_from_data("processor_cycles",
-                                                  opacity=1.0,
-                                                  position=[0.0, 0.1, 0],
                                                   colour='red')
             self.vis.add_representation_from_data("processor_cycles",
-                                                  opacity=1.0,
-                                                  position=[-0.1, -0.1, 0],
                                                   colour='yellow')
             self.vis.add_representation_from_data("processor_cycles",
-                                                  opacity=1.0,
-                                                  position=[0.1, -0.1, 0],
                                                   colour='blue')
+            self.vis.add_representation_from_data("processor_cycles",
+                                                  colour='green')
+            self.vis.add_representation_from_data("processor_cycles",
+                                                  colour='magenta')
+            self.vis.add_representation_from_data("processor_cycles",
+                                                  colour='cyan')
             self.vis.initialize(name="Test Multiple Representations")
 
             cycles=100
             for i in range(cycles):
                 self.cpu.cycle()
                 self.vis.render()
-            self.assertEquals(True, True) # Whatever. It gets here, it's fine.
+            self.assertEquals(True, True)
+
+        def test_graphics_initialization(self):
+            self.logger.buffer(">-----test_graphics_initialization")
+            visual = Graphics.Visualizer()
+            visual.initialize()
+            self.assertEquals(True, True)
+
+        def test_graphics_monitor_source_update(self):
+            self.logger.buffer(">-----test_graphics_initialization")
+            visual = Graphics.Visualizer()
+            visual.update(self.monitor.get_int_prop('processor_cycles'))
+            self.assertEquals(True, True)
+
+        def test_graphics_multiple_representations(self):
+            counter1 = 8
+            counter2 = 6
+            counter3 = 4
+            counter4 = 3
+            counter5 = 5
+            counter6 = 7
+            visual = Graphics.Visualizer()
+            visual.update([counter1, counter2, counter3,
+                           counter4, counter5, counter6])
+            visual.add_node(0, "Anne")
+            visual.add_node(1, "Bob")
+            visual.add_node(2, "Carol")
+            visual.add_node(3, "David")
+            visual.add_node(4, "Eleanor")
+            visual.add_node(5, "Fred")
+            visual.set_edge_layout_hub()
+            visual.set_text_layout_default()
+            visual.initialize("Test Multiple Representations")
+            for i in range(100):
+                visual.update([counter1, counter2, counter3,
+                               counter4, counter5, counter6])
+                visual.render()
+                counter1 = counter1 + 0.1
+                if i % 10 == 0:
+                    counter4 = counter4 + 1
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestVisualization)
     unittest.TextTestRunner(verbosity=1).run(tests)

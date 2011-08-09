@@ -7,9 +7,9 @@
 # since          : 2011-07-01
 # last modified  : 2011-08-04
 
-from SystemCall    import *
+from SystemCall    import SystemCall
 from Logger        import ApiLogger
-from Interface     import *
+from Interface     import LoggerClient
 from lib.Functions import integer as int
 from lib.Functions import binary as bin
 
