@@ -172,10 +172,6 @@ class Visualizer(BaseVisualizer):
             self.add_text(self.node_ids[i])
         self.text_layout_strategy = "default"
 
-    def increment(self, n):
-        self.updated = True
-        self.data[n] = self.data[n] + 1
-
 #
 # Worker Functions
 #
@@ -232,7 +228,7 @@ if __name__ == '__main__':
     vis.add_node(5, "Fred")
     vis.set_edge_layout_hub()
     vis.set_text_layout_default()
-    vis.initialize()
+    vis.initialize("Visualizer")
     for i in range(100):
         vis.update([counter1, counter2, counter3,
                     counter4, counter5, counter6])

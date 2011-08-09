@@ -55,8 +55,7 @@ class Cli(UpdateListener):
         # We can try to use a history file, but readline may not
         # be present on the host system.
             readline.read_history_file('.cli_history')
-        except:
-            pass
+        except: pass
 
         try:
             self.simulation=Simulation(config=config,
@@ -201,31 +200,27 @@ class Cli(UpdateListener):
             print('fatal: {:}'.format(e))
 
     def visualize(self, args=None):
-        from module.Visualizer  import Visualizer
-        # Instance of visualizer if there ain't one
+        from module.Graphics  import Visualizer
+        # Try to destroy the visualizer only if there is one.
         if args == "kill":
             if hasattr(self, 'visualizer'):
                 self.visualizer.__del__()
                 del self.visualizer
             return
+        # If it doesn't exist, do the initial setup.
         if not hasattr(self, 'visualizer'):
-            self.visualizer = Visualizer(
-                self.simulation.get_monitor())
-        # Initialize if not yet done. These are once only actions.
-        if not self.visualizer.is_initialized():
-            self.visualizer.add_representation_from_data(
-                "processor_cycles", opacity=1.0, colour='magenta')
-        # Need a boradcast source, at least for update notifications
-        # (UpdateListener).
-            self.visualizer.add_broadcast_data_source(
-                self.simulation.get_processor())
-        # We will link-render, which sets the window to redraw when
-        # there is a change in the broadcaster (Processor).
-            window_title = "CLI::Visualizer (r{:}:{:})".format(
-                VERSION, RELEASE_NAME)
-            self.visualizer.initialize(
-                name=window_title, link_render=True)
-        # One off render to display the window.
+            self.visualizer = Visualizer()
+            # We need to add nodes to the graph.
+            self.visualizer.add_node(0, "Cycles")
+            # We will use the easy layout options.
+            self.visualizer.set_edge_layout_hub()
+            self.visualizer.set_text_layout_default()
+            # Init sets a window title and draws the objects
+            # ready to be rendered.
+            self.visualizer.initialize("CLI::Visualizer")
+        # Update adds the data. We can do this at any time, but preferebly
+        # before displaying on the screen with render.
+        self.visualizer.update([5])
         self.visualizer.render()
 
 #
