@@ -74,6 +74,7 @@ if __name__ == '__main__':
             self.logger.buffer(">-----tearDown")
             self.logger.flush()
 
+        @unittest.skip("module not routinely used")
         def test_visual_initialization(self):
             self.logger.buffer(">-----test_visual_initialization")
             self.vis = Visualizer.Visualizer(self.monitor)
@@ -81,6 +82,7 @@ if __name__ == '__main__':
             self.vis.initialize(name="Test Initialization")
             self.assertEquals(True, True)
 
+        @unittest.skip("module not routinely used")
         def test_visual_monitor_source_update(self):
             self.logger.buffer(">-----test_visual_monitor_source_update")
 
@@ -95,6 +97,7 @@ if __name__ == '__main__':
                 self.vis.render()
             self.assertEquals(True, True) # Whatever. It gets here, it's fine.
 
+        @unittest.skip("module not routinely used")
         def test_visual_multiple_representations(self):
             self.logger.buffer(">-----test_visual_multiple_representations")
 

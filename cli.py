@@ -190,8 +190,27 @@ class Cli(UpdateListener):
             self.memory.append(kwargs['memory'])
         if kwargs.has_key('pipeline'):
             self.pipeline.append(kwargs['pipeline'])
-        if kwargs.has_key('source'):
-            print('monitor updated')
+        if self.local_DEBUG >= 2:
+            print("DEBUG: {:}".format(self.get_statistics_update()))
+        try:
+            self.visualizer.update(self.get_statistics_update())
+            self.visualizer.render()
+        except AttributeError:
+            pass
+
+    def get_statistics_update(self):
+        a = self.simulation.get_monitor().get_int_prop('processor_cycles')
+        ma = self.simulation.get_monitor().get_int_prop('memory_bytes_loaded')
+        mb = self.simulation.get_monitor().get_int_prop('memory_bytes_stored')
+        b = 0
+        try:
+            b = float(max(ma, mb)) / float(min(ma, mb))
+        except: pass
+        c = self.simulation.get_monitor().get_int_prop('register_reads')
+        d = self.simulation.get_monitor().get_int_prop('register_writes')
+        e = self.simulation.get_monitor().get_int_prop('processor_executed')
+        f = self.simulation.get_processor().get_registers().get_utilization()
+        return [a, b, c, d, e, f]
 
 #
 # Modules Providing Functions
@@ -220,10 +239,10 @@ class Cli(UpdateListener):
             # We need to add nodes to the graph.
             self.visualizer.add_node(0, "Cycles")
             self.visualizer.add_node(1, "Memory Ratio")
-            self.visualizer.add_node(2, "Register Ratio")
-            self.visualizer.add_node(3, "Instructions Retired")
-            self.visualizer.add_node(4, "Register Utilization")
-            self.visualizer.add_node(5, "Line")
+            self.visualizer.add_node(2, "Register Reads")
+            self.visualizer.add_node(3, "Register Writes")
+            self.visualizer.add_node(4, "Instructions Retired")
+            self.visualizer.add_node(5, "Register Utilization")
             # We will use the easy layout options.
             self.visualizer.set_edge_layout_hub()
             self.visualizer.set_text_layout_default()
@@ -232,7 +251,7 @@ class Cli(UpdateListener):
             self.visualizer.initialize("CLI::Visualizer")
         # Update adds the data. We can do this at any time, but preferebly
         # before displaying on the screen with render.
-        self.visualizer.update([5])
+        self.visualizer.update(self.get_statistics_update())
         self.visualizer.render()
 
 #

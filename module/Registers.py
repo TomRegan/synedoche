@@ -1,10 +1,11 @@
 #!/usr/bin/env python
+#coding=iso-8859-15
 #
 # Register Component.
 # file           : Registers.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-11
-# last modified  : 2011-07-28
+# last modified  : 2011-08-10
 
 from copy import deepcopy
 from Logger    import RegisterLogger
@@ -156,3 +157,11 @@ class Registers(BaseRegisters):
         Returns a dict of register mappings.
         """
         return self._number_name
+
+    def get_utilization(self):
+        """Returns a ratio of registers used 0 ≤ n ≤ 1.0."""
+        changed = 0
+        for n in self._registers:
+            if self._registers[n]['value'] != self._registers_iv[n]['value']:
+                changed = changed + 1
+        return changed

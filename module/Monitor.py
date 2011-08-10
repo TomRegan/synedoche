@@ -10,44 +10,37 @@ from Interface import UpdateBroadcaster
 
 class BaseMonitor(UpdateBroadcaster):
     """Provides storage for statistical data."""
-
     def __init__(self):
         self.data = {}
-
     def get_int_prop(self):
         """Returns a value from the integers table"""
         pass
-
     def get_bool_prop(self):
         """Returns a value from the booleans table"""
         pass
-
     def set_int_prop(self, key, value):
         """Sets a value in the integers table"""
         pass
-
     def set_bool_prop(self, key, value):
         """Sets a value in the booleans table"""
         pass
-
     def increment(self, key, increment=None):
         """Increments an integer value"""
         pass
-
     def decrement(self, key, deincrement=None):
         """Decrements an integer value"""
         pass
-
     def toggle(self, key):
         """Toggles a boolean value on/off"""
         pass
-
     def list_bool_props(self):
         """Returns a list of bool props."""
         pass
-
     def list_int_props(self):
         """Returns a list of int props."""
+        pass
+    def is_updated(self):
+        """Returns true if the client has not seen recent updates."""
         pass
 
 
@@ -55,6 +48,7 @@ class Monitor(BaseMonitor):
 
     def __init__(self):
         self.data = {'int_prop':{}, 'bool_prop':{}}
+        self.updated_clients = []
 
     def __getattr__(self, name):
         if name == 'int_prop':
@@ -69,6 +63,9 @@ class Monitor(BaseMonitor):
             self.set_int_prop(key, value)
         elif type(value) == bool:
             self.set_bool_prop(key, value)
+
+    def is_updated(self, client):
+        return client not in self.updated_clients
 
     def get_int_prop(self, key=None):
         """Returns a stored integer property."""
