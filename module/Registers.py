@@ -9,7 +9,8 @@
 from copy import deepcopy
 from Logger    import RegisterLogger
 # TODO: Specify __all__ imports by name. (2011-08-01)
-from Interface import *
+from Interface import LoggerClient
+from Monitor   import MonitorClient
 from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
 

@@ -6,7 +6,8 @@
 # since          : 2011-07-20
 # last modified  : 2011-08-07
 
-from Interface  import UpdateBroadcaster, LoggerClient, MonitorClient
+from Interface  import UpdateBroadcaster, LoggerClient
+from Monitor    import MonitorClient
 from Logger     import CpuLogger
 from copy       import copy, deepcopy
 from SystemCall import SystemCall

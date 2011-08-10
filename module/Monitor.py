@@ -6,7 +6,9 @@
 # since          : 2011-07-27
 # last modified  : 2011-07-27
 
-class BaseMonitor(object):
+from Interface import UpdateBroadcaster
+
+class BaseMonitor(UpdateBroadcaster):
     """Provides storage for statistical data."""
 
     def __init__(self):
@@ -122,4 +124,10 @@ class Monitor(BaseMonitor):
     def reset(self):
         del self.data
         self.data = {'int_prop':{}, 'bool_prop':{}}
+
+class MonitorClient(object):
+    monitor = BaseMonitor()
+    _monitor = monitor
+    def open_monitor(self, Monitor):
+        pass
 

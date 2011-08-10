@@ -7,19 +7,11 @@
 # last modified  : 2011-07-27
 
 from Logger  import BaseLogger
-from Monitor import BaseMonitor
-
 
 class LoggerClient(object):
     log = BaseLogger()
     _log = log
     def open_log(self, Logger):
-        pass
-
-class MonitorClient(object):
-    monitor = BaseMonitor()
-    _monitor = monitor
-    def open_monitor(self, Monitor):
         pass
 
 class UpdateListener(object):

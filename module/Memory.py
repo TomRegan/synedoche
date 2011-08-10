@@ -6,8 +6,9 @@
 # since          : 2011-07-18
 # last modified  : 2011-07-27
 
-from Interface  import *
-from Logger     import *
+from Interface  import LoggerClient
+from Logger     import MemoryLogger
+from Monitor    import MonitorClient
 from lib.Functions  import binary as bin
 
 class AddressingError(Exception):
