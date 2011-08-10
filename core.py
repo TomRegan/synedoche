@@ -204,6 +204,7 @@ class Simulation(object):
         #receive its state changes.
         #
         self.cpu.register(client)
+        self.monitor.register(client)
         self._clients.append(client)
         self.log.write("attached client `{0}'".format(client.__class__.__name__))
         self.cpu.broadcast()

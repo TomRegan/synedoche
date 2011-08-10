@@ -179,7 +179,10 @@ class Visualizer(BaseVisualizer):
     def _redraw(self):
         for i in range(len(self.poly_data)):
             poly = self.poly_data[i]
-            size = self.data[-1][i]
+            try:
+                size = self.data[-1][i]
+            except:
+                size = 0
             poly.SetOuterRadius(size)
             poly.SetInnerRadius(size - 0.4)
 
@@ -207,7 +210,7 @@ class Visualizer(BaseVisualizer):
             actor = vtkFollower()
             actor.SetMapper(self.text_mappers[i])
             actor.GetProperty().SetColor(Colours.BASE02)
-            actor.SetScale(3.0, 3.0, 3.0)
+            actor.SetScale(2.0, 2.0, 2.0)
             actor.AddPosition(self.layout_grid[i])
             self.actors.append(actor)
 

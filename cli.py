@@ -43,7 +43,7 @@ class Cli(UpdateListener):
         # ...
         # 11: reserved for _really_ annoying messages that are
         #     rarely useful.
-        self.local_DEBUG = 2
+        self.local_DEBUG = 3
 
         self.simulation  = None
         self.last_cmd    = None
@@ -104,14 +104,14 @@ class Cli(UpdateListener):
                 # ....... anoying.
                 if self.local_DEBUG >= 11:
                     print("DEBUG {:}".format(args))
-                try:
-                    call = getattr(self, function)
-                    if args:
-                        call(args)
-                    else:
-                        call()
-                except Exception, e:
-                    raise e
+                #try:
+                call = getattr(self, function)
+                if args:
+                    call(args)
+                else:
+                    call()
+                #except Exception, e:
+                #    raise e
             except SigTerm:
                 print('Programme finished')
             except SigTrap:
@@ -179,12 +179,19 @@ class Cli(UpdateListener):
 
     def update(self, *args, **kwargs):
         """Callback for Broadcaster object."""
+        # Truncate large records
         for memento in [self.registers, self.memory, self.pipeline]:
             if len(memento) > 10:
                 memento.pop(0)
-        self.registers.append(kwargs['registers'])
-        self.memory.append(kwargs['memory'])
-        self.pipeline.append(kwargs['pipeline'])
+        # Push the newly retrieved values
+        if kwargs.has_key('registers'):
+            self.registers.append(kwargs['registers'])
+        if kwargs.has_key('memory'):
+            self.memory.append(kwargs['memory'])
+        if kwargs.has_key('pipeline'):
+            self.pipeline.append(kwargs['pipeline'])
+        if kwargs.has_key('source'):
+            print('monitor updated')
 
 #
 # Modules Providing Functions
@@ -212,6 +219,11 @@ class Cli(UpdateListener):
             self.visualizer = Visualizer()
             # We need to add nodes to the graph.
             self.visualizer.add_node(0, "Cycles")
+            self.visualizer.add_node(1, "Memory Ratio")
+            self.visualizer.add_node(2, "Register Ratio")
+            self.visualizer.add_node(3, "Instructions Retired")
+            self.visualizer.add_node(4, "Register Utilization")
+            self.visualizer.add_node(5, "Line")
             # We will use the easy layout options.
             self.visualizer.set_edge_layout_hub()
             self.visualizer.set_text_layout_default()
@@ -396,7 +408,9 @@ class Cli(UpdateListener):
         if DEBUG and self.local_DEBUG < 1:
             print("Unhandled exception: {:}".format(e))
         elif DEBUG and self.local_DEBUG >= 1:
-            traceback.print_exc(file=sys.stderr)
+            (exc_type, exc_value, exc_traceback) = sys.exc_info()
+            traceback.print_exception(exc_type, exc_value, exc_traceback)
+            #traceback.print_tb(exc_traceback, limit=6)
         elif DEBUG and self.local_DEBUG >= 2:
             print('Type: ' + e.__class__.__name__)
         self.exit(1)

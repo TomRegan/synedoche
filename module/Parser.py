@@ -29,7 +29,7 @@ class Parser(BaseParser):
             return ('help', ())
         elif command == 'usage':
             return ('usage', {'fun':tokens[0]})
-        elif command[:3] == 'vis':
+        elif command[:6] == 'visual':
             return self._visualize(tokens)
         elif command[:2] == 'br':
             return self._break(tokens)
@@ -79,10 +79,12 @@ class Parser(BaseParser):
         if len(tokens) > 0:
             if tokens[0][:3] == 'reg':
                 if len(tokens) > 1:
-                    if tokens[1] == 'show' and len(tokens) > 2:
+                    if tokens[1][:2] == 're' and len(tokens) > 2:
                         return ('print_registers', {'rewind':tokens[2]})
-                    else:
+                    elif tokens[1].isdigit():
                         return ('print_register', (tokens[1]))
+                    else:
+                        return ('print_registers', ())
                 else:
                     return ('print_registers', ())
             elif tokens[0][:3] == 'pip':
