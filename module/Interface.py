@@ -19,14 +19,17 @@ class UpdateListener(object):
         pass
 
 class UpdateBroadcaster(object):
-    _listeners=[]
-    def register(self, listener):
-        if not listener in self._listeners:
-            self._listeners.append(listener)
+    def register(self, listeners, listener):
+        """Registers an observer."""
+        if not listener in listeners:
+            listeners.append(listener)
 
-    def remove(self, listener):
-        if listener in self._listeners:
-            self._listeners.remove(listener)
+    def remove(self, listeners, listener):
+        """De-registers an observer."""
+        if listener in listeners:
+            listeners.remove(listener)
 
-    def broadcast(self, **kwargs):
-        map(lambda x:x.update(**kwargs), self._listeners)
+    def broadcast(self, listeners, **kwargs):
+        """Broadcasts updates to all observers."""
+        for listener in listeners:
+            listener.update(**kwargs)

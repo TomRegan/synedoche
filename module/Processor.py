@@ -82,6 +82,8 @@ class Pipelined(BaseProcessor):
         self._breakpoints = []
         self._debug       = False
 
+        self.listeners = []
+
     def cycle(self):
         self._log.buffer('beginning a cycle')
         self.__special_flags['increment'] = False
@@ -265,24 +267,26 @@ class Pipelined(BaseProcessor):
         return self._breakpoints
 
     def broadcast(self):
-        """Overrides broadcast in the base class
+        """Overrides broadcast in the base class.
 
         Sends information about registers, memory and pipeline.
         """
         registers = self.get_registers()
         memory    = self.get_memory()
         pipeline  = self.get_pipeline()
-        super(Pipelined, self).broadcast(registers=copy(registers),
-                                         memory=deepcopy(memory),
-                                         pipeline=deepcopy(pipeline))
+        super(Pipelined, self).broadcast(
+            self.listeners,
+            registers=copy(registers),
+            memory=deepcopy(memory),
+            pipeline=deepcopy(pipeline))
 
     def register(self, listener):
-        """Overrides register in the base class
+        """Overrides register in the base class."""
+        super(Pipelined, self).register(self.listeners, listener)
+        # Overcomes a potential problem where newly-registered
+        # listeners try to query before they should and have
+        # to eat an eception by updating them early.
+        self.broadcast()
 
-        Overcomes a potential problem where newly-registered
-        listeners try to query before they should and have
-        to eat an eception by updating them early.
-        """
-        if not listener in self._listeners:
-            self._listeners.append(listener)
-        self.broadcast
+    def remove(self, listener):
+        super(Pipelined, self).remove(self.listeners, listener)
