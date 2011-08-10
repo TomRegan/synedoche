@@ -13,6 +13,7 @@ from vtk import vtkDiskSource
 from vtk import vtkLineSource
 from vtk import vtkPolyDataMapper
 from vtk import vtkActor
+from vtk import vtkTubeFilter
 from vtk import vtkFollower
 from vtk import vtkRenderer
 from vtk import vtkRenderWindow
@@ -36,6 +37,7 @@ class Visualizer(BaseVisualizer):
         self.poly_mappers = []
         self.line_mappers = []
         self.text_mappers = []
+        self.bar_mappers  = []
 
         # Actor objects
         self.actors = []
@@ -121,11 +123,19 @@ class Visualizer(BaseVisualizer):
         line = vtkLineSource()
         line.SetPoint1(start)
         line.SetPoint2(end)
-        # Mapper
+        # Line Mapper
         line_mapper = vtkPolyDataMapper()
         line_mapper.SetInputConnection(line.GetOutputPort())
         self.edge_colours.append(colour)
         self.line_mappers.append(line_mapper)
+        # Bar
+        bar = vtkTubeFilter()
+        bar.SetInputConnection(line.GetOutputPort())
+        bar.SetRadius(2.5)
+        # Bar Mapper
+        bar_mapper = vtkPolyDataMapper()
+        bar_mapper.SetInputConnection(bar.GetOutputPort())
+        self.bar_mappers.append(bar_mapper)
 
     def add_text(self, message):
         """Appends text to the text list."""
@@ -198,12 +208,21 @@ class Visualizer(BaseVisualizer):
 
     def _draw_edges(self):
         for i in range(len(self.line_mappers)):
-            actor = vtkActor()
-            actor.SetMapper(self.line_mappers[i])
-            actor.GetProperty().SetColor(self.edge_colours[i])
-            actor.GetProperty().SetOpacity(0.6)
-            actor.GetProperty().SetLineWidth(1)
-            self.actors.append(actor)
+            # Edges
+            edge_actor = vtkActor()
+            edge_actor.SetMapper(self.line_mappers[i])
+            edge_actor.GetProperty().SetColor(self.edge_colours[i])
+            edge_actor.GetProperty().SetOpacity(0.8)
+            edge_actor.GetProperty().SetLineWidth(1)
+            self.actors.append(edge_actor)
+            # Bars
+            bar_actor = vtkActor()
+            bar_actor.GetProperty().SetInterpolationToFlat()
+            bar_actor.SetMapper(self.bar_mappers[i])
+            bar_actor.GetProperty().SetColor(Colours.MAGENTA)
+            bar_actor.GetProperty().SetOpacity(0.2)
+            self.actors.append(bar_actor)
+
 
     def _draw_text(self):
         for i in range(len(self.text_mappers)):

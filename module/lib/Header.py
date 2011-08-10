@@ -4,9 +4,9 @@
 # file           : Header.py
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-15
-# last modified  : 2011-08-02
+# last modified  : 2011-08-10
 
-VERSION='91'
+VERSION='94'
 RELEASE_NAME='M4'
 PROGRAMME_NAME=''
 DEBUG=True
