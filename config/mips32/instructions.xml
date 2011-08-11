@@ -137,6 +137,28 @@
     </replacements>
   </instruction>
 
+  <instruction name="bgtz" format="i"><!--branch on greater than equal-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0x07" />
+      <field name="rt" value="0x00" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*([-+]?\w+)" />
+      <symbol type="operand" matches="rs" />
+      <symbol type="int"     matches="im" />
+    </syntax>
+    <implementation>
+      <method name="testGreaterImmediate" args="rs rt" />
+      <method name="branchRelative" args="im" />
+    </implementation>
+    <replacements>
+      <replacement name="im" group="0x02" type="relative" />
+    </replacements>
+  </instruction>
+
   <instruction name="bne" format="i"><!--branch on not equal-->
     <signature>
       <field name="op" />

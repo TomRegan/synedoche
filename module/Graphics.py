@@ -133,6 +133,7 @@ class Visualizer(BaseVisualizer):
         bar.SetInputConnection(line.GetOutputPort())
         bar.SetRadius(2.5)
         # Bar Mapper
+        # TODO: Alter tube mapper to ribbon. (2011-08-11)
         bar_mapper = vtkPolyDataMapper()
         bar_mapper.SetInputConnection(bar.GetOutputPort())
         self.bar_mappers.append(bar_mapper)

@@ -24,6 +24,7 @@ from module.Memory      import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
 from module.Interpreter import DataMissingException
 from module.Interpreter import DataConversionFromUnknownType
+from module.Memory      import SegmentationFaultException
 from module.SystemCall  import SigTerm, SigTrap
 
 # TODO: Replace __all__ imports with named. (2011-08-03)
@@ -112,6 +113,8 @@ class Cli(UpdateListener):
                     call()
                 #except Exception, e:
                 #    raise e
+            except SegmentationFaultException, e:
+                print('SIGSEGV ({:})'.format(e.message))
             except SigTerm:
                 print('Programme finished')
             except SigTrap:
@@ -426,13 +429,15 @@ class Cli(UpdateListener):
     def exception_handler(self, e):
         if DEBUG and self.local_DEBUG < 1:
             print("Unhandled exception: {:}".format(e))
+            self.exit(1)
         elif DEBUG and self.local_DEBUG >= 1:
             (exc_type, exc_value, exc_traceback) = sys.exc_info()
             traceback.print_exception(exc_type, exc_value, exc_traceback)
-            #traceback.print_tb(exc_traceback, limit=6)
+            self.exit(1)
         elif DEBUG and self.local_DEBUG >= 2:
             print('Type: ' + e.__class__.__name__)
-        self.exit(1)
+            self.exit(1)
+        return
 
 
 

@@ -454,7 +454,8 @@ class Sunray(BaseApi):
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.get_value(a) > self._register.get_value(b)))
+        self.log.buffer('returning {0}'
+                        .format(self._register.get_value(a) > self._register.get_value(b)))
         return self._register.get_value(a) > self._register.get_value(b)
 
     def testGreaterOrEqual(self, args, instruction_decoded, **named_args):

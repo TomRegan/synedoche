@@ -105,10 +105,19 @@ class Simulation(object):
 #
     def run(self, client):
         """Run for a long time."""
-        start = 0
-        while start < 1000:
-            self.cycle(client)
-            start = start + 1
+        counter = 0
+        try:
+            while counter < 1000000:
+                if counter % 500 == 0:
+                    sys.stderr.write("."),
+                self.cycle(client)
+                counter = counter + 1
+        except KeyboardInterrupt, e:
+            print("")
+            return
+        except Exception, e:
+            sys.stderr.write("\n")
+            raise e
 
     def cycle(self, client):
         """Performs one simulation cycle."""
