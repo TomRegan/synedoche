@@ -48,7 +48,7 @@ class Parser(BaseParser):
         elif command[:2] == 'co':
             if command != 'continue':
                 print(":continue")
-            return ("complete", ())
+            return ("complete", (True))
         elif command[:1] == 'r':
             if command != 'run':
                 print(":run")

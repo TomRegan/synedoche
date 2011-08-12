@@ -6,7 +6,7 @@
 # since          : 2011-07-15
 # last modified  : 2011-08-10
 
-VERSION='94'
+VERSION='95'
 RELEASE_NAME='M4'
 PROGRAMME_NAME=''
 DEBUG=True
@@ -23,4 +23,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License."""
-LOG_HARD_LIMIT = 10000
+LOG_HARD_LIMIT = 100

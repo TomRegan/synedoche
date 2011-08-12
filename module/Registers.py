@@ -90,14 +90,16 @@ class Registers(BaseRegisters):
         name = self._number_name[number]
         self.log.buffer("setting {:} to {:}".format(name, hex(value, 8)))
         self._registers[number]['value']=value
-        self._monitor.increment('register_writes')
+        if not self._registers[number]['profile'] == 'pc':
+            self._monitor.increment('register_writes')
 
     def get_value(self, number):
         """Returns the value stored in a register."""
         if number not in self.keys():
             # TODO: Raise register reference exception? (2011-08-05)
             return
-        self._monitor.increment('register_reads')
+        if not self._registers[number]['profile'] == 'pc':
+            self._monitor.increment('register_reads')
         return self._registers[number]['value']
 
     def get_size(self, number):

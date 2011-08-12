@@ -48,6 +48,9 @@ class BaseProcessor(UpdateBroadcaster, LoggerClient, MonitorClient):
     def get_break_points(self):
         """Returns a list of breakpoints."""
         pass
+    def set_traps_off(self):
+        """Disables break points."""
+        pass
     def open_log(self, logger):
         self._log = CpuLogger(logger)
         self._log.buffer("created a cpu, `{:}'"
@@ -247,6 +250,9 @@ class Pipelined(BaseProcessor):
                              .format(hex(offset)))
         except:
             pass
+
+    def set_traps_off(self):
+        self._debug = False
 
     def get_registers(self):
         return self._registers

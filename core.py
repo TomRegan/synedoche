@@ -108,7 +108,7 @@ class Simulation(object):
         counter = 0
         try:
             while counter < 1000000:
-                if counter % 500 == 0:
+                if counter % 500 == 0 and counter > 0:
                     sys.stderr.write("."),
                 self.cycle(client)
                 counter = counter + 1

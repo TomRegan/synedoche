@@ -19,6 +19,8 @@ from vtk import vtkRenderer
 from vtk import vtkRenderWindow
 from vtk import vtkRenderWindowInteractor
 from vtk import vtkVectorText
+from vtk import vtkFileOutputWindow
+from vtk import vtkOutputWindow
 
 class BaseVisualizer(UpdateListener):
     def update(self):
@@ -67,6 +69,11 @@ class Visualizer(BaseVisualizer):
         self.node_layout_strategy = None
         self.edge_layout_strategy = None
         self.text_layout_strategy = None
+
+        # Get rid of pointless warnings
+        out = vtkFileOutputWindow()
+        out.SetFileName(".vtkMessageLog.log")
+        vtkOutputWindow.SetInstance(out)
 
         # Initialize window
         self.renderer = vtkRenderer()

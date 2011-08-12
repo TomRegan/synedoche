@@ -176,9 +176,12 @@ class Cli(UpdateListener):
         """Process one CPU cycle."""
         self.simulation.cycle(self)
 
-    def complete(self):
+    def complete(self, nobreak=False):
         """Go Forever."""
+        if nobreak:
+            self.simulation.get_processor().set_traps_off()
         self.simulation.run(self)
+
 
     def update(self, *args, **kwargs):
         """Callback for Broadcaster object."""
