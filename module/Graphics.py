@@ -144,7 +144,7 @@ class Visualizer(BaseVisualizer):
         self.bar_data.append(bar)
         # Bar Mapper
         # TODO: Alter tube mapper to ribbon. (2011-08-11)
-        # Tried this, but mapping the ribbon caused beucoup errors,
+        # Tried this, but mapping the ribbon caused beaucoup errors,
         # debugging would take a week.There must be some kind of way
         # out of here.
         # Said the joker to the thief

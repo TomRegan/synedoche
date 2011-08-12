@@ -44,7 +44,7 @@ class Registers(BaseRegisters):
     def __copy__(self):
         #
         # Overriding copy instead of deepcopy because it's simpler.
-        # Beucoup problems showing up in UTs reading data from _registers
+        # Beaucoup problems in UTs reading data from _registers
         # although problem wasn't obvious in use with cli client.
         #
         new = Registers()
