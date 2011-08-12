@@ -32,8 +32,9 @@ class BaseVisualizer(UpdateListener):
 
 class Visualizer(BaseVisualizer):
     def __init__(self):
-        # Polydata
+        # Dynamically altered data
         self.poly_data = []
+        self.bar_data  = []
 
         # Mappers for rendering
         self.poly_mappers = []
@@ -43,6 +44,7 @@ class Visualizer(BaseVisualizer):
 
         # Actor objects
         self.actors = []
+        self.dynamic_actors = []
 
         # Actor Properties
         self.edge_colours = []
@@ -139,6 +141,7 @@ class Visualizer(BaseVisualizer):
         bar = vtkTubeFilter()
         bar.SetInputConnection(line.GetOutputPort())
         bar.SetRadius(2.5)
+        self.bar_data.append(bar)
         # Bar Mapper
         # TODO: Alter tube mapper to ribbon. (2011-08-11)
         bar_mapper = vtkPolyDataMapper()
@@ -196,6 +199,7 @@ class Visualizer(BaseVisualizer):
 
     def _redraw(self):
         for i in range(len(self.poly_data)):
+            # Redraw the vertices
             poly = self.poly_data[i]
             try:
                 size = self.data[-1][i]
@@ -203,6 +207,22 @@ class Visualizer(BaseVisualizer):
                 size = 0
             poly.SetOuterRadius(size)
             poly.SetInnerRadius(size - 0.4)
+            # Redraw the bars
+            try:
+                data = self.bar_data[i]
+                dact = self.dynamic_actors[i]
+                cur = self.data[-1][i]
+                old = self.data[-2][i]
+                #print("cur:{:}, old:{:}".format(cur, old))
+                dif = abs(cur - old)+2
+                if (cur - old) < 0:
+                    dact.GetProperty().SetColor(Colours.BLUE)
+                elif (cur - old) == 0:
+                    dact.GetProperty().SetColor(Colours.MAGENTA)
+                else:
+                    dact.GetProperty().SetColor(Colours.GREEN)
+                data.SetRadius(dif)
+            except: pass
 
     def _draw_nodes(self):
         self.nodes = []
@@ -230,6 +250,7 @@ class Visualizer(BaseVisualizer):
             bar_actor.GetProperty().SetColor(Colours.MAGENTA)
             bar_actor.GetProperty().SetOpacity(0.2)
             self.actors.append(bar_actor)
+            self.dynamic_actors.append(bar_actor)
 
 
     def _draw_text(self):
@@ -238,7 +259,9 @@ class Visualizer(BaseVisualizer):
             actor.SetMapper(self.text_mappers[i])
             actor.GetProperty().SetColor(Colours.BASE02)
             actor.SetScale(2.0, 2.0, 2.0)
-            actor.AddPosition(self.layout_grid[i])
+            # Tweak to shift the text a little more central
+            pos = [x-5.0 for x in self.layout_grid[i]]
+            actor.AddPosition(pos)
             self.actors.append(actor)
 
 

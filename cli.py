@@ -205,12 +205,12 @@ class Cli(UpdateListener):
             pass
 
     def get_statistics_update(self):
-        a = self.simulation.get_monitor().get_int_prop('processor_cycles')
+        a  = self.simulation.get_monitor().get_int_prop('processor_cycles')
         ma = self.simulation.get_monitor().get_int_prop('memory_bytes_loaded')
         mb = self.simulation.get_monitor().get_int_prop('memory_bytes_stored')
-        b = 0
+        b = 2
         try:
-            b = float(max(ma, mb)) / float(min(ma, mb))
+            b = float(ma) / float(mb)
         except: pass
         c = self.simulation.get_monitor().get_int_prop('register_reads')
         d = self.simulation.get_monitor().get_int_prop('register_writes')
