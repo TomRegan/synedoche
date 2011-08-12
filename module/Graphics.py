@@ -144,6 +144,17 @@ class Visualizer(BaseVisualizer):
         self.bar_data.append(bar)
         # Bar Mapper
         # TODO: Alter tube mapper to ribbon. (2011-08-11)
+        # Tried this, but mapping the ribbon caused beucoup errors,
+        # debugging would take a week.There must be some kind of way
+        # out of here.
+        # Said the joker to the thief
+        # There's too much confusion
+        # I can't get no relief
+        # No reason to get excited, the thief he kindly spoke
+        # But you and I have been through that
+        # And this is not our fate
+        # So let us not talk falsely now, the hour is getting late.
+        # (2011-08-12)
         bar_mapper = vtkPolyDataMapper()
         bar_mapper.SetInputConnection(bar.GetOutputPort())
         self.bar_mappers.append(bar_mapper)

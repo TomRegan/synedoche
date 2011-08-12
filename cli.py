@@ -212,8 +212,13 @@ class Cli(UpdateListener):
         try:
             b = float(ma) / float(mb)
         except: pass
-        c = self.simulation.get_monitor().get_int_prop('register_reads')
-        d = self.simulation.get_monitor().get_int_prop('register_writes')
+        ra = self.simulation.get_monitor().get_int_prop('register_reads')
+        rb = self.simulation.get_monitor().get_int_prop('register_writes')
+        c = 2
+        try:
+            c = float(ra) / float(rb)
+        except: pass
+        d = 0
         e = self.simulation.get_monitor().get_int_prop('processor_executed')
         f = self.simulation.get_processor().get_registers().get_utilization()
         return [a, b, c, d, e, f]
@@ -245,8 +250,8 @@ class Cli(UpdateListener):
             # We need to add nodes to the graph.
             self.visualizer.add_node(0, "Cycles")
             self.visualizer.add_node(1, "Memory Ratio")
-            self.visualizer.add_node(2, "Register Reads")
-            self.visualizer.add_node(3, "Register Writes")
+            self.visualizer.add_node(2, "Register Ratio")
+            self.visualizer.add_node(3, "null")
             self.visualizer.add_node(4, "Instructions Retired")
             self.visualizer.add_node(5, "Register Utilization")
             # We will use the easy layout options.
@@ -254,7 +259,8 @@ class Cli(UpdateListener):
             self.visualizer.set_text_layout_default()
             # Init sets a window title and draws the objects
             # ready to be rendered.
-            self.visualizer.initialize("CLI::Visualizer")
+            self.visualizer.initialize("CLI::Visualizer (r{:}:{:})"
+                                       .format(VERSION, RELEASE_NAME))
         # Update adds the data. We can do this at any time, but preferebly
         # before displaying on the screen with render.
         self.visualizer.update(self.get_statistics_update())

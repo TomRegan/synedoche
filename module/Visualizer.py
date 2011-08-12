@@ -9,16 +9,17 @@
 from Interface import UpdateListener
 from lib.Enumerations import Colours
 
-from vtk import vtkActor
-from vtk import vtkLineSource
-from vtk import vtkPolyDataMapper
-from vtk import vtkRenderer
-from vtk import vtkRenderWindow
-from vtk import vtkRenderWindowInteractor
-from vtk import vtkBalloonWidget
-from vtk import vtkBalloonRepresentation
-#from vtk  import vtkInteractorStyleTrackballActor
-#from sys  import getsizeof
+try:
+    from vtk import vtkActor
+    from vtk import vtkLineSource
+    from vtk import vtkPolyDataMapper
+    from vtk import vtkRenderer
+    from vtk import vtkRenderWindow
+    from vtk import vtkRenderWindowInteractor
+    from vtk import vtkBalloonWidget
+    from vtk import vtkBalloonRepresentation
+except:
+    print("fatal: couldn't find VTK libraries for drawing")
 
 class UnknownRepresentationException(Exception):
     """Tried to call a representation (vtkSource) that doesn't exist."""
