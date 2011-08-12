@@ -87,10 +87,19 @@ class Parser(BaseParser):
                         return ('print_registers', ())
                 else:
                     return ('print_registers', ())
+            elif tokens[0][:3] == 'mem':
+                if len(tokens) > 2:
+                    try:
+                        return ('print_memory',
+                            (int(tokens[1]), int(tokens[2], 16)))
+                    except:
+                        return ('usage', {'fun':'print'})
+                elif len(tokens) > 1:
+                    return ('print_memory', [int(tokens[1])])
+                else:
+                    return ('print_memory', ())
             elif tokens[0][:3] == 'pip':
                 return ('print_pipeline', ())
-            elif tokens[0][:3] == 'mem':
-                return ('print_memory', ())
             elif tokens[0][:3] == "pro":
                 return ('print_programme', ())
             elif tokens[0][:2] == "br":

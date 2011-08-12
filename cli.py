@@ -113,6 +113,8 @@ class Cli(UpdateListener):
                     call()
                 #except Exception, e:
                 #    raise e
+            except AlignmentError, e:
+                print("Alignment Error: {:}".format(e.message))
             except SegmentationFaultException, e:
                 print('SIGSEGV ({:})'.format(e.message))
             except SigTerm:
@@ -375,15 +377,25 @@ class Cli(UpdateListener):
                             ))
         print("{:-<80}".format(''))
 
-    def print_memory(self, **kwargs):
+    def print_memory(self, args=[]):
         """Format and print a view of the memory."""
         # TODO: Select which memory slice to print. (2011-08-05)
-        try:
-            end=int(kwargs['end'])
-            print(int(kwargs['end']))
-        except:
-            end=None
-        memory_slice = self.memory[-1].get_slice(end=end).items()
+        print("args: {:}".format(args))
+        print("len(args): {:}".format(len(args)))
+        start = None
+        end   = 10
+        if len(args) > 0:
+            end = args[0]
+        if len(args) > 1:
+            start = args[1]
+        print("start: {:}".format(end))
+        print("end: {:}".format(end))
+        #try:
+        #    end=int(kwargs['end'])
+        #    print(int(kwargs['end']))
+        #except:
+        #    end=None
+        memory_slice = self.memory[-1].get_slice(end=end, start=start).items()
         print("{:-<80}".format('--Memory'))
         for address, value in sorted(memory_slice, reverse=True):
             print(" 0x{:0>8}: {:}  0x{:0>8}"

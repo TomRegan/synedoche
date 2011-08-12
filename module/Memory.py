@@ -335,7 +335,7 @@ class Memory(BaseMemory):
             self.log.buffer('Alignment error: store {:} at {:}'
                             .format(bin(value, self._size)[2:],
                                     hex(offset).replace('L','')))
-            raise AlignmentError('Tried to store {:} at {:})'
+            raise AlignmentError('Tried to store {:} at {:}'
                                  .format(bin(value, self._size)[2:],
                                          hex(offset).replace('L','')))
 
