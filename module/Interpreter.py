@@ -7,6 +7,9 @@
 # since          : 2011-07-05
 # last modified  : 2011-07-22 (minor revisions; this is stable)
 
+# TODO: Bad syntax is causing crash in linker
+#       See accompanying note in programme 7. (2011-08-12)
+
 import re
 
 from copy      import deepcopy

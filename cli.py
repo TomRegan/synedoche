@@ -11,19 +11,15 @@ import sys
 import traceback
 try:
     import readline
-except:
-    pass # never mind, too system specific
+except: pass
 
 from core import *
-#from copy import deepcopy
 
 from module.Interface   import UpdateListener
 from module.Evaluator   import Evaluator
 from module.Parser      import Parser
 from module.Memory      import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
-#from module.Interpreter import DataMissingException
-#from module.Interpreter import DataConversionFromUnknownType
 from module.Memory      import SegmentationFaultException
 from module.SystemCall  import SigTerm, SigTrap
 
@@ -31,6 +27,20 @@ from module.SystemCall  import SigTerm, SigTrap
 from module.lib.Header    import *
 from module.lib.Functions import binary as bin
 from module.lib.Functions import hexadecimal as hex
+
+class Completer(object):
+    def __init__(self, vocabulary):
+        self.vocab = vocabulary
+
+    def complete(self, text, state):
+        results = [x for x in self.vocab if x.startswith(text)] + [None]
+        if len(results) == 1:
+            from os import listdir
+            path = '.'
+            results = [x for x in listdir(path) if x.startswith(text)] + [None]
+            #print(results)
+        return results[state]
+
 
 class Cli(UpdateListener):
     """``Cli is just this guy, you know?''
@@ -95,6 +105,17 @@ class Cli(UpdateListener):
         parser = Parser()
         while True:
             try:
+                readline.parse_and_bind("tab: complete")
+                vocabulary = ['load', 'run', 'print',
+                              'register', 'memory',
+                              'programme', 'version',
+                              'help', 'license']
+                readline.set_completer_delims(
+                    ' \t\n`~...@#$%^&*()-=+[{]}\\|;:\'",<>?')
+                completer = Completer(vocabulary)
+                readline.set_completer(completer.complete)
+            except: pass
+            try:
                 line = raw_input(">>> ")
                 if len(line) > 0:
                     self.last_command = line
@@ -105,6 +126,8 @@ class Cli(UpdateListener):
                 # ....... anoying.
                 if self.local_DEBUG >= 11:
                     print("DEBUG {:}".format(args))
+                # FIX: Why is this exception block not in use?
+                # (2011-08-12)
                 #try:
                 call = getattr(self, function)
                 if args:
