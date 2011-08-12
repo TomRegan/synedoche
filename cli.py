@@ -4,7 +4,7 @@
 # file           : cli.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-15
-# last modified  : 2011-08-07
+# last modified  : 2011-08-12
 
 
 import sys
@@ -15,15 +15,15 @@ except:
     pass # never mind, too system specific
 
 from core import *
-from copy import deepcopy
+#from copy import deepcopy
 
 from module.Interface   import UpdateListener
 from module.Evaluator   import Evaluator
 from module.Parser      import Parser
 from module.Memory      import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
-from module.Interpreter import DataMissingException
-from module.Interpreter import DataConversionFromUnknownType
+#from module.Interpreter import DataMissingException
+#from module.Interpreter import DataConversionFromUnknownType
 from module.Memory      import SegmentationFaultException
 from module.SystemCall  import SigTerm, SigTrap
 
@@ -380,16 +380,12 @@ class Cli(UpdateListener):
     def print_memory(self, args=[]):
         """Format and print a view of the memory."""
         # TODO: Select which memory slice to print. (2011-08-05)
-        print("args: {:}".format(args))
-        print("len(args): {:}".format(len(args)))
         start = None
         end   = 10
         if len(args) > 0:
             end = args[0]
         if len(args) > 1:
             start = args[1]
-        print("start: {:}".format(end))
-        print("end: {:}".format(end))
         #try:
         #    end=int(kwargs['end'])
         #    print(int(kwargs['end']))
