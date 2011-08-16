@@ -229,6 +229,8 @@ class Interpreter(BaseInterpreter):
         +------------------------------------------------------+
         """
 
+        # TODO: ensure missing/incorrect labels don't result in key errors.
+        # (2011-08-16)
         self.log.buffer("entering linker")
         output=[]
         for i in range(len(lines)):

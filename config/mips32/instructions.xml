@@ -280,6 +280,29 @@
     </replacements>
   </instruction>
 
+  <instruction name="jalr" format="r"><!--jump and link register-->
+    <signature>
+      <field name="op" />
+      <field name="fn" />
+    </signature>
+    <fields>
+      <field name="op"  value="0x00" />
+      <field name="op"  value="0x09" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+)" />
+      <symbol type="register" matches="rs" />
+      <symbol type="register" matches="rd" />
+    </syntax>
+    <implementation>
+      <method name="copyRegister" args="0x21 rs" />
+      <method name="copyRegister" args="rd 0x21" />
+    </implementation>
+    <replacements>
+      <replacement name="sa" group="0x02" type="absolute" />
+    </replacements>
+  </instruction>
+
   <instruction name="jr" format="r"><!--jump register-->
     <signature>
       <field name="op" />
