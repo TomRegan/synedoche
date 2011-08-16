@@ -35,6 +35,8 @@ class Parser(BaseParser):
             return self._break(tokens)
         elif command[:4] == 'vers':
             return ('version', ())
+        elif command[:4] == 'edit':
+            return ('edit', ())
         elif command[:4] == 'lice':
             return ('license', ())
         elif command[:4] == 'rese':

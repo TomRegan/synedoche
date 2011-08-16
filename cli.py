@@ -157,6 +157,7 @@ class Cli(UpdateListener):
                 self._programme_text = text
                 print("Loaded {:} word programme, `{:}'"
                       .format(len(text[0]), ''.join(filename.split('/')[-1:])))
+                self._programme_name = filename
             except IOError, e:
                 sys.stderr.write("No such file: `{:}'\n".format(filename))
             except BadInstructionOrSyntax, e:
@@ -169,6 +170,8 @@ class Cli(UpdateListener):
     def reset(self):
         if hasattr(self, "_programme_text"):
             del self._programme_text
+        if hasattr(self, "_programme_name"):
+            del self._programme_name
         self.simulation.reset(self)
 
     def add_breakpoint(self, offset):
@@ -290,6 +293,14 @@ class Cli(UpdateListener):
         # before displaying on the screen with render.
         self.visualizer.update(self.get_statistics_update())
         self.visualizer.render()
+
+    def edit(self, args=None):
+        if hasattr(self, '_programme_name'):
+            import subprocess
+            subprocess.call([EDITOR, self._programme_name])
+            print("Editing {:} with {:}"
+                  .format(self._programme_name, EDITOR))
+            self.load(self._programme_name)
 
 #
 # Print Functions

@@ -286,7 +286,7 @@ if __name__ == '__main__':
     s = Simulation(config='config/mips32/')
     tl = TestListener(s)
     s.connect(tl)
-    s.load('asm/add.asm', client=tl)
+    s.load('asm/tests/add.asm', client=tl)
     try:
         for i in range(12):
             s.cycle(client=tl)
