@@ -18,6 +18,7 @@ from core import *
 from module.Interface   import UpdateListener
 from module.Evaluator   import Evaluator
 from module.Parser      import Parser
+from module.Completer   import Completer
 from module.Memory      import AlignmentError
 from module.Interpreter import BadInstructionOrSyntax
 from module.Memory      import SegmentationFaultException
@@ -27,19 +28,6 @@ from module.SystemCall  import SigTerm, SigTrap
 from module.lib.Header    import *
 from module.lib.Functions import binary as bin
 from module.lib.Functions import hexadecimal as hex
-
-class Completer(object):
-    def __init__(self, vocabulary):
-        self.vocab = vocabulary
-
-    def complete(self, text, state):
-        results = [x for x in self.vocab if x.startswith(text)] + [None]
-        if len(results) == 1:
-            from os import listdir
-            path = '.'
-            results = [x for x in listdir(path) if x.startswith(text)] + [None]
-            #print(results)
-        return results[state]
 
 
 class Cli(UpdateListener):
@@ -69,8 +57,8 @@ class Cli(UpdateListener):
         except: pass
 
         try:
-            self.simulation=Simulation(config=config,
-                                       logfile='logs/cli.log')
+            self.simulation = Simulation(config = config,
+                                         logfile='logs/cli.log')
 
         # Avoid some unnecessary crashes:
         # Authorization from the system ensures necessary methods
