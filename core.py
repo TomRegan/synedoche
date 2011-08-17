@@ -239,6 +239,14 @@ class Simulation(object):
     def get_processor(self):
         """Returns a reference to the processor object."""
         return self.cpu
+
+    def get_isa(self):
+        """Returns a reference to the isa object."""
+        return self.instructions
+
+    def get_interpreter(self):
+        """Returns a reference to the interpreter object."""
+        return self.interpreter
 #
 # Worker functions
 #

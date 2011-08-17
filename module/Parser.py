@@ -136,6 +136,7 @@ class Parser(BaseParser):
             try:
                 rvalue = int(tokens[0], 16)
             except:
-                return ('usage', {'fun':'break'})
+                rvalue = tokens[0]
+                #return ('usage', {'fun':'break'})
             return ('add_breakpoint', rvalue)
         return ('usage', {'fun':'break'})

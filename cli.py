@@ -97,6 +97,7 @@ class Cli(UpdateListener):
                 vocabulary = ['load', 'run', 'print',
                               'register', 'memory',
                               'programme', 'version',
+                              'contunue',
                               'help', 'license']
                 readline.set_completer_delims(
                     ' \t\n`~...@#$%^&*()-=+[{]}\\|;:\'",<>?')
@@ -162,8 +163,19 @@ class Cli(UpdateListener):
             del self._programme_name
         self.simulation.reset(self)
 
-    def add_breakpoint(self, offset):
-        self.simulation.get_processor().add_break_point(offset)
+    def add_breakpoint(self, point):
+        # TODO: Determine if value is hex before trying to process.
+        # (2011-08-17)
+        labels = self.simulation.get_interpreter().get_jump_table()
+        offset = self._programme_text[2][0]
+        if labels.has_key(point):
+            point = (labels[point] * 4) + offset
+        if self.local_DEBUG >= 2:
+            try:
+                print("DEBUG: breakpoint is {:}".format(hex(point)))
+            except:
+                print("DEBUG: WARNING: breakpoint is {:}".format(point))
+        self.simulation.get_processor().add_break_point(point)
 
     def remove_breakpoint(self, number):
         processor = self.simulation.get_processor()
@@ -284,11 +296,14 @@ class Cli(UpdateListener):
 
     def edit(self, args=None):
         if hasattr(self, '_programme_name'):
-            import subprocess
-            subprocess.call([EDITOR, self._programme_name])
-            print("Editing {:} with {:}"
-                  .format(self._programme_name, EDITOR))
-            self.load(self._programme_name)
+            try:
+                import subprocess
+                subprocess.call([EDITOR, self._programme_name])
+                print("Editing {:} with {:}"
+                      .format(self._programme_name, EDITOR))
+                self.load(self._programme_name)
+            except:
+                print("Couldn't load editor: {:}".format(EDITOR))
 
 #
 # Print Functions
@@ -431,12 +446,26 @@ class Cli(UpdateListener):
         try:
             for i in range(len(breakpoints)):
                 # Look for the offset in programme text.
-                index = self._programme_text[2].index(breakpoints[i])
-                print("{:}: {:.>8}  {:}".format(i+1,
-                                           hex(breakpoints[i]),
-                                           self._programme_text[0][index]))
-        except:
+                try:
+                    index = self._programme_text[2].index(breakpoints[i])
+                    # If this fails it is best to continue. Just means
+                    # breakpoint doesn't exist.
+                except:
+                    index = None
+                # Convert to hex, skip if breakpoint not present.
+                try:
+                    offset = hex(breakpoints[i])
+                except:
+                    offset = breakpoints[i]
+                # Get the associated line if the index is okay.
+                if index is None:
+                    line = "Offset is not in code!"
+                else:
+                    line = self._programme_text[0][index]
+                print("{:}: {:.>8}  {:}".format(i+1, offset, line))
+        except Exception, e:
             print("There is a problem with the debugger. Try `reset'")
+            raise e
         print("{:-<80}".format(''))
 
 #

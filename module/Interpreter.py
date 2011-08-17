@@ -35,12 +35,75 @@ class DataConversionFromUnknownType(Exception):
 
 class BaseInterpreter(LoggerClient):
     def open_log(self, logger):
-        """logger:object -> ...
-
-        Begins logging activity with the logger object passed.
-        """
         self.log = InterpreterLogger(logger)
         self.log.write("created `{0}' interpreter".format(self._language))
+    def read_lines(self, lines):
+        """Read a line or lines of input and return a list of instructions.
+
+        Description:
+           [lines:str]:list -> [instructions:str]:list
+
+        Purpose:
+            Reads lines of assembly in the form of a list and returns a
+            binary listing. Preprocessing and linking is done.
+
+        Restrictions:
+            Behaviour is undefined if argument is not of type <str>,
+            representing a binary number.
+
+        Exceptions:
+            N/A
+
+        Returns:
+            A list of binary instructions.
+        """
+        pass
+    def read_file(self, lines):
+        """Reads a file and returns a list of instructions.
+
+        Description:
+            lines:file ->
+                ([instructions:int]:list, [original:str]:list)
+
+        Purpose:
+            Opens a read an assembly file to return a binary listing.
+            All the necessary preprocessing and linking will be done.
+
+        Restrictions:
+            See exceptions.
+
+        Exceptions:
+            Exception
+
+        Returns:
+            A tuple, element 0 is a list of binary encoded instructions,
+            element 1 is the original listing (processed).
+        """
+        pass
+    def convert(self, lines):
+        """Converts a list of binary instructions to an integer list.
+
+        Description:
+            [lines:str]:list -> [instructions:int]:list
+
+        Purpose:
+            Before attempting to load a programme that has been through
+            the interpreter, it should be converted for use in the
+            simulation.
+
+        Restrictions:
+            Behaviour is undefined if arguments are not of type <str>,
+            representing a binary number.
+
+        Exceptions:
+            N/A
+
+        Returns:
+            A list of integers.
+        """
+        pass
+    def get_jump_table():
+        pass
 
 class Interpreter(BaseInterpreter):
     _comment_pattern=None #regex describing comments
@@ -78,6 +141,7 @@ class Interpreter(BaseInterpreter):
             except BadInstructionOrSyntax as e:
                 print e.message
         """
+        # TODO: Review this docstring. (2011-08-17)
 
         self._language               = instructions.getLanguage()
         self._instruction_syntax     = instructions.getSyntax()
@@ -126,21 +190,17 @@ class Interpreter(BaseInterpreter):
         return instruction
 
     def convert(self, lines):
-        """[lines:str]:list ->
-                ([instructions:int]:list, [original:str]:list)
-
-        Before attempting to load a programme that has been through
-        the interpreter, it should be converted for use in the
-        simulation.
-        """
         try:
             for i in range(len(lines)):
-                lines[i] = int(lines[i],2)
+                lines[i] = int(lines[i], 2)
         except:
             raise DataConversionFromUnknownType(
                 'Tried to convert from unknown type: {0} {1}'
                 .format(lines[i], type(lines[i])))
         return lines
+
+    def get_jump_table(self):
+        return self._jump_table
 
 #
 #worker functions
@@ -253,7 +313,7 @@ class Interpreter(BaseInterpreter):
                 lines[i] = lines[i].replace(label, offset)
             output.append(lines[i])
 
-        self._jump_table.clear()
+        #self._jump_table.clear()
         self._programme = deepcopy(output)
         self.log.buffer("leaving linker")
         return output

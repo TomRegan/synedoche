@@ -111,6 +111,7 @@ class Pipelined(BaseProcessor):
             # Do any housekeeping.
             self.__retire_cycle()
         except Exception, e:
+            self.broadcast()
             self._log.buffer('EXCEPTION {:}'.format(e.message))
             raise e
         # Update listeners.
@@ -216,6 +217,7 @@ class Pipelined(BaseProcessor):
 
     def __retire_cycle(self):
         # Retire completed instructions.
+        self.broadcast()
         if len(self._pipeline) > len(self._pipeline_stages):
             self._pipeline.pop()
         # Cooperate with any debuggery.
@@ -237,7 +239,11 @@ class Pipelined(BaseProcessor):
         self.broadcast()
 
     def add_break_point(self, offset):
-        self._log.buffer('breakpoint at {:}'.format(hex(offset)))
+        try:
+            self._log.buffer('breakpoint at {:}'.format(hex(offset)))
+        except:
+            self._log.buffer('WARNING: breakpoint {:}')
+
         self._breakpoints.append(offset)
         self._debug = True
 
