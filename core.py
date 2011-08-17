@@ -232,6 +232,18 @@ class Simulation(object):
         """Returns instruction_size:int."""
         return self.instruction_size
 
+    def get_interpreter(self):
+        """Returns a reference to the interpreter object."""
+        return self.interpreter
+
+    def get_isa(self):
+        """Returns a reference to the isa object."""
+        return self.instructions
+
+    def get_memory(self):
+        """Returns a reference to the memory object."""
+        return self.memory
+
     def get_monitor(self):
         """Returns a reference to the monitor object."""
         return self.monitor
@@ -240,13 +252,6 @@ class Simulation(object):
         """Returns a reference to the processor object."""
         return self.cpu
 
-    def get_isa(self):
-        """Returns a reference to the isa object."""
-        return self.instructions
-
-    def get_interpreter(self):
-        """Returns a reference to the interpreter object."""
-        return self.interpreter
 #
 # Worker functions
 #

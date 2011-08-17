@@ -67,7 +67,8 @@ class Cli(UpdateListener):
             self.simulation.connect(self)
         # FIX: This seems to be broken: we're using the instruction
         # size to determine the size of the address bus. (2011-08-07)
-            self.size = self.simulation.get_instruction_size()
+            self.isize = self.simulation.get_isa().getSize()
+            self.wsize = self.simulation.get_memory().get_word_size()
         except Exception, e:
             self.exception_handler(e)
 
@@ -316,7 +317,7 @@ class Cli(UpdateListener):
                 print("{:<12}{:<24}{:}".format(hex(self._programme_text[2][i]),
                                         self._programme_text[0][i],
                                         bin(self._programme_text[1][i],
-                                           self.size)[2:]
+                                           self.isize)[2:]
                                        ))
             print("{:-<80}".format(''))
         else:
@@ -384,7 +385,7 @@ class Cli(UpdateListener):
         elif base =='x' or base == 'h':
             print("{:}".format(hex(value)[2:].replace('L', '')))
         elif base =='b':
-            print("{:}".format(bin(value, self.size)[2:]))
+            print("{:}".format(bin(value, self.isize)[2:]))
         else:
         # Frowny is the closest we're getting to an easter egg.
             print(":-(\n{:} is not a number format (d:dec, [h,x]:hex, b:bin)"
@@ -409,7 +410,7 @@ class Cli(UpdateListener):
                 index = self._programme_text[1].index(self.pipeline[-1][i])
                 print("Stage {:}:{:}  {:}"
                      .format(i+1,
-                             bin(int(self.pipeline[-1][i]), self.size)[2:],
+                             bin(int(self.pipeline[-1][i]), self.isize)[2:],
                              self._programme_text[0][index]
                             ))
         print("{:-<80}".format(''))
@@ -432,7 +433,7 @@ class Cli(UpdateListener):
         print("{:-<80}".format('--Memory'))
         for address, value in sorted(memory_slice, reverse=True):
             print(" 0x{:0>8}: {:}  0x{:0>8}"
-                 .format(hex(address)[2:], bin(value,self.size)[2:],
+                 .format(hex(address)[2:], bin(value,self.isize)[2:],
                          hex(value)[2:]))
         print("{:-<80}".format(''))
 

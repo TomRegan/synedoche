@@ -83,7 +83,6 @@ iren.SetInteractorStyle(style)
 # A Baloon Widget is going to be added to provide pop-up information on
 # the object.
 # TR 2011-08-02
-# TODO: Fixit. (2011-08-02)
 
 balloon = vtk.vtkBalloonRepresentation()
 

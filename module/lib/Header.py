@@ -4,10 +4,10 @@
 # file           : Header.py
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-15
-# last modified  : 2011-08-10
+# last modified  : 2011-08-17
 
-VERSION='103'
-RELEASE_NAME='M4'
+VERSION='104'
+RELEASE_NAME='M5'
 PROGRAMME_NAME=''
 DEBUG=True
 LICENSE="""Copyright 2011 Tom Regan (thomas.c.regan@gmail.com)

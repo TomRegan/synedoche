@@ -59,6 +59,55 @@ class BaseMemory(LoggerClient, MonitorClient):
         """
         return self
 
+    def get_word_size(self):
+        """Returns the size of a word in bits.
+
+        Description:
+           Returns an integer value representing the size of a word.
+
+        Purpose:
+           Returns a value that can be used in calculations and formatting.
+
+        Restrictions:
+           N/A
+
+        Exceptions:
+           N/A
+
+        Returns:
+           Integer size of a word in bits.
+         """
+        pass
+
+    def get_word_spacing(self):
+        """Returns the size in bits of the smallest addressable unit.
+
+        Description:
+           ISAs specify different addressing methods, a common example
+           at time of writing is byte-addressing which allows 8b blocks
+           of memory to be addressed.
+
+           This differs from word size: a 32 bit word in a byte-addressed
+           system would have four addresses (skipping over endianness)
+           each pointing to one of the bytes (0..3) of the word.
+
+           This allows, for example, four shorts to be stored in the same
+           space as an int.
+
+        Purpose:
+           Word spacing may be used to compute alignment.
+
+        Restrictions:
+           N/A
+
+         Exceptions:
+           N/A
+
+         Returns:
+           Integer size of addressign unit.
+         """
+        pass
+
     def add_segment(self, name, start, end):
         pass
 
@@ -394,7 +443,7 @@ class Memory(BaseMemory):
         return self._segment[name][1]
 
     def get_word_spacing(self):
-        """get_size_of_byte() -> size:int
-        Returns the minumum addressable unit.
-        """
         return self._word_spacing
+
+    def get_word_size(self):
+        return self._size

@@ -5,6 +5,7 @@
 # author         : Tom Regan (thomas.c.regan@gmail.com)
 # since          : 2011-07-10
 # last modified  : 2011-07-27
+# TODO: Add test for breakpoints. (2011-08-17)
 
 import unittest
 import sys
@@ -16,8 +17,6 @@ from module import Interpreter
 from module import Logger
 from module import Monitor
 from module import Processor
-from module.Memory import (AddressingError, AlignmentError,
-                           SegmentationFaultException)
 
 
 if __name__ == '__main__':

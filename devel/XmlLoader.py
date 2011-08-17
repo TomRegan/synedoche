@@ -192,9 +192,6 @@ class InstructionReader(XmlReader):
             for method in methodNodeList:
                 name=method.attributes['name'].value.encode('ascii')
                 args=method.attributes['args'].value.encode('ascii').split()
-                #TODO
-                #This is awful. It needs cleaning up asap
-                #2011-07-19 -- okay, maybe not asap...
                 for i in range(len(args)):
                     if args[i][:2] == '0x':
                         args[i] = int(args[i],16)
@@ -468,10 +465,6 @@ class MachineReader(XmlReader):
             s_start = int(asciify(segment.attributes['start'].value), 16)
             s_end   = int(asciify(segment.attributes['end'].value), 16)
             memory.append((s_name, s_start, s_end))
-        #TODO
-        #address space is currently hard-coded to begin at 0x00.
-        #this is just a marker for future refactoring
-        #
         self._address_space=[0,int(address_space,16)]
         self._data['memory']=tuple(memory)
 

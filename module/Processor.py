@@ -111,6 +111,7 @@ class Pipelined(BaseProcessor):
             # Do any housekeeping.
             self.__retire_cycle()
         except Exception, e:
+            self.__retire_cycle()
             self.broadcast()
             self._log.buffer('EXCEPTION {:}'.format(e.message))
             raise e

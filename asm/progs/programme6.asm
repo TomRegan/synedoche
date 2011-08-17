@@ -1,6 +1,6 @@
 Main: addi $a0, $zero, 32  # Counter for loop
       addi $a1, $zero, -1  # Value to load into memory
- L0:  addi $gp, $gp, 4     # Space for a word
+L0:   addi $gp, $gp, 4     # Space for a word
       sw   $a1, 0($gp)
       addi $a0, $a0, -1    # Decrement the counter
       bgtz $a0, L0

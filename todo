@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# find . -name '*.py' | xargs grep -inH 'todo' | sed -E 's/\ +/\ /;s/#//'
+find . -name '*.py' | xargs grep -inH 'todo' | sed -E 's/.*\///;s/\ +/\ /;s/#//;s/\.py//'
