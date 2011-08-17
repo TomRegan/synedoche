@@ -75,7 +75,9 @@ class RegisterBuilder(Builder):
     def make(self, **args):
         config = args['filename']
 
-        self.obj=Registers.Registers(self.logger)
+        self.obj=Registers.Registers()
+        if self.logger != None:
+            self.obj.open_log(self.logger)
 
         reader = XmlParser.MachineReader(config)
         machine_registers = reader.data['registers']
@@ -105,6 +107,8 @@ class MemoryBuilder(Builder):
 
         data = machine_memory[0:3]
         self.obj=Memory.Memory(data)
+        if self.logger != None:
+            self.obj.open_log(self.logger)
 
         segments = machine_memory[3:]
         for segment in segments:

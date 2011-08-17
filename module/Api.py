@@ -6,12 +6,16 @@
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-01
 # last modified  : 2011-08-04
+#     2011-08-17 : Added _decode_register_reference method
 
 from SystemCall    import SystemCall
 from Logger        import ApiLogger
 from Interface     import LoggerClient
 from lib.Functions import integer as int
 from lib.Functions import binary as bin
+
+class RegisterReferenceException(Exception):
+    pass
 
 class BaseApi(LoggerClient):
     """Base class which provides the necessary storage and initialization
@@ -55,6 +59,15 @@ class BaseApi(LoggerClient):
 class Sunray(BaseApi):
     """An API implementation which primarily supports the MIPS32 ISA."""
 
+    def _decode_register_reference(self, value, instruction_decoded):
+        try:
+            # Assume we are looking at an instruction that has
+            # a register number encoded in some field at index
+            value = int(instruction_decoded[value], 2)
+        except: pass
+        # Assume it is an integer value
+        return value
+
     def addRegisters(self, args, instruction_decoded, **named_args):
         """Adds two registers and stores the result in a third.
 
@@ -75,9 +88,15 @@ class Sunray(BaseApi):
             RegisterReferenceException
         """
         self.log.buffer('addRegisters called')
-        a = int(instruction_decoded[args[0]], 2)
-        b = int(instruction_decoded[args[1]], 2)
-        c = int(instruction_decoded[args[2]], 2)
+        print("args: {:}".format(args))
+        # TODO: Review - new implementation, new bugs? (2011-08-17)
+        #a = int(instruction_decoded[args[0]], 2)
+        #b = int(instruction_decoded[args[1]], 2)
+        #c = int(instruction_decoded[args[2]], 2)
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        c = self._decode_register_reference(args[2], instruction_decoded)
+        print("args 0:{0}, 1:{1}, 2:{2}".format(a,b,c))
         self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c))
         for operand in [a, b, c]:
             if operand not in self._register.keys():

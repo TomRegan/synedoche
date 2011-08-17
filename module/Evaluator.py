@@ -4,18 +4,19 @@
 # file           : Evaluator.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-18
-# last modified  : 2011-07-22
+# last modified  : 2011-08-17
+#     2011-08-17 : Changes in cli (size field removed)
 
 
 from lib.Functions import binary as bin
 
 class Evaluator(object):
     def __init__(self, simulation, client):
-        self.simulation = simulation
-        self.client = client
-        self.size = client.size
-        self.connected=True
-        self.display_eval=True
+        self.simulation   = simulation
+        self.client       = client
+        self.size         = client.isize
+        self.connected    = True
+        self.display_eval = True
 
     def eval(self):
         """A line-mode evaluator used for running assembly instructions.

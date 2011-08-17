@@ -63,13 +63,11 @@ class Simulation(object):
         coordinator.set_builder(Builder.RegisterBuilder(log=self.logger))
         coordinator.make(filename=config)
         self.registers = coordinator.get_object()
-        #self.registers.open_log(self.logger)
         self.registers.open_monitor(self.monitor)
 
-        coordinator.set_builder(Builder.MemoryBuilder())
+        coordinator.set_builder(Builder.MemoryBuilder(log=self.logger))
         coordinator.make(filename=config)
         self.memory = coordinator.get_object()
-        self.memory.open_log(self.logger)
         self.memory.open_monitor(self.monitor)
 
         coordinator.set_builder(Builder.PipelineBuilder())

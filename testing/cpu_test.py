@@ -38,9 +38,8 @@ if __name__ == '__main__':
             coordinator.set_builder(Builder.RegisterBuilder(log=self.logger))
             coordinator.make(filename=config)
             self.registers = coordinator.get_object()
-            self.registers.open_log(self.logger)
 
-            coordinator.set_builder(Builder.MemoryBuilder())
+            coordinator.set_builder(Builder.MemoryBuilder(log=self.logger))
             coordinator.make(filename=config)
             self.memory = coordinator.get_object()
             self.memory.open_log(self.logger)

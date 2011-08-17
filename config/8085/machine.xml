@@ -18,18 +18,14 @@
   <registers>
     <register name="A"     number="0x00" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="FLAGS" number="0x01" size="0x08" write="False" profile="psw" visible="True" preset="" />
-    <register name="B"     number="0x02" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
+    <register name="B"     number="0x02" size="0x08" write="True"  profile="gp"  visible="True" preset="0x01" />
     <register name="C"     number="0x03" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="D"     number="0x04" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="E"     number="0x05" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="H"     number="0x06" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="L"     number="0x07" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="SP"    number="0x08" size="0x10" write="True"  profile="gp"  visible="True" preset="" />
-    <register name="PC"    number="0x09" size="0x10" write="True"  profile="pc"  visible="True" preset="0x400000" />
-
-    <presets>
-      <preset number="0x02" value="0x01" />
-    </presets>
+    <register name="PC"    number="0x09" size="0x10" write="True"  profile="pc"  visible="True" preset="" />
   </registers>
 
   <pipeline flags="FI" >

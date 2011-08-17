@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--author:   Tom Regan <thomas.c.regan@gmail.com>
-    file:     instructions.xml
-    since:    2011-08-07
+<!--author        : Tom Regan <thomas.c.regan@gmail.com>
+    file          : instructions.xml
+    since         : 2011-08-07
+    last modified : 2011-08-17
 -->
 
 <instructions language="8085" size="0x08" api="sunray">
@@ -12,7 +13,7 @@
   <formats>
     <format type="r" size="8">
       <field name="op"  start="0x00" end="0x04" />
-      <field name="sss" start="0x05" end="0x07" />
+      <field name="s"   start="0x05" end="0x07" />
     </format>
     <format type="M" size="8">
       <field name="op" start="0x00" end="0x07" />
@@ -52,14 +53,13 @@
     </signature>
     <fields>
       <field name="op"  value="0x10" />
-      <field name="sss" value="0x00" />
     </fields>
     <syntax>
       <expression pattern="\w+\s+(\w+)" />
-      <symbol type="register" matches="sss" />
+      <symbol type="register" matches="s" />
     </syntax>
     <implementation>
-      <method name="addRegisters" args="0x00 sss 0x00" />
+      <method name="addRegisters" args="0x00 s 0x00" />
     </implementation>
   </instruction>
 
