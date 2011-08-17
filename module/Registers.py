@@ -9,10 +9,8 @@
 
 from copy import deepcopy
 from Logger    import RegisterLogger
-# TODO: Specify __all__ imports by name. (2011-08-01)
 from Interface import LoggerClient
 from Monitor   import MonitorClient
-from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
 
 class BaseRegisters(LoggerClient, MonitorClient):
@@ -40,6 +38,10 @@ class Registers(BaseRegisters):
     _registers_iv = {}
     _name_number  = {}
     _number_name  = {}
+
+    def __init__(self, log=None):
+        if log != None:
+            self.open_log(log)
 
     def __copy__(self):
         #

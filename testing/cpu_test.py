@@ -35,7 +35,7 @@ if __name__ == '__main__':
             coordinator.make(filename=config)
             self.instructions = coordinator.get_object()
 
-            coordinator.set_builder(Builder.RegisterBuilder())
+            coordinator.set_builder(Builder.RegisterBuilder(log=self.logger))
             coordinator.make(filename=config)
             self.registers = coordinator.get_object()
             self.registers.open_log(self.logger)

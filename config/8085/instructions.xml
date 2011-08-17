@@ -46,29 +46,19 @@
   </assembler>
 
   <instruction name="ADD" format="r"><!--add-->
+    <!--Adds a specified register to A(ccumulator)-->
     <signature>
-      <!--(field)id: identifier for the signature chunk-->
       <field name="op" />
     </signature>
-    <!--(fields) are the preset values of an instruction-->
     <fields>
-      <!--(field)name:  identifier for use as variable reference-->
-      <!--(field)value: the fixed value of the field, or 'required'-->
       <field name="op"  value="0x10" />
       <field name="sss" value="0x00" />
     </fields>
-    <!--(syntax) is the format of an assembly instruction-->
     <syntax>
-      <!--(expression)pattern:  regex describing the instruction-->
-      <!--(symbol)type:         reference to-->
-      <!--(symbol)matches:      instruction field-->
       <expression pattern="\w+\s+(\w+)" />
       <symbol type="register" matches="sss" />
     </syntax>
-    <!--(implementation) lists sequantial api calls used for execution-->
     <implementation>
-      <!--(method)name: api call name (refer to API reference)-->
-      <!--(method)args: arguments are links to symbols above-->
       <method name="addRegisters" args="0x00 sss 0x00" />
     </implementation>
   </instruction>

@@ -26,8 +26,9 @@ class Coordinator(object):
         return self._builder.obj
 
 class Builder(object):
-    def __init__(self):
+    def __init__(self, log=None):
         self.obj = None
+        self.logger = log
 
     def make(self):
         pass
@@ -74,7 +75,7 @@ class RegisterBuilder(Builder):
     def make(self, **args):
         config = args['filename']
 
-        self.obj=Registers.Registers()
+        self.obj=Registers.Registers(self.logger)
 
         reader = XmlParser.MachineReader(config)
         machine_registers = reader.data['registers']

@@ -60,10 +60,10 @@ class Simulation(object):
         self.instructions = coordinator.get_object()
         self.instruction_size = self.instructions.getSize()
 
-        coordinator.set_builder(Builder.RegisterBuilder())
+        coordinator.set_builder(Builder.RegisterBuilder(log=self.logger))
         coordinator.make(filename=config)
         self.registers = coordinator.get_object()
-        self.registers.open_log(self.logger)
+        #self.registers.open_log(self.logger)
         self.registers.open_monitor(self.monitor)
 
         coordinator.set_builder(Builder.MemoryBuilder())

@@ -28,9 +28,7 @@
     <register name="PC"    number="0x09" size="0x10" write="True"  profile="pc"  visible="True" preset="0x400000" />
 
     <presets>
-      <preset number="0x1c" value="0x10008000" />
-      <preset number="0x1d" value="0x80000000" />
-      <preset number="0x21" value="0x400000" />
+      <preset number="0x02" value="0x01" />
     </presets>
   </registers>
 
