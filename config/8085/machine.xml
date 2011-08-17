@@ -9,10 +9,10 @@
   <!--(language)name: links to an instruction set specified externally-->
   <language name="8085" />
 
-  <memory address_space="0x7fffffff" word="0x20" addressable="0x08" >
-    <text  start="0x400000"   end="0x10000000" restricted="False" />
-    <data  start="0x10000000" end="0x7fffffff" restricted="False" />
-    <stack start="0x10000000" end="0x7fffffff" restricted="False" />
+  <memory address_space="0xfffff" word="0x08" addressable="0x08" >
+    <text  start="0x00" end="0xfffff" restricted="False" />
+    <data  start="0x00" end="0xfffff" restricted="False" />
+    <stack start="0x00" end="0xfffff" restricted="False" />
   </memory>
 
   <registers>

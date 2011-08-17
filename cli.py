@@ -13,7 +13,7 @@ try:
     import readline
 except: pass
 
-from core import *
+from core import Simulation
 
 from module.Interface   import UpdateListener
 from module.Evaluator   import Evaluator
@@ -68,7 +68,8 @@ class Cli(UpdateListener):
         # FIX: This seems to be broken: we're using the instruction
         # size to determine the size of the address bus. (2011-08-07)
             self.isize = self.simulation.get_isa().getSize()
-            self.wsize = self.simulation.get_memory().get_word_size()
+            self.word_size = self.simulation.get_memory().get_word_size()
+            self.byte_size = self.simulation.get_memory().get_word_spacing()
         except Exception, e:
             self.exception_handler(e)
 
@@ -314,6 +315,7 @@ class Cli(UpdateListener):
         if hasattr(self, "_programme_text"):
             print("{:-<80}".format("--Programme"))
             for i in range(len(self._programme_text[0])):
+                # print address, assembly instruction and binary
                 print("{:<12}{:<24}{:}".format(hex(self._programme_text[2][i]),
                                         self._programme_text[0][i],
                                         bin(self._programme_text[1][i],
@@ -395,7 +397,6 @@ class Cli(UpdateListener):
         """Formats and outputs a display of the pipeline"""
         #the if block is just a hack to make exceptions more consistent
         #print(self._programme_text)
-        # FIX: Pipeline is not updated on last cycle. (2011-08-04)
         print("{:-<80}".format('--Pipeline'))
         if len(self.pipeline[-1]) == 0:
             print(" Begin simulation to see the pipeline")
@@ -417,24 +418,23 @@ class Cli(UpdateListener):
 
     def print_memory(self, args=[]):
         """Format and print a view of the memory."""
-        # TODO: Select which memory slice to print. (2011-08-05)
         start = None
         end   = 10
+
         if len(args) > 0:
             end = args[0]
+
         if len(args) > 1:
             start = args[1]
-        #try:
-        #    end=int(kwargs['end'])
-        #    print(int(kwargs['end']))
-        #except:
-        #    end=None
+
         memory_slice = self.memory[-1].get_slice(end=end, start=start).items()
+        hex_width    = self.word_size / 4
         print("{:-<80}".format('--Memory'))
         for address, value in sorted(memory_slice, reverse=True):
-            print(" 0x{:0>8}: {:}  0x{:0>8}"
-                 .format(hex(address)[2:], bin(value,self.isize)[2:],
-                         hex(value)[2:]))
+            print(" 0x{:0>}: {:}  0x{:0>}"
+                 .format(hex(address, hex_width)[2:], bin(value,self.word_size)[2:],
+                         hex(value, hex_width)[2:]))
+            # TODO: Divide by 4 is an assumption. Review. (2011-08-17)
         print("{:-<80}".format(''))
 
     def print_visualization_modules(self):

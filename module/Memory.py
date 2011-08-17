@@ -203,6 +203,8 @@ class Memory(BaseMemory):
             start = end
             end   = temp
 
+        # FIX: Severe upset if addressable size is larger than a
+        # word. (2011-08-17)
         memory_slice={}
         i = start
         while i <= end:
