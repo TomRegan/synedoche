@@ -5,6 +5,7 @@
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-18
 # last modified  : 2011-07-27
+#     2011-08-18 : Improved documentation
 
 from Interface  import LoggerClient
 from Logger     import MemoryLogger

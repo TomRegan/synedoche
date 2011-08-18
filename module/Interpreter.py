@@ -6,6 +6,7 @@
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-05
 # last modified  : 2011-07-22 (minor revisions; this is stable)
+#     2011-08-18 : Support for multi-part instructions added.
 
 # TODO: Bad syntax is causing crash in linker
 #       See accompanying note in programme 7. (2011-08-12)
@@ -149,7 +150,7 @@ class Interpreter(BaseInterpreter):
         self._instruction_syntax = instructions.getSyntax()
         self._instruction_values = instructions.getValues()
         self._format_properties  = instructions.getFormatProperties()
-        self._format_mappings    = instructions.getFormatMapping()
+        self._format_mappings    = instructions.get_instruction_to_format_map()
         self._comment_pattern    = instructions.getAssemblySyntax()['comment']
         self._label_pattern      = instructions.getAssemblySyntax()['label']
         self._label_reference    = instructions.getAssemblySyntax()['reference']

@@ -151,41 +151,42 @@ class Pipelined(BaseProcessor):
             self.__special_flags['increment'] = True
 
     def __decode(self, index):
-        properties=self._isa.getFormatProperties()
-        signatures=self._isa.getSignatures()
-        mappings = self._isa.getFormatMapping()
-        i=bin(self._pipeline[index][0],self._size)[2:]
+        properties = self._isa.getFormatProperties()
+        signatures = self._isa.getSignatures()
+        mappings   = self._isa.get_instruction_to_format_map()
+        i = bin(self._pipeline[index][0],self._size)[2:]
         self._log.buffer("decoding {0}".format(i))
 
+        # Identify the instruction
         test={}
-        #test each type of instruction
-        for type in properties:
-            #against each of the relevant signatures
+        # Test each type of instruction
+        for format_type in properties:
+            # against each of the relevant signatures.
             for signature in signatures:
-                if type in mappings[signature]:
+                if format_type in mappings[signature]:
                     test.clear()
-                    #we might have to deal with a multi-field signature
+                    # We might have to deal with a multi-field signature.
                     for field in signatures[signature]:
-                        start= properties[type][field][0]
-                        end  = properties[type][field][1]+1
+                        start= properties[format_type][field][0]
+                        end  = properties[format_type][field][1]+1
                         test[field]=int(i[start:end],2)
                     if test == signatures[signature]:
-                        self._pipeline[index].append(type)
+                        self._pipeline[index].append(format_type)
                         self._pipeline[index].append(signature)
                         self._log.buffer("decoded `{0}' type instruction, {1}"
-                                         .format(type, signature))
+                                         .format(format_type, signature))
                         return
 
     def __execute(self, index):
+        # A dict to hold the encoded instruction parts.
         self._pipeline[index].append({})
-        i=bin(self._pipeline[index][0],self._size)[2:]
-        type=self._pipeline[index][1]
+
+        i    = bin(self._pipeline[index][0],self._size)[2:]
+        type = self._pipeline[index][1]
         properties=self._isa.getFormatProperties()
         for field in properties[type]:
             start = properties[type][field][0]
             end   = properties[type][field][1]+1
-            #because we have to read bitfields, this next line is going to
-            #look a bit nasty.
             self._pipeline[index][3][field] = i[start:end]
             self._log.buffer("`{:}' is {:}"
                              .format(field, i[start:end]))

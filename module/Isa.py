@@ -77,6 +77,28 @@ class Isa(BaseIsa):
             local_data[field] = (start, end)
         self._data['format_properties'][format_name]=local_data
 
+    def get_instruction_to_format_map(self):
+        """Returns a dict mapping each instruction to its format.
+
+        Purpose:
+            Used to identify the format of an instruction.
+
+        Returns:
+            Dict of instruction -> format mappings.
+        """
+        return self._data['itof']
+
+    def get_format_to_instruction_map(self):
+        """Returns a dict mapping each format to a list of instructions.
+
+        Purpose:
+            Used to determine the instructions belonging to a format.
+
+        Returns:
+            Dict of format -> instruction mappings.
+        """
+        return self._data['ftoi']
+
     def getLanguage(self):
         return self._data['global_language']
 
@@ -95,11 +117,8 @@ class Isa(BaseIsa):
     def getSyntax(self):
         return self._data['instruction_syntax']
 
-    def getFormatMapping(self):
-        return self._data['itof']
-
-    def get_mapping_to_instruction(self):
-        return self._data['ftoi']
+    #def getFormatMapping(self):
+    #    return self._data['itof']
 
     def getFormatProperties(self):
         return self._data['format_properties']
@@ -117,8 +136,7 @@ class Isa(BaseIsa):
             return {}
 
 class InstructionSet(object):
-    """Provides an interface that should be used to load an ISA
-    """
+    """Provides an interface that should be used to load an ISA."""
 
     _language=None
     _size=None
