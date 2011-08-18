@@ -123,13 +123,18 @@ class Pipelined(BaseProcessor):
 
     def _fetch_coordinator(self, index):
         self.__fetch(index)
+        # If processor is meant to fetch and decode in one step...
         if 'FD' in self._pipeline_flags:
-            self.__decode(index)
+            (format_type, name) = self.__decode(index)
+            self._pipeline[index].append(format_type)
+            self._pipeline[index].append(name)
         self._monitor.increment('processor_fetched')
 
     def _decode_coordinator(self, index):
         if not 'FD' in self._pipeline_flage:
-            self.__decode(index)
+            (format_type, name) = self.__decode(index)
+            self._pipeline[index].append(format_type)
+            self._pipeline[index].append(name)
         self._monitor.increment('processor_decoded')
 
     def _execute_coordinator(self, index):
@@ -171,11 +176,11 @@ class Pipelined(BaseProcessor):
                         end  = properties[format_type][field][1]+1
                         test[field]=int(i[start:end],2)
                     if test == signatures[signature]:
-                        self._pipeline[index].append(format_type)
-                        self._pipeline[index].append(signature)
+                        #self._pipeline[index].append(format_type)
+                        #self._pipeline[index].append(signature)
                         self._log.buffer("decoded `{0}' type instruction, {1}"
                                          .format(format_type, signature))
-                        return
+                        return (format_type, signature)
 
     def __execute(self, index):
         # A dict to hold the encoded instruction parts.

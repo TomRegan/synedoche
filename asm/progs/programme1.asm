@@ -4,6 +4,7 @@
 #                 below 1000 that are multiples of 3 or 5
 # Modifies      : registers : $s(0,1,2,3,4), $t0, LO, HI
 #                 memory    : none
+# Result        : 233168
 Main:
     addi $s0, $zero, 0       # counter
     addi $s1, $zero, 0       # sum (0)
