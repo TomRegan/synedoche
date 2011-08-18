@@ -7,6 +7,8 @@
 # last modified  : 2011-08-17
 #     2011-08-17 : Changes in cli (size field removed)
 
+# FIX: SigTerm causes fatal error. (2011-08-18)
+
 
 from lib.Functions import binary as bin
 

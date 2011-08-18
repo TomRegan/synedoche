@@ -10,24 +10,32 @@
   <!--Instruction formats are those described at:
       http://www.cavehill.uwi.edu/fpas/cmp/online/el21c/lesson18.html
   -->
+  <!--Formats match 8085A addressing modes:
+       IP : Implied Addressing
+       R. : Register Addressing
+            S : bits 5..7 are data
+            D : bits 2..4 are data
+       IM : Immediate Addressing
+       D  : Direct Addressing
+       RI : Register Indirect Addressing
+       C  : Combined Addressing Modes
+  -->
   <formats>
-    <format type="r" size="8">
+    <format type="RS" size="8"><!--Register Addressing-->
       <field name="op"  start="0x00" end="0x04" />
       <field name="s"   start="0x05" end="0x07" />
     </format>
-    <format type="M" size="8">
-      <field name="op" start="0x00" end="0x07" />
+    <format type="IM" size="16"><!--Immediate Addressing-->
+      <field name="op"      start="0x00" end="0x07" />
+      <field name="data_0b" start="0x08" end="0x0f" />
     </format>
-    <!--Laughably described as `three format' ISA, the one byte instructions
-         are fractured so will require several special cases-->
-    <format type="n" size="16">
+    <format type="RI" size="8"><!--Register Indirect-->
       <field name="op" start="0x00" end="0x07" />
-      <field name="d0" start="0x08" end="0x0f" />
     </format>
     <format type="3-byte" size="24">
-      <field name="op" start="0x00" end="0x07" />
-      <field name="d0" start="0x08" end="0x0f" />
-      <field name="d1" start="0x10" end="0x17" />
+      <field name="op"      start="0x00" end="0x07" />
+      <field name="data_0b" start="0x08" end="0x0f" />
+      <field name="data_1b" start="0x10" end="0x17" />
     </format>
   </formats>
 
@@ -43,10 +51,11 @@
       <label     pattern="\w+:" />
       <reference pattern="(\w+):" />
       <comment   pattern=";.*" />
+      <hex       pattern="[Hh]" />
     </syntax>
   </assembler>
 
-  <instruction name="ADD" format="r"><!--add-->
+  <instruction name="ADD" format="RS"><!--add-->
     <!--Adds a specified register to A(ccumulator)-->
     <signature>
       <field name="op" />
@@ -63,7 +72,7 @@
     </implementation>
   </instruction>
 
-  <instruction name="ADI" format="n"><!--add immediate-->
+  <instruction name="ADI" format="IM"><!--add immediate-->
     <signature>
       <field name="op" />
     </signature>
@@ -71,15 +80,15 @@
       <field name="op" value="0xc6" />
     </fields>
     <syntax>
-      <expression pattern="\w+\s+(\d+)h" />
-      <symbol type="int"      matches="d0" />
+      <expression pattern="\w+\s+(\d+)[Hh]" />
+      <symbol type="immediate" matches="data_0b" />
     </syntax>
     <implementation>
-      <method name="addImmediate" args="0x00 im 0x00" />
+      <method name="addRegisters" args="0x00 data_0b 0x00" />
     </implementation>
   </instruction>
 
-  <instruction name="NOP" format="M">
+  <instruction name="NOP" format="RI">
     <signature>
       <field name="op" />
     </signature>
@@ -94,7 +103,7 @@
     </implementation>
   </instruction>
 
-  <instruction name="HLT" format="M">
+  <instruction name="HLT" format="RI">
     <signature>
       <field name="op" />
     </signature>
@@ -105,7 +114,7 @@
       <expression pattern="\w+" />
     </syntax>
     <implementation>
-      <method name="systemCall" args="0x02" />
+      <method name="systemCall" args="DIR0a" />
     </implementation>
   </instruction>
 </instructions>

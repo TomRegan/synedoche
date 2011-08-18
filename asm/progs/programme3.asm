@@ -3,13 +3,13 @@
 # Description   : MIPS assembly programme: Calculates factorial iteratively
 
 Main:
-    addi $s0, $zero, 3    # factorial
-    addi $s1, $zero, 1    # sum
+    addi $s0, $zero, 5    # factorial
+    addi $v1, $zero, 1    # sum
     addi $s2, $zero, 1    # constant 1
 L0: beq  $s0, $zero, Exit # terminate on zero
-    mult $s0, $s1
+    mult $s0, $v1
     sub  $s0, $s0, $s2    # decrement factorial
-    mflo $s1              # move result into sum
+    mflo $v1              # move result into sum
     j    L0
     nop
 Exit:

@@ -28,6 +28,7 @@ L0: addi $s0, $s0, 1     # increment variable s0
 L1: add  $s1, $s1, $s0   # increment the total
     j    L0              # loop
 Exit:
+    add  $v1, $zero, $s1 # return value in s1
     addi $v0, $zero, 10  # exit code
     syscall
 

@@ -245,6 +245,8 @@ class Memory(BaseMemory):
         binary  = []
         address = []
         for line in text:
+            # FIX: This test is both ideologically and functionally suspect:
+            # keep under review and phase out. (2011-08-18)
             if not type(line) == int and not type(line) == long:
                 raise DataFormatException(
                     'loadText: got {:} expected an int{:}'
@@ -256,7 +258,9 @@ class Memory(BaseMemory):
             # bit silly, but in line with interpreter's return tuple
             binary.append(line)
             address.append(offset)
-            offset = offset + (self._size / self._addressable)
+            # This ensures the next instruction is loaded at the correct
+            # memory address.
+            offset = offset + self._word_spacing
         self.log.buffer('loaded {0} word programme into memory'
                         .format(len(text)))
         self._monitor['programme_length'] = len(text)
@@ -345,18 +349,31 @@ class Memory(BaseMemory):
         self._monitor.increment('memory_bytes_loaded')
         try:
             return self._address[offset]
-        except KeyError, e:
+        except KeyError:
             #We will initialize the memory to avoid future exceptions
             self._set_byte(offset, 0)
             return 0
 
     def set_word(self, offset, value, size, aligned=True):
-        """(offset:int,
-            value:int,
-            size:int,
-            aligned:bool) -> **memory{offset:value}:dict**
+        """Inserts a word at the given memory offset
 
-        Inserts a word at the given memory offset
+        Description:
+            (offset:int, value:int, size:int, aligned:bool)
+                -> **memory{offset:value}:dict**
+            set_word uses _set_byte to do its work by calling it repeatedly.
+            It will store a word in such a way that it remains addressable
+            in byte-sized portions. 
+
+        Purpose:
+            Handles the storage of a word, ensuring addressing is correct
+            for the scheme in operation (eg. byte-addressing)
+
+            This is an important interface to the memory system and should
+            be given preference over other methods when a word needs to be
+            stored.
+
+            The expected use of this method is in the implementation of
+            APIs and simulation clients.
 
         Values:
             offset  -- the address in memory
@@ -364,13 +381,17 @@ class Memory(BaseMemory):
             size    -- the word size to set
             aligned -- is word alligment enforced?
 
-        Raises:
-            AddressingError
-            AlignmentError
-        Allows:
-            SegmentationFaultException
-        Masks:
-            None
+        Restrictions:
+            N/A
+
+        Exceptions:
+            Raises : AddressingError
+                     AlignmentError
+            Allows : SegmentationFaultException
+            Masks  : None
+
+        Returns:
+            N/A
         """
         #We want to prevent addressing violations
         if size < self._addressable:

@@ -106,12 +106,14 @@ class BaseInterpreter(LoggerClient):
         pass
 
 class Interpreter(BaseInterpreter):
-    _comment_pattern=None #regex describing comments
-    _label_pattern=None   #regex describing a lable
-    _label_reference=None #regex for a label reference
-    _jump_table={}        #table of label addresses
-    _text_offset=None     #location to load the programme
-    _isa_size=None        #used to calculate instruction length
+    # TODO: Try and phase out these declatations and rely on the values
+    # given in __init__. (2011-08-18)
+    _comment_pattern = None #regex describing comments
+    _label_pattern   = None #regex describing a lable
+    _label_reference = None #regex for a label reference
+    _jump_table      = {}   #table of label addresses
+    _text_offset     = None #location to load the programme
+    _isa_size        = None #used to calculate instruction length
 
     _instruction_syntax={}
     _format_properties={}
@@ -143,17 +145,17 @@ class Interpreter(BaseInterpreter):
         """
         # TODO: Review this docstring. (2011-08-17)
 
-        self._language               = instructions.getLanguage()
-        self._instruction_syntax     = instructions.getSyntax()
-        self._instruction_values     = instructions.getValues()
-        self._format_properties      = instructions.getFormatProperties()
-        self._format_mappings        = instructions.getFormatMapping()
-        self._comment_pattern        = instructions.getAssemblySyntax()['comment']
-        self._label_pattern          = instructions.getAssemblySyntax()['label']
-        self._label_reference        = instructions.getAssemblySyntax()['reference']
-        self._label_replacements     = instructions.get_label_replacements()
-        self._isa_size               = instructions.getSize()
-        self._registers              = registers.get_register_mappings()
+        self._language           = instructions.getLanguage()
+        self._instruction_syntax = instructions.getSyntax()
+        self._instruction_values = instructions.getValues()
+        self._format_properties  = instructions.getFormatProperties()
+        self._format_mappings    = instructions.getFormatMapping()
+        self._comment_pattern    = instructions.getAssemblySyntax()['comment']
+        self._label_pattern      = instructions.getAssemblySyntax()['label']
+        self._label_reference    = instructions.getAssemblySyntax()['reference']
+        self._label_replacements = instructions.get_label_replacements()
+        self._isa_size           = instructions.getSize()
+        self._registers          = registers.get_register_mappings()
 
         self._text_offset  = memory.get_start('text')
         self._word_spacing = memory.get_word_spacing()
@@ -185,7 +187,8 @@ class Interpreter(BaseInterpreter):
             interpreter.read_lines(str)
         """
         for line in lines:
-            self.log.buffer("reading line: {0}".format(line))
+            self.log.buffer("reading line: {0}"
+                            .format(line.replace('\n', '')))
         instruction = self._read(lines)
         return instruction
 
@@ -276,18 +279,30 @@ class Interpreter(BaseInterpreter):
         return lines
 
     def _link(self, lines):
-        """[lines:str]:list -> [lines:str]:list
+        """Transforms the programme replacing branch identifiers with
+        computed addresses that reference labels in the code.
 
-        Returns a version of the programme with all labels replaced
-        by memory references.
+        Description:
+            [lines:str]:list -> [lines:str]:list
+            Ensures all branch identifiers are valid (ie. corresponding
+            labels were found in proprocessing) and replaces them with
+            interim hexadecimal addresses. These hex addresses will be
+            replaced during encoding with binary values.
 
-        +------------------------------------------------------+
-        | Validation                                           |
-        +------------------------------------------------------+
-        | jump labels are valid, ie. they were found during    |
-        | preprocessing                                        |
-        +------------------------------------------------------+
-        """
+        Purpose:
+            preprocessing -> [linking] -> encoding
+
+        Restrictions:
+            NOT PUBLIC : This is not part of the interface and is unstable.
+            BROKEN     : Show-stopping bugs exist in this code.
+
+         Exceptions:
+            N/A
+
+         Returns:
+            A version of the programme having all labels replaced with memory
+            references.
+         """
 
         # TODO: ensure missing and incorrect labels don't result in key errors.
         # (2011-08-16)
@@ -302,6 +317,8 @@ class Interpreter(BaseInterpreter):
                 pattern = self._instruction_syntax[key]['expression']
                 match = re.search(pattern, lines[i])
                 label = match.group(group)
+                # Calculate either absolute or relative addresses based on
+                # configuration file/API options.
                 if mode == 'absolute':
                     base = self._text_offset
                     offset = self._jump_table[label]
@@ -309,7 +326,7 @@ class Interpreter(BaseInterpreter):
                                  self._isa_size/4)
                 elif mode == 'relative':
                     offset = str(self._jump_table[label] - i)
-                #finally, we can replace the label
+                # Finally, we can replace the label.
                 lines[i] = lines[i].replace(label, offset)
             output.append(lines[i])
 
@@ -388,9 +405,7 @@ class Interpreter(BaseInterpreter):
                                         .format(field, value))
                         instruction_fields[field]=value
 
-                    #
                     #we want to build a complete instruction
-                    #
                     values=self._instruction_values[instruction]
                     for field in values:
                         instruction_fields[field]=values[field]
@@ -407,10 +422,29 @@ class Interpreter(BaseInterpreter):
                         width = end - start
                         instruction_raw[start:end]=bin(value, size=width)[2:]
                     instruction_raw = "".join(instruction_raw)
-                    output.append(instruction_raw)
                     self.log.buffer("encoded {0}".format(instruction_raw))
+                    self.log.buffer("splitting into {:}-bit chunks"
+                                    .format(self._isa_size))
+
+                    # Split the instruction if it spans multiple words.
+                    # eg. 8085 Direct Addressing uses three 8 bit parts
+                    # despite being an 8 bit ISA.
+                    start = 0
+                    end   = 1
+                    for i in range(len(instruction_raw)):
+                        if end % self._isa_size == 0:
+                            part = instruction_raw[start:end]
+                            # Log entry is indented for readability.
+                            self.log.buffer(
+                                "  split {:}".format(part))
+                            output.append(part)
+                            start = end
+                        end = end + 1
+                    #output.append(instruction_raw)
                 else:
                     raise BadInstructionOrSyntax(BAD + line)
+            # TODO: Keep this block under review. Probably kept for a reason.
+            #(2011-08-18)
             #elif instruction in self._special_instructions:
                 #
                 #we aren't dealing with specials yet

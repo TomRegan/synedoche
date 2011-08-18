@@ -8,6 +8,8 @@
 # last modified  : 2011-08-04
 #     2011-08-17 : Added _decode_register_reference method
 
+# TODO: addRegistersUnsigned. (2011-08-18)
+
 from SystemCall    import SystemCall
 from Logger        import ApiLogger
 from Interface     import LoggerClient
@@ -88,7 +90,6 @@ class Sunray(BaseApi):
             RegisterReferenceException
         """
         self.log.buffer('addRegisters called')
-        print("args: {:}".format(args))
         # TODO: Review - new implementation, new bugs? (2011-08-17)
         #a = int(instruction_decoded[args[0]], 2)
         #b = int(instruction_decoded[args[1]], 2)
@@ -96,7 +97,6 @@ class Sunray(BaseApi):
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         c = self._decode_register_reference(args[2], instruction_decoded)
-        print("args 0:{0}, 1:{1}, 2:{2}".format(a,b,c))
         self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c))
         for operand in [a, b, c]:
             if operand not in self._register.keys():
@@ -141,6 +141,7 @@ class Sunray(BaseApi):
         Raises:
             RegisterReferenceException
         """
+        # TODO: Add provision for hex numbers. (2011-08-18)
         self.log.buffer('addImmediate called')
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
@@ -589,8 +590,13 @@ class Sunray(BaseApi):
         """args:list -> True"""
         self.log.buffer('systemCall called')
         system_call = SystemCall()
-        a=args[0]
+        try:
+            if args[0][:3] == 'DIR':
+                a = int(args[0][3:], 16)
+                result = a
+        except:
+            a = args[0]
+            result = self._register.get_value(a)
         self.log.buffer('args 0:{0}'.format(a))
-        result = self._register.get_value(a)
         system_call.service(result)
         return True
