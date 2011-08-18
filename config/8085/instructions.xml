@@ -21,21 +21,24 @@
        C  : Combined Addressing Modes
   -->
   <formats>
-    <format type="RS" size="8"><!--Register Addressing-->
+    <format type="RS" size="8"  fetch="1"><!--Register Addressing-->
       <field name="op"  start="0x00" end="0x04" />
       <field name="s"   start="0x05" end="0x07" />
     </format>
-    <format type="IM" size="16"><!--Immediate Addressing-->
-      <field name="op"      start="0x00" end="0x07" />
-      <field name="data_0b" start="0x08" end="0x0f" />
+
+    <format type="IM" size="16" fetch="2"><!--Immediate Addressing-->
+      <field name="op"   start="0x00" end="0x07" />
+      <field name="data" start="0x08" end="0x0f" />
     </format>
-    <format type="RI" size="8"><!--Register Indirect-->
+
+    <format type="RI" size="8"  fetch="1"><!--Register Indirect-->
       <field name="op" start="0x00" end="0x07" />
     </format>
-    <format type="3-byte" size="24">
+
+    <format type="3-byte" size="24" fetch="3">
       <field name="op"      start="0x00" end="0x07" />
-      <field name="data_0b" start="0x08" end="0x0f" />
-      <field name="data_1b" start="0x10" end="0x17" />
+      <field name="data_0B" start="0x08" end="0x0f" />
+      <field name="data_1B" start="0x10" end="0x17" />
     </format>
   </formats>
 
@@ -81,10 +84,10 @@
     </fields>
     <syntax>
       <expression pattern="\w+\s+(\d+)[Hh]" />
-      <symbol type="immediate" matches="data_0b" />
+      <symbol type="immediate" matches="data" />
     </syntax>
     <implementation>
-      <method name="addRegisters" args="0x00 data_0b 0x00" />
+      <method name="addImmediate" args="0x00 0x00 data" />
     </implementation>
   </instruction>
 

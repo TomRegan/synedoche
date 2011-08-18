@@ -58,17 +58,21 @@ class InstructionReader(XmlReader):
         data=[]
         f_root = self._root_node.getElementsByTagName('formats')[0]
         formats = f_root.getElementsByTagName('format')
-        for format in formats:
-            f_type = asciify(format.attributes['type'].value)
-            f_size = int(asciify(format.attributes['size'].value), 16)
-            fields = format.getElementsByTagName('field')
+        for instruction_format in formats:
+            f_type = asciify(
+                instruction_format.attributes['type'].value)
+            f_size = int(asciify(
+                instruction_format.attributes['size'].value), 16)
+            f_fetch = int(asciify(
+                instruction_format.attributes['fetch'].value), 16)
+            fields = instruction_format.getElementsByTagName('field')
             f_data=[]
             for field in fields:
                 fd_name  = asciify(field.attributes['name'].value)
                 fd_start = int(asciify(field.attributes['start'].value), 16)
                 fd_end   = int(asciify(field.attributes['end'].value), 16)
                 f_data.append((fd_name, fd_start, fd_end))
-            data.append((f_type, f_size, tuple(f_data)))
+            data.append((f_type, f_size, tuple(f_data), f_fetch))
 
         self._data['formats'] = tuple(data)
 

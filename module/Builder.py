@@ -52,6 +52,7 @@ class InstructionBuilder(Builder):
 
         self.obj.set_global_language(instruction_language)
         self.obj.set_global_size(instruction_size)
+        self.obj.set_global_api(instruction_api)
         self.obj.add_assembler_syntax(instruction_assembler)
         for instruction in instruction_instructions:
             self.obj.add_mapping(
@@ -64,12 +65,16 @@ class InstructionBuilder(Builder):
                 instruction[0], instruction[4])
             self.obj.add_instruction_implementation(
                 instruction[0], instruction[6])
-            #TODO: Integrate instruction replacement!
             self.obj.add_instruction_replacement(
                 instruction[0], instruction[7])
-        for format in instruction_formats:
-            self.obj.add_format_properties(
-                format[0], format[2])
+
+        for instruction_format in instruction_formats:
+            self.obj.add_format_property_bit_ranges(
+                instruction_format[0], instruction_format[2])
+            self.obj.add_format_property_size(
+                instruction_format[0], instruction_format[1])
+            self.obj.add_format_property_cycles(
+                instruction_format[0], instruction_format[3])
 
 class RegisterBuilder(Builder):
     def make(self, **args):

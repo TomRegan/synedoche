@@ -143,8 +143,10 @@ class Sunray(BaseApi):
         """
         # TODO: Add provision for hex numbers. (2011-08-18)
         self.log.buffer('addImmediate called')
-        a = int(instruction_decoded[args[0]], 2)
-        b = int(instruction_decoded[args[1]], 2)
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        #a = int(instruction_decoded[args[0]], 2)
+        #b = int(instruction_decoded[args[1]], 2)
         # This will be a signed immediate value.
         c = int(instruction_decoded[args[2]], 2, signed=True)
         self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a, b, c))

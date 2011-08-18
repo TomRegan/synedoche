@@ -5,6 +5,7 @@
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-20
 # last modified  : 2011-08-07
+#     2011-08-18 : Added multi-part fetch.
 
 from Interface  import UpdateBroadcaster, LoggerClient
 from Monitor    import MonitorClient
@@ -14,6 +15,10 @@ from SystemCall import SystemCall
 
 from lib.Functions import binary as bin
 from lib.Functions import integer as int
+
+# TODO: In pipelined, alter implementation so changes are
+# returned to coordinators before being queued in the
+# pipeline. (2011-08-18)
 
 class BaseProcessor(UpdateBroadcaster, LoggerClient, MonitorClient):
     def __init__(self, registers, memory, api, instructions):
@@ -78,6 +83,7 @@ class Pipelined(BaseProcessor):
 
         self._pipeline        = []
         self._pipeline_stages = pipeline
+        # TODO: This shouldn't be hardcoded anymore! (2011-08-18)
         self._pipeline_flags  = ['FI', 'FD']
 
         self.__special_flags = {}
@@ -122,15 +128,43 @@ class Pipelined(BaseProcessor):
 
 
     def _fetch_coordinator(self, index):
-        self.__fetch(index)
+
+        # Fetch an instruction.
+        instruction = self.__fetch()
+        self._pipeline.insert(0, [instruction])
+
+        ### Deal with Flags ###
+        # FI denotes fetch-increment on the IP, meaning the IP is
+        # updated at this stage in the cycle, rather than at the end.
+        if 'FI' in self._pipeline_flags:
+            self._registers.increment(self._pc, self._word_space)
+            self.__special_flags['increment'] = True
         # If processor is meant to fetch and decode in one step...
         if 'FD' in self._pipeline_flags:
-            (format_type, name) = self.__decode(index)
+            # TODO: This should rely on the decode_coordinator. (2011-08-18)
+            (format_type, name, number_of_parts) = self.__decode(index)
             self._pipeline[index].append(format_type)
             self._pipeline[index].append(name)
+            # TODO: Review - this stalls the pipeline. (2011-08-18)
+            # If it is a multi-part instruction, get all of it.
+            # TRY: raising index error and dealing with instruction
+            # in cycle.
+            while number_of_parts > 1:
+                # TODO: Log messages below not buffering. (2011-08-18)
+                self.log.buffer("multi-part instruction")
+                part = self.__fetch()
+                instruction = self.__concaternate_instruction(
+                    instruction, part)
+                self.log.buffer("building instruction: {:}"
+                                   .format(bin(instruction)))
+                self._pipeline[0][0] = instruction
+                self._registers.increment(self._pc, self._word_space)
+                number_of_parts = number_of_parts - 1
+
         self._monitor.increment('processor_fetched')
 
     def _decode_coordinator(self, index):
+        ### Deal with Flags ###
         if not 'FD' in self._pipeline_flage:
             (format_type, name) = self.__decode(index)
             self._pipeline[index].append(format_type)
@@ -147,16 +181,20 @@ class Pipelined(BaseProcessor):
     def _writeback_coordinator(self, index):
         self.__writeback(index)
 
-    def __fetch(self, index):
-        i=self._memory.get_word(self._registers.get_value(self._pc),
-                                self._size)
-        self._pipeline.insert(0,[i])
-        if 'FI' in self._pipeline_flags:
-            self._registers.increment(self._pc, self._word_space)
-            self.__special_flags['increment'] = True
+    def __concaternate_instruction(self, part_0, part_1):
+        part_0 = bin(part_0, self._size)
+        part_1 = bin(part_1, self._size)
+        instruction = part_0[2:] + part_1[2:]
+        return int(instruction, 2)
+
+    def __fetch(self):
+        instruction = self._memory.get_word(
+            self._registers.get_value(self._pc), self._size)
+        return instruction
 
     def __decode(self, index):
-        properties = self._isa.getFormatProperties()
+        properties = self._isa.get_format_bit_ranges()
+        cycles     = self._isa.get_format_cycles()
         signatures = self._isa.getSignatures()
         mappings   = self._isa.get_instruction_to_format_map()
         i = bin(self._pipeline[index][0],self._size)[2:]
@@ -178,9 +216,10 @@ class Pipelined(BaseProcessor):
                     if test == signatures[signature]:
                         #self._pipeline[index].append(format_type)
                         #self._pipeline[index].append(signature)
+                        number_of_parts = cycles[format_type]
                         self._log.buffer("decoded `{0}' type instruction, {1}"
                                          .format(format_type, signature))
-                        return (format_type, signature)
+                        return (format_type, signature, number_of_parts)
 
     def __execute(self, index):
         # A dict to hold the encoded instruction parts.
@@ -188,7 +227,7 @@ class Pipelined(BaseProcessor):
 
         i    = bin(self._pipeline[index][0],self._size)[2:]
         type = self._pipeline[index][1]
-        properties=self._isa.getFormatProperties()
+        properties = self._isa.get_format_bit_ranges()
         for field in properties[type]:
             start = properties[type][field][0]
             end   = properties[type][field][1]+1

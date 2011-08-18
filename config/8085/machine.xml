@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--configuration file specifies machine architecture of r2k implementation-->
-<!--author:   Tom Regan <thomas.c.regan@gmail.com>
-    file:     machine.xml
-    since:    2011-08-07
+<!--author        : Tom Regan <thomas.c.regan@gmail.com>
+    file          : machine.xml
+    since         : 2011-08-07
+    last modified : 2011-08-18
 -->
 
-<machine name="8085">
+<machine name="8085A">
   <!--(language)name: links to an instruction set specified externally-->
   <language name="8085" />
 

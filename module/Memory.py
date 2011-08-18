@@ -210,15 +210,12 @@ class Memory(BaseMemory):
         i = start
         while i <= end:
             i = int(i)
-            if self.in_range(i):
-                try:
-                    memory_slice[i]=self.get_word(i,
-                                                  self._size,
-                                                  quietly=True)
-                except:
-                    memory_slice[i]=0
-            else:
-                print('not in range!')
+            try:
+                memory_slice[i]=self.get_word(i,
+                                              self._size,
+                                              quietly=True)
+            except:
+                memory_slice[i]=0
             i = int(i + (self._word_spacing))
 
         return memory_slice

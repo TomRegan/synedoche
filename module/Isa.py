@@ -19,6 +19,9 @@ class Isa(BaseIsa):
     def set_global_size(self, size):
         self._data['global_size'] = size
 
+    def set_global_api(self, name):
+        self._data['global_api'] = name
+
     def add_mapping(self, instruction, format_name):
         if not self._data.has_key('itof'):
                self._data['itof'] = {}
@@ -69,13 +72,23 @@ class Isa(BaseIsa):
             local_data[name] = pattern
         self._data['assembler_syntax'] = local_data
 
-    def add_format_properties(self, format_name, fields, *args):
+    def add_format_property_bit_ranges(self, format_name, fields, *args):
         if not self._data.has_key('format_properties'):
                self._data['format_properties'] = {}
         local_data={}
         for (field, start, end) in fields:
             local_data[field] = (start, end)
         self._data['format_properties'][format_name]=local_data
+
+    def add_format_property_size(self, format_name, size, *args):
+        if not self._data.has_key('format_property_size'):
+               self._data['format_property_size'] = {}
+        self._data['format_property_size'][format_name] = size
+
+    def add_format_property_cycles(self, format_name, cycles, *args):
+        if not self._data.has_key('format_property_cycles'):
+               self._data['format_property_cycles'] = {}
+        self._data['format_property_cycles'][format_name] = cycles
 
     def get_instruction_to_format_map(self):
         """Returns a dict mapping each instruction to its format.
@@ -120,8 +133,14 @@ class Isa(BaseIsa):
     #def getFormatMapping(self):
     #    return self._data['itof']
 
-    def getFormatProperties(self):
+    def get_format_bit_ranges(self):
         return self._data['format_properties']
+
+    def get_format_sizes(self):
+        return self._data['format_property_size']
+
+    def get_format_cycles(self):
+        return self._data['format_property_cycles']
 
     def getAssemblySyntax(self):
         return self._data['assembler_syntax']

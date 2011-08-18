@@ -70,6 +70,10 @@ class Cli(UpdateListener):
             self.isize = self.simulation.get_isa().getSize()
             self.word_size = self.simulation.get_memory().get_word_size()
             self.byte_size = self.simulation.get_memory().get_word_spacing()
+        except IOError, e:
+            sys.stderr.write("Couldn't find configuration file: `{:}'\n"
+                             .format(config))
+            sys.exit()
         except Exception, e:
             self.exception_handler(e)
 
@@ -265,6 +269,7 @@ class Cli(UpdateListener):
             print(e.message)
         except Exception, e:
             print('fatal: {:}'.format(e))
+            raise e
 
     def visualize(self, args=None):
         from module.Graphics  import Visualizer
@@ -400,7 +405,7 @@ class Cli(UpdateListener):
         print("{:-<80}".format('--Pipeline'))
         if len(self.pipeline[-1]) == 0:
             print(" Begin simulation to see the pipeline")
-        else:
+        elif hasattr(self, "_programme_text"):
             for i in range(len(self.pipeline[-1])):
                 if i > len(self._programme_text[1]):
                 # Probably some error with the programme, maybe
