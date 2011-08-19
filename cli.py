@@ -170,20 +170,21 @@ class Cli(UpdateListener):
         self.simulation.reset(self)
 
     def add_breakpoint(self, point):
-        # TODO: Determine if value is hex before trying to process.
-        # (2011-08-17)
-
         # Load the jump table so we can match a label if present.
         if hasattr(self, "_programme_text"):
             labels = self.simulation.get_interpreter().get_jump_table()
             offset = self._programme_text[2][0]
             if labels.has_key(point):
                 point = (labels[point] * 4) + offset
+
+        # Print info iff debugging.
         if self.local_DEBUG >= 2:
             try:
                 print("DEBUG: breakpoint is {:}".format(hex(point)))
             except:
                 print("DEBUG: WARNING: breakpoint is {:}".format(point))
+
+        # Call the processor to add the break point.
         self.simulation.get_processor().add_break_point(point)
 
     def remove_breakpoint(self, number):
