@@ -148,20 +148,21 @@ class Pipelined(BaseProcessor):
         (format_type, name, number_of_parts) = self.__decode(index)
         self._pipeline[index].append(format_type)
         self._pipeline[index].append(name)
-        self._monitor.increment('processor_decoded')
         # TODO: Review - this stalls the pipeline. (2011-08-18)
         # If it is a multi-part instruction, get all of it.
         # TRY: raising index error and dealing with instruction
         # in cycle.
         while number_of_parts > 1:
-            instruction = self._pipeline[0][0]
             self._log.buffer("multi-part instruction")
+            instruction = self._pipeline[0][0]
             part = self.__fetch()
             instruction = self.__concatenate_instruction(
                 instruction, part)
             self._pipeline[0][0] = instruction
             self._registers.increment(self._pc, self._word_space)
             number_of_parts = number_of_parts - 1
+
+        self._monitor.increment('processor_decoded')
 
     def _execute_coordinator(self, index):
         self.__execute(index)

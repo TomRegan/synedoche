@@ -29,7 +29,7 @@
     <register name="PC"    number="0x09" size="0x10" write="True"  profile="pc"  visible="True" preset="" />
   </registers>
 
-  <pipeline flags="FI" >
+  <pipeline flags="FI FD" >
     <stage name="fetch" />
     <stage name="execute" />
     <stage name="memory" />
