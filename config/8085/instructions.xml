@@ -87,6 +87,7 @@
     </syntax>
     <implementation>
       <method name="addRegisters" args="0x00 s 0x00" />
+      <method name="setBitInRegister" args="0x1 0x4 0x1" />
     </implementation>
   </instruction>
 
@@ -107,7 +108,7 @@
     </implementation>
   </instruction>
 
-  <instruction name="MOV" format="IM"><!--move register to register-->
+  <instruction name="MOV" format="RDS"><!--move register to register-->
     <!--Copies the value from one register to another-->
     <signature>
       <field name="op" />
@@ -132,7 +133,7 @@
       <field name="s" />
     </signature>
     <fields>
-      <field name="op"  value="0x01" />
+      <field name="op"  value="0x00" />
       <field name="s"   value="0x06" />
     </fields>
     <syntax>

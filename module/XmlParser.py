@@ -276,13 +276,14 @@ class MachineReader(XmlReader):
             pipeline = self._root_node.getElementsByTagName('pipeline')[0]
             stages   = pipeline.getElementsByTagName('stage')
 
+            flags = asciify(pipeline.attributes['flags'].value)
             pipeline_stages = []
             for stage in stages:
                 name = asciify(stage.attributes['name'].value)
                 pipeline_stages.append(name)
         except Exception, e:
             raise XmlDataFormatException(e.message)
-        self._data['pipeline'] = tuple(pipeline_stages)
+        self._data['pipeline'] = tuple((pipeline_stages, flags))
 
 
     def get_data(self):

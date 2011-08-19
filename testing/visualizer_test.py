@@ -64,7 +64,8 @@ if __name__ == '__main__':
             self.cpu = Processor.Pipelined(
                 registers=self.registers, memory=self.memory,
                 api=self.api, instructions=self.instructions,
-                pipeline=pipeline)
+                pipeline=pipeline[0],
+                flags=pipeline[1])
             self.cpu.open_log(self.logger)
             self.cpu.open_monitor(self.monitor)
 

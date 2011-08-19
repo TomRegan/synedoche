@@ -90,10 +90,6 @@ class Sunray(BaseApi):
             RegisterReferenceException
         """
         self.log.buffer('addRegisters called')
-        # TODO: Review - new implementation, new bugs? (2011-08-17)
-        #a = int(instruction_decoded[args[0]], 2)
-        #b = int(instruction_decoded[args[1]], 2)
-        #c = int(instruction_decoded[args[2]], 2)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         c = self._decode_register_reference(args[2], instruction_decoded)
@@ -145,8 +141,6 @@ class Sunray(BaseApi):
         self.log.buffer('addImmediate called')
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
-        #a = int(instruction_decoded[args[0]], 2)
-        #b = int(instruction_decoded[args[1]], 2)
         # This will be a signed immediate value.
         c = int(instruction_decoded[args[2]], 2, signed=True)
         self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a, b, c))
@@ -358,6 +352,51 @@ class Sunray(BaseApi):
         self._register.set_value(a, b)
         return True
 
+    def setBitInRegister(self, args, instruction_decoded, **named_args):
+        """Sets one bit in a register value to on or off.
+
+        Description:
+            (register:str, bit:int, value:int) -> return:bool
+
+        Purpose:
+            Can be used to alter registers which are commonly bit-stuffed,
+            like the [E]FLAGS register of 808x ISAs.
+
+            This call is not expected to read an instruction, so it is best
+            used to generate the results of other operations, for example
+            setting a carry flag as the result of an addition.
+
+        Restrictions:
+            If the register does not contain a bit_n, the result of this
+            call is undefined. Registers are padded with zeros depending
+            on their size specified in the ISA. This means a decimal value
+            of 10 in an 0 bit register will be treated as 0b00001010.
+
+            If the call does not contain a '0' or '1' value in the `value'
+            field, the result of this call is undefined.
+
+        Exceptions:
+            This call has undefined behaviour and may not handle exceptions
+            raised in the event of error.
+
+        Returns:
+            Always returns True
+        """
+        self.log.buffer('setBitInRegister called')
+        a = args[0]
+        b = int(args[1])
+        c = str(args[2])
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a, b, c))
+
+        a_size = self._register.get_size(a)
+
+        value = list(bin(self._register.get_value(a), a_size))
+        value[b] = c
+        value = ''.join(value)
+        self._register.set_value(a, int(value, 2))
+
+        return True
+
     def loadWord32(self, args, instruction_decoded, **named_args):
         """args:list -> True
 
@@ -510,6 +549,81 @@ class Sunray(BaseApi):
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
         self.log.buffer('returning {0}'.format(self._register.get_value(a) >= b))
         return self._register.get_value(a) >= b
+
+    # TODO: Add log items to test..[On|Off]. (2011-08-19)
+    def testBitIsOn(self, args, instruction_decoded, **named_args):
+        """Returns true if register has bit_n set to 0b1
+
+        Description:
+            (register:str, int:int) -> return:bool
+            testBitIsOn inspects one bit of a binary value stored in
+            a register and returns True or False. This call behaves
+            as if the storage were big-endian, regardless of the underlying
+            ISA and other organization.
+
+
+        Purpose:
+            Can be used to examine registers which are commonly bit-stuffed,
+            like the [E]FLAGS register of 808x ISAs.
+
+        Restrictions:
+            If the register does not contain a bit_n, the result of this
+            call is undefined. Registers are padded with zeros depending
+            on their size specified in the ISA. This means a value of 0b1
+            in an 0 bit register will be examined as 0b00000001, so bit
+            0..6 will appear to be off and 7 will appear on.
+
+        Exceptions:
+            This call has undefined behaviour and may not handle exceptions
+            raised in the event of error.
+
+        Returns:
+            True or False
+        """
+        a = args[0]
+        b = args[1]
+
+        size  = self._register.get_size(a)
+        value = list(bin(self._register.get_value(a), size)[2:])
+
+        return value[b] == '1'
+
+    def testBitIsOff(self, args, instruction_decoded, **named_args):
+        """Returns true if register has bit_n set to 0b0
+
+        Description:
+            (register:str, int:int) -> return:bool
+            testBitIsOff inspects one bit of a binary value stored in
+            a register and returns True or False. This call behaves
+            as if the storage were big-endian, regardless of the underlying
+            ISA and other organization.
+
+
+        Purpose:
+            Can be used to examine registers which are commonly bit-stuffed,
+            like the [E]FLAGS register of 808x ISAs.
+
+        Restrictions:
+            If the register does not contain a bit_n, the result of this
+            call is undefined. Registers are padded with zeros depending
+            on their size specified in the ISA. This means a value of 0b1
+            in an 0 bit register will be examined as 0b00000001, so bit
+            0..6 will appear to be off and 7 will appear on.
+
+        Exceptions:
+            This call has undefined behaviour and may not handle exceptions
+            raised in the event of error.
+
+        Returns:
+            True or False
+        """
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = args[1]
+
+        size  = self._register.get_size(a)
+        value = list(bin(self._register.get_value(a), size)[2:])
+
+        return value[b] == '0'
 
     def branchAbsolute(self, args, instruction_decoded, **named_args):
         """Sets the instruction pointer to a new memory address.
