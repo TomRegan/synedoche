@@ -123,30 +123,6 @@ class Interpreter(BaseInterpreter):
     _registers={}
 
     def __init__(self, instructions, registers, memory):
-        """Takes a string via read_lines() or a file using readFile()
-        containing assembly and returns a list of machine instructions.
-
-        Each stage may do some amount of validation, and exceptions
-        may be raised.
-
-        Returns:
-            file:object -> [instructions:str]:list
-            line:str    -> [instructions:str]:list
-
-        Raises:
-            DataMissingException
-
-        Usage:
-            try:
-                interpreter=Interpreter(instructions, registers, memory)
-                programme=interpreter.readFile(file)
-            except DataMissingException as e:
-                print e.message
-            except BadInstructionOrSyntax as e:
-                print e.message
-        """
-        # TODO: Review this docstring. (2011-08-17)
-
         self._language           = instructions.get_language()
         self._instruction_syntax = instructions.get_syntax()
         self._instruction_values = instructions.get_values()
@@ -165,7 +141,7 @@ class Interpreter(BaseInterpreter):
 
 
 #
-#interface
+# Interface
 #
     def read_file(self, file_object):
         """file:object -> [instructions:str]:list
@@ -209,7 +185,7 @@ class Interpreter(BaseInterpreter):
         return self._jump_table
 
 #
-#worker functions
+# Worker functions
 #
     def _read(self, lines):
         """[lines:str]:list -> [instructions:str]:list"""
@@ -288,7 +264,7 @@ class Interpreter(BaseInterpreter):
         Description:
             [lines:str]:list -> [lines:str]:list
             Ensures all branch identifiers are valid (ie. corresponding
-            labels were found in proprocessing) and replaces them with
+            labels were found in preprocessing) and replaces them with
             interim hexadecimal addresses. These hex addresses will be
             replaced during encoding with binary values.
 
@@ -296,44 +272,57 @@ class Interpreter(BaseInterpreter):
             preprocessing -> [linking] -> encoding
 
         Restrictions:
-            NOT PUBLIC : This is not part of the interface and is unstable.
-            BROKEN     : Show-stopping bugs exist in this code.
-
-         Exceptions:
             N/A
 
-         Returns:
+        Exceptions:
+            N/A
+
+        Returns:
             A version of the programme having all labels replaced with memory
             references.
          """
 
-        # TODO: ensure missing and incorrect labels don't result in key errors.
-        # (2011-08-16)
         self.log.buffer("entering linker")
         output=[]
         for i in range(len(lines)):
-            key = re.match('\w+', lines[i]).group()
-            if key in self._label_replacements:
-                group = self._label_replacements[key][1]
-                mode  = self._label_replacements[key][2]
+            # First, check the instruction is valid. If we try to operate
+            # with badly formed instructions at this point we will raise
+            # an exception in the re module.
+            instruction = lines[i].split()[0]
+            if instruction in self._format_mappings:
+                syntax     = self._instruction_syntax[instruction]
+                expression = '^' + syntax['expression'] + '$'
+            else:
+                raise BadInstructionOrSyntax(BAD + lines[i])
 
-                pattern = self._instruction_syntax[key]['expression']
-                match = re.search(pattern, lines[i])
-                label = match.group(group)
-                # Calculate either absolute or relative addresses based on
-                # configuration file/API options.
-                if mode == 'absolute':
-                    base = self._text_offset
-                    offset = self._jump_table[label]
-                    offset = hex(base + (offset * self._word_spacing),
-                                 self._isa_size/4)
-                elif mode == 'relative':
-                    offset = str(self._jump_table[label] - i)
-                # Finally, we can replace the label.
-                lines[i] = lines[i].replace(label, offset)
-            output.append(lines[i])
+            # We should have this data from the previous stage, or have
+            # thrown an error.
+            # TODO: Add log message when label is linked. (2011-08-19)
+            match = re.search(expression, lines[i])
+            if match:
+                key = re.match('\w+', lines[i]).group()
+                if key in self._label_replacements:
+                    group = self._label_replacements[key][1]
+                    mode  = self._label_replacements[key][2]
 
-        #self._jump_table.clear()
+                    pattern = self._instruction_syntax[key]['expression']
+                    match = re.search(pattern, lines[i])
+                    label = match.group(group)
+                    # Calculate either absolute or relative addresses based on
+                    # configuration file/API options.
+                    if mode == 'absolute':
+                        base = self._text_offset
+                        offset = self._jump_table[label]
+                        offset = hex(base + (offset * self._word_spacing),
+                                     self._isa_size/4)
+                    elif mode == 'relative':
+                        offset = str(self._jump_table[label] - i)
+                    # Finally, we can replace the label.
+                    lines[i] = lines[i].replace(label, offset)
+                output.append(lines[i])
+            else:
+                raise BadInstructionOrSyntax(BAD + lines[i])
+
         self._programme = deepcopy(output)
         self.log.buffer("leaving linker")
         return output
@@ -358,7 +347,6 @@ class Interpreter(BaseInterpreter):
         output=[]
         instruction_fields={}
         for line in lines:
-            instruction = line.split()[0]
             #
             # we have to do a lot of checking to make sure
             # there aren't any key errors
@@ -368,13 +356,14 @@ class Interpreter(BaseInterpreter):
             # 3. ...references to registers
             # 4. earlier we converted labels into hex, need to be int
             #
+            instruction = line.split()[0]
             if instruction in self._format_mappings:
                 syntax=self._instruction_syntax[instruction]
                 expression = '^' + syntax['expression'] + '$'
                 self.log.buffer("matching `{0}' instruction"
                                 .format(instruction))
-                if re.search(expression, line):
-                    match = re.search(expression, line)
+                match = re.search(expression, line)
+                if match:
                     #
                     # we want to add the recognisable fields to
                     # the instruction we are building

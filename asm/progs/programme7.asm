@@ -34,7 +34,7 @@ Sort:  add  $fp, $zero, $sp # Set the fp to the current sp
 # Todo: Discovered a bug in the system here. No comma after rs led to
 #       crash in linker with nul object. More strict checking needed?
 #       Possibly reject based on regex?
-       bgtz $s0, Loop       # Continue if s0 > 0
+       bgtz $s0  Loop       # Continue if s0 > 0
        addi $s0, $s0, -1    # This is executed each time
        jr   $ra
        nop
