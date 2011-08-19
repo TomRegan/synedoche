@@ -2,10 +2,10 @@
 #
 # Processor Tests.
 # file           : cpu_test.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-10
-# last modified  : 2011-07-27
-# TODO: Add test for breakpoints. (2011-08-17)
+# last modified  : 2011-08-19
+#     2011-08-19 : Added test for breakpoints.
 
 import unittest
 import sys
@@ -18,6 +18,9 @@ from module import Logger
 from module import Monitor
 from module import Processor
 
+from module.SystemCall import SigTrap
+
+from module.lib.Functions import binary as bin
 
 if __name__ == '__main__':
 
@@ -148,6 +151,24 @@ if __name__ == '__main__':
             self.assertEquals(4194304, self.cpu.get_pc_value())
             self.cpu.cycle()
             self.assertEquals(4194308, self.cpu.get_pc_value())
+
+        def test_break_point(self):
+            """Adds a break point and checks for SigTrap."""
+            i=self.interpreter.read_lines(['addi $s1, $zero, 255\n',
+                                           'addi $s2, $zero, 1023\n',
+                                           'slt  $s0, $s1, $s2'])
+            i=self.interpreter.convert(i)
+            self.memory.load_text(i)
+            self.cpu.add_break_point(int('0x40000c', 16))
+            cycles = 100
+            with self.assertRaises(SigTrap):
+                for i in range(cycles):
+                    self.cpu.cycle()
+            # Shouldn't get anywhere near 100 cycles.
+            self.assertEquals(True, (i < 50))
+            # We should have fetched the slt instruction.
+            self.assertEquals("00000010001100101000000000101010",
+                              bin(self.cpu.get_pipeline()[0], 32)[2:])
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestCpu)
     unittest.TextTestRunner(verbosity=1).run(tests)

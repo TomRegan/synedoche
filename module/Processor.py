@@ -4,8 +4,9 @@
 # file           : Processor.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-20
-# last modified  : 2011-08-07
+# last modified  : 2011-08-19
 #     2011-08-18 : Added multi-part fetch.
+#     2011-08-19 : Refactored fetch and decode.
 
 from Interface  import UpdateBroadcaster, LoggerClient
 from Monitor    import MonitorClient

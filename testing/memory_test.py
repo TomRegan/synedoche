@@ -2,7 +2,7 @@
 #
 # Memory Tests.
 # file           : memory_test.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-10
 # last modified  : 2011-07-27
 
@@ -13,15 +13,10 @@ sys.path.append('../')
 
 from module import Api
 from module import Builder
-from module import Interface
 from module import Logger
 from module import Interpreter
-from module import Isa
-from module import Memory
 from module import Monitor
 from module import Processor
-from module import Registers
-from module.lib.Functions import binary as bin
 from module.Memory import (AddressingError, AlignmentError,
                            SegmentationFaultException)
 
