@@ -40,7 +40,7 @@
       <label     pattern="\w+:" />
       <reference pattern="(\w+):" />
       <comment   pattern="#.*" />
-      <hex       pattern="0x" />
+      <hex       pattern="x" />
     </syntax>
   </assembler>
 
@@ -85,7 +85,7 @@
       <field name="op" value="0x08" />
     </fields>
     <syntax>
-      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*([-+]?[0x]?\w+)" />
+      <expression pattern="\w+\s+(\$\w+),\s*(\$\w+),\s*([-+]?x?\w+)" />
       <symbol type="register" matches="rt" />
       <symbol type="register" matches="rs" />
       <symbol type="int"      matches="im" />
