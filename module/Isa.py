@@ -115,23 +115,35 @@ class Isa(BaseIsa):
     def getLanguage(self):
         return self._data['global_language']
 
+    def get_language(self):
+        return self._data['global_language']
+
     def getSize(self):
+        return self._data['global_size']
+
+    def get_size(self):
         return self._data['global_size']
 
     def getImplementation(self):
         return self._data['instruction_implementation']
 
+    def get_implementation(self):
+        return self._data['instruction_implementation']
+
     def getValues(self):
+        return self._data['instruction_presets']
+
+    def get_values(self):
         return self._data['instruction_presets']
 
     def getSignatures(self):
         return self._data['instruction_signatures']
 
-    def getSyntax(self):
-        return self._data['instruction_syntax']
+    def get_signatures(self):
+        return self._data['instruction_signatures']
 
-    #def getFormatMapping(self):
-    #    return self._data['itof']
+    def get_syntax(self):
+        return self._data['instruction_syntax']
 
     def get_format_bit_ranges(self):
         return self._data['format_properties']
@@ -141,9 +153,6 @@ class Isa(BaseIsa):
 
     def get_format_cycles(self):
         return self._data['format_property_cycles']
-
-    def getAssemblySyntax(self):
-        return self._data['assembler_syntax']
 
     def get_assembly_syntax(self):
         return self._data['assembler_syntax']

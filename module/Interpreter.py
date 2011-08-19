@@ -109,12 +109,13 @@ class BaseInterpreter(LoggerClient):
 class Interpreter(BaseInterpreter):
     # TODO: Try and phase out these declatations and rely on the values
     # given in __init__. (2011-08-18)
-    _comment_pattern = None #regex describing comments
-    _label_pattern   = None #regex describing a lable
-    _label_reference = None #regex for a label reference
-    _jump_table      = {}   #table of label addresses
-    _text_offset     = None #location to load the programme
-    _isa_size        = None #used to calculate instruction length
+    _comment_pattern = None # Regex describing comments.
+    _label_pattern   = None # Regex describing a lable.
+    _label_reference = None # Regex for a label reference.
+    _hex_pattern     = None # Regex for hexadecimal numbers.
+    _jump_table      = {}   # Table of label addresses.
+    _text_offset     = None # Location to load the programme.
+    _isa_size        = None # Used to calculate instruction length.
 
     _instruction_syntax={}
     _format_properties={}
@@ -146,14 +147,15 @@ class Interpreter(BaseInterpreter):
         """
         # TODO: Review this docstring. (2011-08-17)
 
-        self._language           = instructions.getLanguage()
-        self._instruction_syntax = instructions.getSyntax()
-        self._instruction_values = instructions.getValues()
+        self._language           = instructions.get_language()
+        self._instruction_syntax = instructions.get_syntax()
+        self._instruction_values = instructions.get_values()
         self._format_properties  = instructions.get_format_bit_ranges()
         self._format_mappings    = instructions.get_instruction_to_format_map()
-        self._comment_pattern    = instructions.getAssemblySyntax()['comment']
-        self._label_pattern      = instructions.getAssemblySyntax()['label']
-        self._label_reference    = instructions.getAssemblySyntax()['reference']
+        self._comment_pattern    = instructions.get_assembly_syntax()['comment']
+        self._label_pattern      = instructions.get_assembly_syntax()['label']
+        self._label_reference    = instructions.get_assembly_syntax()['reference']
+        self._hex_pattern        = instructions.get_assembly_syntax()['hex']
         self._label_replacements = instructions.get_label_replacements()
         self._isa_size           = instructions.getSize()
         self._registers          = registers.get_register_mappings()
@@ -388,20 +390,16 @@ class Interpreter(BaseInterpreter):
                             try:
                                 if value[:2] == '0x':
                                     value=int(value, 16)
+                                elif value.endswith(self._hex_pattern):
+                                    value=value.replace(self._hex_pattern, '')
+                                    value=int(value, 16)
                                 else:
-                                    try:
-                                        # TODO: problem with decimal, binary
-                                        # NEEDS REVIEW (still a problem?)
-                                        # 2011-07-28
-                                        #value=int(value, 2, signed=True)
-                                        value=int(value)
-                                    except:
-                                        value=int(value)
+                                    value=int(value)
                             except:
                                 line = "`" + line + "'"
                                 raise BadInstructionOrSyntax(
                                     BAD + line +
-                                    "\nFATAL: Failed to calculate effective address")
+                                    "\nFATAL: not a register address or numeric type")
                         self.log.buffer("`{0}' is {1}"
                                         .format(field, value))
                         instruction_fields[field]=value

@@ -163,12 +163,13 @@ class InstructionReader(XmlReader):
 
         assembler = self._root_node.getElementsByTagName('assembler')[0]
         assembler_syntax = assembler.getElementsByTagName('syntax')[0]
-        label     = assembler_syntax.getElementsByTagName('label')[0]
-        reference = assembler_syntax.getElementsByTagName('reference')[0]
-        comment   = assembler_syntax.getElementsByTagName('comment')[0]
+        label       = assembler_syntax.getElementsByTagName('label')[0]
+        reference   = assembler_syntax.getElementsByTagName('reference')[0]
+        comment     = assembler_syntax.getElementsByTagName('comment')[0]
+        hexadacimal = assembler_syntax.getElementsByTagName('hex')[0]
 
         data=[]
-        for element in [label, reference, comment]:
+        for element in [label, reference, comment, hexadacimal]:
             name = element.tagName.encode('ascii')
             pattern = element.attributes['pattern'].value.encode('ascii')
             data.append((name, pattern))

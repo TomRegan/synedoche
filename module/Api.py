@@ -137,7 +137,6 @@ class Sunray(BaseApi):
         Raises:
             RegisterReferenceException
         """
-        # TODO: Add provision for hex numbers. (2011-08-18)
         self.log.buffer('addImmediate called')
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)

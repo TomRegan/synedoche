@@ -69,7 +69,7 @@
       <label     pattern="\w+:" />
       <reference pattern="(\w+):" />
       <comment   pattern=";.*" />
-      <hex       pattern="[Hh]" />
+      <hex       pattern="H" />
     </syntax>
   </assembler>
 
@@ -100,7 +100,7 @@
       <field name="op" value="0xc6" />
     </fields>
     <syntax>
-      <expression pattern="\w+\s+(\d+)[Hh]?" />
+      <expression pattern="\w+\s+(\d+H?)" />
       <symbol type="immediate" matches="data" />
     </syntax>
     <implementation>
