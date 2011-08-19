@@ -150,7 +150,6 @@ class Pipelined(BaseProcessor):
             # TRY: raising index error and dealing with instruction
             # in cycle.
             while number_of_parts > 1:
-                # TODO: Log messages below not buffering. (2011-08-18)
                 self._log.buffer("multi-part instruction")
                 part = self.__fetch()
                 instruction = self.__concatenate_instruction(
@@ -193,6 +192,7 @@ class Pipelined(BaseProcessor):
         return instruction
 
     def __decode(self, index):
+        # TODO: Tidy these identifiers up a bit. (2011-08-19)
         properties = self._isa.get_format_bit_ranges()
         cycles     = self._isa.get_format_cycles()
         signatures = self._isa.getSignatures()
@@ -200,7 +200,7 @@ class Pipelined(BaseProcessor):
         i = bin(self._pipeline[index][0],self._size)[2:]
         self._log.buffer("decoding {0}".format(i))
 
-        # Identify the instruction
+        # The following block identifies the current instruction.
         test={}
         # Test each type of instruction
         for format_type in properties:
@@ -214,8 +214,6 @@ class Pipelined(BaseProcessor):
                         end  = properties[format_type][field][1]+1
                         test[field]=int(i[start:end],2)
                     if test == signatures[signature]:
-                        #self._pipeline[index].append(format_type)
-                        #self._pipeline[index].append(signature)
                         number_of_parts = cycles[format_type]
                         self._log.buffer("decoded `{0}' type instruction, {1}"
                                          .format(format_type, signature))
@@ -225,20 +223,37 @@ class Pipelined(BaseProcessor):
         # A dict to hold the encoded instruction parts.
         self._pipeline[index].append({})
 
-        # TODO: Get instruction->format mappings and use fetch-cycles
-        # to calculate the length of the instruction. (2011-08-19)
-        #print(self._pipeline[index][2])
-        i    = bin(self._pipeline[index][0], self._size)[2:]
-        type = self._pipeline[index][1]
-        properties = self._isa.get_format_bit_ranges()
-        for field in properties[type]:
-            start = properties[type][field][0]
-            end   = properties[type][field][1]+1
-            self._pipeline[index][3][field] = i[start:end]
-            self._log.buffer("`{:}' is {:}"
-                             .format(field, i[start:end]))
+        # Data on the instruction format so we can decode properly.
+        format_sizes      = self._isa.get_format_sizes()
+        format_properties = self._isa.get_format_bit_ranges()
 
-        self._log.buffer("executing {:}".format(i))
+        # Instruction data to operate on.
+        instruction_type   = self._pipeline[index][1]
+        instruction_name   = self._pipeline[index][2]
+
+        # Particularly in the case of multi-part instructions, we need
+        # to ensure the correct length binary is formed. We will use the
+        # format size property to achieve this.
+        size = format_sizes[instruction_type]
+        self._log.buffer("reading {:}b {:} instruction"
+                         .format(size, instruction_name))
+
+        # Finally, translate the instruction into a binary representation.
+        instruction_binary = bin(self._pipeline[index][0], size)[2:]
+
+
+        # Begin the execution by decoding each bit-field.
+        for field in format_properties[instruction_type]:
+            start = format_properties[instruction_type][field][0]
+            end   = format_properties[instruction_type][field][1]+1
+            self._pipeline[index][3][field] = instruction_binary[start:end]
+            self._log.buffer("`{:}' is {:} ({:})"
+                             .format(field,
+                                     instruction_binary[start:end],
+                                     int(instruction_binary[start:end], 2)))
+
+        self._log.buffer("executing {:} ({:})"
+                         .format(instruction_binary, instruction_name))
         implementation = self._isa.getImplementation()
         name = self._pipeline[index][2]
         branch_offset = index

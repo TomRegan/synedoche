@@ -23,34 +23,34 @@
        Varients exist, since 8085 is a pretty irregular ISA.
   -->
   <formats>
-    <format type="RS"  size="8"  fetch="1"><!--Register Addressing-->
+    <format type="RS"  size="0x8"  fetch="0x1"><!--Register Addressing-->
       <field name="op"  start="0x00" end="0x04" />
       <field name="s"   start="0x05" end="0x07" />
     </format>
 
-    <format type="RDS" size="8"  fetch="1"><!--Register Addressing-->
+    <format type="RDS" size="0x8"  fetch="0x1"><!--Register Addressing-->
       <field name="op"  start="0x00" end="0x01" />
       <field name="d"   start="0x02" end="0x04" />
       <field name="s"   start="0x05" end="0x07" />
     </format>
 
-    <format type="RI" size="8"  fetch="1"><!--Register Indirect-->
+    <format type="RI" size="0x8"  fetch="0x1"><!--Register Indirect-->
       <field name="op" start="0x00" end="0x07" />
     </format>
 
-    <format type="IM"  size="16" fetch="2"><!--Immediate Addressing-->
+    <format type="IM"  size="0x10" fetch="0x2"><!--Immediate Addressing-->
       <field name="op"   start="0x00" end="0x07" />
       <field name="data" start="0x08" end="0x0f" />
     </format>
 
-    <format type="ID"  size="16" fetch="2"><!--Immediate Addressing-->
+    <format type="ID"  size="0x10" fetch="0x2"><!--Immediate Addressing-->
       <field name="op"   start="0x00" end="0x01" />
       <field name="d"    start="0x02" end="0x04" />
       <field name="s"    start="0x05" end="0x07" />
       <field name="data" start="0x08" end="0x0f" />
     </format>
 
-    <format type="3-byte" size="24" fetch="3">
+    <format type="3-byte" size="0x18" fetch="0x3">
       <field name="op"      start="0x00" end="0x07" />
       <field name="data_0B" start="0x08" end="0x0f" />
       <field name="data_1B" start="0x10" end="0x17" />
@@ -141,7 +141,7 @@
       <symbol type="immediate" matches="data" />
     </syntax>
     <implementation>
-      <method name="addImmediate" args="d 0x00 data" />
+      <method name="setRegister" args="d data" />
     </implementation>
   </instruction>
 

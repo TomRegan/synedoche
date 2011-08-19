@@ -9,7 +9,7 @@
 <instructions language="mips32" size="0x20" api="sunray">
 
   <formats>
-    <format type="r" size="32" fetch="1">
+    <format type="r" size="0x20" fetch="0x1">
       <field name="op" start="0x00" end="0x05" />
       <field name="rs" start="0x06" end="0x0a" />
       <field name="rt" start="0x0b" end="0x0f" />
@@ -17,13 +17,13 @@
       <field name="sa" start="0x15" end="0x19" />
       <field name="fn" start="0x1a" end="0x1f" />
     </format>
-    <format type="i" size="32" fetch="1">
+    <format type="i" size="0x20" fetch="0x1">
       <field name="op" start="0x00" end="0x05" />
       <field name="rs" start="0x06" end="0x0a" />
       <field name="rt" start="0x0b" end="0x0f" />
       <field name="im" start="0x10" end="0x1f" />
     </format>
-    <format type="j" size="32" fetch="1">
+    <format type="j" size="0x20" fetch="0x1">
       <field name="op" start="0x00" end="0x05" />
       <field name="im" start="0x06" end="0x1f" />
     </format>
