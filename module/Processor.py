@@ -151,12 +151,10 @@ class Pipelined(BaseProcessor):
             # in cycle.
             while number_of_parts > 1:
                 # TODO: Log messages below not buffering. (2011-08-18)
-                self.log.buffer("multi-part instruction")
+                self._log.buffer("multi-part instruction")
                 part = self.__fetch()
-                instruction = self.__concaternate_instruction(
+                instruction = self.__concatenate_instruction(
                     instruction, part)
-                self.log.buffer("building instruction: {:}"
-                                   .format(bin(instruction)))
                 self._pipeline[0][0] = instruction
                 self._registers.increment(self._pc, self._word_space)
                 number_of_parts = number_of_parts - 1
@@ -181,9 +179,11 @@ class Pipelined(BaseProcessor):
     def _writeback_coordinator(self, index):
         self.__writeback(index)
 
-    def __concaternate_instruction(self, part_0, part_1):
+    def __concatenate_instruction(self, part_0, part_1):
         part_0 = bin(part_0, self._size)
         part_1 = bin(part_1, self._size)
+        self._log.buffer("concatenating {:} and {:}"
+                         .format(part_0[2:], part_1[2:]))
         instruction = part_0[2:] + part_1[2:]
         return int(instruction, 2)
 
@@ -225,7 +225,10 @@ class Pipelined(BaseProcessor):
         # A dict to hold the encoded instruction parts.
         self._pipeline[index].append({})
 
-        i    = bin(self._pipeline[index][0],self._size)[2:]
+        # TODO: Get instruction->format mappings and use fetch-cycles
+        # to calculate the length of the instruction. (2011-08-19)
+        #print(self._pipeline[index][2])
+        i    = bin(self._pipeline[index][0], self._size)[2:]
         type = self._pipeline[index][1]
         properties = self._isa.get_format_bit_ranges()
         for field in properties[type]:

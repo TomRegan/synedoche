@@ -42,7 +42,7 @@ class Cli(UpdateListener):
         # ...
         # 11: reserved for _really_ annoying messages that are
         #     rarely useful.
-        self.local_DEBUG = 1
+        self.local_DEBUG = 0
 
         self.simulation  = None
         self.last_cmd    = None

@@ -19,7 +19,7 @@
   <registers>
     <register name="A"     number="0x00" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="FLAGS" number="0x01" size="0x08" write="False" profile="psw" visible="True" preset="" />
-    <register name="B"     number="0x02" size="0x08" write="True"  profile="gp"  visible="True" preset="0x01" />
+    <register name="B"     number="0x02" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="C"     number="0x03" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="D"     number="0x04" size="0x08" write="True"  profile="gp"  visible="True" preset="" />
     <register name="E"     number="0x05" size="0x08" write="True"  profile="gp"  visible="True" preset="" />

@@ -354,15 +354,6 @@ class Sunray(BaseApi):
             b = int(instruction_decoded[args[1]], 2)
         else:
             b = args[1]
-        #try:
-        #    a = int(instruction_decoded[args[0]], 2)
-        #except:
-        #    a = int(args[0])
-
-        #try:
-        #    b = int(args[1])
-        #except:
-        #    b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
         self._register.set_value(a, b)
         return True
