@@ -83,7 +83,7 @@ class Parser(BaseParser):
                 if len(tokens) > 1:
                     if tokens[1][:2] == 're' and len(tokens) > 2:
                         return ('print_registers', {'rewind':tokens[2]})
-                    elif tokens[1].isdigit():
+                    elif tokens[1][0].isdigit():
                         return ('print_register', (tokens[1]))
                     else:
                         return ('print_registers', ())

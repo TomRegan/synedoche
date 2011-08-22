@@ -6,10 +6,11 @@
 # since          : 2011-07-15
 # last modified  : 2011-08-17
 
-VERSION='121'
+VERSION='122'
 RELEASE_NAME='M5'
 PROGRAMME_NAME=''
 DEBUG=True
+COLOUR = True
 LICENSE="""Copyright 2011 Tom Regan (thomas.c.regan@gmail.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
