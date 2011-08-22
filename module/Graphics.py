@@ -6,21 +6,26 @@
 # since          : 2011-08-09
 # last modified  : 2011-08-09
 
+MAXSIZE = 50
+
 from Interface import UpdateListener
 from lib.Enumerations import Colours
-
-from vtk import vtkDiskSource
-from vtk import vtkLineSource
-from vtk import vtkPolyDataMapper
-from vtk import vtkActor
-from vtk import vtkTubeFilter
-from vtk import vtkFollower
-from vtk import vtkRenderer
-from vtk import vtkRenderWindow
-from vtk import vtkRenderWindowInteractor
-from vtk import vtkVectorText
-from vtk import vtkFileOutputWindow
-from vtk import vtkOutputWindow
+try:
+    from vtk import vtkDiskSource
+    from vtk import vtkLineSource
+    from vtk import vtkPolyDataMapper
+    from vtk import vtkActor
+    from vtk import vtkTubeFilter
+    from vtk import vtkFollower
+    from vtk import vtkRenderer
+    from vtk import vtkRenderWindow
+    from vtk import vtkRenderWindowInteractor
+    from vtk import vtkVectorText
+    from vtk import vtkFileOutputWindow
+    from vtk import vtkOutputWindow
+except ImportError, e:
+    import sys
+    sys.stderr.write("Couldn't locate dependency: vtk. Cannot draw.")
 
 class BaseVisualizer(UpdateListener):
     def update(self):
@@ -35,6 +40,9 @@ class Visualizer(BaseVisualizer):
         # Dynamically altered data
         self.poly_data = []
         self.bar_data  = []
+
+        # Static poly data
+        self.resize_factor = []
 
         # Mappers for rendering
         self.poly_mappers = []
@@ -99,19 +107,27 @@ class Visualizer(BaseVisualizer):
 
     def update(self, source):
         """Updates the data source."""
+        # TODO: Review: does this need to loop?
+        # Maybe we can just append list as-is? (2011-08-22)
+
+        # Create some storage space for the new data.
         self.data.append([])
+        # Push each item into the array on the stack.
         try:
             for item in source:
                 self.data[-1].append(item)
         except:
+            # If that fails, assume one piece of data.
             self.data[-1].append(source)
         self.updated = True
 
-    def add_node(self, source, name=""):
+    def add_node(self, source, name="", resize=1.0):
         """Appends a node to the nodes list."""
         # Poly-data
         self.node_ids.append(name)
         poly = vtkDiskSource()
+        # Set initial size and resize factor
+        self.resize_factor.append(resize)
         try:
             size = self.data[-1][source]
         except:
@@ -211,16 +227,25 @@ class Visualizer(BaseVisualizer):
         for i in range(len(self.poly_data)):
             # Redraw the vertices
             poly = self.poly_data[i]
+            dact = self.dynamic_actors[i]
             try:
                 size = self.data[-1][i]
             except:
                 size = 0
-            poly.SetOuterRadius(size)
-            poly.SetInnerRadius(size - 0.4)
-            # Redraw the bars
+            size = size * self.resize_factor[i]
+
+            if size < MAXSIZE:
+                poly.SetOuterRadius(size)
+                poly.SetInnerRadius(size - 0.4)
+            else:
+                # Create instead an inwardly filling disc.
+                poly.SetInnerRadius(MAXSIZE - size/10)
+                # Halve the opacity
+                dact.GetProperty().SetOpacity(0.3)
+
+            # Redraw the bars: recolour to reflect +/- change.
             try:
                 data = self.bar_data[i]
-                dact = self.dynamic_actors[i]
                 cur = self.data[-1][i]
                 old = self.data[-2][i]
                 #print("cur:{:}, old:{:}".format(cur, old))

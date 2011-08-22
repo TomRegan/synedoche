@@ -18,8 +18,8 @@ try:
     from vtk import vtkRenderWindowInteractor
     from vtk import vtkBalloonWidget
     from vtk import vtkBalloonRepresentation
-except:
-    print("fatal: couldn't find VTK libraries for drawing")
+except ImportError:
+    print("Cannot start visualizer: VTK libraries could not be found.")
 
 class UnknownRepresentationException(Exception):
     """Tried to call a representation (vtkSource) that doesn't exist."""
@@ -42,6 +42,7 @@ class Visualizer(UpdateListener):
         self.monitor         = Monitor
         self.sources         = []
         self.representations = []
+        self.resize_factors  = []
         self.actors          = []
         self.lines           = []
         self.mappers         = []
@@ -89,7 +90,8 @@ class Visualizer(UpdateListener):
         """
         cycles = self.monitor.get_int_prop('processor_cycles')
         for rep in self.representations:
-            rep.SetRadius(float(cycles)/100)
+            size = self.resize_factors[self.representations.index(rep)]
+            rep.SetRadius(float(cycles)/size)
         self.window.Render()
 
     def add_broadcast_data_source(self, obj):
@@ -109,7 +111,8 @@ class Visualizer(UpdateListener):
                                      int_prop,
                                      opacity=1.0,
                                      position=None,
-                                     colour="blue"):
+                                     colour="blue",
+                                     resize_factor=1.0):
         if self.representation_count >= len(self.layout_grid):
             return
         if hasattr(self.monitor, 'get_int_prop'):
