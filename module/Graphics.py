@@ -6,7 +6,7 @@
 # since          : 2011-08-09
 # last modified  : 2011-08-09
 
-MAXSIZE = 50
+MAXSIZE = 30
 
 from Interface import UpdateListener
 from lib.Enumerations import Colours
@@ -52,7 +52,7 @@ class Visualizer(BaseVisualizer):
 
         # Actor objects
         self.actors = []
-        self.dynamic_actors = []
+        self.dynamic_actors = [[], []]
 
         # Actor Properties
         self.edge_colours = []
@@ -227,7 +227,8 @@ class Visualizer(BaseVisualizer):
         for i in range(len(self.poly_data)):
             # Redraw the vertices
             poly = self.poly_data[i]
-            dact = self.dynamic_actors[i]
+            ribbon = self.dynamic_actors[0][i]
+            polact = self.dynamic_actors[1][i]
             try:
                 size = self.data[-1][i]
             except:
@@ -239,9 +240,8 @@ class Visualizer(BaseVisualizer):
                 poly.SetInnerRadius(size - 0.4)
             else:
                 # Create instead an inwardly filling disc.
-                poly.SetInnerRadius(MAXSIZE - size/10)
-                # Halve the opacity
-                dact.GetProperty().SetOpacity(0.3)
+                poly.SetInnerRadius(MAXSIZE - size/40)
+                polact.GetProperty().SetOpacity(0.3)
 
             # Redraw the bars: recolour to reflect +/- change.
             try:
@@ -251,11 +251,11 @@ class Visualizer(BaseVisualizer):
                 #print("cur:{:}, old:{:}".format(cur, old))
                 dif = abs(cur - old)+2
                 if (cur - old) < 0:
-                    dact.GetProperty().SetColor(Colours.BLUE)
+                    ribbon.GetProperty().SetColor(Colours.BLUE)
                 elif (cur - old) == 0:
-                    dact.GetProperty().SetColor(Colours.MAGENTA)
+                    ribbon.GetProperty().SetColor(Colours.MAGENTA)
                 else:
-                    dact.GetProperty().SetColor(Colours.GREEN)
+                    ribbon.GetProperty().SetColor(Colours.GREEN)
                 data.SetRadius(dif)
             except: pass
 
@@ -268,6 +268,7 @@ class Visualizer(BaseVisualizer):
             actor.GetProperty().SetColor(Colours.BASE0)
             actor.GetProperty().SetOpacity(0.6)
             self.actors.append(actor)
+            self.dynamic_actors[1].append(actor)
 
     def _draw_edges(self):
         for i in range(len(self.line_mappers)):
@@ -285,7 +286,7 @@ class Visualizer(BaseVisualizer):
             bar_actor.GetProperty().SetColor(Colours.MAGENTA)
             bar_actor.GetProperty().SetOpacity(0.2)
             self.actors.append(bar_actor)
-            self.dynamic_actors.append(bar_actor)
+            self.dynamic_actors[0].append(bar_actor)
 
 
     def _draw_text(self):

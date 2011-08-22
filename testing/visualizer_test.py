@@ -154,7 +154,7 @@ if __name__ == '__main__':
             visual.set_edge_layout_hub()
             visual.set_text_layout_default()
             visual.initialize("Test Multiple Representations")
-            for i in range(100):
+            for i in range(50):
                 visual.update([counter1, counter2, counter3,
                                counter4, counter5, counter6])
                 visual.render()
