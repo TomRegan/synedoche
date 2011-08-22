@@ -20,7 +20,7 @@ from module.Evaluator   import Evaluator
 from module.Parser      import Parser
 from module.Completer   import Completer
 from module.Memory      import AlignmentError
-from module.Interpreter import BadInstructionOrSyntax
+from module.Assembler   import BadInstructionOrSyntax
 from module.Memory      import SegmentationFaultException
 from module.SystemCall  import SigTerm, SigTrap
 
@@ -172,7 +172,7 @@ class Cli(UpdateListener):
     def add_breakpoint(self, point):
         # Load the jump table so we can match a label if present.
         if hasattr(self, "_programme_text"):
-            labels = self.simulation.get_interpreter().get_jump_table()
+            labels = self.simulation.get_assembler().get_jump_table()
             offset = self._programme_text[2][0]
             if labels.has_key(point):
                 point = (labels[point] * 4) + offset

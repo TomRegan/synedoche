@@ -17,7 +17,7 @@ from module import Monitor
 from module import Builder
 from module import Api
 from module import Processor
-from module import Interpreter
+from module import Assembler
 
 if __name__ == '__main__':
 
@@ -56,10 +56,10 @@ if __name__ == '__main__':
             self.api.open_log(self.logger)
 
 
-            self.interpreter = Interpreter.Interpreter(
+            self.assembler = Assembler.Assembler(
                 instructions=self.instructions, registers=self.registers,
                 memory=self.memory)
-            self.interpreter.open_log(self.logger)
+            self.assembler.open_log(self.logger)
 
             self.cpu = Processor.Pipelined(
                 registers=self.registers, memory=self.memory,

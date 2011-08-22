@@ -13,7 +13,7 @@ sys.path.append('../')
 
 from module import Api
 from module import Builder
-from module import Interpreter
+from module import Assembler
 from module import Logger
 from module import Monitor
 from module import Processor
@@ -57,10 +57,10 @@ if __name__ == '__main__':
             self.api = Api.Sunray()
             self.api.open_log(self.logger)
 
-            self.interpreter = Interpreter.Interpreter(
+            self.assembler = Assembler.Assembler(
                 instructions=self.instructions, registers=self.registers,
                 memory=self.memory)
-            self.interpreter.open_log(self.logger)
+            self.assembler.open_log(self.logger)
 
             self.cpu = Processor.Pipelined(
                 registers=self.registers, memory=self.memory,
@@ -125,8 +125,8 @@ if __name__ == '__main__':
         def test_add_instruction(self):
             """add instruction works as expected"""
             self.logger.buffer('>-----testAddInstruction')
-            i=self.interpreter.read_lines(['addi $s0, $zero, 32'])
-            i=self.interpreter.convert(i)
+            i=self.assembler.read_lines(['addi $s0, $zero, 32'])
+            i=self.assembler.convert(i)
             self.memory.load_text(i)
             cycles=4
             for i in range(cycles):
@@ -136,10 +136,10 @@ if __name__ == '__main__':
         def test_set_on_less_instruction(self):
             """slt instruction works as expected"""
             self.logger.buffer('>-----testSltInstruction')
-            i=self.interpreter.read_lines(['addi $s1, $zero, 255\n',
+            i=self.assembler.read_lines(['addi $s1, $zero, 255\n',
                                            'addi $s2, $zero, 1023\n',
                                            'slt  $s0, $s1, $s2'])
-            i=self.interpreter.convert(i)
+            i=self.assembler.convert(i)
             self.memory.load_text(i)
             cycles = 6
             for i in range(cycles):
@@ -154,10 +154,10 @@ if __name__ == '__main__':
 
         def test_break_point(self):
             """Adds a break point and checks for SigTrap."""
-            i=self.interpreter.read_lines(['addi $s1, $zero, 255\n',
+            i=self.assembler.read_lines(['addi $s1, $zero, 255\n',
                                            'addi $s2, $zero, 1023\n',
                                            'slt  $s0, $s1, $s2'])
-            i=self.interpreter.convert(i)
+            i=self.assembler.convert(i)
             self.memory.load_text(i)
             self.cpu.add_break_point(int('0x40000c', 16))
             cycles = 100

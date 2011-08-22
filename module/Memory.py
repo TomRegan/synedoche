@@ -253,7 +253,7 @@ class Memory(BaseMemory):
                 raise SegmentationFaultException('{:} is out of bounds'
                                  .format(hex(offset).replace('L','')))
             self.set_word(offset, line, self._size)
-            # bit silly, but in line with interpreter's return tuple
+            # bit silly, but in line with assembler's return tuple
             binary.append(line)
             address.append(offset)
             # This ensures the next instruction is loaded at the correct

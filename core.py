@@ -15,9 +15,9 @@ import sys
 #import os
 
 from module import Api
+from module import Assembler
 from module import Builder
 from module import Interface
-from module import Interpreter
 from module import Logger
 from module import Monitor
 from module import Processor
@@ -79,10 +79,10 @@ class Simulation(object):
         self.api = Api.Sunray()
         self.api.open_log(self.logger)
 
-        self.interpreter = Interpreter.Interpreter(
+        self.assembler = Assembler.Assembler(
             instructions=self.instructions, registers=self.registers,
             memory=self.memory)
-        self.interpreter.open_log(self.logger)
+        self.assembler.open_log(self.logger)
 
         self.cpu = Processor.Pipelined(
             registers=self.registers, memory=self.memory,
@@ -151,8 +151,8 @@ class Simulation(object):
             return
         self.log.buffer("`evaluate' called by `{0}'"
                         .format( client.__class__.__name__))
-        expression = self.interpreter.read_lines(lines)
-        expression = self.interpreter.convert(expression)
+        expression = self.assembler.read_lines(lines)
+        expression = self.assembler.convert(expression)
         if connected:
             self.cpu.reset()
             # TODO: review this and comment: why no dumping? 2011-08-04
@@ -171,8 +171,8 @@ class Simulation(object):
         self.log.buffer("`load' called by `{0}'".format(client.__class__.__name__))
         file_object = open(filename, 'r')
         # We will collect assembly binary and offset data, mainly to print.
-        (binary, assembly) = self.interpreter.read_file(file_object)
-        programme = self.interpreter.convert(binary)
+        (binary, assembly) = self.assembler.read_file(file_object)
+        programme = self.assembler.convert(binary)
         (chomp, offset) = self.memory.load_text_and_dump(programme)
         return (assembly, binary, offset)
 
@@ -231,9 +231,9 @@ class Simulation(object):
         """Returns instruction_size:int."""
         return self.instruction_size
 
-    def get_interpreter(self):
-        """Returns a reference to the interpreter object."""
-        return self.interpreter
+    def get_assembler(self):
+        """Returns a reference to the assembler object."""
+        return self.assembler
 
     def get_isa(self):
         """Returns a reference to the isa object."""

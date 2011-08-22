@@ -179,7 +179,7 @@ class MemoryLogger(Logger):
     def flush(self):
         self.instance.flush()
 
-class InterpreterLogger(Logger):
+class AssemblerLogger(Logger):
     def __init__(self, instance, message=None, timed=True):
         self.instance = instance
         if message:
@@ -254,6 +254,9 @@ class SystemLogger(Logger):
         self.instance.flush()
 
 if __name__ == '__main__':
+    # TODO: Write unit-tests for logger. (2011-08-22)
+    # Deprecated unit testing.
+    #
     import unittest
     import os
 
@@ -283,7 +286,7 @@ if __name__ == '__main__':
             logger = self.logger
             cpu=CpuLogger(logger)
             mem=MemoryLogger(logger)
-            ipr=InterpreterLogger(logger)
+            ipr=AssemblerLogger(logger)
             sys=SystemLogger(logger)
 
             mem.buffer('mem0', timed=False)

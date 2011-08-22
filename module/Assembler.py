@@ -2,19 +2,17 @@
 #coding=iso-8859-15
 #
 # Convert Assembly to Machine Instructions.
-# file           : Interpreter.py
+# file           : Assembler.py
 # author         : Tom Regan <thomas.c.regan@gmail.com>
 # since          : 2011-07-05
 # last modified  : 2011-07-22 (minor revisions; this is stable)
 #     2011-08-18 : Support for multi-part instructions added.
 
-# TODO: Bad syntax is causing crash in linker
-#       See accompanying note in programme 7. (2011-08-12)
 
 import re
 
 from copy      import deepcopy
-from Logger    import InterpreterLogger
+from Logger    import AssemblerLogger
 from Interface import *
 
 from lib.Functions import binary as bin
@@ -34,10 +32,10 @@ class DataConversionFromUnknownType(Exception):
 
 
 
-class BaseInterpreter(LoggerClient):
+class BaseAssembler(LoggerClient):
     def open_log(self, logger):
-        self.log = InterpreterLogger(logger)
-        self.log.write("created `{0}' interpreter".format(self._language))
+        self.log = AssemblerLogger(logger)
+        self.log.write("created `{0}' assembler".format(self._language))
     def read_lines(self, lines):
         """Read a line or lines of input and return a list of instructions.
 
@@ -89,7 +87,7 @@ class BaseInterpreter(LoggerClient):
 
         Purpose:
             Before attempting to load a programme that has been through
-            the interpreter, it should be converted for use in the
+            the assembler, it should be converted for use in the
             simulation.
 
         Restrictions:
@@ -106,7 +104,7 @@ class BaseInterpreter(LoggerClient):
     def get_jump_table():
         pass
 
-class Interpreter(BaseInterpreter):
+class Assembler(BaseAssembler):
     # TODO: Try and phase out these declatations and rely on the values
     # given in __init__. (2011-08-18)
     _comment_pattern = None # Regex describing comments.
@@ -147,7 +145,7 @@ class Interpreter(BaseInterpreter):
         """file:object -> [instructions:str]:list
 
         Usage:
-            interpreter.readFile(file)
+            assembler.readFile(file)
 
         Raises:
             Exception
@@ -163,7 +161,7 @@ class Interpreter(BaseInterpreter):
         """[lines:str]:list -> [instructions:str]:list
 
         Usage:
-            interpreter.read_lines(str)
+            assembler.read_lines(str)
         """
         for line in lines:
             self.log.buffer("reading line: {0}"
