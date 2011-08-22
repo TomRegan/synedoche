@@ -23,8 +23,8 @@ class Parser(BaseParser):
         command = ''
         if len(tokens) > 0:
             command = tokens.pop(0)
-        if command[:2] == 'pr':
-            return self._print(tokens)
+        if command[:1] == 'i':
+            return self._info(tokens)
         elif command == 'help':
             return ('help', ())
         elif command == 'usage':
@@ -77,9 +77,9 @@ class Parser(BaseParser):
         else:
             return ('usage', {'fun': command})
 
-    def _print(self, tokens):
+    def _info(self, tokens):
         if len(tokens) > 0:
-            if tokens[0][:3] == 'reg':
+            if tokens[0][:1] == 'r':
                 if len(tokens) > 1:
                     if tokens[1][:2] == 're' and len(tokens) > 2:
                         return ('print_registers', {'rewind':tokens[2]})
@@ -95,7 +95,7 @@ class Parser(BaseParser):
                         return ('print_memory',
                             (int(tokens[1]), int(tokens[2], 16)))
                     except:
-                        return ('usage', {'fun':'print'})
+                        return ('usage', {'fun':'info'})
                 elif len(tokens) > 1:
                     return ('print_memory', [int(tokens[1])])
                 else:
@@ -110,7 +110,7 @@ class Parser(BaseParser):
                 return ('print_visualization_modules', ())
             else:
                 pass
-        return ('usage', {'fun':'print'})
+        return ('usage', {'fun':'info'})
 
     def _load(self, tokens):
         if len(tokens) > 0:

@@ -483,7 +483,7 @@ class Cli(UpdateListener):
 #
 
     def usage(self, args):
-        usage   = {'print':'print <reg[ister[s]]>|<prog[ramme]>'}
+        usage   = {"info":"info <r[egister[s]]> -- see help for all options."}
         command = ''
         if args.has_key('fun'):
             command = args['fun']
