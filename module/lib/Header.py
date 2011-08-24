@@ -6,7 +6,7 @@
 # since          : 2011-07-15
 # last modified  : 2011-08-17
 
-VERSION='125'
+VERSION='126'
 RELEASE_NAME='M5'
 PROGRAMME_NAME=''
 DEBUG=True

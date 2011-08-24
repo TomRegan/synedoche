@@ -25,7 +25,7 @@ try:
     from vtk import vtkOutputWindow
 except ImportError, e:
     import sys
-    sys.stderr.write("Couldn't locate dependency: vtk. Cannot draw.")
+    sys.stderr.write("Couldn't locate dependency: vtk. Cannot draw.\n")
 
 class BaseVisualizer(UpdateListener):
     def update(self):

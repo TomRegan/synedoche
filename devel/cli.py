@@ -49,7 +49,6 @@ class Cli(UpdateListener):
         self.registers   = []
         self.memory      = []
         self.pipeline    = []
-        self.updated     = False
 
         try:
         # We can try to use a history file, but readline may not
@@ -228,28 +227,20 @@ class Cli(UpdateListener):
         for memento in [self.registers, self.memory, self.pipeline]:
             if len(memento) > 10:
                 memento.pop(0)
-
-        # TODO: We're fixing a double update bug with the test for prior
-        # updates. We need to look this out to prevent it from propagating.
-        # (2011-08-25)
         # Push the newly retrieved values
-        if not self.updated:
-            if kwargs.has_key('registers'):
-                self.registers.append(kwargs['registers'])
-            if kwargs.has_key('memory'):
-                self.memory.append(kwargs['memory'])
-            if kwargs.has_key('pipeline'):
-                self.pipeline.append(kwargs['pipeline'])
-            if self.local_DEBUG >= 2:
-                print("DEBUG: {:}".format(self.get_statistics_update()))
-            try:
-                self.visualizer.update(self.get_statistics_update())
-                self.visualizer.render()
-            except AttributeError:
-                pass
-            self.updated = True
-        else:
-            self.updated = False
+        if kwargs.has_key('registers'):
+            self.registers.append(kwargs['registers'])
+        if kwargs.has_key('memory'):
+            self.memory.append(kwargs['memory'])
+        if kwargs.has_key('pipeline'):
+            self.pipeline.append(kwargs['pipeline'])
+        if self.local_DEBUG >= 2:
+            print("DEBUG: {:}".format(self.get_statistics_update()))
+        try:
+            self.visualizer.update(self.get_statistics_update())
+            self.visualizer.render()
+        except AttributeError:
+            pass
 
     def get_statistics_update(self):
         a  = self.simulation.get_monitor().get_int_prop('processor_cycles')
@@ -285,10 +276,7 @@ class Cli(UpdateListener):
             raise e
 
     def visualize(self, args=None):
-        try:
-            from module.Graphics  import Visualizer
-        except:
-            return
+        from module.Graphics  import Visualizer
         # Try to destroy the visualizer only if there is one.
         if args == "kill":
             if hasattr(self, 'visualizer'):
@@ -358,48 +346,30 @@ class Cli(UpdateListener):
         else:
         # The default frame is -1, the top of the stack.
             frame = -1
-
-        # Grab the current frame
         try:
-        # Grab an old frame if rewind is requested
-            r_cur = self.registers[frame]
-            print("r_cur is {:}".format(frame))
+        # grab the correct frame if rewind is requested
+            r=self.registers[frame]
         except IndexError:
             print("Can't rewind {:}, only {:} values stored."
                   .format(abs(frame)-1, len(self.registers)))
             return
-
-        # Grab the last frame for reference.
-        try:
-            r_prv = self.registers[frame-1]
-            print("r_prv is {:}".format(frame-1))
-        except IndexError:
-            r_prv = None
-
         try:
             if self.local_DEBUG > 0:
             # Print frame information for debugging.
             # Include object id and clean up the hex string.
                 print("{:-<80}".format("--Registers DEBUG-Frame-{:}"
-                               .format(hex(id(r_cur))[2:].replace('L', ''))))
+                                       .format(hex(id(r))[2:].replace('L', ''))))
             else:
                 print("{:-<80}".format("--Registers"))
-            for i in r_cur.values():
+            for i in r.values():
                 if i>0 and i % 4 == 0:
                     print('')
                 # Get the name of the register.
                 name = self.registers[frame].get_number_name_mappings()[i]
                 # Print name, number and hex value.
-                if (r_prv != None) and (r_cur.get_value(i) != r_prv.get_value(i)):
-                    print("\033[32m{:>4}[{:0>2}]:{:.>10}\033[0m"
-                          .format(name[:4], i,
-                          hex(r_cur.get_value(i))[2:].replace('L', ''), 8)),
-                else:
-                    print("{:>4}({:0>2}):{:.>10}"
-                          .format(name[:4], i,
-                          hex(r_cur.get_value(i))[2:].replace('L', ''), 8)),
-
-            # Print a bottom banner.
+                print("{:>4}({:0>2}):{:.>10}"
+                      .format(name[:4], i,
+                      hex(r.get_value(i))[2:].replace('L', ''), 8)),
             print("\n{:-<80}".format(''))
         except Exception, e:
             print("An error occurred fetching data from registers:\n{:}"
