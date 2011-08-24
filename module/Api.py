@@ -389,10 +389,10 @@ class Sunray(BaseApi):
 
         a_size = self._register.get_size(a)
 
-        value = list(bin(self._register.get_value(a), a_size))
+        value = list(bin(self._register.get_value(a), a_size)[2:])
         value[b] = c
-        value = ''.join(value)
-        self._register.set_value(a, int(value, 2))
+        value = int(''.join(value), 2)
+        self._register.set_value(a, value)
 
         return True
 
@@ -454,9 +454,13 @@ class Sunray(BaseApi):
         Returns true if a and b are equal.
         """
         self.log.buffer('testEqual called')
-        a = int(instruction_decoded[args[0]], 2)
-        b = int(instruction_decoded[args[1]], 2)
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        #a = int(instruction_decoded[args[0]], 2)
+        #b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
+        self.log.buffer('a is {0}, b is {1}'.format(
+            self._register.get_value(a), self._register.get_value(b)))
         self.log.buffer('returning {0}'.format(self._register.get_value(a) == self._register.get_value(b)))
         return self._register.get_value(a) == self._register.get_value(b)
 
@@ -466,11 +470,45 @@ class Sunray(BaseApi):
         Returns false if a and b are equal.
         """
         self.log.buffer('testNotEqual called')
-        a = int(instruction_decoded[args[0]], 2)
-        b = int(instruction_decoded[args[1]], 2)
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        #a = int(instruction_decoded[args[0]], 2)
+        #b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
+        self.log.buffer('a is {0}, b is {1}'.format(
+            self._register.get_value(a), self._register.get_value(b)))
         self.log.buffer('returning {0}'.format(self._register.get_value(a) != self._register.get_value(b)))
         return self._register.get_value(a) != self._register.get_value(b)
+
+    def testEqualImmediate(self, args, instruction_decoded, **named_args):
+        """args:list -> bool
+
+        Returns true if a and b are equal.
+        """
+        self.log.buffer('testEqual called')
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a, b))
+        self.log.buffer('a is {0}, b is {1}'.format(
+            self._register.get_value(a), b))
+        self.log.buffer('returning {0}'.format(
+            self._register.get_value(a) == b))
+        return self._register.get_value(a) == b
+
+    def testNotEqualImmediate(self, args, instruction_decoded, **named_args):
+        """args:list -> bool
+
+        Returns false if a and b are equal.
+        """
+        self.log.buffer('testNotEqual called')
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
+        self.log.buffer('a is {0}, b is {1}'.format(
+            self._register.get_value(a), b))
+        self.log.buffer('returning {0}'.format(
+            self._register.get_value(a) != b))
+        return self._register.get_value(a) != b
 
     def testLess(self, args, instruction_decoded, **named_args):
         """args:list -> bool
@@ -490,8 +528,10 @@ class Sunray(BaseApi):
         Returns true if a is less than b.
         """
         self.log.buffer('testLessImmediate called')
-        a = int(instruction_decoded[args[0]], 2)
-        b = int(instruction_decoded[args[1]], 2)
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        #a = int(instruction_decoded[args[0]], 2)
+        #b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
         self.log.buffer('returning {0}'.format(self._register.get_value(a) < b))
         return self._register.get_value(a) < b
@@ -527,8 +567,10 @@ class Sunray(BaseApi):
         Returns true if a > b.
         """
         self.log.buffer('testGreaterImmediate called')
-        a = int(instruction_decoded[args[0]], 2)
-        b = int(instruction_decoded[args[1]], 2)
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        #a = int(instruction_decoded[args[0]], 2)
+        #b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
         self.log.buffer('returning {0}'.format(self._register.get_value(a) > b))
         return self._register.get_value(a) > b
@@ -543,8 +585,10 @@ class Sunray(BaseApi):
         Returns true if a >= b.
         """
         self.log.buffer('testGreaterOrEqualImmediate called')
-        a = int(instruction_decoded[args[0]], 2)
-        b = int(instruction_decoded[args[1]], 2)
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        #a = int(instruction_decoded[args[0]], 2)
+        #b = int(instruction_decoded[args[1]], 2)
         self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
         self.log.buffer('returning {0}'.format(self._register.get_value(a) >= b))
         return self._register.get_value(a) >= b

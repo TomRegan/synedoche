@@ -108,6 +108,34 @@
     </implementation>
   </instruction>
 
+  <instruction name="CPI" format="IM"><!--compare immediate-->
+    <!--Adds a given value to A-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op" value="0xfe" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\d+H?)" />
+      <symbol type="immediate" matches="data" />
+    </syntax>
+    <implementation>
+      <!--set carry to 0 if greater or equal-->
+      <method name="testGreaterOrEqualImmediate" args="0x00 data" />
+      <method name="setBitInRegister"  args="0x1 0x7 0x0" />
+      <!--set carry to 1 if less-->
+      <method name="testLessImmediate" args="0x0 data" />
+      <method name="setBitInRegister"  args="0x1 0x7 0x1" />
+      <!--set zero to 0 if not equal-->
+      <method name="testNotEqualImmediate"      args="0x00 data" />
+      <method name="setBitInRegister"  args="0x1 0x2 0x0" />
+      <!--set zero to 1 if equal-->
+      <method name="testEqualImmediate"         args="0x00 data" />
+      <method name="setBitInRegister"  args="0x1 0x2 0x1" />
+    </implementation>
+  </instruction>
+
   <instruction name="MOV" format="RDS"><!--move register to register-->
     <!--Copies the value from one register to another-->
     <signature>
