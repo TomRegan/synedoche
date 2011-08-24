@@ -19,7 +19,7 @@ from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
 from lib.Functions import integer as int
 
-BAD = 'Bad instruction or syntax: '
+BAD = 'Bad instruction or syntax'
 
 class BadInstructionOrSyntax(Exception):
     """Signals bad syntax for the instruction just read"""
@@ -291,7 +291,9 @@ class Assembler(BaseAssembler):
                 syntax     = self._instruction_syntax[instruction]
                 expression = '^' + syntax['expression'] + '$'
             else:
-                raise BadInstructionOrSyntax(BAD + lines[i])
+                raise BadInstructionOrSyntax(
+                    "{:} on line {:}:\n{:}"
+                    .format(BAD, i+1, lines[i]))
 
             # We should have this data from the previous stage, or have
             # thrown an error.
@@ -306,20 +308,27 @@ class Assembler(BaseAssembler):
                     pattern = self._instruction_syntax[key]['expression']
                     match = re.search(pattern, lines[i])
                     label = match.group(group)
+                    try:
                     # Calculate either absolute or relative addresses based on
                     # configuration file/API options.
-                    if mode == 'absolute':
-                        base = self._text_offset
-                        offset = self._jump_table[label]
-                        offset = hex(base + (offset * self._word_spacing),
-                                     self._isa_size/4)
-                    elif mode == 'relative':
-                        offset = str(self._jump_table[label] - i)
+                        if mode == 'absolute':
+                            base = self._text_offset
+                            offset = self._jump_table[label]
+                            offset = hex(base + (offset * self._word_spacing),
+                                         self._isa_size/4)
+                        elif mode == 'relative':
+                            offset = str(self._jump_table[label] - i)
                     # Finally, we can replace the label.
-                    lines[i] = lines[i].replace(label, offset)
+                        lines[i] = lines[i].replace(label, offset)
+                    except:
+                        raise BadInstructionOrSyntax(
+                            "{:} on line {:}: Label not found.\n{:}"
+                            .format(BAD, i+1, lines[i]))
                 output.append(lines[i])
             else:
-                raise BadInstructionOrSyntax(BAD + lines[i])
+                raise BadInstructionOrSyntax(
+                    "{:} on line {:}:\n{:}"
+                    .format(BAD, i+1, lines[i]))
 
         self._programme = deepcopy(output)
         self.log.buffer("leaving linker")
@@ -385,8 +394,8 @@ class Assembler(BaseAssembler):
                             except:
                                 line = "`" + line + "'"
                                 raise BadInstructionOrSyntax(
-                                    BAD + line +
-                                    "\nFATAL: not a register address or numeric type")
+                                    "{:} on line {:}:Non-ref or digit.\n{:}"
+                                    .format(BAD, i+1, lines[i]))
                         self.log.buffer("`{0}' is {1}"
                                         .format(field, value))
                         instruction_fields[field]=value
@@ -428,7 +437,9 @@ class Assembler(BaseAssembler):
                         end = end + 1
                     #output.append(instruction_raw)
                 else:
-                    raise BadInstructionOrSyntax(BAD + line)
+                    raise BadInstructionOrSyntax(
+                        "{:} on line {:}:\n{:}"
+                        .format(BAD, i+1, lines[i]))
             # TODO: Keep this block under review. Probably kept for a reason.
             #(2011-08-18)
             #elif instruction in self._special_instructions:
@@ -439,7 +450,9 @@ class Assembler(BaseAssembler):
                 #output.append(instruction)
                 #pass
             else:
-                raise BadInstructionOrSyntax(BAD + line)
+                raise BadInstructionOrSyntax(
+                    "{:} on line {:}:\n{:}"
+                    .format(BAD, i+1, lines[i]))
             instruction_fields.clear()
         self.log.buffer("leaving encoder")
         return output

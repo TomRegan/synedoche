@@ -50,7 +50,7 @@
       <field name="data" start="0x08" end="0x0f" />
     </format>
 
-    <format type="3-byte" size="0x18" fetch="0x3">
+    <format type="ID16" size="0x18" fetch="0x3"><!--Immediate Addressing-->
       <field name="op"      start="0x00" end="0x07" />
       <field name="data_0B" start="0x08" end="0x0f" />
       <field name="data_1B" start="0x10" end="0x17" />
@@ -134,6 +134,26 @@
       <method name="testEqualImmediate"         args="0x00 data" />
       <method name="setBitInRegister"  args="0x1 0x2 0x1" />
     </implementation>
+  </instruction>
+
+  <instruction name="JC" format="ID16"><!--Jump on Carry-->
+    <!--Executes a jump if carry status is > 1-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op"  value="0xda" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\w+)" />
+      <symbol type="immediate" matches="data_1b" />
+    </syntax>
+    <implementation>
+      <method name="copyRegister" args="d s" />
+    </implementation>
+    <replacements>
+      <replacement name="data_1b" group="0x1" type="relative" />
+    </replacements>
   </instruction>
 
   <instruction name="MOV" format="RDS"><!--move register to register-->
