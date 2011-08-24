@@ -297,7 +297,6 @@ class Assembler(BaseAssembler):
 
             # We should have this data from the previous stage, or have
             # thrown an error.
-            # TODO: Add log message when label is linked. (2011-08-19)
             match = re.search(expression, lines[i])
             if match:
                 key = re.match('\w+', lines[i]).group()
@@ -320,6 +319,9 @@ class Assembler(BaseAssembler):
                             offset = str(self._jump_table[label] - i)
                     # Finally, we can replace the label.
                         lines[i] = lines[i].replace(label, offset)
+                        self.log.buffer("replaced identifier `{:}'"
+                                        "with {:}".format(
+                                        label, offset))
                     except:
                         raise BadInstructionOrSyntax(
                             "{:} on line {:}: Label not found.\n{:}"
