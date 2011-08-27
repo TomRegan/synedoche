@@ -117,6 +117,8 @@ class Pipelined(BaseProcessor):
             # Do any housekeeping.
             self.__retire_cycle()
         except Exception, e:
+            self.exception = True
+            print("caught exception")
             self.__retire_cycle()
             self.broadcast()
             self._log.buffer('EXCEPTION {:}'.format(e.message))
@@ -270,6 +272,8 @@ class Pipelined(BaseProcessor):
         if self.__special_flags['increment']:
             branch_offset = branch_offset + 1
 
+        # If an API call returns false, the sequential flag will block
+        # the next call. This is used to evaluate tests.
         sequential = True
         for method in implementation[name]:
             if sequential:
@@ -292,9 +296,9 @@ class Pipelined(BaseProcessor):
 
     def __retire_cycle(self):
         # Retire completed instructions.
-        self.broadcast()
         if len(self._pipeline) > len(self._pipeline_stages):
             self._pipeline.pop()
+        self.broadcast()
         # Cooperate with any debuggery.
         if self._debug and self.get_pc_value() in self._breakpoints:
             # Call for a SigTrap

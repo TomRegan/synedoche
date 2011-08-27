@@ -1,0 +1,40 @@
+BUGS:
+  Please send bug reports to <bugs.tregan@gmail.com>
+
+  If you're able, please:
+    1. Check the bugs on <> (sorry pre-release, try the todo list!)
+       and see if your bug is already listed, if it is just submit
+       a `me too'.
+    2. Download the most recent version from the repo (you can check
+       the version number in module/lib/Header.py) and verify your
+       bug still isn't fixed.
+    3. Enter a new bug (pre-release).
+    4. E-mail me at bugs.tregan@gmail.com
+
+  Reporting a Bug:
+    Bug reports are most helpful when they provide good information.
+    The following guidelines explain how to write a useful bug report.
+    1. Steps to Reproduce:
+       Write down the steps an idiot would need to take so that they'd
+       get this problem. Try to be precise and include any error
+       messages or other detail you see.
+       Bad  : "It doesn't work."
+       Good : "Running the Cli from a Bash prompt causes a crash and
+               gives the error `fatal: cannot read configuration'"
+    2. Give a Summary:
+       If you can describe the problem in about 10 words, this will
+       help categorize and triage the bug.
+       Bad  : "Command Line Client doesn't work properly."
+       Good : "Hitting ^C in the Cli doesn't stop the simulation."
+    3. Specific Types of Bug:
+       If you have some special information about the bug, for
+       example you saw the stack trace of an unhandled exception,
+       please include it, but please don't guess.
+    4. Go Back and Simplify Everything!
+       "The reports of unhandled exceptions are greatly exaggerated."
+       By all means attach a stack trace; if you ran the program on
+       Valgrind that's brilliant, but please only report reliable
+       information. Jargon and sleuthing are not often helpful.
+
+    Thanks very much for helping. If you'd like a credit, say so in
+    an email to <code.tregan@gmail.com>.
