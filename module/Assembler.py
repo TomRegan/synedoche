@@ -408,7 +408,7 @@ class Assembler(BaseAssembler):
                         instruction_fields[field]=values[field]
                     format_name = self._format_mappings[instruction]
 
-                    instruction_raw=self._isa_size*'0'.split()
+                    instruction_raw = self._isa_size*'0'.split()
                     for field in instruction_fields:
                         start=self._format_properties[format_name][field][0]
                         end=self._format_properties[format_name][field][1]+1

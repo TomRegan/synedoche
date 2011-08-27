@@ -363,7 +363,6 @@ class Cli(UpdateListener):
         try:
         # Grab an old frame if rewind is requested
             r_cur = self.registers[frame]
-            print("r_cur is {:}".format(frame))
         except IndexError:
             print("Can't rewind {:}, only {:} values stored."
                   .format(abs(frame)-1, len(self.registers)))
@@ -372,7 +371,6 @@ class Cli(UpdateListener):
         # Grab the last frame for reference.
         try:
             r_prv = self.registers[frame-1]
-            print("r_prv is {:}".format(frame-1))
         except IndexError:
             r_prv = None
 

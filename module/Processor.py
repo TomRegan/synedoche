@@ -72,29 +72,37 @@ class Pipelined(BaseProcessor):
     """Pipelined CPU Implementation"""
 
     def __init__(self, pipeline, flags, **objects):
-        self._instruction_decoded={}
+        # These are the objects which provide data for calculations.
         self._memory    = objects['memory'].get_memory()
         self._registers = objects['registers'].get_registers()
         self._api       = objects['api'].get_api_reference(self)
         self._isa       = objects['instructions']
 
+        # This data is used in calculations.
         self._size       = self._isa.getSize()
         self._pc         = self._registers.get_pc()
         self._word_space = self._memory.get_word_spacing()
 
+        # Pipeline is a stack for storing instructions and data relating
+        # to them.
         self._pipeline        = []
         self._pipeline_stages = pipeline
         self._pipeline_flags  = flags
 
+        # Special flags control some aspects of the processor's behaviour.
         self.__special_flags = {}
 
+        # These fields store data for the dubugger.
         self._breakpoints = []
         self._debug       = False
 
+        # This is a list of observers.
         self.listeners = []
 
     def cycle(self):
         self._log.buffer('beginning a cycle')
+        # Denotes that incrementation has taken place this cycle.
+        # This is initially false.
         self.__special_flags['increment'] = False
         try:
             for stage in self._pipeline_stages:
@@ -117,8 +125,6 @@ class Pipelined(BaseProcessor):
             # Do any housekeeping.
             self.__retire_cycle()
         except Exception, e:
-            self.exception = True
-            print("caught exception")
             self.__retire_cycle()
             self.broadcast()
             self._log.buffer('EXCEPTION {:}'.format(e.message))
@@ -267,11 +273,18 @@ class Pipelined(BaseProcessor):
         # calls to the API.
         implementation = self._isa.getImplementation()
         name           = self._pipeline[index][2]
+        # The branch offset is used to calculate the address of jump
+        # instructions.
         branch_offset  = index
 
         if self.__special_flags['increment']:
             branch_offset = branch_offset + 1
 
+        # We also need to consider the number of fetch cycles that have
+        # passed and add them to the offset calculation.
+        cycles = self._isa.get_format_cycles()[instruction_type] - 1
+        if cycles:
+            branch_offset = branch_offset + cycles
         # If an API call returns false, the sequential flag will block
         # the next call. This is used to evaluate tests.
         sequential = True
