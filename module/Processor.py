@@ -39,7 +39,7 @@ class BaseProcessor(UpdateBroadcaster, LoggerClient, MonitorClient):
         """Returns the number of stages in the pipeline."""
         pass
     def get_pc_value(self):
-        """Returns the value of the programme counter."""
+        """Returns the value of the program counter."""
         pass
     def add_break_point(self, offset):
         """Add a breakpoint to halt execution."""

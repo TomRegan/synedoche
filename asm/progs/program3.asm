@@ -1,6 +1,6 @@
 # Author        : Tom Regan <thomas.c.regan@gmail.com>
 # Last modified : 2011-07-21
-# Description   : MIPS assembly programme: Calculates factorial iteratively
+# Description   : MIPS assembly program: Calculates factorial iteratively
 
 Main:
     addi $s0, $zero, 5    # factorial

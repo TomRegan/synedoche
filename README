@@ -2,12 +2,12 @@ BUGS:
   Please send bug reports to <bugs.tregan@gmail.com>
 
   If you're able, please:
-    1. Check the bugs on <> (sorry pre-release, try the todo list!)
-       and see if your bug is already listed, if it is just submit
-       a `me too'.
-    2. Download the most recent version from the repo (you can check
+    1. Download the most recent version from the repo (you can check
        the version number in module/lib/Header.py) and verify your
        bug still isn't fixed.
+    2. Check the bugs on <> (sorry pre-release, try the todo list!)
+       and see if your bug is already listed, if it is just submit
+       a `me too'.
     3. Enter a new bug (pre-release).
     4. E-mail me at bugs.tregan@gmail.com
 

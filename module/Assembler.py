@@ -86,7 +86,7 @@ class BaseAssembler(LoggerClient):
             [lines:str]:list -> [instructions:int]:list
 
         Purpose:
-            Before attempting to load a programme that has been through
+            Before attempting to load a program that has been through
             the assembler, it should be converted for use in the
             simulation.
 
@@ -112,7 +112,7 @@ class Assembler(BaseAssembler):
     _label_reference = None # Regex for a label reference.
     _hex_pattern     = None # Regex for hexadecimal numbers.
     _jump_table      = {}   # Table of label addresses.
-    _text_offset     = None # Location to load the programme.
+    _text_offset     = None # Location to load the program.
     _isa_size        = None # Used to calculate instruction length.
 
     _instruction_syntax={}
@@ -153,7 +153,7 @@ class Assembler(BaseAssembler):
         if type(file_object) == file:
             self.log.buffer("reading file: {0}".format(file_object.name))
             instructions = self._read(file_object.readlines())
-            return (instructions, self._programme)
+            return (instructions, self._program)
         else:
             raise Exception
 
@@ -256,7 +256,7 @@ class Assembler(BaseAssembler):
         return lines
 
     def _link(self, lines):
-        """Transforms the programme replacing branch identifiers with
+        """Transforms the program replacing branch identifiers with
         computed addresses that reference labels in the code.
 
         Description:
@@ -276,7 +276,7 @@ class Assembler(BaseAssembler):
             N/A
 
         Returns:
-            A version of the programme having all labels replaced with memory
+            A version of the program having all labels replaced with memory
             references.
          """
 
@@ -332,7 +332,7 @@ class Assembler(BaseAssembler):
                     "{:} on line {:}:\n{:}"
                     .format(BAD, i+1, lines[i]))
 
-        self._programme = deepcopy(output)
+        self._program = deepcopy(output)
         self.log.buffer("leaving linker")
         return output
 

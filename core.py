@@ -164,7 +164,7 @@ class Simulation(object):
         return expression
 
     def load(self, filename, client):
-        """Loads an asm programme into the simulation"""
+        """Loads an asm program into the simulation"""
         if not self._authorized_client(client):
             self.log.buffer("blocked `load' call from unauthorized client `{0}'".format(client.__class__.__name__))
             return
@@ -172,8 +172,8 @@ class Simulation(object):
         file_object = open(filename, 'r')
         # We will collect assembly binary and offset data, mainly to print.
         (binary, assembly) = self.assembler.read_file(file_object)
-        programme = self.assembler.convert(binary)
-        (chomp, offset) = self.memory.load_text_and_dump(programme)
+        program = self.assembler.convert(binary)
+        (chomp, offset) = self.memory.load_text_and_dump(program)
         return (assembly, binary, offset)
 
     def reset(self, client):

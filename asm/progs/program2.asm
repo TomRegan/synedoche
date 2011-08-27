@@ -1,6 +1,6 @@
 # Author        : Tom Regan <thomas.c.regan@gmail.com>
 # Last modified : 2011-08-11
-# Description   : MIPS assembly programme: finds the first number
+# Description   : MIPS assembly program: finds the first number
 #                 divisible by all numbers from 1..10
 # Result        : Programme will exit with 2520 in v1
 # TODO : Format cleanly. 2011-08-18

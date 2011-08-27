@@ -124,7 +124,7 @@ class Memory(BaseMemory):
     This memory model is big-endian. For representations of many
     systems this will have to be extended.
 
-    Segmentation is not currently enforced. A programme may write
+    Segmentation is not currently enforced. A program may write
     to any valid memory address.
     """
 
@@ -222,7 +222,7 @@ class Memory(BaseMemory):
 
 
     def load_text(self, text, and_dump=False):
-        """Stores a programme at sequential addressing in memory.
+        """Stores a program at sequential addressing in memory.
 
         Notes:
             Hard coded to load from TEXT in memory. This is not
@@ -237,9 +237,9 @@ class Memory(BaseMemory):
 
         # TODO: Review offset. Is text segment okay?. (2011-08-04)
 
-        # offset is the location to load programme
+        # offset is the location to load program
         offset = self.get_start('text')
-        # programme_loaded is instructions and offsets
+        # program_loaded is instructions and offsets
         binary  = []
         address = []
         for line in text:
@@ -259,9 +259,9 @@ class Memory(BaseMemory):
             # This ensures the next instruction is loaded at the correct
             # memory address.
             offset = offset + self._word_spacing
-        self.log.buffer('loaded {0} word programme into memory'
+        self.log.buffer('loaded {0} word program into memory'
                         .format(len(text)))
-        self._monitor['programme_length'] = len(text)
+        self._monitor['program_length'] = len(text)
         return (binary, address)
 
     def load_text_and_dump(self, text):

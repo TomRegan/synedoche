@@ -103,7 +103,7 @@ class Parser(BaseParser):
             elif tokens[0][:3] == 'pip':
                 return ('print_pipeline', ())
             elif tokens[0][:3] == "pro":
-                return ('print_programme', ())
+                return ('print_program', ())
             elif tokens[0][:2] == "br":
                 return ('print_breakpoints', ())
             elif tokens[0][:3] == 'vis':

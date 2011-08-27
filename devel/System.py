@@ -62,7 +62,7 @@ class Memory(Loggable):
     This memory model is big-endian. For representations of many
     systems this will have to be extended.
 
-    Segmentation is not currently enforced. A programme may write
+    Segmentation is not currently enforced. A program may write
     to any valid memory address.
     """
 
@@ -133,9 +133,9 @@ class Memory(Loggable):
 
 
     def loadText(self, text, and_dump=True):
-        """[programme:int]:list -> memory{offset:value}:dict
+        """[program:int]:list -> memory{offset:value}:dict
 
-        Stores <programme> in sequential addresses in memory.
+        Stores <program> in sequential addresses in memory.
         """
 
         if and_dump == True:
@@ -149,7 +149,7 @@ class Memory(Loggable):
                 raise SegmentationFaultException
             self.setWord32(offset, line)
             offset = offset + 1
-        self.log.buffer('loaded {0} word programme into memory'.format(len(text)))
+        self.log.buffer('loaded {0} word program into memory'.format(len(text)))
 
     def dumpMemory(self):
         """... -> ...
@@ -382,7 +382,7 @@ class Registers(Loggable):
 
     def getPc(self):
         """-> register:int
-        Returns the number of the register with the programme counter.
+        Returns the number of the register with the program counter.
         """
         return map(lambda x: x['profile'] == 'pc',
                  self._registers.values()).index(True)
@@ -498,7 +498,7 @@ class Cpu(Loggable, UpdateBroadcaster):
 
         self.log = CpuLogger(logger)
         self.log.buffer('created a cpu')
-        self.log.buffer("programme counter is register {0}".format(hex(self._pc)))
+        self.log.buffer("program counter is register {0}".format(hex(self._pc)))
 
     #def passCommandToLogger(self, command):
     #    """command -> log.<command>()
@@ -530,7 +530,7 @@ class Cpu(Loggable, UpdateBroadcaster):
 
         self.log.buffer('entering fetch stage')
         offset = self._register.getValue(self._pc)
-        self.log.buffer('programme counter value is {0}'.format(hex(offset)))
+        self.log.buffer('program counter value is {0}'.format(hex(offset)))
         instruction = self._memory.getWord32(offset)
         instruction = bin(instruction, self._size)[2:]
         self.log.buffer('fetched {0}'.format(instruction))
@@ -801,7 +801,7 @@ if __name__ == '__main__':
 
             iset='00000000000000000000000000100000'
             #
-            #The programme counter has the value `300'
+            #The program counter has the value `300'
             #
             self.processor._memory.setWord32(0, int(iset,2))
             pcou=self.processor._register.getValue(3)
@@ -875,10 +875,10 @@ if __name__ == '__main__':
         def testBlockingCall(self):
             i1 = '001010' + '00001' + '00000' + '0000000000000010'
             i1_val=int(i1,2)
-            programme=[i1_val]
+            program=[i1_val]
             #self.processor._register[1]['value'] = 16
             self.processor._register.setValue(1, 16)
-            self.processor._memory.loadText(programme)
+            self.processor._memory.loadText(program)
             self.processor.cycle()
             #result = self.processor._register[0]['value']
             result = self.processor._register.getValue(0)

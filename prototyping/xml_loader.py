@@ -225,7 +225,7 @@ class MachineReader(XmlReader):
         Privilege determines whether a register is user-writable.
 
         Profile may be one of:
-            gp (general purpose), PC (programme counter), psw (status)
+            gp (general purpose), PC (program counter), psw (status)
     """
 
     def __init__(self, filename):

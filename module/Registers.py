@@ -121,7 +121,7 @@ class Registers(BaseRegisters):
 
     def get_pc(self):
         """-> register:int
-        Returns the number of the register with the programme counter.
+        Returns the number of the register with the program counter.
         """
         return map(lambda x: x['profile'] == 'pc',
                  self._registers.values()).index(True)

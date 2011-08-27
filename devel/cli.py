@@ -102,7 +102,7 @@ class Cli(UpdateListener):
                 readline.parse_and_bind("tab: complete")
                 vocabulary = ['load', 'run', 'print',
                               'register', 'memory',
-                              'programme', 'version',
+                              'program', 'version',
                               'contunue',
                               'help', 'license']
                 readline.set_completer_delims(
@@ -149,10 +149,10 @@ class Cli(UpdateListener):
             try:
                 self.reset()
                 text = self.simulation.load(filename, self)
-                self._programme_text = text
-                print("Loaded {:} word programme, `{:}'"
+                self._program_text = text
+                print("Loaded {:} word program, `{:}'"
                       .format(len(text[0]), ''.join(filename.split('/')[-1:])))
-                self._programme_name = filename
+                self._program_name = filename
             except IOError, e:
                 sys.stderr.write("No such file: `{:}'\n".format(filename))
             except BadInstructionOrSyntax, e:
@@ -163,17 +163,17 @@ class Cli(UpdateListener):
             print("Please supply a filename to read")
 
     def reset(self):
-        if hasattr(self, "_programme_text"):
-            del self._programme_text
-        if hasattr(self, "_programme_name"):
-            del self._programme_name
+        if hasattr(self, "_program_text"):
+            del self._program_text
+        if hasattr(self, "_program_name"):
+            del self._program_name
         self.simulation.reset(self)
 
     def add_breakpoint(self, point):
         # Load the jump table so we can match a label if present.
-        if hasattr(self, "_programme_text"):
+        if hasattr(self, "_program_text"):
             labels = self.simulation.get_assembler().get_jump_table()
-            offset = self._programme_text[2][0]
+            offset = self._program_text[2][0]
             if labels.has_key(point):
                 point = (labels[point] * 4) + offset
 
@@ -306,13 +306,13 @@ class Cli(UpdateListener):
         self.visualizer.render()
 
     def edit(self, args=None):
-        if hasattr(self, '_programme_name'):
+        if hasattr(self, '_program_name'):
             try:
                 import subprocess
-                subprocess.call([EDITOR, self._programme_name])
+                subprocess.call([EDITOR, self._program_name])
                 print("Editing {:} with {:}"
-                      .format(self._programme_name, EDITOR))
-                self.load(self._programme_name)
+                      .format(self._program_name, EDITOR))
+                self.load(self._program_name)
             except:
                 print("Couldn't load editor: {:}".format(EDITOR))
 
@@ -320,19 +320,19 @@ class Cli(UpdateListener):
 # Print Functions
 #
 
-    def print_programme(self):
-        if hasattr(self, "_programme_text"):
+    def print_program(self):
+        if hasattr(self, "_program_text"):
             print("{:-<80}".format("--Programme"))
-            for i in range(len(self._programme_text[0])):
+            for i in range(len(self._program_text[0])):
                 # print address, assembly instruction and binary
-                print("{:<12}{:<24}{:}".format(hex(self._programme_text[2][i]),
-                                        self._programme_text[0][i],
-                                        bin(self._programme_text[1][i],
+                print("{:<12}{:<24}{:}".format(hex(self._program_text[2][i]),
+                                        self._program_text[0][i],
+                                        bin(self._program_text[1][i],
                                            self.isize)[2:]
                                        ))
             print("{:-<80}".format(''))
         else:
-            print('No programme loaded')
+            print('No program loaded')
 
     def print_registers(self, args=None):
         """Formats and outputs a display of the registers"""
@@ -405,23 +405,23 @@ class Cli(UpdateListener):
     def print_pipeline(self):
         """Formats and outputs a display of the pipeline"""
         #the if block is just a hack to make exceptions more consistent
-        #print(self._programme_text)
+        #print(self._program_text)
         print("{:-<80}".format('--Pipeline'))
         if len(self.pipeline[-1]) == 0:
             print(" Begin simulation to see the pipeline")
-        elif hasattr(self, "_programme_text"):
+        elif hasattr(self, "_program_text"):
             for i in range(len(self.pipeline[-1])):
-                if i > len(self._programme_text[1]):
-                # Probably some error with the programme, maybe
+                if i > len(self._program_text[1]):
+                # Probably some error with the program, maybe
                 # not serious. Return to avoid crashing.
                     return
                 # Get the assembly relating to the integer value in the pipe-
                 # line
-                index = self._programme_text[1].index(self.pipeline[-1][i])
+                index = self._program_text[1].index(self.pipeline[-1][i])
                 print("Stage {:}:{:}  {:}"
                      .format(i+1,
                              bin(int(self.pipeline[-1][i]), self.isize)[2:],
-                             self._programme_text[0][index]
+                             self._program_text[0][index]
                             ))
         print("{:-<80}".format(''))
 
@@ -455,9 +455,9 @@ class Cli(UpdateListener):
         print("{:-<80}".format('--Breakpoints'))
         try:
             for i in range(len(breakpoints)):
-                # Look for the offset in programme text.
+                # Look for the offset in program text.
                 try:
-                    index = self._programme_text[2].index(breakpoints[i])
+                    index = self._program_text[2].index(breakpoints[i])
                     # If this fails it is best to continue. Just means
                     # breakpoint doesn't exist.
                 except:
@@ -471,7 +471,7 @@ class Cli(UpdateListener):
                 if index is None:
                     line = "Offset is not in code!"
                 else:
-                    line = self._programme_text[0][index]
+                    line = self._program_text[0][index]
                 print("{:}: {:.>8}  {:}".format(i+1, offset, line))
         except Exception, e:
             print("There is a problem with the debugger. Try `reset'")

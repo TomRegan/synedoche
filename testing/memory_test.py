@@ -145,14 +145,14 @@ if __name__ == '__main__':
                 self.memory.set_word(offset, value, 32)
 
         def testLoadText(self):
-            """Loading a programme into memory"""
+            """Loading a program into memory"""
             self.logger.buffer('>-----testLoadText')
-            programme=[255,1023,2047,4095]
-            self.memory.load_text(programme)
+            program=[255,1023,2047,4095]
+            self.memory.load_text(program)
             offset=self.memory.get_start('text')
-            for i in range(len(programme)):
+            for i in range(len(program)):
                 value=self.memory.get_word(offset+(i*4), 32)
-                self.assertEquals(programme[i], value)
+                self.assertEquals(program[i], value)
 
 
     tests = unittest.TestLoader().loadTestsFromTestCase(TestMemory)

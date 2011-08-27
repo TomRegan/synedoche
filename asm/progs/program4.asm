@@ -1,6 +1,6 @@
 # Author        : Tom Regan <thomas.c.regan@gmail.com>
 # Last modified : 2011-07-22
-# Description   : MIPS assembly programme: Calculates factorial recursively
+# Description   : MIPS assembly program: Calculates factorial recursively
 #                 Calculates !10, stores result in $v0
 # Modifies      : registers : $s(0,1,2,3,4), $a0, LO, HI, $ra
 #                 memory    : Stack
