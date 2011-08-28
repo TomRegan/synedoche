@@ -150,14 +150,6 @@ class Assembler(BaseAssembler):
 # Interface
 #
     def read_file(self, file_object):
-        """file:object -> [instructions:str]:list
-
-        Usage:
-            assembler.readFile(file)
-
-        Raises:
-            Exception
-        """
         if type(file_object) == file:
             self.log.buffer("reading file: {0}".format(file_object.name))
             instructions = self._read(file_object.readlines())
@@ -166,11 +158,6 @@ class Assembler(BaseAssembler):
             raise Exception
 
     def read_lines(self, lines):
-        """[lines:str]:list -> [instructions:str]:list
-
-        Usage:
-            assembler.read_lines(str)
-        """
         for line in lines:
             self.log.buffer("reading line: {0}"
                             .format(line.replace('\n', '')))
@@ -232,7 +219,7 @@ class Assembler(BaseAssembler):
 
         #we need to further clean the table so labels are always
         #associated with the correct line
-        i=0
+        i = 0
         while i < len(lines):
             if re.search(self._label_pattern, lines[i]):
                 match = re.search(self._label_pattern, lines[i])
@@ -243,20 +230,32 @@ class Assembler(BaseAssembler):
                     i = i+1
             i = i+1
 
-        #we want a table mapping labels to memory locations
+        # Here we will build a table mapping labels to memory locations.
         self._jump_table.clear()
+
+
+        offset = 0
         for i in range(len(lines)):
-            #here we find a label
+            # Here we look for a label.
             if re.search(self._label_pattern, lines[i]):
                 match = re.search(self._label_pattern, lines[i])
-                #here we define the reference for this label
-                #this will be its lookup name in the table
+                # Here we define the reference for this label.
+                # This will be its lookup name in the table.
                 reference = re.search(self._label_reference, match.group())
-                self._jump_table[reference.group(1)] = i
-                self.log.buffer("mapped label `{0}' to {1}".format(reference.group(1), i))
-                #finally, remove labels from the original
-                lines[i]=re.sub(self._label_pattern,'',lines[i])
-            #we don't want unnecessary whitespace
+                self._jump_table[reference.group(1)] = offset
+                self.log.buffer("mapped label `{0}' to {1}"
+                                .format(reference.group(1), offset))
+                # Finally, remove labels from the original
+                lines[i] = re.sub(self._label_pattern,'',lines[i])
+
+            # We will calculate any aditional offset required in the case
+            # of multi-part instructions.
+            instruction  = lines[i].split()[0]
+            format_name  = self._format_mappings[instruction]
+            fetch_cycles = self._isa.get_format_cycles()[format_name]
+            offset = offset + fetch_cycles
+
+            # We don't want unnecessary whitespace
             lines[i] = lines[i].strip()
             self.log.buffer("processed  {0}".format(lines[i]))
         lines = [line for line in lines if line != '']
@@ -291,6 +290,8 @@ class Assembler(BaseAssembler):
         # TODO: Linker needs to handle absolute addresses in multi-part
         # instructions. (2011-08-28)
         self.log.buffer("entering linker")
+
+        # We will store the return data in output.
         output=[]
         for i in range(len(lines)):
             # First, check the instruction is valid. If we try to operate
@@ -317,9 +318,10 @@ class Assembler(BaseAssembler):
                     pattern = self._instruction_syntax[key]['expression']
                     match = re.search(pattern, lines[i])
                     label = match.group(group)
-                    try:
+
                     # Calculate either absolute or relative addresses based on
                     # configuration file/API options.
+                    try:
                         if mode == 'absolute':
                             base = self._text_offset
                             offset = self._jump_table[label]
@@ -347,19 +349,34 @@ class Assembler(BaseAssembler):
         return output
 
     def _encode(self, lines):
-        """ [lines:str]:list -> [instructions:str]:list
+        """Takes a list of assembly instructions (with decoded identifiers)
+        and returns a list of binary machine instructions.
 
-        Returns a list of machine instructions.
+        Description:
+            [lines:str]:list -> [lines:str]:list
 
-        Raises:
-            BadInstructionOrSyntax
+            Once an assembly program has been through the linker and all
+            the identifiers (label references) have been replaced with
+            numerical values, the encoder can convert the instruction
+            to binary using instruction and format data from the config.
 
-        +------------------------------------------------------+
-        | Validation                                           |
-        +------------------------------------------------------+
-        | syntax is valid                                      |
-        | register references are valid                        |
-        +------------------------------------------------------+
+        Purpose:
+            Encodes assembly instructions as binary: the final step in
+            converting an assembly program into machine code.
+
+            Encoding gurantees that instruction syntax is correct and
+            that identifiers and register references are valid.
+
+        Restrictions:
+            The result of processing identifiers which have not been
+            converter is undefined.
+
+        Exceptions:
+            Raises:
+                BadInstructionOrSyntax
+
+        Returns:
+            A list of binary manchine instructions.
         """
 
         self.log.buffer("entering encoder")
