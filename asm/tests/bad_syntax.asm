@@ -1,4 +1,4 @@
-# Author        : Tom Regan <thomas.c.regan@gmail.com>
+# Author        : Tom Regan <code.tregan@gmail.com>
 # Last modified : 2011-08-12
 # Description   : Does an O(n^2) sort on an unsorted list.
 # Modifies      : registers : $t(0..9)

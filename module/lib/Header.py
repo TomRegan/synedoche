@@ -2,16 +2,16 @@
 #
 # Some variables for use by other modules.
 # file           : Header.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan <code.tregan@gmail.com>
 # since          : 2011-07-15
 # last modified  : 2011-08-17
 
-VERSION='128'
+VERSION='131'
 RELEASE_NAME='M5'
 PROGRAMME_NAME=''
 DEBUG=True
 COLOUR = True
-LICENSE="""Copyright 2011 Tom Regan (thomas.c.regan@gmail.com)
+LICENSE="""Copyright 2011 Tom Regan (code.tregan@gmail.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

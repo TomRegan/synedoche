@@ -2,7 +2,7 @@
 #
 # Cli Client.
 # file           : cli.py
-# author         : Tom Regan <thomas.c.regan@gmail.com>
+# author         : Tom Regan <code.tregan@gmail.com>
 # since          : 2011-07-15
 # last modified  : 2011-08-12
 
@@ -445,12 +445,15 @@ class Cli(UpdateListener):
                     return
                 # Get the assembly relating to the integer value in the pipe-
                 # line
-                index = self._program_text[1].index(self.pipeline[-1][i])
-                print("Stage {:}:{:}  {:}"
-                     .format(i+1,
-                             bin(int(self.pipeline[-1][i]), self.isize)[2:],
-                             self._program_text[0][index]
-                            ))
+                try:
+                    index = self._program_text[1].index(self.pipeline[-1][i])
+                    print("Stage {:}:{:}  {:}"
+                         .format(i+1,
+                                 bin(int(self.pipeline[-1][i]), self.isize)[2:],
+                                 self._program_text[0][index]
+                                ))
+                except:
+                    print("Stage {:}:No data".format(i+1))
         print("{:-<80}".format(''))
 
     def print_memory(self, args=[]):

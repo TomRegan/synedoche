@@ -2,7 +2,7 @@
 #
 # Graph Vizualization.
 # file           : Viz_f.py
-# author         : Tom Regan <thomas.c.regan@gmail.com>
+# author         : Tom Regan <code.tregan@gmail.com>
 # since          : 2011-08-01
 # last modified  : 2011-08-01
 

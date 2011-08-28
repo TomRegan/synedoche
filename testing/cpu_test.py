@@ -2,7 +2,7 @@
 #
 # Processor Tests.
 # file           : cpu_test.py
-# author         : Tom Regan <thomas.c.regan@gmail.com>
+# author         : Tom Regan <code.tregan@gmail.com>
 # since          : 2011-07-10
 # last modified  : 2011-08-19
 #     2011-08-19 : Added test for breakpoints.

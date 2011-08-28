@@ -1,5 +1,5 @@
 ##########################################################################
-##Author        : Tom Regan <thomas.c.regan@gmail.com>                  ##
+##Author        : Tom Regan <code.tregan@gmail.com>                  ##
 ##Last modified : 2011-07-21                                            ##
 ##Description   : MIPS assembly program: finds the sum of all numbers ##
 ##                below 1000 that are multiples of 3 or 5               ##

@@ -3,7 +3,7 @@
 #
 # Convert Assembly to Machine Instructions.
 # file           : Assembler.py
-# author         : Tom Regan <thomas.c.regan@gmail.com>
+# author         : Tom Regan <code.tregan@gmail.com>
 # since          : 2011-07-05
 # last modified  : 2011-07-22 (minor revisions; this is stable)
 #     2011-08-18 : Support for multi-part instructions added.

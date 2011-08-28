@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ''' XmlLoader.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
+author:      Tom Regan <code.tregan@gmail.com>
 since:       2011-06-23
 modified:    2011-07-19
 description: Module providing support for XML functions

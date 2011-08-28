@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 ''' cpu.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
+author:      Tom Regan <code.tregan@gmail.com>
 since:       2011-06-23
 description: prototype for the cpu functions
 '''

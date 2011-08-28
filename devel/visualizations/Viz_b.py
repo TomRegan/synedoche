@@ -2,7 +2,7 @@
 #
 # Visualization Test: Triangle.
 # file           : Viz_b.py
-# author         : Tom Regan <thomas.c.regan@gmail.com>
+# author         : Tom Regan <code.tregan@gmail.com>
 # since          : 2011-07-31
 # last modified  : 2011-07-31
 

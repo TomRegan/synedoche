@@ -2,7 +2,7 @@
 #
 # Processor Implementations.
 # file           : Processor.py
-# author         : Tom Regan <thomas.c.regan@gmail.com>
+# author         : Tom Regan <code.tregan@gmail.com>
 # since          : 2011-07-20
 # last modified  : 2011-08-19
 #     2011-08-18 : Added multi-part fetch.

@@ -1,4 +1,4 @@
-#Tom Regan <thomas.c.regan@gmail.com>
+#Tom Regan <code.tregan@gmail.com>
 #2011-07-04
 #add.asm-- Computes the sum of 1 and 2
 #modifies: t0 (result)

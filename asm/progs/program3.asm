@@ -1,4 +1,4 @@
-# Author        : Tom Regan <thomas.c.regan@gmail.com>
+# Author        : Tom Regan <code.tregan@gmail.com>
 # Last modified : 2011-07-21
 # Description   : MIPS assembly program: Calculates factorial iteratively
 

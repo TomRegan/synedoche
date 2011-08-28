@@ -2,7 +2,7 @@
 #
 # Colouring Points.
 # file           : Viz_e_1.py
-# author         : Tom Regan <thomas.c.regan@gmail.com>
+# author         : Tom Regan <code.tregan@gmail.com>
 # since          : 2011-08-02
 # last modified  : 2011-08-02
 

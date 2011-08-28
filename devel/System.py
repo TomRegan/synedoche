@@ -2,7 +2,7 @@
 #
 # Hardware Components.
 # file           : System.py
-# author         : Tom Regan (thomas.c.regan@gmail.com)
+# author         : Tom Regan (code.tregan@gmail.com)
 # since          : 2011-06-27
 # last modified  : 2011-07-22
 #
@@ -918,7 +918,7 @@ if __name__ == '__main__':
 
 
 """
-Copyright (C) 2011 Tom Regan <thomas.c.regan@gmail.com>.
+Copyright (C) 2011 Tom Regan <code.tregan@gmail.com>.
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including

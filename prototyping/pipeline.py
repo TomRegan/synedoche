@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ''' pipeline.py
-author:      Tom Regan <thomas.c.regan@gmail.com>
+author:      Tom Regan <code.tregan@gmail.com>
 since:       2011-07-09
 description: Prototype of pipelined execution.
 '''

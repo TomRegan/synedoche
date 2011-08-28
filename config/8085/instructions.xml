@@ -136,23 +136,45 @@
     </implementation>
   </instruction>
 
-  <instruction name="JC" format="ID16"><!--Jump on Carry-->
+  <instruction name="JMP" format="ID16"><!--Jump-->
     <!--Executes a jump if carry status is > 1-->
     <signature>
       <field name="op" />
     </signature>
     <fields>
-      <field name="op"  value="0xda" />
+      <field name="op"       value="0xda" />
+      <field name="data_0B"  value="0x0" />
     </fields>
     <syntax>
       <expression pattern="\w+\s+([+-]?\w+)" />
       <symbol type="immediate" matches="data_1B" />
     </syntax>
     <implementation>
-      <method name="branchRelative" args="data_1B" />
+      <method name="branchAbsolute" args="data_1B" />
     </implementation>
     <replacements>
-      <replacement name="data_1B" group="0x1" type="relative" />
+      <replacement name="data_1B" group="0x1" type="absolute" />
+    </replacements>
+  </instruction>
+
+  <instruction name="JC" format="ID16"><!--Jump on Carry-->
+    <!--Executes a jump if carry status is > 1-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op"       value="0xda" />
+      <field name="data_0B"  value="0x0" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+([+-]?\w+)" />
+      <symbol type="immediate" matches="data_1B" />
+    </syntax>
+    <implementation>
+      <method name="branchAbsolute" args="data_1B" />
+    </implementation>
+    <replacements>
+      <replacement name="data_1B" group="0x1" type="absolute" />
     </replacements>
   </instruction>
 
