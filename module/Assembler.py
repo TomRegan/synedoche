@@ -105,13 +105,12 @@ class BaseAssembler(LoggerClient):
         pass
 
 class Assembler(BaseAssembler):
-    # TODO: Try and phase out these declatations and rely on the values
+    # TODO: Try and phase out these declarations and rely on the values
     # given in __init__. (2011-08-18)
     _comment_pattern = None # Regex describing comments.
     _label_pattern   = None # Regex describing a lable.
     _label_reference = None # Regex for a label reference.
     _hex_pattern     = None # Regex for hexadecimal numbers.
-    _jump_table      = {}   # Table of label addresses.
     _text_offset     = None # Location to load the program.
     _isa_size        = None # Used to calculate instruction length.
 
@@ -121,6 +120,10 @@ class Assembler(BaseAssembler):
     _registers={}
 
     def __init__(self, instructions, registers, memory):
+        # TODO: Clearer to access the ISA directly, rather than grabbing
+        # all its values at once. (2011-08-28)
+
+        # Values derived from ISA
         self._language           = instructions.get_language()
         self._instruction_syntax = instructions.get_syntax()
         self._instruction_values = instructions.get_values()
@@ -134,6 +137,11 @@ class Assembler(BaseAssembler):
         self._isa_size           = instructions.getSize()
         self._registers          = registers.get_register_mappings()
 
+        # Dynamic data
+        self._isa = instructions
+        self._jump_table   = {}
+
+        # Constants derived from Memory
         self._text_offset  = memory.get_start('text')
         self._word_spacing = memory.get_word_spacing()
 
@@ -280,6 +288,8 @@ class Assembler(BaseAssembler):
             references.
          """
 
+        # TODO: Linker needs to handle absolute addresses in multi-part
+        # instructions. (2011-08-28)
         self.log.buffer("entering linker")
         output=[]
         for i in range(len(lines)):
@@ -353,44 +363,38 @@ class Assembler(BaseAssembler):
         """
 
         self.log.buffer("entering encoder")
-        output=[]
-        instruction_fields={}
+        # We will return output and use instruction_fields to build up
+        # each instruction.
+        output             = []
+        instruction_fields = {}
         for line in lines:
             #
-            # we have to do a lot of checking to make sure
-            # there aren't any key errors
-            #
-            # 1. check the instuction (add,sub..)exists
-            # 2. ...has the right syntax (->match)
-            # 3. ...references to registers
-            # 4. earlier we converted labels into hex, need to be int
+            # Here we will read the instruction on each line, try to fetch
+            # a regular expression for it, and split it into groups.
             #
             instruction = line.split()[0]
             if instruction in self._format_mappings:
-                syntax=self._instruction_syntax[instruction]
+                syntax     = self._instruction_syntax[instruction]
                 expression = '^' + syntax['expression'] + '$'
                 self.log.buffer("matching `{0}' instruction"
                                 .format(instruction))
                 match = re.search(expression, line)
                 if match:
-                    #
-                    # we want to add the recognisable fields to
-                    # the instruction we are building
-                    #
+                    # Here we are looping over fields in the instruction
+                    # format and determining their values.
                     for i in range(len(match.groups())):
-                        field=syntax['symbols'][i][0]
-                        value=match.groups()[i]
-                        #
-                        # fields need some validation,
-                        # register must exist OR value must be numeric
-                        #
-                        if value not in self._registers and type(value) != int:
+                        field = syntax['symbols'][i][0]
+                        value = match.groups()[i]
+
+                        # This block deals with the possibility that the
+                        # symbol is a hex number.
+                        if value not in self._registers:
                             try:
                                 if value[:2] == '0x':
-                                    value=int(value, 16)
+                                    value = int(value, 16)
                                 elif value.endswith(self._hex_pattern):
-                                    value=value.replace(self._hex_pattern, '')
-                                    value=int(value, 16)
+                                    value = value.replace(self._hex_pattern, '')
+                                    value = int(value, 16)
                                 else:
                                     value=int(value)
                             except:
@@ -398,34 +402,55 @@ class Assembler(BaseAssembler):
                                 raise BadInstructionOrSyntax(
                                     "{:} on line {:}:Non-ref or digit.\n{:}"
                                     .format(BAD, i+1, lines[i]))
+                        # We have identified the field. Log it...
                         self.log.buffer("`{0}' is {1}"
                                         .format(field, value))
-                        instruction_fields[field]=value
+                        # ...and add it to the instruction.
+                        instruction_fields[field] = value
 
-                    #we want to build a complete instruction
-                    values=self._instruction_values[instruction]
+                    # This block adds the preset field values.
+                    values = self._instruction_values[instruction]
                     for field in values:
-                        instruction_fields[field]=values[field]
-                    format_name = self._format_mappings[instruction]
+                        instruction_fields[field] = values[field]
+                        self.log.buffer("`{0}' is {1}"
+                                        .format(field, values[field]))
 
-                    instruction_raw = self._isa_size*'0'.split()
+                    #print("instruction: {:}".format(instruction_fields))
+
+
+                    # Here we binary-encode the instruction.
+                    format_name = self._format_mappings[instruction]
+                    fetch_cycles = self._isa.get_format_cycles()[format_name]
+                    instruction_length = self._isa_size * fetch_cycles
+                    # Creates a list of 0s which we can edit to match the
+                    # instruction.
+                    instruction_raw = instruction_length * '0'.split()
                     for field in instruction_fields:
-                        start=self._format_properties[format_name][field][0]
-                        end=self._format_properties[format_name][field][1]+1
+                        start = self._format_properties[format_name][field][0]
+                        end   = self._format_properties[format_name][field][1]+1
+                        # If the value is a register reference, encode the
+                        # register number, otherwise encode literal.
                         if instruction_fields[field] in self._registers:
                             value = self._registers[instruction_fields[field]]
                         else:
                             value = instruction_fields[field]
+                        # Now insert the encoded field into the instruction.
                         width = end - start
-                        instruction_raw[start:end]=bin(value, size=width)[2:]
+                        value = bin(value, size = width)[2:]
+                        instruction_raw[start:end] = value
+                        self.log.buffer("{:}:{:} is {:}"
+                                        .format(start, end, value))
+
+                    # Finally convert the instruction from a list to a string.
                     instruction_raw = "".join(instruction_raw)
+                    # Bon.
                     self.log.buffer("encoded {0}".format(instruction_raw))
-                    self.log.buffer("splitting into {:}-bit chunks"
-                                    .format(self._isa_size))
 
                     # Split the instruction if it spans multiple words.
                     # eg. 8085 Direct Addressing uses three 8 bit parts
                     # despite being an 8 bit ISA.
+                    self.log.buffer("splitting into {:}-bit chunks"
+                                    .format(self._isa_size))
                     start = 0
                     end   = 1
                     for i in range(len(instruction_raw)):
