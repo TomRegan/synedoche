@@ -34,7 +34,7 @@ l0: NOP     ; Multiplication loop.
   MOV E, A  ; Store the intermediary result.
   MVI A, 0
   DCR C     ; Decrement the counter.
-  CNZ fact  ; Call factorial again.
+  JNZ fact  ; Call factorial again.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;Terminates the program.                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
