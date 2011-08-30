@@ -7,7 +7,7 @@
 # last modified  : 2011-08-17
 
 VERSION='136'
-RELEASE_NAME='M5'
+RELEASE_NAME='M6'
 PROGRAMME_NAME=''
 DEBUG=True
 COLOUR = True

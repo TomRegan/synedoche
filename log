@@ -1,4 +1,0 @@
-#!/bin/bash
-#Output some log information
-
-utilities/./pylog logs/"${1}".log
