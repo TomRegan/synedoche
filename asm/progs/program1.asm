@@ -1,7 +1,7 @@
 ##########################################################################
-##Author        : Tom Regan <code.tregan@gmail.com>                  ##
+##Author        : Tom Regan <code.tregan@gmail.com>                     ##
 ##Last modified : 2011-07-21                                            ##
-##Description   : MIPS assembly program: finds the sum of all numbers ##
+##Description   : MIPS assembly program: finds the sum of all numbers   ##
 ##                below 1000 that are multiples of 3 or 5               ##
 ##Modifies      : registers : $s(0,1,2,3,4), $t0, LO, HI                ##
 ##                memory    : none                                      ##
@@ -43,7 +43,7 @@ L1:
   j    L0               # loop
 
 #####################################################
-##This block terminates the program.             ##
+##This block terminates the program.               ##
 #####################################################
 Exit:
   add  $v1, $zero, $s1  # return value in s1

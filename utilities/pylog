@@ -52,10 +52,10 @@ for line in lines:
             line = re.sub(match.group(1),repl,line)
         except:
             pass
-    elif line.find('INT') >= 0:
-        line = yel + line + rst
+    elif line.find('ASM') >= 0:
+        line = pur + line + rst
         try:
-            repl = blk + match.group(1) + rst + yel
+            repl = blk + match.group(1) + rst + pur
             line = re.sub(match.group(1),repl,line)
         except:
             pass
@@ -67,9 +67,9 @@ for line in lines:
         except:
             pass
     elif line.find('REG') >= 0:
-        line = pur + line + rst
+        line = yel + line + rst
         try:
-            repl = blk + match.group(1) + rst + pur
+            repl = blk + match.group(1) + rst + yel
             line = re.sub(match.group(1),repl,line)
         except:
             pass

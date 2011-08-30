@@ -137,7 +137,8 @@ class Cli(UpdateListener):
             except SegmentationFaultException, e:
                 print('SIGSEGV ({:})'.format(e.message))
             except SigTerm:
-                print('Program finished')
+                # FIX: Won't work on NT platform. (2011-08-30)
+                print(chr(27) + '[AProgram finished')
             except SigTrap:
                 print('Breaking')
 

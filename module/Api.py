@@ -193,6 +193,52 @@ class Sunray(BaseApi):
         self._register.set_value(a, result)
         return True
 
+    def subImmediate(self, args, instruction_decoded, **named_args):
+        """Subtracts an immediate value from a registers and stores the
+        result in a second register.
+
+        subImmediate performs twos complement arithmetic, so
+        the value stored as a result of 0 - 1 will be 0xfffffffe.
+
+        Arguments:
+            Args 1 and 2 should be the numbers of registers.
+            args[0]:int (register)
+            args[1]:int (register)
+            args[2]:int (immediate)
+
+        State changed:
+             register[a]['value'] <- register[b]['value'] - c:int
+
+        Returns:
+            Always returns True
+
+        Raises:
+            RegisterReferenceException
+        """
+        self.log.buffer('subImmediate called')
+        a = self._decode_register_reference(args[0], instruction_decoded)
+        b = self._decode_register_reference(args[1], instruction_decoded)
+        # This will be a signed immediate value.
+        try:
+            c = int(instruction_decoded[args[2]], 2, signed=True)
+        except:
+            c = args[2]
+        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a, b, c))
+        for operand in [a, b]:
+            if operand not in self._register.keys():
+                raise RegisterReferenceException
+        # Convert to binary to get the correct 2's comp value.
+        b_size = self._register.get_size(b)
+        bin_bvalue = bin(self._register.get_value(b), size=b_size)
+        bvalue = int(bin_bvalue[2:], 2, signed=True)
+        result = bvalue - c
+        # Need size of a, the register to be written to, for correct sign.
+        size = self._register.get_size(a)
+        result = int(bin(result, size), 2)
+        self.log.buffer('result is {0}'.format(result))
+        self._register.set_value(a, result)
+        return True
+
     def copyRegister(self, args, instruction_decoded, **named_args):
         self.log.buffer('copyRegister called')
         if args[0] in instruction_decoded.keys():

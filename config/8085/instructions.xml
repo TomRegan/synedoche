@@ -128,11 +128,29 @@
       <method name="testLessImmediate" args="0x0 data" />
       <method name="setBitInRegister"  args="0x1 0x7 0x1" />
       <!--set zero to 0 if not equal-->
-      <method name="testNotEqualImmediate"      args="0x00 data" />
-      <method name="setBitInRegister"  args="0x1 0x2 0x0" />
+      <method name="testNotEqualImmediate" args="0x00 data" />
+      <method name="setBitInRegister"      args="0x1 0x2 0x0" />
       <!--set zero to 1 if equal-->
-      <method name="testEqualImmediate"         args="0x00 data" />
-      <method name="setBitInRegister"  args="0x1 0x2 0x1" />
+      <method name="testEqualImmediate" args="0x00 data" />
+      <method name="setBitInRegister"   args="0x1 0x2 0x1" />
+    </implementation>
+  </instruction>
+
+  <instruction name="DCR" format="RDS"><!--decrement-->
+    <signature>
+      <field name="op" />
+      <field name="s" />
+    </signature>
+    <fields>
+      <field name="op"  value="0x00" />
+      <field name="s"  value="0x05" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+(\w+)" />
+      <symbol type="register" matches="d" />
+    </syntax>
+    <implementation>
+      <method name="subImmediate" args="d d 0x1" />
     </implementation>
   </instruction>
 
@@ -188,8 +206,8 @@
     </fields>
     <syntax>
       <expression pattern="\w+\s+(\w+),\s*(\w+)" />
-      <symbol type="register" matches="d" />
       <symbol type="register" matches="s" />
+      <symbol type="register" matches="d" />
     </syntax>
     <implementation>
       <method name="copyRegister" args="d s" />
@@ -231,12 +249,13 @@
     </implementation>
   </instruction>
 
-  <instruction name="HLT" format="RI">
+  <instruction name="HLT" format="IM">
     <signature>
       <field name="op" />
     </signature>
     <fields>
-      <field name="op" value="0x76" />
+      <field name="op"   value="0x1" />
+      <field name="data" value="0x76" />
     </fields>
     <syntax>
       <expression pattern="\w+" />

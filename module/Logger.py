@@ -188,11 +188,11 @@ class AssemblerLogger(Logger):
             self.instance.write(message)
 
     def buffer(self, string, timed=True):
-        string= 'INT  ' + string
+        string= 'ASM  ' + string
         self.instance.buffer(string, symbol=None, timed=timed)
 
     def write(self, string, timed=True):
-        string= 'INT  ' + string
+        string= 'ASM  ' + string
         self.instance.write(string, symbol=None, timed=timed)
 
     def flush(self):
