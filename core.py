@@ -21,6 +21,7 @@ from module import Interface
 from module import Logger
 from module import Monitor
 from module import Processor
+from module import System
 
 from datetime import datetime
 # used for the TestListener
@@ -42,6 +43,7 @@ class Simulation(object):
             self.logfile  = logfile
             self.monitor  = Monitor.Monitor()
             self.logger   = Logger.Logger(self.logfile)
+            self.system_call = System.SystemCall()
 
         # We need a logger object that will co-ordinate logging,
         # as well as a connection to the logfile
@@ -104,13 +106,16 @@ class Simulation(object):
 #
     def run(self, client):
         """Run for a long time."""
+        MAX = 1000000
         counter = 0
         try:
-            while counter < 1000000:
+            while counter < MAX:
                 if counter % 500 == 0 and counter > 0:
                     sys.stderr.write("."),
                 self.cycle(client)
                 counter = counter + 1
+                if counter == MAX:
+                    self.system_call.service(24)
         except KeyboardInterrupt, e:
             print("")
             return
@@ -298,7 +303,7 @@ if __name__ == '__main__':
     s = Simulation(config='config/mips32/')
     tl = TestListener(s)
     s.connect(tl)
-    s.load('asm/tests/add.asm', client=tl)
+    s.load('asm/mips/tests/add.asm', client=tl)
     try:
         for i in range(12):
             s.cycle(client=tl)

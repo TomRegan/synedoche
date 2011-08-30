@@ -19,10 +19,10 @@ from module.Interface   import UpdateListener
 from module.Evaluator   import Evaluator
 from module.Parser      import Parser
 from module.Completer   import Completer
-from module.Memory      import AlignmentError
+from module.Memory      import AlignmentError, AddressingError
 from module.Assembler   import BadInstructionOrSyntax
 from module.Memory      import SegmentationFaultException
-from module.SystemCall  import SigTerm, SigTrap
+from module.System      import SigTerm, SigTrap, SigFpe, SigXCpu, SigIll
 
 # TODO: Replace __all__ imports with named. (2011-08-03)
 from module.lib.Header    import *
@@ -134,6 +134,8 @@ class Cli(UpdateListener):
                 #    raise e
             except AlignmentError, e:
                 print("Alignment Error: {:}".format(e.message))
+            except AddressingError, e:
+                print("Addressing Error: {:}".format(e.message))
             except SegmentationFaultException, e:
                 print('SIGSEGV ({:})'.format(e.message))
             except SigTerm:
@@ -141,6 +143,12 @@ class Cli(UpdateListener):
                 print(chr(27) + '[AProgram finished')
             except SigTrap:
                 print('Breaking')
+            except SigFpe, e:
+                print(e.message)
+            except SigXCpu, e:
+                print(e.message)
+            except SigIll, e:
+                print(e.message)
 
 #
 # Basic Control

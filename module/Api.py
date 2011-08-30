@@ -11,7 +11,7 @@
 
 # TODO: addRegistersUnsigned. (2011-08-18)
 
-from SystemCall    import SystemCall
+from System        import SystemCall
 from Logger        import ApiLogger
 from Interface     import LoggerClient
 from lib.Functions import integer as int

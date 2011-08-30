@@ -18,7 +18,7 @@ from module import Logger
 from module import Monitor
 from module import Processor
 
-from module.SystemCall import SigTrap
+from module.System import SigTrap
 
 from module.lib.Functions import binary as bin
 

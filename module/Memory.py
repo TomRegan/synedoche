@@ -6,6 +6,7 @@
 # since          : 2011-07-18
 # last modified  : 2011-07-27
 #     2011-08-18 : Improved documentation
+#     2011-08-30 : Removed redundant DFE
 
 from Interface  import LoggerClient
 from Logger     import MemoryLogger
@@ -18,8 +19,9 @@ class AddressingError(Exception):
 class AlignmentError(Exception):
     pass
 
-class DataFormatException(Exception):
-    pass
+#class DataFormatException(Exception):
+#    pass
+# TR 2011-08-30
 
 class SegmentationFaultException(Exception):
     pass
@@ -152,17 +154,17 @@ class Memory(BaseMemory):
 
         #loaded values
         super(Memory, self).__init__()
-        try:
-            for thing in data:
-                if not type(thing) == int:
-                    raise DataFormatException(
-                        'Data expected is integer, got {:}.'
-                        .format(type(thing).__name__))
-            self._address_space = data[0]
-            self._size          = data[1]
-            self._addressable   = data[2]
-        except IndexError, e:
-            raise DataFormatException("Data incomplete")
+        #try:
+        #    for thing in data:
+        #        if not type(thing) == int:
+        #            raise DataFormatException(
+        #                'Data expected is integer, got {:}.'
+        #                .format(type(thing).__name__))
+        self._address_space = data[0]
+        self._size          = data[1]
+        self._addressable   = data[2]
+        #except IndexError, e:
+        #    raise DataFormatException("Data incomplete")
         #constant values
         self._types         = Enum(["Big", "Little"])
         self._endian        = self._types.Big

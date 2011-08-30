@@ -8,11 +8,12 @@
 #     2011-08-18 : Added multi-part fetch.
 #     2011-08-19 : Refactored fetch and decode.
 
+from Api        import RegisterReferenceException
 from Interface  import UpdateBroadcaster, LoggerClient
 from Monitor    import MonitorClient
 from Logger     import CpuLogger
 from copy       import copy, deepcopy
-from SystemCall import SystemCall
+from System     import SystemCall
 
 from lib.Functions import binary as bin
 from lib.Functions import integer as int
@@ -78,6 +79,9 @@ class Pipelined(BaseProcessor):
         self._api       = objects['api'].get_api_reference(self)
         self._isa       = objects['instructions']
 
+        # System provides Signals
+        self.system_call = SystemCall()
+
         # This data is used in calculations.
         self._size       = self._isa.getSize()
         self._pc         = self._registers.get_pc()
@@ -117,6 +121,10 @@ class Pipelined(BaseProcessor):
                     self._log.buffer('no such pipeline stage: {:}'
                                      .format(stage))
                     raise e
+                except ArithmeticError:
+                    self.system_call.service(16435935)
+                except RegisterReferenceException:
+                    self.system_call.service(16435936)
                 except IndexError, e:
                 # Routine, particularly for first cycles.
                     self._log.buffer('{0} found nothing in the pipeline'
@@ -315,8 +323,7 @@ class Pipelined(BaseProcessor):
         # Cooperate with any debuggery.
         if self._debug and self.get_pc_value() in self._breakpoints:
             # Call for a SigTrap
-            system_call = SystemCall()
-            system_call.service(16435934)
+            self.system_call.service(16435934)
 
     def reset(self):
         """Reset the processor to starting values."""
