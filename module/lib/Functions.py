@@ -52,3 +52,8 @@ def size(obj):
         return obj.__sizeof__()
     except:
         return 0
+
+def clear_print(string):
+    """Clears a line and prints a string."""
+    print(chr(27) + '[A' + string)
+

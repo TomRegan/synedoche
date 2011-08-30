@@ -6,7 +6,7 @@
 # since          : 2011-07-15
 # last modified  : 2011-08-17
 
-VERSION='136'
+VERSION='140'
 RELEASE_NAME='M6'
 PROGRAMME_NAME=''
 DEBUG=True

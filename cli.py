@@ -28,6 +28,7 @@ from module.System      import SigTerm, SigTrap, SigFpe, SigXCpu, SigIll
 from module.lib.Header    import *
 from module.lib.Functions import binary as bin
 from module.lib.Functions import hexadecimal as hex
+from module.lib.Functions import clear_print
 
 
 class Cli(UpdateListener):
@@ -133,22 +134,22 @@ class Cli(UpdateListener):
                 #except Exception, e:
                 #    raise e
             except AlignmentError, e:
-                print("Alignment Error: {:}".format(e.message))
+                clear_print("Alignment Error: {:}".format(e.message))
             except AddressingError, e:
-                print("Addressing Error: {:}".format(e.message))
+                clear_print("Addressing Error: {:}".format(e.message))
             except SegmentationFaultException, e:
-                print('SIGSEGV ({:})'.format(e.message))
+                clear_print('SIGSEGV ({:})'.format(e.message))
             except SigTerm:
                 # FIX: Won't work on NT platform. (2011-08-30)
-                print(chr(27) + '[AProgram finished')
+                clear_print('Program finished')
             except SigTrap:
-                print('Breaking')
+                clear_print('Breaking')
             except SigFpe, e:
-                print(e.message)
+                clear_print(e.message)
             except SigXCpu, e:
-                print(e.message)
+                clear_print(e.message)
             except SigIll, e:
-                print(e.message)
+                clear_print(e.message)
 
 #
 # Basic Control

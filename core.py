@@ -106,7 +106,7 @@ class Simulation(object):
 #
     def run(self, client):
         """Run for a long time."""
-        MAX = 1000000
+        MAX = 50000
         counter = 0
         try:
             while counter < MAX:
