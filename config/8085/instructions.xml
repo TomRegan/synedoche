@@ -150,8 +150,31 @@
       <symbol type="register" matches="d" />
     </syntax>
     <implementation>
-      <method name="subImmediate" args="d d 0x1" />
+      <method name="subImmediate"     args="d d 0x1" />
+      <method name="testEqual"        args="d 0x0" />
+      <method name="setBitInRegister" args="0x1 0x2 0x1" />
     </implementation>
+  </instruction>
+
+  <instruction name="JC" format="ID16"><!--Jump on Carry-->
+    <!--Executes a jump if carry status is > 1-->
+    <signature>
+      <field name="op" />
+    </signature>
+    <fields>
+      <field name="op"       value="0xda" />
+      <field name="data_0B"  value="0x0" />
+    </fields>
+    <syntax>
+      <expression pattern="\w+\s+([+-]?\w+)" />
+      <symbol type="immediate" matches="data_1B" />
+    </syntax>
+    <implementation>
+      <method name="branchAbsolute" args="data_1B" />
+    </implementation>
+    <replacements>
+      <replacement name="data_1B" group="0x1" type="absolute" />
+    </replacements>
   </instruction>
 
   <instruction name="JMP" format="ID16"><!--Jump-->
@@ -175,13 +198,13 @@
     </replacements>
   </instruction>
 
-  <instruction name="JC" format="ID16"><!--Jump on Carry-->
-    <!--Executes a jump if carry status is > 1-->
+  <instruction name="JNZ" format="ID16"><!--Jump If Not Zero-->
+    <!--Executes a jump if zero status is != 1-->
     <signature>
       <field name="op" />
     </signature>
     <fields>
-      <field name="op"       value="0xda" />
+      <field name="op"       value="0xc2" />
       <field name="data_0B"  value="0x0" />
     </fields>
     <syntax>

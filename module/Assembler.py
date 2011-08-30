@@ -7,6 +7,7 @@
 # since          : 2011-07-05
 # last modified  : 2011-07-22 (minor revisions; this is stable)
 #     2011-08-18 : Support for multi-part instructions added.
+#     2011-08-30 : Fixed bug in proprocessor, ....-fit on bad syntax.
 
 
 import re
@@ -234,30 +235,39 @@ class Assembler(BaseAssembler):
         self._jump_table.clear()
 
 
-        offset = 0
-        for i in range(len(lines)):
-            # Here we look for a label.
-            if re.search(self._label_pattern, lines[i]):
-                match = re.search(self._label_pattern, lines[i])
-                # Here we define the reference for this label.
-                # This will be its lookup name in the table.
-                reference = re.search(self._label_reference, match.group())
-                self._jump_table[reference.group(1)] = offset
-                self.log.buffer("mapped label `{0}' to {1}"
-                                .format(reference.group(1), offset))
-                # Finally, remove labels from the original
-                lines[i] = re.sub(self._label_pattern,'',lines[i])
+        try:
+            # FIX: This code might me dicey. Throws a key exception on
+            # very malformed input. Why? (2011-08-30)
+            # Not a big problem, only affects syntax errors.
+            offset = 0
+            for i in range(len(lines)):
+                # Here we look for a label.
+                if re.search(self._label_pattern, lines[i]):
+                    match = re.search(self._label_pattern, lines[i])
+                    # Here we define the reference for this label.
+                    # This will be its lookup name in the table.
+                    reference = re.search(self._label_reference, match.group())
+                    self._jump_table[reference.group(1)] = offset
+                    self.log.buffer("mapped label `{0}' to {1}"
+                                    .format(reference.group(1), offset))
+                    # Finally, remove labels from the original
+                    lines[i] = re.sub(self._label_pattern,'',lines[i])
 
-            # We will calculate any aditional offset required in the case
-            # of multi-part instructions.
-            instruction  = lines[i].split()[0]
-            format_name  = self._format_mappings[instruction]
-            fetch_cycles = self._isa.get_format_cycles()[format_name]
-            offset = offset + fetch_cycles
+                # We will calculate any aditional offset required in the case
+                # of multi-part instructions.
+                instruction  = lines[i].split()[0]
+                format_name  = self._format_mappings[instruction]
+                fetch_cycles = self._isa.get_format_cycles()[format_name]
+                offset = offset + fetch_cycles
 
-            # We don't want unnecessary whitespace
-            lines[i] = lines[i].strip()
-            self.log.buffer("processed  {0}".format(lines[i]))
+                # We don't want unnecessary whitespace
+                lines[i] = lines[i].strip()
+                self.log.buffer("processed  {0}".format(lines[i]))
+        except:
+                raise BadInstructionOrSyntax(
+                    "{:} on line {:}:\n{:}"
+                    .format(BAD, i+1, lines[i]))
+
         lines = [line for line in lines if line != '']
         self.log.buffer("leaving preprocessor")
         return lines

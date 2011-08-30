@@ -7,6 +7,7 @@
 # since          : 2011-07-01
 # last modified  : 2011-08-04
 #     2011-08-17 : Added _decode_register_reference method
+#     2011-08-30 : Added subImmediate (8085 support)
 
 # TODO: addRegistersUnsigned. (2011-08-18)
 
