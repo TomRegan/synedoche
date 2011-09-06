@@ -6,9 +6,9 @@
 # since          : 2011-07-15
 # last modified  : 2011-08-17
 
-VERSION='140'
+VERSION='0.141.0'
 RELEASE_NAME='M6'
-PROGRAMME_NAME=''
+PUBLIC_API='SUNRAY'
 DEBUG=True
 COLOUR = True
 LICENSE="""Copyright 2011 Tom Regan (code.tregan@gmail.com)

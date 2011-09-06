@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Instructions.
+# Instruction set data.
 # file           : Isa.py
 # author         : Tom Regan <code.tregan@gmail.com>
 # since          : 2011-07-05

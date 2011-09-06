@@ -401,3 +401,14 @@ class Pipelined(BaseProcessor):
 
     def remove(self, listener):
         super(Pipelined, self).remove(self.listeners, listener)
+
+# Colophon
+# The soundtrack to Processor is:
+# - Radiohead's Ok Computer (unrelated coincidence)
+# - Dave Matthews Band's Before These Crowded Streets
+# - Dntl's Life Is Full Of Possibilities
+#
+# Processor was written using Vi and emacs, the choice of which was dictated
+# on any given day by the strength of my wrists that morning.
+#
+# The author would like to thank God, the Universe and Everything.

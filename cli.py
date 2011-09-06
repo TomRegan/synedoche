@@ -95,8 +95,8 @@ class Cli(UpdateListener):
 #
 
     def run(self):
-        print("Command Line Client (r{:}:{:})\n"
-              .format(VERSION, RELEASE_NAME) +
+        print("Command Line Client ({:}{:})\n"
+              .format(VERSION, RELEASE_NAME.lower()) +
               "Type `help', `license' or `version' for more information.")
         parser = Parser()
         while True:
