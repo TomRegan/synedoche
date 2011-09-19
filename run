@@ -1,4 +1,4 @@
 #!/bin/bash
 #runs the cli
 
-./cli.py config/mips32/
+./cli config/mips32/

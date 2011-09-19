@@ -1,0 +1,541 @@
+.TH APIDOC 1 "11 September 2011" "API User Manual"
+.SH NAME
+.PP
+Application Programming Interface documentation - a guide to using
+the API
+.SH DESCRIPTION
+.PP
+The API is used to implement new instruction sets.
+If the reader is not yet familiar with the configuration files,
+they are located in the \f[I]config\f[] directory.
+UPDOC(1) gives some indication of their use.
+.PP
+In the \f[I]implementation\f[] element in the configuration files
+is a list of API calls.
+This documentation should clarify anything which is not already
+evident.
+.SH API CALLS
+.PP
+\f[B]addRegisters\f[]
+.PP
+\f[CR]
+      Adds\ two\ registers\ and\ stores\ the\ result\ in\ a\ third.
+      
+      Usage:
+      \ \ \ \ <method\ name="addRegisters"\ args="r_0\ r_1\ r_2"\ />
+      
+      Args:
+      \ \ \ \ Each\ argument\ should\ be\ the\ number\ of\ a\ register.
+      \ \ \ \ args[0]:int\ (result)
+      \ \ \ \ args[1]:int\ (operand)
+      \ \ \ \ args[2]:int\ (operand)
+      
+      State\ changed:
+      \ \ \ \ register[a][\[aq]value\[aq]]\ <-
+      \ \ \ \ \ \ \ \ register[b][\[aq]value\[aq]]\ +\ register[c][\[aq]value\[aq]]
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+      
+      Raises:
+      \ \ \ \ RegisterReferenceException
+\f[]
+.PP
+\f[B]addImmediate\f[]
+.PP
+\f[CR]
+      Adds\ a\ register\ to\ an\ immediate\ value\ and\ stores\ the
+      result\ in\ a\ second\ register.
+      
+      addImmediate\ performs\ twos\ complement\ arithmetic,\ so
+      the\ value\ stored\ as\ a\ result\ of\ -1\ +\ -1\ will\ be\ 0xfffffffe.
+      
+      Usage:
+      \ \ \ \ <method\ name="addImmediate"\ args="r_0\ r_1\ r_2"\ />
+      
+      Arguments:
+      \ \ \ \ Args\ 1\ and\ 2\ should\ be\ the\ numbers\ of\ registers.
+      \ \ \ \ args[0]:int\ (register)
+      \ \ \ \ args[1]:int\ (register)
+      \ \ \ \ args[2]:int\ (immediate)
+      
+      State\ changed:
+      \ \ \ \ \ register[a][\[aq]value\[aq]]\ <-\ register[b][\[aq]value\[aq]]\ +\ c:int
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+      
+      Raises:
+      \ \ \ \ RegisterReferenceException
+\f[]
+.PP
+\f[B]subRegisters\f[]
+.PP
+\f[CR]
+      Subtracts\ two\ registers\ and\ stores\ the\ result\ in\ a\ third.
+      
+      Usage:
+      \ \ \ \ <method\ name="subRegisters"\ args="r_0\ r_1\ r_2"\ />
+      
+      Args:
+      \ \ \ \ Each\ argument\ should\ be\ the\ number\ of\ a\ register.
+      \ \ \ \ args[0]:int\ (register)
+      \ \ \ \ args[1]:int\ (register)
+      \ \ \ \ args[2]:int\ (register)
+      
+      State\ changed:
+      \ \ \ \ register[a][\[aq]value\[aq]]\ <-
+      \ \ \ \ \ \ \ \ register[b][\[aq]value\[aq]]\ -\ register[c][\[aq]value\[aq]]
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+      
+      Raises:
+      \ \ \ \ RegisterReferenceException
+\f[]
+.PP
+\f[B]subImmediate\f[]
+.PP
+\f[CR]
+      Subtracts\ an\ immediate\ value\ from\ a\ registers\ and\ stores\ the
+      result\ in\ a\ second\ register.
+      
+      subImmediate\ performs\ twos\ complement\ arithmetic,\ so
+      the\ value\ stored\ as\ a\ result\ of\ 0\ -\ 1\ will\ be\ 0xfffffffe.
+      
+      Usage:
+      \ \ \ \ <method\ name="subImmediate"\ args="r_0\ r_1\ r_2"\ />
+      
+      Arguments:
+      \ \ \ \ Args\ 1\ and\ 2\ should\ be\ the\ numbers\ of\ registers.
+      \ \ \ \ args[0]:int\ (register)
+      \ \ \ \ args[1]:int\ (register)
+      \ \ \ \ args[2]:int\ (immediate)
+      
+      State\ changed:
+      \ \ \ \ \ register[a][\[aq]value\[aq]]\ <-\ register[b][\[aq]value\[aq]]\ -\ c:int
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+      
+      Raises:
+      \ \ \ \ RegisterReferenceException
+\f[]
+.PP
+\f[B]copyRegister\f[]
+.PP
+\f[CR]
+      Copies\ the\ value\ in\ a\ source\ register\ to\ a\ destination
+      register.
+      
+      Usage:
+      \ \ \ \ <method\ name="copyRegister"\ args="r_source\ r_dest"\ />
+      
+      Args:
+      \ \ \ \ Arguments\ can\ be\ integers\ (in\ hexadecimal)\ or\ register
+      \ \ \ \ references.
+      \ \ \ \ args[0]:int\ (source\ register)
+      \ \ \ \ args[1]:int\ (destination\ register)
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+      
+      Raises:
+      \ \ \ \ RegisterReferenceException
+\f[]
+.PP
+\f[B]mulRegisters\f[]
+.PP
+\f[CR]
+      Multiplies\ two\ registers\ and\ stores\ the\ product\ in\ hi\ and\ lo
+      registers.
+      
+      Usage:
+      \ \ \ \ <method\ name="mulRegisters"\ args="r_0\ r_1\ r_2"\ />
+      
+      Args:
+      \ \ \ \ Each\ argument\ should\ be\ the\ number\ of\ a\ register.
+      \ \ \ \ args[0]:int\ (high\ result\ register)
+      \ \ \ \ args[1]:int\ (low\ result\ register)
+      \ \ \ \ args[2]:int\ (operand)
+      \ \ \ \ args[3]:int\ (operand)
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+      
+      Raises:
+      \ \ \ \ RegisterReferenceException
+\f[]
+.PP
+\f[B]divRegisters\f[]
+.PP
+\f[CR]
+      Divides\ two\ registers\ and\ stores\ the\ quotient\ in\ a\ third.
+      
+      Usage:
+      \ \ \ \ <method\ name="divRegisters"\ args="r_0\ r_1\ r_2"\ />
+      
+      Args:
+      \ \ \ \ Each\ argument\ should\ be\ the\ number\ of\ a\ register.
+      \ \ \ \ args[0]:int\ (result)
+      \ \ \ \ args[1]:int\ (operand)
+      \ \ \ \ args[2]:int\ (operand)
+      
+      State\ changed:
+      \ \ \ \ register[a][\[aq]value\[aq]]\ <-
+      \ \ \ \ \ \ \ \ register[b][\[aq]value\[aq]]\ /\ register[c][\[aq]value\[aq]]
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+      
+      Raises:
+      \ \ \ \ ArithmeticError
+      \ \ \ \ RegisterReferenceException
+\f[]
+.PP
+\f[B]remRegisters\f[]
+.PP
+\f[CR]
+      Divides\ two\ registers\ and\ stores\ the\ remainder\ in\ a\ third.
+      
+      Usage:
+      \ \ \ \ <method\ name="remRegisters"\ args="r_0\ r_1\ r_2"\ />
+      
+      Args:
+      \ \ \ \ Each\ argument\ should\ be\ the\ number\ of\ a\ register.
+      \ \ \ \ args[0]:int\ (result)
+      \ \ \ \ args[1]:int\ (operand)
+      \ \ \ \ args[2]:int\ (operand)
+      
+      State\ changed:
+      \ \ \ \ register[a][\[aq]value\[aq]]\ <-
+      \ \ \ \ \ \ \ \ register[b][\[aq]value\[aq]]\ %\ register[c][\[aq]value\[aq]]
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+      
+      Raises:
+      \ \ \ \ ArithmeticError
+      \ \ \ \ RegisterReferenceException
+\f[]
+.PP
+\f[B]setRegister\f[]
+.PP
+\f[CR]
+      Sets\ the\ value\ of\ a\ register.
+      
+      Usage:
+      \ \ \ \ <method\ name="remRegisters"\ args="r_0\ r_1"\ />
+      
+      Args:
+      \ \ \ \ Either\ argument\ can\ be\ a\ register\ or\ immediate\ value.
+      \ \ \ \ args[0]:int\ (target)
+      \ \ \ \ args[1]:int\ (value)
+      
+      State\ changed:
+      \ \ \ \ register[a][\[aq]value\[aq]]\ <-\ b:int
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+\f[]
+.PP
+\f[B]setBitInRegister\f[]
+.PP
+\f[CR]
+      Sets\ one\ bit\ in\ a\ register\ value\ to\ on\ or\ off.
+      
+      Usage:
+      \ \ \ \ <method\ name="setBitInRegister"\ args="register\ bit\ value"\ />
+      
+      Args:
+      \ \ \ \ Either\ argument\ can\ be\ a\ register\ or\ immediate\ value.
+      \ \ \ \ args[0]:int\ (register)
+      \ \ \ \ args[1]:int\ (bit\ number)
+      \ \ \ \ args[2]:int\ (value)
+      
+      Description:
+      \ \ \ \ (register:str,\ bit:int,\ value:int)\ ->\ return:bool
+      
+      Purpose:
+      \ \ \ \ Can\ be\ used\ to\ alter\ registers\ which\ are\ commonly\ bit-stuffed,
+      \ \ \ \ like\ the\ [E]FLAGS\ register\ of\ 808x\ ISAs.
+      
+      \ \ \ \ This\ call\ is\ not\ expected\ to\ read\ an\ instruction,\ so\ it\ is\ best
+      \ \ \ \ used\ to\ generate\ the\ results\ of\ other\ operations,\ for\ example
+      \ \ \ \ setting\ a\ carry\ flag\ as\ the\ result\ of\ an\ addition.
+      
+      Restrictions:
+      \ \ \ \ If\ the\ register\ does\ not\ contain\ a\ bit_n,\ the\ result\ of\ this
+      \ \ \ \ call\ is\ undefined.\ Registers\ are\ padded\ with\ zeros\ depending
+      \ \ \ \ on\ their\ size\ specified\ in\ the\ ISA.\ This\ means\ a\ decimal\ value
+      \ \ \ \ of\ 10\ in\ an\ 0\ bit\ register\ will\ be\ treated\ as\ 0b00001010.
+      
+      \ \ \ \ If\ the\ call\ does\ not\ contain\ a\ \[aq]0\[aq]\ or\ \[aq]1\[aq]\ value\ in\ the\ `value\[aq]
+      \ \ \ \ field,\ the\ result\ of\ this\ call\ is\ undefined.
+      
+      Exceptions:
+      \ \ \ \ This\ call\ has\ undefined\ behaviour\ and\ may\ not\ handle\ exceptions
+      \ \ \ \ raised\ in\ the\ event\ of\ error.
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+\f[]
+.PP
+\f[B]loadWord32\f[]
+.PP
+\f[CR]
+      Loads\ a\ word\ from\ memory.
+      
+      Usage:
+      \ \ \ \ <method\ name="loadWord32"\ args="register\ offset"\ />
+      
+      Args:
+      \ \ \ \ args[0]:int\ (target)
+      \ \ \ \ args[1]:int\ (memory\ offset)
+      
+      State\ changed:
+      \ \ \ \ register[a][\[aq]value\[aq]]\ <-\ memory[b]
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+\f[]
+.PP
+\f[B]storeWord32\f[]
+.PP
+\f[CR]
+      Loads\ a\ word\ from\ memory.
+      
+      Usage:
+      \ \ \ \ <method\ name="storeWord32"\ args="register\ offset"\ />
+      
+      Args:
+      \ \ \ \ args[0]:int\ (register)
+      \ \ \ \ args[1]:int\ (target)
+      
+      State\ changed:
+      \ \ \ \ memory[b]\ <-\ register[a][\[aq]value\[aq]]
+      
+      Returns:
+      \ \ \ \ Always\ returns\ True
+\f[]
+.PP
+\f[B]testEqual\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ a\ and\ b\ are\ equal.
+      
+      Usage:
+      \ \ \ \ <method\ name="testEqual"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testNotEqual\f[]
+.PP
+\f[CR]
+      Returns\ false\ if\ a\ and\ b\ are\ equal.
+      
+      Usage:
+      \ \ \ \ <method\ name="testNotEqual"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testEqualImmediate\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ a\ and\ b\ are\ equal.\ Immediate\ means\ it\ will
+      interpret\ the\ value\ encoded\ in\ the\ instruction\ field
+      referenced\ by\ the\ second\ argument\ as\ an\ immediate\ integer
+      and\ not\ a\ reference\ to\ registers\ or\ memory.
+      
+      Usage:
+      \ \ \ \ <method\ name="testEqualImmediate"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testNotEqualImmediate\f[]
+.PP
+\f[CR]
+      Returns\ false\ if\ a\ and\ b\ are\ equal.\ Immediate\ means\ it\ will
+      interpret\ the\ value\ encoded\ in\ the\ instruction\ field
+      referenced\ by\ the\ second\ argument\ as\ an\ immediate\ integer
+      and\ not\ a\ reference\ to\ registers\ or\ memory.
+      
+      Usage:
+      \ \ \ \ <method\ name="testNotEqualImmediate"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testLess\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ a\ is\ less\ than\ b.
+      
+      Usage:
+      \ \ \ \ <method\ name="testLess"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testLessImmediate\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ a\ is\ less\ than\ b.\ Immediate\ means\ it\ will
+      interpret\ the\ value\ encoded\ in\ the\ instruction\ field
+      referenced\ by\ the\ second\ argument\ as\ an\ immediate\ integer
+      and\ not\ a\ reference\ to\ registers\ or\ memory.
+      
+      Usage:
+      \ \ \ \ <method\ name="testLessImmediate"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testGreater\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ a\ >\ b.
+      
+      Usage:
+      \ \ \ \ <method\ name="testGreater"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testGreaterOrEqual\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ a\ >=\ b.
+      
+      Usage:
+      \ \ \ \ <method\ name="testGreaterOrEqual"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testGreaterImmediate\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ a\ >\ b.\ Immediate\ means\ it\ will
+      interpret\ the\ value\ encoded\ in\ the\ instruction\ field
+      referenced\ by\ the\ second\ argument\ as\ an\ immediate\ integer
+      and\ not\ a\ reference\ to\ registers\ or\ memory.
+      
+      Usage:
+      \ \ \ \ <method\ name="testGreaterImmediate"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testGreaterOrEqualImmediate\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ a\ >=\ b.\ Immediate\ means\ it\ will
+      interpret\ the\ value\ encoded\ in\ the\ instruction\ field
+      referenced\ by\ the\ second\ argument\ as\ an\ immediate\ integer
+      and\ not\ a\ reference\ to\ registers\ or\ memory.
+      
+      Usage:
+      \ \ \ \ <method\ name="testGreaterOrEqualImmediate"\ args="r_0\ r_1"\ />
+\f[]
+.PP
+\f[B]testBitIsOn\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ register\ has\ bit_n\ set\ to\ 0b1
+      
+      Usage:
+      \ \ \ \ <method\ name="testBitIsOn"\ args="register\ bit"\ />
+      
+      Args:
+      \ \ \ \ args[0]:int\ (register)
+      \ \ \ \ args[1]:int\ (bit\ number)
+      
+      Description:
+      \ \ \ \ (register:str,\ int:int)\ ->\ return:bool
+      \ \ \ \ testBitIsOn\ inspects\ one\ bit\ of\ a\ binary\ value\ stored\ in
+      \ \ \ \ a\ register\ and\ returns\ True\ or\ False.\ This\ call\ behaves
+      \ \ \ \ as\ if\ the\ storage\ were\ big-endian,\ regardless\ of\ the\ underlying
+      \ \ \ \ ISA\ and\ other\ organization.
+      
+      
+      Purpose:
+      \ \ \ \ Can\ be\ used\ to\ examine\ registers\ which\ are\ commonly\ bit-stuffed,
+      \ \ \ \ like\ the\ [E]FLAGS\ register\ of\ 808x\ ISAs.
+      
+      Restrictions:
+      \ \ \ \ If\ the\ register\ does\ not\ contain\ a\ bit_n,\ the\ result\ of\ this
+      \ \ \ \ call\ is\ undefined.\ Registers\ are\ padded\ with\ zeros\ depending
+      \ \ \ \ on\ their\ size\ specified\ in\ the\ ISA.\ This\ means\ a\ value\ of\ 0b1
+      \ \ \ \ in\ an\ 0\ bit\ register\ will\ be\ examined\ as\ 0b00000001,\ so\ bit
+      \ \ \ \ 0..6\ will\ appear\ to\ be\ off\ and\ 7\ will\ appear\ on.
+      
+      Exceptions:
+      \ \ \ \ This\ call\ has\ undefined\ behaviour\ and\ may\ not\ handle\ exceptions
+      \ \ \ \ raised\ in\ the\ event\ of\ error.
+      
+      Returns:
+      \ \ \ \ True\ or\ False
+\f[]
+.PP
+\f[B]testBitIsOff\f[]
+.PP
+\f[CR]
+      Returns\ true\ if\ register\ has\ bit_n\ set\ to\ 0b0
+      
+      Usage:
+      \ \ \ \ <method\ name="testBitIsOff"\ args="register\ bit"\ />
+      
+      Args:
+      \ \ \ \ args[0]:int\ (register)
+      \ \ \ \ args[1]:int\ (bit\ number)
+      
+      Description:
+      \ \ \ \ (register:str,\ int:int)\ ->\ return:bool
+      \ \ \ \ testBitIsOff\ inspects\ one\ bit\ of\ a\ binary\ value\ stored\ in
+      \ \ \ \ a\ register\ and\ returns\ True\ or\ False.\ This\ call\ behaves
+      \ \ \ \ as\ if\ the\ storage\ were\ big-endian,\ regardless\ of\ the\ underlying
+      \ \ \ \ ISA\ and\ other\ organization.
+      
+      
+      Purpose:
+      \ \ \ \ Can\ be\ used\ to\ examine\ registers\ which\ are\ commonly\ bit-stuffed,
+      \ \ \ \ like\ the\ [E]FLAGS\ register\ of\ 808x\ ISAs.
+      
+      Restrictions:
+      \ \ \ \ If\ the\ register\ does\ not\ contain\ a\ bit_n,\ the\ result\ of\ this
+      \ \ \ \ call\ is\ undefined.\ Registers\ are\ padded\ with\ zeros\ depending
+      \ \ \ \ on\ their\ size\ specified\ in\ the\ ISA.\ This\ means\ a\ value\ of\ 0b1
+      \ \ \ \ in\ an\ 0\ bit\ register\ will\ be\ examined\ as\ 0b00000001,\ so\ bit
+      \ \ \ \ 0..6\ will\ appear\ to\ be\ off\ and\ 7\ will\ appear\ on.
+      
+      Exceptions:
+      \ \ \ \ This\ call\ has\ undefined\ behaviour\ and\ may\ not\ handle\ exceptions
+      \ \ \ \ raised\ in\ the\ event\ of\ error.
+      
+      Returns:
+      \ \ \ \ True\ or\ False
+\f[]
+.PP
+\f[B]branchAbsolute\f[]
+.PP
+\f[CR]
+      Sets\ the\ instruction\ pointer\ to\ a\ new\ memory\ address.
+      
+      Usage:
+      \ \ \ \ <method\ name="branchAbsolute"\ args="field\ (optional)"\ />
+      
+      Values:
+      \ \ \ \ a\ =\ int
+      \ \ \ [b\ =\ int]
+      
+      \ \ \ Takes\ an\ optional\ second\ argument\ which\ can\ be\ used
+      \ \ \ to\ simulate\ a\ jump\ return\ offset\ amongst\ other\ things.
+      
+      Returns\ True
+\f[]
+.PP
+\f[B]branchRelative\f[]
+.PP
+\f[CR]
+      Adds\ a\ computed\ offset\ to\ the\ instruction\ pointer.
+      
+      Usage:
+      \ \ \ \ <method\ name="branchRelative"\ args="field"\ />
+      
+      Values:
+      \ \ \ \ a\ =\ int
+      
+      Returns\ True
+\f[]
+.SH SEE ALSO
+.PP
+\f[B]UPDOC\f[] (1) contains information on writing user programs.
+.SH AUTHORS
+Tom Regan.
+

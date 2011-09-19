@@ -1,0 +1,128 @@
+.TH UPDOC 1 "11 September 2011" "User Programming Documentation"
+.SH NAME
+.PP
+User Programming Documentation - A guide to the project software.
+.SH WHAT'S UPDOC?
+.PP
+This documentation covers two types of user programming: Assembly
+programming and simulator configuration.
+.SH ASSEMBLY PROGRAMMING
+.PP
+This is not a complete guide to assembly programming.
+For MIPS-I assembly, I recommend Patterson and Hennessy's
+world-famous \f[I]Computer Organization and Design\f[], which
+provides ample background to understand the MIPS Programmer's
+References available at <http://www.mips.com>.
+.SH GETTING STARTED
+.PP
+A simple MIPS program might look like this:
+.PP
+\f[CR]
+      Main:
+      \ \ addi\ $s1,\ $zero,\ 0xa
+      L0:\ #\ Loop\ 0
+      \ \ beq\ \ $s0,\ $s1,\ Exit
+      \ \ nop
+      \ \ addi\ $s0,\ $s0,\ 0x1
+      \ \ j\ L0
+      \ \ nop
+      Exit:
+      \ \ addi\ $v0,\ $zero,\ 0xa
+      \ \ syscall
+\f[]
+.PP
+This program will count to 10 and then exit.
+The following features are worth noting.
+.PP
+There is no load-immdeiate (li) instruction.
+In the above program I have substituted this with addi to load
+values.
+In the current release (0.142.x) li is not implemented.
+.PP
+The exit block uses the idiomatic SPIM routine to terminate the
+program using a trap.
+Register 3 is loaded with the value 10 when syscall is executed.
+\f[B]WARNING!\f[] omitting this will leave the simulation running
+until a SIGXCPU pops out.
+Typically, this could be many minutes.
+.PP
+Because the pipeline timing of MIPS is emulated nop instructions
+are required in delay slots (unless you, the programmer, are canny
+enough to arrange your code such that something useful can be done
+instead).
+The MIPS32 ISA states that the result of following a branch with
+another branch instruction is \f[B]unpredictable\f[].
+Well, it will be; be so advised.
+.PP
+There are no macros in the assembly code.
+These will only serve to confuse the assembler, so it's best to
+remove them or comment-out.
+.SH INSTRUCTION SPECIFICATION
+.PP
+The instruction specification is used to create instructions that
+exist in an ISA.
+.PP
+This section will outline the specification format: referring to
+the XML sources in the \f[I]config\f[] directory is recommended.
+.PP
+The \f[B]instructions\f[] node is the document root.
+Its attributes specify the bit-size of the ISA (but not individual
+instructions).
+.PP
+The \f[B]formats\f[] node contains details about the
+\f[I]structure\f[] of instruction types.
+This includes the size of the instruction (which may vary from the
+ISA size) and the number of fetch-cycles required.
+.PP
+The assembler node is not used in the current release (0.142.x).
+.PP
+Following this is a number of instructions.
+Each \f[B]instruction\f[] element required a name, which is the
+identifier in assembly, and a format type, which associates the
+instruction with a structure from \f[B]formats\f[].
+They may be listed in any order
+.PP
+An instruction requires a signature, which specifies the fields an
+interpreter will need to look at to uniquely identify the binary.
+It may contain preset fields, which are instruction fields with
+invarient values.
+It some syntax information which specifies using a regex the
+correct format of the assembly instruction, and a list of groups
+which match identifiers in the assembly instruction to fields in
+the parent format.
+Finally, it requires an implementation.
+This involves making a sequence of API calls in the order specified
+with the arguments provided (see APIDOC (1)).
+.SH MACHINE SPECIFICATION
+.PP
+The machine specification configures hardware components in the
+simulation.
+.PP
+\f[B]memory\f[] contains a list of memory segments and their
+extents.
+.PP
+\f[B]registers\f[] lists processor registers including a name (the
+assembly instruction identifier), a number (the machine instruction
+identifier), a size in bits, \f[I]write\f[] which marks the
+register as writable or restricted, \f[I]profile\f[] which should
+be one of: gp, pc, psw (for status word), hi and lo (for
+double-width high/low-order registers).
+Finally, a preset can be given which will be the default value for
+that register.
+.PP
+\f[B]pipeline\f[] is an enumeration of pipeline stages which must
+have names corresponding to the API (see APIDOC (1)).
+Pipeline flags can be any of FI, FD and EI which represent
+fetch-increment fetch-decode and execute-increment.
+The flags fine-tune the processor's behaviour, so FI will increment
+the instruction pointer (which incidentally is the register with
+profile pc) during the fetch stage.
+FD will combine fetching and decoding the instruction in one cycle.
+.SH SEE ALSO
+.PP
+\f[B]PDOC\f[] (1) - Documents the simulator software.
+.PP
+\f[B]APIDOC\f[] (1) - Documents the API.
+.SH AUTHORS
+Tom Regan.
+

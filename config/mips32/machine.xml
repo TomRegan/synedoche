@@ -70,6 +70,7 @@
     <stage name="fetch" />
     <stage name="execute" />
     <stage name="memory" />
+    <stage name="accumilate" />
     <stage name="writeback" />
   </pipeline>
 

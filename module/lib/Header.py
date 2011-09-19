@@ -6,8 +6,8 @@
 # since          : 2011-07-15
 # last modified  : 2011-08-17
 
-VERSION='0.141.0'
-RELEASE_NAME='M6'
+VERSION='0.142.1'
+RELEASE_NAME='-release'
 PUBLIC_API='SUNRAY'
 DEBUG=True
 COLOUR = True

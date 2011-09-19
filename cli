@@ -291,7 +291,7 @@ class Cli(UpdateListener):
         except BadInstructionOrSyntax, e:
             print(e.message)
         except Exception, e:
-            print('fatal: {:}'.format(e))
+            print('Whoops: {:}'.format(e))
             raise e
 
     def visualize(self, args=None):

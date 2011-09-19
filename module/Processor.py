@@ -188,6 +188,9 @@ class Pipelined(BaseProcessor):
     def _memory_coordinator(self, index):
         pass
 
+    def _accumilate_coordinator(self, index):
+        pass
+
     def _writeback_coordinator(self, index):
         self.__writeback(index)
 

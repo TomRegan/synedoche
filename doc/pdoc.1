@@ -1,0 +1,215 @@
+.TH PDOC 1 "11 September 2011" "Project User Manual"
+.SH NAME
+.PP
+Program Documentation - A Guide to the project software.
+.SH SYNOPSIS
+.PP
+\f[B]cli\f[] <\f[I]config-file\f[]>
+.SH DESCRIPTION
+.PP
+The cli provides an interface to the project software's machine
+host.
+A configuration file must be specified on the command line.
+Configurations are found in the \f[B]config\f[] directory.
+See the \f[B]GETTING STARTED\f[] section for further usage.
+.SH GETTING STARTED
+.PP
+At the shell prompt, type cli <\f[I]config-file\f[]> to begin.
+.PP
+\f[CR]
+      $\ cli\ config/mips/
+\f[]
+.PP
+The cli prompt resembles chevrons.
+At any point an \f[I]information\f[] or \f[I]control\f[] command
+can be issued.
+See below for a full listing of commands.
+.PP
+Load an assembly program with the command \f[B]load\f[]
+<\f[I]program\f[]>, where <\f[I]program\f[]> is a fully qualified
+or relative path to the file.
+For example:
+.PP
+\f[CR]
+      >>>\ load\ ~/.factorial.asm
+\f[]
+.PP
+Cycle the simulation with the command \f[B]cycle\f[], moving
+through a single pipeline stage:
+.PP
+\f[CR]
+      |IF|ID|FO|CO|IE|ME|WB|
+      \ ^^
+      >>>\ cycle
+      
+      |IF|ID|FO|CO|IE|ME|WB|
+      \ \ \ \ ^^
+\f[]
+.PP
+Step the program with \f[B]step\f[], jumping to the execution of
+the current instruction:
+.PP
+\f[CR]
+      |IF|ID|FO|CO|IE|ME|WB|
+      \ ^^
+      >>>\ step
+      
+      |IF|ID|FO|CO|IE|ME|WB|
+      \ \ \ \ \ \ \ \ \ \ \ \ \ ^^
+\f[]
+.PP
+Run the program with \f[B]run\f[], continuing to the next break
+point:
+.PP
+Continue execution with \f[B]continue\f[], skipping any breakpoints
+(see \f[B]DEBUGGING\f[]) and completing the program's execution.
+.SH INFORMATION COMMANDS
+.PP
+\f[B]info\f[] [\f[I]registers\f[]] [\f[I]register\f[]]
+[\f[I]memory\f[]] [\f[I]pipeline\f[]] [\f[I]program\f[]]
+[\f[I]breakpoints\f[]] - abbr.
+\f[I]i\f[]
+.PP
+Allows one of the following commands to be issued:
+.PP
+\f[B]registers\f[] [\f[I]rewind\f[]] <\f[I]frames\f[]> - abbr.
+\f[I]r\f[] [\f[I]re\f[]]
+.PP
+Displays the contents of processor registers
+.PP
+\f[CR]
+      >>>\ info\ registers
+\f[]
+.PP
+\f[I]rewind\f[], which can be shortened to \f[I]re\f[], provides
+the ability to see register values in earlier stack-frames
+.PP
+\f[CR]
+      >>>\ info\ registers\ rewind\ 1
+\f[]
+.PP
+This will display register values from the previous processor
+cycle.
+.PP
+\f[B]register\f[] \f[I]n\f[]<\f[I]base\f[]> - abbr.
+\f[I]r\f[]
+.PP
+Displays the contents of a single processor register.
+Number format can be specified with a postfix letter from
+\f[B]h\f[], \f[B]d\f[] or \f[B]b\f[] for hex, decimal or binary
+respectively
+.PP
+\f[CR]
+      >>>\ info\ register\ 3b
+\f[]
+.PP
+Default is decimal.
+.PP
+\f[B]memory\f[] <\f[I]range\f[]> <\f[I]start\f[]> - abbr.
+\f[I]mem\f[]
+.PP
+Displays words in memory.
+If range and start are given the associated memory region will be
+displayed, otherwise the default is to show the stack
+.PP
+\f[CR]
+      >>>\ memory\ -9\ 0
+\f[]
+.PP
+This will display the 10 words from the zeroth memory address up to
+0x9.
+.PP
+\f[B]pipeline\f[] - abbr.
+\f[I]pip\f[]
+.PP
+Displays the contents of the pipeline.
+.PP
+\f[B]program\f[] - abbr.
+\f[I]prog\f[]
+.PP
+Displays the instructions and load-addresses of the user program.
+.SH CONTROL COMMANDS
+.PP
+Tab-completion is available for control commands.
+Double-tab will print a list of all commands.
+.PP
+\f[B]load\f[] <\f[I]program\f[]> - abbr.
+\f[I]l\f[]
+.PP
+Loads a user-program from a file.
+The path can be absolute or relative to the environment's CWD.
+.PP
+\f[B]run\f[] - abbr.
+\f[I]r\f[]
+.PP
+Runs a program.
+.PP
+\f[B]cycle\f[] - abbr.
+\f[I]c\f[]
+.PP
+Advances the program by one processor cycle.
+.PP
+\f[B]step\f[] - abbr.
+\f[I]s\f[]
+.PP
+Executes the current command.
+.PP
+\f[B]continue\f[] - abbr.
+\f[I]co\f[]
+.PP
+Runs a program to completion.
+.PP
+\f[B]break\f[] <\f[I]label\f[]> or <\f[I]offset\f[]>- abbr.
+\f[I]br\f[]
+.PP
+Sets a breakpoint (see \f[B]DEBUGGING\f[])
+.SH DEBUGGING
+.PP
+To debug a program using breakpoints use the command
+\f[B]break\f[].
+.PP
+\f[CR]
+      >>>\ break\ Main
+\f[]
+.PP
+This will cause the simulation to trap each time execution hits the
+\f[I]Main\f[] label.
+Alternatively, use a memory address:
+.PP
+\f[CR]
+      >>>\ break\ 0x400000
+\f[]
+.PP
+To remove a break point, enter \f[B]break\f[] followed by
+\f[B]delete\f[].
+.PP
+\f[CR]
+      >>>\ break\ delete\ Main
+\f[]
+.PP
+Alternatively use the \f[B]continue\f[] command to complete program
+execution.
+.SH EVALUATION
+.PP
+Assembly instructions can be evaluated in the simulator.
+The command \f[B]evaluate\f[] begins line evaluation mode which has
+a \f[I]$\f[] prompt.
+.PP
+Entering several blank lines in sequence will quit the evaluator,
+as will the \f[I] and\f[]^D*.
+Once at the main prompt, information commands can be used to
+inspect the outcome of the evaluation.
+.PP
+Line evaluation offers options for displaying instruction data, for
+example binaries of the instructions entered.
+These are set to fairly sane defaults; further options are
+documented in the source.
+.SH BUGS
+.PP
+bugs.tregan\@gmail.com
+.SH SEE ALSO
+.PP
+\f[B]UPDOC\f[] (1) contains information on writing user programs.
+.SH AUTHORS
+Tom Regan.
+

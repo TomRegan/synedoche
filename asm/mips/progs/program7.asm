@@ -11,23 +11,37 @@
 ##This block initializes counters and variables.   ##
 #####################################################
 Main:
-  addi $s0, $zero, 10   # loop counter
   addi $sp, $sp,   -4   #
   sw   $gp, 0($sp)      # save the global pointer
 #####################################################
-##This loop loads the data.                        ##
+##This block loads the data.                       ##
 #####################################################
-L0:
+  addi $s0, $zero,  8   #
   sw   $s0, 0($gp)      #
-  addi $gp, $gp,   4    #
-  bgtz $s0, L0          #
-  addi $s0, $s0,   -1   # decrement counter (delay slot)
-  addi $s0, $zero, 10   # reset counter
+  addi $s0, $zero,0xa   #
+  sw   $s0, 4($gp)      #
+  addi $s0, $zero,0x1   #
+  sw   $s0, 8($gp)      #
+  addi $s0, $zero,0x2   #
+  sw   $s0,12($gp)      #
+  addi $s0, $zero,0x7   #
+  sw   $s0,16($gp)      #
+  addi $s0, $zero,0x4   #
+  sw   $s0,20($gp)      #
+  addi $s0, $zero,0x5   #
+  sw   $s0,24($gp)      #
+  addi $s0, $zero,0x3   #
+  sw   $s0,28($gp)      #
+  addi $s0, $zero,0x6   #
+  sw   $s0,32($gp)      #
+  addi $s0, $zero,0x9   #
+  sw   $s0,36($gp)      #
+  addi $s0, $zero,0xa   # reset counter
 #####################################################
 ##This is the outer sort-loop.                     ##
 #####################################################
 L1:
-  addi $s1, $zero, 9    # inner loop counter for sort
+  addi $s1, $zero,0x9   # inner loop counter for sort
   addi $s0, $s0,   -1   # decrement counter
   lw   $gp, 0($sp)      # load original gp value
   addi $gp, $gp,   -4   # FIX: fencepost error

@@ -51,7 +51,7 @@ class Simulation(object):
             now = datetime.isoformat(datetime.now(), sep = ' ')
             self.log.buffer('system started at {0}'.format(now))
         except Exception as e:
-            sys.stderr.write('fatal: failed doing basic init\n{:}\n'
+            sys.stderr.write('Whoops: failed doing basic init\n{:}\n'
                              .format(e.message))
             raise e
 
