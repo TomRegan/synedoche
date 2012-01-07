@@ -565,8 +565,8 @@ class Cli(UpdateListener):
 
 
 if __name__ == '__main__':
+    logging_level = False
     if len(sys.argv) > 2:
-        logging_level = False
         logging_token = 'logging='
         for arg in sys.argv:
             if logging_token in arg:
