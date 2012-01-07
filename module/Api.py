@@ -13,6 +13,7 @@
 
 from System        import SystemCall
 from Logger        import ApiLogger
+from Logger        import level
 from Interface     import LoggerClient
 from lib.Functions import integer as int
 from lib.Functions import binary as bin
@@ -41,7 +42,8 @@ class BaseApi(LoggerClient):
 
         self.log = ApiLogger(logger)
         self.log.buffer("created an api, `{:}'"
-                        .format(self.__class__.__name__))
+                        .format(self.__class__.__name__),
+                        level.INFO)
 
     def get_api_reference(self, cpu):
         """cpu:object -> api:object
@@ -90,11 +92,12 @@ class Sunray(BaseApi):
         Raises:
             RegisterReferenceException
         """
-        self.log.buffer('addRegisters called')
+        self.log.buffer('addRegisters called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         c = self._decode_register_reference(args[2], instruction_decoded)
-        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c))
+        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c),
+                        level.FINEST)
         for operand in [a, b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
@@ -108,9 +111,9 @@ class Sunray(BaseApi):
         result = bvalue + cvalue
         # ... and we want to store the result as a signed number.
         a_size = self._register.get_size(a)
-        # NB: we don't use signed arg to give correct 2's comp result 
+        # NB: we don't use signed arg to give correct 2's comp result
         result = int(bin(result, a_size), 2)
-        self.log.buffer('result is {0}'.format(result))
+        self.log.buffer('result is {0}'.format(result), level.FINEST)
         self._register.set_value(a, result)
         return True
 
@@ -138,12 +141,13 @@ class Sunray(BaseApi):
         Raises:
             RegisterReferenceException
         """
-        self.log.buffer('addImmediate called')
+        self.log.buffer('addImmediate called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         # This will be a signed immediate value.
         c = int(instruction_decoded[args[2]], 2, signed=True)
-        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a, b, c))
+        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a, b, c),
+                        level.FINEST)
         for operand in [a, b]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
@@ -156,7 +160,7 @@ class Sunray(BaseApi):
         # Need size of a, the register to be written to, for correct sign.
         size = self._register.get_size(a)
         result = int(bin(result, size), 2)
-        self.log.buffer('result is {0}'.format(result))
+        self.log.buffer('result is {0}'.format(result), level.FINEST)
         self._register.set_value(a, result)
         return True
 
@@ -182,11 +186,11 @@ class Sunray(BaseApi):
         Raises:
             RegisterReferenceException
         """
-        self.log.buffer('subRegisters called')
+        self.log.buffer('subRegisters called', level.FINER)
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c))
+        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a,b,c), level.FINEST)
         for operand in [a, b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
@@ -216,7 +220,7 @@ class Sunray(BaseApi):
         Raises:
             RegisterReferenceException
         """
-        self.log.buffer('subImmediate called')
+        self.log.buffer('subImmediate called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         # This will be a signed immediate value.
@@ -224,7 +228,7 @@ class Sunray(BaseApi):
             c = int(instruction_decoded[args[2]], 2, signed=True)
         except:
             c = args[2]
-        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a, b, c))
+        self.log.buffer('args 0:{0}, 1:{1}, 2:{2}'.format(a, b, c), level.FINEST)
         for operand in [a, b]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
@@ -236,12 +240,12 @@ class Sunray(BaseApi):
         # Need size of a, the register to be written to, for correct sign.
         size = self._register.get_size(a)
         result = int(bin(result, size), 2)
-        self.log.buffer('result is {0}'.format(result))
+        self.log.buffer('result is {0}'.format(result), level.FINEST)
         self._register.set_value(a, result)
         return True
 
     def copyRegister(self, args, instruction_decoded, **named_args):
-        self.log.buffer('copyRegister called')
+        self.log.buffer('copyRegister called', level.FINER)
         if args[0] in instruction_decoded.keys():
             a = int(instruction_decoded[args[0]], 2)
         else:
@@ -252,7 +256,7 @@ class Sunray(BaseApi):
             b = args[1]
         #a = args[0]
         #b = instruction_decoded[args[1]]
-        self.log.buffer('args 0:{:}, 1:{:}'.format(a, b))
+        self.log.buffer('args 0:{:}, 1:{:}'.format(a, b), level.FINEST)
         value = self._register.get_value(a)
         self._register.set_value(b, value)
         return True
@@ -276,14 +280,14 @@ class Sunray(BaseApi):
         Raises:
             RegisterReferenceException
         """
-        self.log.buffer('mulRegisters called')
+        self.log.buffer('mulRegisters called', level.FINER)
         try:
             a = int(instruction_decoded[args[0]], 2)
         except:
             a = args[0]
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
-        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c), level.FINEST)
         for operand in [b, c]:
             if operand not in self._register.keys():
                 raise RegisterReferenceException
@@ -313,14 +317,14 @@ class Sunray(BaseApi):
             ArithmeticError
             RegisterReferenceException
         """
-        self.log.buffer('divRegisters called')
+        self.log.buffer('divRegisters called', level.FINER)
         try:
             a = int(instruction_decoded[args[0]], 2)
         except:
             a = args[0]
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
-        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c), level.FINEST)
         if self._register.get_value(c) == 0:
             raise ArithmeticError
         for operand in [b, c]:
@@ -352,14 +356,14 @@ class Sunray(BaseApi):
             ArithmeticError
             RegisterReferenceException
         """
-        self.log.buffer('remRegisters called')
+        self.log.buffer('remRegisters called', level.FINER)
         try:
             a = int(instruction_decoded[args[0]], 2)
         except:
             a = args[0]
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
-        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c), level.FINEST)
         if self._register.get_value(c) == 0:
             raise ArithmeticError
         for operand in [b, c]:
@@ -385,7 +389,7 @@ class Sunray(BaseApi):
         Returns:
             Always returns True
         """
-        self.log.buffer('setRegister called')
+        self.log.buffer('setRegister called', level.FINER)
         if args[0] in instruction_decoded.keys():
             a = int(instruction_decoded[args[0]], 2)
         else:
@@ -394,7 +398,7 @@ class Sunray(BaseApi):
             b = int(instruction_decoded[args[1]], 2)
         else:
             b = args[1]
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
         self._register.set_value(a, b)
         return True
 
@@ -428,11 +432,11 @@ class Sunray(BaseApi):
         Returns:
             Always returns True
         """
-        self.log.buffer('setBitInRegister called')
+        self.log.buffer('setBitInRegister called', level.FINER)
         a = args[0]
         b = int(args[1])
         c = str(args[2])
-        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a, b, c))
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a, b, c), level.FINEST)
 
         a_size = self._register.get_size(a)
 
@@ -458,15 +462,16 @@ class Sunray(BaseApi):
         Returns:
             Always returns True
         """
-        self.log.buffer('loadWord32 called')
+        self.log.buffer('loadWord32 called', level.FINER)
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
-        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c), level.FINEST)
         offset=int(c)+self._register.get_value(int(b))
         word = self._memory.get_word(offset, 32)
         self._register.set_value(int(a), word)
-        self.log.buffer('loading {:} into {:} from {:}'.format(word,a,offset))
+        self.log.buffer('loading {:} into {:} from {:}'.format(word,a,offset),
+                        level.FINEST)
         return True
 
     def storeWord32(self, args, instruction_decoded, **named_args):
@@ -484,15 +489,16 @@ class Sunray(BaseApi):
         Returns:
             Always returns True
         """
-        self.log.buffer('storeWord32 called')
+        self.log.buffer('storeWord32 called', level.FINER)
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
         c = int(instruction_decoded[args[2]], 2)
-        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c))
+        self.log.buffer('args 0:{:}, 1:{:}, 2:{:}'.format(a,b,c), level.FINEST)
         value=self._register.get_value(int(a))
         offset=int(c)+self._register.get_value(int(b))
         self._memory.set_word(offset, value, 32)
-        self.log.buffer('storing {:} in {:}'.format(value, hex(offset)))
+        self.log.buffer('storing {:} in {:}'.format(value, hex(offset)),
+                        level.FINEST)
         return True
 
     def testEqual(self, args, instruction_decoded, **named_args):
@@ -500,15 +506,17 @@ class Sunray(BaseApi):
 
         Returns true if a and b are equal.
         """
-        self.log.buffer('testEqual called')
+        self.log.buffer('testEqual called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         #a = int(instruction_decoded[args[0]], 2)
         #b = int(instruction_decoded[args[1]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
         self.log.buffer('a is {0}, b is {1}'.format(
-            self._register.get_value(a), self._register.get_value(b)))
-        self.log.buffer('returning {0}'.format(self._register.get_value(a) == self._register.get_value(b)))
+            self._register.get_value(a), self._register.get_value(b)),
+            level.FINER)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) == self._register.get_value(b)),
+                        level.FINEST)
         return self._register.get_value(a) == self._register.get_value(b)
 
     def testNotEqual(self, args, instruction_decoded, **named_args):
@@ -516,15 +524,17 @@ class Sunray(BaseApi):
 
         Returns false if a and b are equal.
         """
-        self.log.buffer('testNotEqual called')
+        self.log.buffer('testNotEqual called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         #a = int(instruction_decoded[args[0]], 2)
         #b = int(instruction_decoded[args[1]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
         self.log.buffer('a is {0}, b is {1}'.format(
-            self._register.get_value(a), self._register.get_value(b)))
-        self.log.buffer('returning {0}'.format(self._register.get_value(a) != self._register.get_value(b)))
+            self._register.get_value(a), self._register.get_value(b)),
+            level.FINEST)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) != self._register.get_value(b)),
+                        level.FINEST)
         return self._register.get_value(a) != self._register.get_value(b)
 
     def testEqualImmediate(self, args, instruction_decoded, **named_args):
@@ -532,14 +542,14 @@ class Sunray(BaseApi):
 
         Returns true if a and b are equal.
         """
-        self.log.buffer('testEqual called')
+        self.log.buffer('testEqual called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a, b))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a, b), level.FINEST)
         self.log.buffer('a is {0}, b is {1}'.format(
-            self._register.get_value(a), b))
+            self._register.get_value(a), b), level.FINEST)
         self.log.buffer('returning {0}'.format(
-            self._register.get_value(a) == b))
+            self._register.get_value(a) == b), level.FINEST)
         return self._register.get_value(a) == b
 
     def testNotEqualImmediate(self, args, instruction_decoded, **named_args):
@@ -547,14 +557,14 @@ class Sunray(BaseApi):
 
         Returns false if a and b are equal.
         """
-        self.log.buffer('testNotEqual called')
+        self.log.buffer('testNotEqual called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
         self.log.buffer('a is {0}, b is {1}'.format(
-            self._register.get_value(a), b))
+            self._register.get_value(a), b), level.FINEST)
         self.log.buffer('returning {0}'.format(
-            self._register.get_value(a) != b))
+            self._register.get_value(a) != b), level.FINEST)
         return self._register.get_value(a) != b
 
     def testLess(self, args, instruction_decoded, **named_args):
@@ -562,11 +572,12 @@ class Sunray(BaseApi):
 
         Returns true if a is less than b.
         """
-        self.log.buffer('testLess called')
+        self.log.buffer('testLess called', level.FINER)
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.get_value(a) < self._register.get_value(b)))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) < self._register.get_value(b)),
+                        level.FINEST)
         return self._register.get_value(a) < self._register.get_value(b)
 
     def testLessImmediate(self, args, instruction_decoded, **named_args):
@@ -574,13 +585,14 @@ class Sunray(BaseApi):
 
         Returns true if a is less than b.
         """
-        self.log.buffer('testLessImmediate called')
+        self.log.buffer('testLessImmediate called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         #a = int(instruction_decoded[args[0]], 2)
         #b = int(instruction_decoded[args[1]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.get_value(a) < b))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) < b),
+                       level.FINEST)
         return self._register.get_value(a) < b
 
     def testGreater(self, args, instruction_decoded, **named_args):
@@ -588,12 +600,13 @@ class Sunray(BaseApi):
 
         Returns true if a > b.
         """
-        self.log.buffer('testGreater called')
+        self.log.buffer('testGreater called', level.FINER)
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
         self.log.buffer('returning {0}'
-                        .format(self._register.get_value(a) > self._register.get_value(b)))
+                        .format(self._register.get_value(a) > self._register.get_value(b)),
+                        level.FINEST)
         return self._register.get_value(a) > self._register.get_value(b)
 
     def testGreaterOrEqual(self, args, instruction_decoded, **named_args):
@@ -601,11 +614,12 @@ class Sunray(BaseApi):
 
         Returns true if a >= b.
         """
-        self.log.buffer('testGreaterOrEqual called')
+        self.log.buffer('testGreaterOrEqual called', level.FINER)
         a = int(instruction_decoded[args[0]], 2)
         b = int(instruction_decoded[args[1]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.get_value(a) >= self._register.get_value(b)))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) >= self._register.get_value(b)),
+                        level.FINEST)
         return self._register.get_value(a) >= self._register.get_value(b)
 
     def testGreaterImmediate(self, args, instruction_decoded, **named_args):
@@ -613,13 +627,14 @@ class Sunray(BaseApi):
 
         Returns true if a > b.
         """
-        self.log.buffer('testGreaterImmediate called')
+        self.log.buffer('testGreaterImmediate called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         #a = int(instruction_decoded[args[0]], 2)
         #b = int(instruction_decoded[args[1]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.get_value(a) > b))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) > b),
+                       level.FINEST)
         return self._register.get_value(a) > b
 
     def testGreaterOrEqualImmediate(self, args, instruction_decoded, **named_args):
@@ -631,13 +646,14 @@ class Sunray(BaseApi):
 
         Returns true if a >= b.
         """
-        self.log.buffer('testGreaterOrEqualImmediate called')
+        self.log.buffer('testGreaterOrEqualImmediate called', level.FINER)
         a = self._decode_register_reference(args[0], instruction_decoded)
         b = self._decode_register_reference(args[1], instruction_decoded)
         #a = int(instruction_decoded[args[0]], 2)
         #b = int(instruction_decoded[args[1]], 2)
-        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b))
-        self.log.buffer('returning {0}'.format(self._register.get_value(a) >= b))
+        self.log.buffer('args 0:{0}, 1:{1}'.format(a,b), level.FINEST)
+        self.log.buffer('returning {0}'.format(self._register.get_value(a) >= b),
+                        level.FINEST)
         return self._register.get_value(a) >= b
 
     # TODO: Add log items to test..[On|Off]. (2011-08-19)
@@ -697,7 +713,7 @@ class Sunray(BaseApi):
             If the register does not contain a bit_n, the result of this
             call is undefined. Registers are padded with zeros depending
             on their size specified in the ISA. This means a value of 0b1
-            in an 0 bit register will be examined as 0b00000001, so bit
+            in a 0 bit register will be examined as 0b00000001, so bit
             0..6 will appear to be off and 7 will appear on.
 
         Exceptions:
@@ -727,13 +743,13 @@ class Sunray(BaseApi):
 
         Returns True
         """
-        self.log.buffer('branchAbsolute called')
+        self.log.buffer('branchAbsolute called', level.FINER)
         a = int(instruction_decoded[args[0]], 2)
-        self.log.buffer('args 0:{:}'.format(a)),
+        self.log.buffer('args 0:{:}'.format(a), level.FINEST)
         # add branch delay
         if len(args) > 1:
             b = int(self._register.get_value(args[1]))
-            self.log.buffer('args 1:{:}'.format(b))
+            self.log.buffer('args 1:{:}'.format(b), level.FINEST)
             word_space = self._memory.get_word_spacing()
             b = b * word_space
             a = a + b
@@ -749,29 +765,29 @@ class Sunray(BaseApi):
 
         Returns True
         """
-        self.log.buffer('branchRelative called')
+        self.log.buffer('branchRelative called', level.FINER)
         a = int(instruction_decoded[args[0]], 2, signed=True)
-        self.log.buffer('args 0:{0}'.format(a))
+        self.log.buffer('args 0:{0}'.format(a), level.FINEST)
         # add branch delay
         if len(args) > 1:
             b=args[1]
             a = a + b
         pc = self._register.get_pc()
         pc_value = self._register.get_value(pc)
-        self.log.buffer('pc is {:}'.format(hex(pc_value)))
+        self.log.buffer('pc is {:}'.format(hex(pc_value)), level.FINER)
         word_space = self._memory.get_word_spacing()
-        self.log.buffer('word-space is {:}'.format(word_space))
+        self.log.buffer('word-space is {:}'.format(word_space), level.FINEST)
         index = named_args['branch_offset']
         a = a - index
         a = a * word_space
-        self.log.buffer('increment is {:}'.format(a))
+        self.log.buffer('increment is {:}'.format(a), level.FINEST)
         a = pc_value + a
         self._register.set_value(pc, a)
         return True
 
     def incrementPc(self, args, instruction_decoded, **named_args):
         """args:list -> True"""
-        self.log.buffer('incrementPc called')
+        self.log.buffer('incrementPc called', level.FINER)
         a = int(instruction_decoded[args[0]], 2)
         pc=self._register.get_pc()
         value=self._register.get_value(pc)+a
@@ -780,12 +796,12 @@ class Sunray(BaseApi):
 
     def doNothing(self, args, instruction_decoded, **named_args):
         """args:list -> True"""
-        self.log.buffer('doNothing called')
+        self.log.buffer('doNothing called', level.FINER)
         return True
 
     def systemCall(self, args, instruction_decoded, **named_args):
         """args:list -> True"""
-        self.log.buffer('systemCall called')
+        self.log.buffer('systemCall called', level.FINER)
         system_call = SystemCall()
         try:
             if args[0][:3] == 'DIR':
@@ -794,6 +810,6 @@ class Sunray(BaseApi):
         except:
             a = args[0]
             result = self._register.get_value(a)
-        self.log.buffer('args 0:{0}'.format(a))
+        self.log.buffer('args 0:{0}'.format(a), level.FINEST)
         system_call.service(result)
         return True

@@ -55,5 +55,6 @@ def size(obj):
 
 def clear_print(string):
     """Clears a line and prints a string."""
+    print(chr(27) + '[A'+' '*80)
     print(chr(27) + '[A' + string)
 

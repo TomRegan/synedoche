@@ -10,6 +10,7 @@
 
 from Interface  import LoggerClient
 from Logger     import MemoryLogger
+from Logger     import level
 from Monitor    import MonitorClient
 from lib.Functions  import binary as bin
 
@@ -49,12 +50,14 @@ class BaseMemory(LoggerClient, MonitorClient):
         self.log = MemoryLogger(logger)
         self.log.buffer('created {0}-Kb of {1}-byte address space'
                         .format(str(self._address_space)[:-3],
-                                (self._size/self._addressable)))
+                                (self._size/self._addressable)),
+                        level.INFO)
 
     def open_monitor(self, monitor):
         self._monitor = monitor
         self._log.buffer("attached a monitor, `{:}'"
-                         .format(monitor.__class__.__name__))
+                         .format(monitor.__class__.__name__),
+                         level.FINE)
 
     def get_memory(self):
         """-> memory:object
@@ -184,7 +187,7 @@ class Memory(BaseMemory):
             raise Exception('Creating segment {:}({:}..{:})'
                             .format(name, start, end))
         self.log.buffer("created segment `{0}'\t{1}..{2}"
-                        .format(name, start, end))
+                        .format(name, start, end), level.INFO)
         self._segment[name]=[start,end]
 
     def get_slice(self, end=None, start=None):
@@ -262,7 +265,8 @@ class Memory(BaseMemory):
             # memory address.
             offset = offset + self._word_spacing
         self.log.buffer('loaded {0} word program into memory'
-                        .format(len(text)))
+                        .format(len(text)),
+                        level.INFO)
         self._monitor['program_length'] = len(text)
         return (binary, address)
 
@@ -296,7 +300,8 @@ class Memory(BaseMemory):
             if not quietly:
                 message='Tried to address {:}-bytes at {:}'.format(
                     size/self._addressable, hex(offset))
-                self.log.buffer('Addressing error: {:}'.format(message))
+                self.log.buffer('Addressing error: {:}'.format(message),
+                                level.ERROR)
             raise AddressingError(message)
 
         #We want to prevent bad alignment
@@ -305,7 +310,8 @@ class Memory(BaseMemory):
             if not quietly:
                 message='Tried to load {:}-bytes from {:}'.format(
                     size/self._addressable, hex(offset))
-                self.log.buffer('Alignment error: {:}'.format(message))
+                self.log.buffer('Alignment error: {:}'.format(message),
+                                level.ERROR)
             raise AlignmentError(message)
 
         if self._endian == self._types.Little:
@@ -333,7 +339,8 @@ class Memory(BaseMemory):
         if not quietly:
             self.log.buffer('loaded {:} from {:}'
                             .format(bitmap,
-                                    hex(orig_offset).replace('L', '')))
+                                    hex(orig_offset).replace('L', '')),
+                            level.FINER)
         return int(bitmap, 2)
 
 
@@ -341,7 +348,8 @@ class Memory(BaseMemory):
         #We want to prevent segmentation violations
         if not self.in_range(offset):
             self.log.buffer('Segmantation violation: {:} is out of bounds'
-                            .format(hex(offset).replace('L','')))
+                            .format(hex(offset).replace('L','')),
+                            level.ERROR)
             raise SegmentationFaultException('{:} is out of bounds'
                                  .format(hex(offset).replace('L','')))
         #Expect a `key error' exception, but behave as though this was
@@ -397,7 +405,8 @@ class Memory(BaseMemory):
         if size < self._addressable:
             self.log.buffer('Addressing error: store {:} at {:}'
                             .format(bin(value, self._size)[2:].lstrip('0'),
-                                    hex(offset).replace('L','')))
+                                    hex(offset).replace('L','')),
+                            level.ERROR)
             raise AddressingError('Tried to store {:} at {:}'
                                   .format(bin(value, self._size)[2:],
                                           hex(offset).replace('L','')))
@@ -406,10 +415,12 @@ class Memory(BaseMemory):
         if aligned and int(offset) % (size / self._addressable) != 0:
             self.log.buffer('Alignment error: store {:} at {:}'
                             .format(bin(value, self._size)[2:],
-                                    hex(offset).replace('L','')))
+                                    hex(offset).replace('L','')),
+                            level.ERROR)
             raise AlignmentError('Tried to store {:} at {:}'
                                  .format(bin(value, self._size)[2:],
-                                         hex(offset).replace('L','')))
+                                         hex(offset).replace('L','')),
+                                 level.ERROR)
 
         if self._endian == self._types.Little:
             offset = offset - (size/self._addressable)
@@ -427,15 +438,18 @@ class Memory(BaseMemory):
             else:
                 offset = offset - 1
         self.log.buffer('stored {:} at {:}'
-                        .format(bitmap,hex(orig_offset)))
+                        .format(bitmap,hex(orig_offset)),
+                        level.FINER)
 
     def _set_byte(self, offset, value):
         #We want to prevent segmentation violations
         if not self.in_range(offset):
             self.log.buffer('Segmantation violation: {:} is out of bounds'
-                            .format(hex(offset).replace('L','')))
+                            .format(hex(offset).replace('L','')),
+                            level.ERROR)
             raise SegmentationFaultException('{:} is out of bounds'
-                                 .format(hex(offset).replace('L','')))
+                                 .format(hex(offset).replace('L','')),
+                                            level.ERROR)
         self._address[offset] = value
         self._monitor.increment('memory_bytes_stored')
 
@@ -445,7 +459,7 @@ class Memory(BaseMemory):
         Clears the memory address space. Good for debugging.
         """
 
-        self.log.buffer('core dumped to null')
+        self.log.buffer('core dumped to null', level.FINE)
         self._address.clear()
 
     def in_range(self, address):

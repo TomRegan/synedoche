@@ -1,0 +1,16 @@
+Next Version
+============
+143.0
+Granular logging set to:
+	OFF
+	ERROR (default)
+	INFO
+	FINE
+	FINER
+	FINEST
+
+143.1
+Remove Visualization module
+
+143.2
+Refactor logging code to remove duplication

@@ -16,6 +16,7 @@ from copy      import deepcopy
 from Logger    import AssemblerLogger
 from Interface import *
 
+from Logger        import level
 from lib.Functions import binary as bin
 from lib.Functions import hexadecimal as hex
 from lib.Functions import integer as int
@@ -36,7 +37,8 @@ class DataConversionFromUnknownType(Exception):
 class BaseAssembler(LoggerClient):
     def open_log(self, logger):
         self.log = AssemblerLogger(logger)
-        self.log.write("created `{0}' assembler".format(self._language))
+        self.log.write("created `{0}' assembler".format(self._language),
+                       level.INFO)
     def read_lines(self, lines):
         """Read a line or lines of input and return a list of instructions.
 
@@ -152,7 +154,8 @@ class Assembler(BaseAssembler):
 #
     def read_file(self, file_object):
         if type(file_object) == file:
-            self.log.buffer("reading file: {0}".format(file_object.name))
+            self.log.buffer("reading file: {0}".format(file_object.name),
+                            level.INFO)
             instructions = self._read(file_object.readlines())
             return (instructions, self._program)
         else:
@@ -161,7 +164,8 @@ class Assembler(BaseAssembler):
     def read_lines(self, lines):
         for line in lines:
             self.log.buffer("reading line: {0}"
-                            .format(line.replace('\n', '')))
+                            .format(line.replace('\n', '')),
+                            level.FINE)
         instruction = self._read(lines)
         return instruction
 
@@ -203,13 +207,14 @@ class Assembler(BaseAssembler):
         +------------------------------------------------------+
         """
 
-        self.log.buffer("entering preprocessor")
+        self.log.buffer("entering preprocessor", level.FINER)
         #remove all newlines from the list
         lines = ''.join(lines)
         try:
             lines = re.split('\n', lines)
         except:
-            self.log.buffer("file format is irregular: expecting newlines, got none")
+            self.log.buffer("file format is irregular: expecting newlines, got none",
+                            level.ERROR)
             pass
         #we don't want comments, blank lines or whitespace
         for i in range(len(lines)):
@@ -249,7 +254,8 @@ class Assembler(BaseAssembler):
                     reference = re.search(self._label_reference, match.group())
                     self._jump_table[reference.group(1)] = offset
                     self.log.buffer("mapped label `{0}' to {1}"
-                                    .format(reference.group(1), offset))
+                                    .format(reference.group(1), offset),
+                                    level.FINER)
                     # Finally, remove labels from the original
                     lines[i] = re.sub(self._label_pattern,'',lines[i])
 
@@ -262,14 +268,14 @@ class Assembler(BaseAssembler):
 
                 # We don't want unnecessary whitespace
                 lines[i] = lines[i].strip()
-                self.log.buffer("processed  {0}".format(lines[i]))
+                self.log.buffer("processed  {0}".format(lines[i]), level.FINE)
         except:
                 raise BadInstructionOrSyntax(
                     "{:} on line {:}:\n{:}"
                     .format(BAD, i+1, lines[i]))
 
         lines = [line for line in lines if line != '']
-        self.log.buffer("leaving preprocessor")
+        self.log.buffer("leaving preprocessor", level.FINER)
         return lines
 
     def _link(self, lines):
@@ -299,7 +305,7 @@ class Assembler(BaseAssembler):
 
         # TODO: Linker needs to handle absolute addresses in multi-part
         # instructions. (2011-08-28)
-        self.log.buffer("entering linker")
+        self.log.buffer("entering linker", level.FINER)
 
         # We will store the return data in output.
         output=[]
@@ -343,7 +349,7 @@ class Assembler(BaseAssembler):
                         lines[i] = lines[i].replace(label, offset)
                         self.log.buffer("replaced identifier `{:}'"
                                         "with {:}".format(
-                                        label, offset))
+                                        label, offset), level.FINER)
                     except:
                         raise BadInstructionOrSyntax(
                             "{:} on line {:}: Label not found.\n{:}"
@@ -355,7 +361,7 @@ class Assembler(BaseAssembler):
                     .format(BAD, i+1, lines[i]))
 
         self._program = deepcopy(output)
-        self.log.buffer("leaving linker")
+        self.log.buffer("leaving linker", level.FINER)
         return output
 
     def _encode(self, lines):
@@ -389,7 +395,7 @@ class Assembler(BaseAssembler):
             A list of binary manchine instructions.
         """
 
-        self.log.buffer("entering encoder")
+        self.log.buffer("entering encoder", level.FINER)
         # We will return output and use instruction_fields to build up
         # each instruction.
         output             = []
@@ -404,7 +410,7 @@ class Assembler(BaseAssembler):
                 syntax     = self._instruction_syntax[instruction]
                 expression = '^' + syntax['expression'] + '$'
                 self.log.buffer("matching `{0}' instruction"
-                                .format(instruction))
+                                .format(instruction), level.FINER)
                 match = re.search(expression, line)
                 if match:
                     # Here we are looping over fields in the instruction
@@ -431,7 +437,7 @@ class Assembler(BaseAssembler):
                                     .format(BAD, i+1, lines[i]))
                         # We have identified the field. Log it...
                         self.log.buffer("`{0}' is {1}"
-                                        .format(field, value))
+                                        .format(field, value), level.FINEST)
                         # ...and add it to the instruction.
                         instruction_fields[field] = value
 
@@ -440,7 +446,8 @@ class Assembler(BaseAssembler):
                     for field in values:
                         instruction_fields[field] = values[field]
                         self.log.buffer("`{0}' is {1}"
-                                        .format(field, values[field]))
+                                        .format(field, values[field]),
+                                        level.FINEST)
 
                     #print("instruction: {:}".format(instruction_fields))
 
@@ -466,18 +473,21 @@ class Assembler(BaseAssembler):
                         value = bin(value, size = width)[2:]
                         instruction_raw[start:end] = value
                         self.log.buffer("{:}:{:} is {:}"
-                                        .format(start, end, value))
+                                        .format(start, end, value),
+                                        level.FINEST)
 
                     # Finally convert the instruction from a list to a string.
                     instruction_raw = "".join(instruction_raw)
                     # Bon.
-                    self.log.buffer("encoded {0}".format(instruction_raw))
+                    self.log.buffer("encoded {0}".format(instruction_raw),
+                                    level.FINER)
 
                     # Split the instruction if it spans multiple words.
                     # eg. 8085 Direct Addressing uses three 8 bit parts
                     # despite being an 8 bit ISA.
                     self.log.buffer("splitting into {:}-bit chunks"
-                                    .format(self._isa_size))
+                                    .format(self._isa_size),
+                                    level.FINER)
                     start = 0
                     end   = 1
                     for i in range(len(instruction_raw)):
@@ -485,7 +495,8 @@ class Assembler(BaseAssembler):
                             part = instruction_raw[start:end]
                             # Log entry is indented for readability.
                             self.log.buffer(
-                                "  split {:}".format(part))
+                                "  split {:}".format(part),
+                             level.FINER)
                             output.append(part)
                             start = end
                         end = end + 1
@@ -508,5 +519,5 @@ class Assembler(BaseAssembler):
                     "{:} on line {:}:\n{:}"
                     .format(BAD, i+1, lines[i]))
             instruction_fields.clear()
-        self.log.buffer("leaving encoder")
+        self.log.buffer("leaving encoder", level.FINER)
         return output

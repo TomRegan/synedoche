@@ -1,0 +1,8 @@
+#! /bin/bash
+
+if [ -e logs/ ]; then
+	echo "Removing logs..."
+	rm -f logs/*.log;
+else
+	echo "Logging directory cannot be found, skipping...";
+fi

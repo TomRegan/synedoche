@@ -15,6 +15,7 @@ from Logger     import CpuLogger
 from copy       import copy, deepcopy
 from System     import SystemCall
 
+from Logger        import level
 from lib.Functions import binary as bin
 from lib.Functions import integer as int
 
@@ -57,17 +58,22 @@ class BaseProcessor(UpdateBroadcaster, LoggerClient, MonitorClient):
     def open_log(self, logger):
         self._log = CpuLogger(logger)
         self._log.buffer("created a cpu, `{:}'"
-                         .format(self.__class__.__name__))
-        self._log.buffer("pc is register {0}".format(hex(self._pc)))
+                         .format(self.__class__.__name__),
+                         level.INFO)
+        self._log.buffer("pc is register {0}".format(hex(self._pc)),
+                         level.FINE)
         self._log.buffer("pipeline: {0}"
-                         .format(", ".join(self._pipeline_stages)))
+                         .format(", ".join(self._pipeline_stages)),
+                         level.INFO)
         self._log.buffer("pipeline flags: {0}"
-                         .format(self._pipeline_flags.replace(' ', ', ')))
+                         .format(self._pipeline_flags.replace(' ', ', ')),
+                         level.FINE)
 
     def open_monitor(self, monitor):
         self._monitor = monitor
         self._log.buffer("attached a monitor, `{:}'"
-                         .format(monitor.__class__.__name__))
+                         .format(monitor.__class__.__name__),
+                         level.FINE)
 
 class Pipelined(BaseProcessor):
     """Pipelined CPU Implementation"""
@@ -104,13 +110,14 @@ class Pipelined(BaseProcessor):
         self.listeners = []
 
     def cycle(self):
-        self._log.buffer('beginning a cycle')
+        self._log.buffer('beginning a cycle', level.FINE)
         # Denotes that incrementation has taken place this cycle.
         # This is initially false.
         self.__special_flags['increment'] = False
         try:
             for stage in self._pipeline_stages:
-                self._log.buffer('entering {0} stage'.format(stage))
+                self._log.buffer('entering {0} stage'.format(stage),
+                                 level.FINEST)
                 # A little string transformation to help avoid accidents.
                 stagecall = '_' + stage + '_coordinator'
                 try:
@@ -119,7 +126,7 @@ class Pipelined(BaseProcessor):
                     call(self._pipeline_stages.index(stage))
                 except AttributeError, e:
                     self._log.buffer('no such pipeline stage: {:}'
-                                     .format(stage))
+                                     .format(stage), level.ERROR)
                     raise e
                 except ArithmeticError:
                     self.system_call.service(16435935)
@@ -128,19 +135,20 @@ class Pipelined(BaseProcessor):
                 except IndexError, e:
                 # Routine, particularly for first cycles.
                     self._log.buffer('{0} found nothing in the pipeline'
-                                     .format(stage))
-                self._log.buffer('leaving {0} stage'.format(stage))
+                                     .format(stage), level.FINEST)
+                self._log.buffer('leaving {0} stage'.format(stage),
+                                 level.FINEST)
             # Do any housekeeping.
             self.__retire_cycle()
         except Exception, e:
             self.__retire_cycle()
             self.broadcast()
-            self._log.buffer('EXCEPTION {:}'.format(e.message))
+            self._log.buffer('EXCEPTION {:}'.format(e.message), level.ERROR)
             raise e
         # Update listeners.
         self.broadcast()
         self._monitor.increment('processor_cycles')
-        self._log.buffer('completing a cycle')
+        self._log.buffer('completing a cycle', level.FINE)
 
 
     def _fetch_coordinator(self, index):
@@ -170,7 +178,7 @@ class Pipelined(BaseProcessor):
         # TRY: raising index error and dealing with instruction
         # in cycle.
         while number_of_parts > 1:
-            self._log.buffer("multi-part instruction")
+            self._log.buffer("multi-part instruction", level.FINEST)
             instruction = self._pipeline[0][0]
             part = self.__fetch()
             instruction = self.__concatenate_instruction(
@@ -198,7 +206,7 @@ class Pipelined(BaseProcessor):
         part_0 = bin(part_0, self._size)
         part_1 = bin(part_1, self._size)
         self._log.buffer("concatenating {:} and {:}"
-                         .format(part_0[2:], part_1[2:]))
+                         .format(part_0[2:], part_1[2:]), level.FINEST)
         instruction = part_0[2:] + part_1[2:]
         return int(instruction, 2)
 
@@ -218,7 +226,7 @@ class Pipelined(BaseProcessor):
 
         # Get the instruction to decode
         instruction = bin(self._pipeline[index][0],self._size)[2:]
-        self._log.buffer("decoding {0}".format(instruction))
+        self._log.buffer("decoding {0}".format(instruction), level.FINER)
 
         # The following block identifies the instruction being decoded.
         # It tells us the instruction's format, signature and the number
@@ -242,7 +250,8 @@ class Pipelined(BaseProcessor):
                     if test == signatures[signature]:
                         number_of_parts = cycles[format_type]
                         self._log.buffer("decoded `{0}' type instruction, {1}"
-                                         .format(format_type, signature))
+                                         .format(format_type, signature),
+                                         level.FINER)
                         return (format_type, signature, number_of_parts)
 
     def __execute(self, index):
@@ -262,7 +271,7 @@ class Pipelined(BaseProcessor):
         # format size property to achieve this.
         size = format_sizes[instruction_type]
         self._log.buffer("reading {:}b {:} instruction"
-                         .format(size, instruction_name))
+                         .format(size, instruction_name), level.FINER)
 
         # Finally, translate the instruction into a binary representation.
         instruction_binary = bin(self._pipeline[index][0], size)[2:]
@@ -275,10 +284,12 @@ class Pipelined(BaseProcessor):
             self._log.buffer("`{:}' is {:} ({:})"
                              .format(field,
                                      instruction_binary[start:end],
-                                     int(instruction_binary[start:end], 2)))
+                                     int(instruction_binary[start:end], 2)),
+                             level.FINEST)
 
         self._log.buffer("executing {:} ({:})"
-                         .format(instruction_binary, instruction_name))
+                         .format(instruction_binary, instruction_name),
+                         level.FINER)
 
         # This next step deals with the actual state change[s] by making
         # calls to the API.
@@ -304,12 +315,12 @@ class Pipelined(BaseProcessor):
                 call = getattr(self._api, method[0])
                 args = method[1]
                 self._log.buffer("calling {0} with {1}"
-                                 .format(call.__name__, args))
+                                 .format(call.__name__, args), level.FINER)
                 sequential = call(args,
                                   self._pipeline[index][3],
                                   branch_offset=branch_offset)
             else:
-                self._log.buffer('skipping an API call')
+                self._log.buffer('skipping an API call', level.FINEST)
                 sequential = True
         if 'EI' in self._pipeline_flags:
             self._registers.increment(self._pc, self._word_space)
@@ -330,21 +341,22 @@ class Pipelined(BaseProcessor):
 
     def reset(self):
         """Reset the processor to starting values."""
-        self._log.buffer('RESET performing reset')
-        self._log.buffer('resetting registers')
+        self._log.buffer('RESET performing reset', level.INFO)
+        self._log.buffer('resetting registers', level.FINE)
         self._registers.reset()
         self._memory.reset()
-        self._log.buffer('clearing pipeline')
+        self._log.buffer('clearing pipeline', level.FINE)
         self._pipeline    = []
         self._breakpoints = []
-        self._log.buffer('RESET completed')
+        self._log.buffer('RESET completed', level.FINE)
         self.broadcast()
 
     def add_break_point(self, offset):
         try:
-            self._log.buffer('breakpoint at {:}'.format(hex(offset)))
+            self._log.buffer('breakpoint at {:}'.format(hex(offset)),
+                             level.FINEST)
         except:
-            self._log.buffer('WARNING: breakpoint {:}')
+            self._log.buffer('WARNING: breakpoint {:}', level.ERROR)
 
         self._breakpoints.append(offset)
         self._debug = True
@@ -355,7 +367,7 @@ class Pipelined(BaseProcessor):
             if len(self._breakpoints) == 0:
                 self._debug = False
             self._log.buffer('breakpoint removed at {:}'
-                             .format(hex(offset)))
+                             .format(hex(offset)), level.FINEST)
         except:
             pass
 

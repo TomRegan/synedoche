@@ -9,7 +9,16 @@
 
 import sys
 from time import time, ctime
-from lib.Header  import LOG_HARD_LIMIT
+from lib.Header  import LOG_HARD_LIMIT, LOGGING_LEVEL
+
+class level(object):
+    NONE   = 0
+    ERROR  = 1
+    INFO   = 2
+    FINE   = 3
+    FINER  = 4
+    FINEST = 5
+    title_of = ["NONE", "ERROR", "INFO", "FINE", "FINER", "FINEST"]
 
 class Logfile(object):
     def open(self, filename, string):
@@ -29,9 +38,9 @@ class BaseLogger(object):
         self.ready=None
         self.lines=None
         self.instance=None
-    def buffer(self, string):
+    def buffer(self, string, logging=level.ERROR):
         pass
-    def write(self, string):
+    def write(self, string, logging=level.ERROR):
         pass
     def flush(self):
         pass
@@ -96,6 +105,12 @@ class Logger(BaseLogger):
     def _close(self):
         self.logfile.close()
 
+    def _addLoggingLevel(self, string, logging):
+        logging_level_title = level.title_of[logging]
+        string = '{:6}  {:}'.format(logging_level_title, string)
+        return string
+
+
     def _addTime(self, string):
         now = '{0:.16}'.format(time()).replace('.','')
         now = now.ljust(16,'0')
@@ -114,13 +129,15 @@ class Logger(BaseLogger):
             self._close()
             self.lines=[]
 
-    def buffer(self, string, timed=True, symbol=False):
+    def buffer(self, string, logging=level.ERROR, timed=True, symbol=False):
         #
         # Buffering can degrade performance substantially. LOG_HARD_SIZE
         # is a parameter set in lib.Header to control the frequency
         # of write-outs (regular writes tend to improve simulation
         # cycle rate)
         #
+
+        string = self._addLoggingLevel(string, logging)
         if timed:
             string = self._addTime(string)
         if type(symbol) == str:
@@ -129,7 +146,12 @@ class Logger(BaseLogger):
         if sys.getsizeof(self.lines) > LOG_HARD_LIMIT:
             self.flush()
 
-    def write(self, string, timed=True, symbol=False):
+    def write(self, string, logging=level.ERROR, timed=True, symbol=False):
+
+        if logging < LOGGING_LEVEL:
+            return
+
+        string = self._addLoggingLevel(string, logging)
         if self.ready:
             self.flush()
             self._open()
@@ -149,13 +171,21 @@ class CpuLogger(Logger):
             message = time + ': Logging CPU activity\n'
             self.instance.write(message)
 
-    def buffer(self, string, timed=True):
-        string= 'CPU  ' + string
-        self.instance.buffer(string, symbol=None, timed=timed)
+    def buffer(self, string, logging=level.ERROR, timed=True):
 
-    def write(self, string, timed=True):
+        if logging > LOGGING_LEVEL:
+            return
+
         string= 'CPU  ' + string
-        self.instance.write(string, symbol=None, timed=timed)
+        self.instance.buffer(string, logging, symbol=None, timed=timed)
+
+    def write(self, string, logging=level.ERROR, timed=True):
+
+        if logging > LOGGING_LEVEL:
+            return
+
+        string= 'CPU  ' + string
+        self.instance.write(string, logging, symbol=None, timed=timed)
 
     def flush(self):
         self.instance.flush()
@@ -168,13 +198,21 @@ class MemoryLogger(Logger):
             message = time + ': Logging Memory activity\n'
             self.instance.write(message)
 
-    def buffer(self, string, timed=True):
-        string= 'MEM  ' + string
-        self.instance.buffer(string, symbol=None, timed=timed)
+    def buffer(self, string, logging=level.ERROR, timed=True):
 
-    def write(self, string, timed=True):
+        if logging > LOGGING_LEVEL:
+            return
+
         string= 'MEM  ' + string
-        self.instance.write(string, symbol=None, timed=timed)
+        self.instance.buffer(string, logging, symbol=None, timed=timed)
+
+    def write(self, string, logging=level.ERROR, timed=True):
+
+        if logging > LOGGING_LEVEL:
+            return
+
+        string= 'MEM  ' + string
+        self.instance.write(string, logging, symbol=None, timed=timed)
 
     def flush(self):
         self.instance.flush()
@@ -187,13 +225,21 @@ class AssemblerLogger(Logger):
             message = time + ': Logging Memory activity\n'
             self.instance.write(message)
 
-    def buffer(self, string, timed=True):
-        string= 'ASM  ' + string
-        self.instance.buffer(string, symbol=None, timed=timed)
+    def buffer(self, string, logging=level.ERROR, timed=True):
 
-    def write(self, string, timed=True):
+        if logging > LOGGING_LEVEL:
+            return
+
         string= 'ASM  ' + string
-        self.instance.write(string, symbol=None, timed=timed)
+        self.instance.buffer(string, logging, symbol=None, timed=timed)
+
+    def write(self, string, logging=level.ERROR, timed=True):
+
+        if logging > LOGGING_LEVEL:
+            return
+
+        string= 'ASM  ' + string
+        self.instance.write(string, logging, symbol=None, timed=timed)
 
     def flush(self):
         self.instance.flush()
@@ -206,13 +252,21 @@ class RegisterLogger(Logger):
             message = time + ': Logging Register activity\n'
             self.instance.write(message)
 
-    def buffer(self, string, timed=True):
-        string= 'REG  ' + string
-        self.instance.buffer(string, symbol=None, timed=timed)
+    def buffer(self, string, logging=level.ERROR, timed=True):
 
-    def write(self, string, timed=True):
+        if logging > LOGGING_LEVEL:
+            return
+
         string= 'REG  ' + string
-        self.instance.write(string, symbol=None, timed=timed)
+        self.instance.buffer(string, logging, symbol=None, timed=timed)
+
+    def write(self, string, logging=level.ERROR, timed=True):
+
+        if logging > LOGGING_LEVEL:
+            return
+
+        string= 'REG  ' + string
+        self.instance.write(string, logging, symbol=None, timed=timed)
 
     def flush(self):
         self.instance.flush()
@@ -225,13 +279,21 @@ class ApiLogger(Logger):
             message = time + ': Logging Api activity\n'
             self.instance.write(message)
 
-    def buffer(self, string, timed=True):
-        string= 'API  ' + string
-        self.instance.buffer(string, symbol=None, timed=timed)
+    def buffer(self, string, logging=level.ERROR, timed=True):
 
-    def write(self, string, timed=True):
+        if logging > LOGGING_LEVEL:
+            return
+
         string= 'API  ' + string
-        self.instance.write(string, symbol=None, timed=timed)
+        self.instance.buffer(string, logging, symbol=None, timed=timed)
+
+    def write(self, string, logging=level.ERROR, timed=True):
+
+        if logging > LOGGING_LEVEL:
+            return
+
+        string= 'API  ' + string
+        self.instance.write(string, logging, symbol=None, timed=timed)
 
     def flush(self):
         self.instance.flush()
@@ -242,13 +304,21 @@ class SystemLogger(Logger):
         if message:
             self.instance.write(message)
 
-    def buffer(self, string, timed=False):
-        string= 'SYS  ' + string
-        self.instance.buffer(string, timed=timed)
+    def buffer(self, string, logging=level.ERROR, timed=True):
 
-    def write(self, string, timed=False):
+        if logging > LOGGING_LEVEL:
+            return
+
         string= 'SYS  ' + string
-        self.instance.write(string, timed=timed)
+        self.instance.buffer(string, logging, timed=timed)
+
+    def write(self, string, logging=level.ERROR, timed=True):
+
+        if logging > LOGGING_LEVEL:
+            return
+
+        string= 'SYS  ' + string
+        self.instance.write(string, logging, timed=timed)
 
     def flush(self):
         self.instance.flush()

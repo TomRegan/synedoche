@@ -22,7 +22,7 @@ from module.Completer   import Completer
 from module.Memory      import AlignmentError, AddressingError
 from module.Assembler   import BadInstructionOrSyntax
 from module.Memory      import SegmentationFaultException
-from module.System      import SigTerm, SigTrap, SigFpe, SigXCpu, SigIll
+from module.System      import SigTrap, SigFpe, SigXCpu, SigIll
 
 # TODO: Replace __all__ imports with named. (2011-08-03)
 from module.lib.Header    import *
@@ -139,9 +139,6 @@ class Cli(UpdateListener):
                 clear_print("Addressing Error: {:}".format(e.message))
             except SegmentationFaultException, e:
                 clear_print('SIGSEGV ({:})'.format(e.message))
-            except SigTerm:
-                # FIX: Won't work on NT platform. (2011-08-30)
-                clear_print('Program finished')
             except SigTrap:
                 clear_print('Breaking')
             except SigFpe, e:
@@ -229,7 +226,11 @@ class Cli(UpdateListener):
         """Go Forever."""
         if nobreak:
             self.simulation.get_processor().set_traps_off()
-        self.simulation.run(self)
+        run_time = 0.0
+        try:
+            run_time = self.simulation.run(self)
+        finally:
+            clear_print('Program finished in {:.5} seconds'.format(run_time))
 
 
     def update(self, *args, **kwargs):

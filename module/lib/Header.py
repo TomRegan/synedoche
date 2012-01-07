@@ -6,7 +6,7 @@
 # since          : 2011-07-15
 # last modified  : 2011-08-17
 
-VERSION='0.142.1'
+VERSION='0.143.0'
 RELEASE_NAME='-release'
 PUBLIC_API='SUNRAY'
 DEBUG=True
@@ -25,4 +25,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License."""
 LOG_HARD_LIMIT = 100
+LOGGING_LEVEL  = 1
 EDITOR = '/usr/bin/vim'

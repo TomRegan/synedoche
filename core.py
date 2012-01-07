@@ -23,7 +23,10 @@ from module import Monitor
 from module import Processor
 from module import System
 
-from datetime import datetime
+from module.System import SigTerm
+from module.Logger import level
+from datetime      import datetime
+from time          import time
 # used for the TestListener
 from module.lib.Functions import hexadecimal as hex
 
@@ -49,8 +52,10 @@ class Simulation(object):
         # as well as a connection to the logfile
             self.log = Logger.SystemLogger(self.logger)
             now = datetime.isoformat(datetime.now(), sep = ' ')
-            self.log.buffer('system started at {0}'.format(now))
+            self.log.buffer('system started at {0}'.format(now),
+                            level.INFO)
         except Exception as e:
+            # Can't rely on having a logger at this point
             sys.stderr.write('Whoops: failed doing basic init\n{:}\n'
                              .format(e.message))
             raise e
@@ -94,7 +99,7 @@ class Simulation(object):
         self.cpu.open_log(self.logger)
         self.cpu.open_monitor(self.monitor)
 
-        self.log.buffer('initialized with no incidents')
+        self.log.buffer('initialized with no incidents', level.INFO)
         self.log.flush()
 
     def __call__(self):
@@ -108,6 +113,7 @@ class Simulation(object):
         """Run for a long time."""
         MAX = 50000
         counter = 0
+        start_time = time()
         try:
             while counter < MAX:
                 if counter % 500 == 0 and counter > 0:
@@ -116,32 +122,39 @@ class Simulation(object):
                 counter = counter + 1
                 if counter == MAX:
                     self.system_call.service(24)
+        except SigTerm:
+            # FIX: Won't work on NT platform. (2011-08-30)
+            pass
         except KeyboardInterrupt, e:
             print("")
             return
         except Exception, e:
             sys.stderr.write("\n")
             raise e
+        finally:
+            end_time = time()
+            return end_time-start_time
+        return end_time-start_time
 
     def cycle(self, client):
         """Performs one simulation cycle."""
         if not self._authorized_client(client):
             self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
-                            .format(client.__class__.__name__))
+                            .format(client.__class__.__name__), level.ERROR)
             return
         self.log.buffer("`cycle' called by `{0}'"
-                        .format(client.__class__.__name__))
+                        .format(client.__class__.__name__), level.FINER)
         self.cpu.cycle()
         self._cycles = self._cycles + 1
 
     def step(self, client):
         """Completes [the remainder of] one instruction execution"""
         if not self._authorized_client(client):
-            self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
-                            .format(client.__class__.__name__))
+            self.log.buffer("blocked `step' call from unauthorized client `{0}'"
+                            .format(client.__class__.__name__), level.ERROR)
             return
         self.log.buffer("`step' called by `{0}'"
-                        .format(client.__class__.__name__))
+                        .format(client.__class__.__name__), level.FINER)
         pipeline_length = self.cpu.get_pipeline_length()
         remaining = pipeline_length - (self._cycles % pipeline_length)
         for i in range(remaining):
@@ -151,11 +164,11 @@ class Simulation(object):
     def evaluate(self, lines, connected, client):
         """Processes cycles for one instruction"""
         if not self._authorized_client(client):
-            self.log.buffer("blocked `cycle' call from unauthorized client `{0}'"
-                            .format(client.__class__.__name__))
+            self.log.buffer("blocked `evaluate' call from unauthorized client `{0}'"
+                            .format(client.__class__.__name__), level.ERROR)
             return
         self.log.buffer("`evaluate' called by `{0}'"
-                        .format( client.__class__.__name__))
+                        .format( client.__class__.__name__), level.FINER)
         expression = self.assembler.read_lines(lines)
         expression = self.assembler.convert(expression)
         if connected:
@@ -171,9 +184,11 @@ class Simulation(object):
     def load(self, filename, client):
         """Loads an asm program into the simulation"""
         if not self._authorized_client(client):
-            self.log.buffer("blocked `load' call from unauthorized client `{0}'".format(client.__class__.__name__))
+            self.log.buffer("blocked `load' call from unauthorized client `{0}'".format(client.__class__.__name__),
+                            level.ERROR)
             return
-        self.log.buffer("`load' called by `{0}'".format(client.__class__.__name__))
+        self.log.buffer("`load' called by `{0}'".format(client.__class__.__name__),
+                       level.FINER)
         file_object = open(filename, 'r')
         # We will collect assembly binary and offset data, mainly to print.
         (binary, assembly) = self.assembler.read_file(file_object)
@@ -184,8 +199,9 @@ class Simulation(object):
     def reset(self, client):
         """Resets the simulation processor"""
         if not self._authorized_client(client):
-            self.log.buffer("blocked `load' call from unauthorized client `{0}'"
-                            .format(client.__class__.__name__))
+            self.log.buffer("blocked `reset' call from unauthorized client `{0}'"
+                            .format(client.__class__.__name__),
+                            level.ERROR)
             return
         self.monitor.reset()
         self.cpu.reset()
@@ -206,11 +222,11 @@ class Simulation(object):
             sys.stderr.write("ERROR: failed to connect client `{0}': it does not implement `update'\n"
                              .format(client.__class__.__name__))
             self.log.write("failed to connect client `{0}': it is not an UpdateListener"
-                           .format(client.__class__.__name__))
+                           .format(client.__class__.__name__), level.ERROR)
             return
         if client in self._clients:
             self.log.write("failed to connect `{0}': it is already connected"
-                           .format(client.__class__.__name__))
+                           .format(client.__class__.__name__), level.ERROR)
             return
         #
         #we want the client to be an UpdateListener to the CPU to
@@ -218,14 +234,15 @@ class Simulation(object):
         #
         self.cpu.register(client)
         self._clients.append(client)
-        self.log.write("attached client `{0}'".format(client.__class__.__name__))
+        self.log.write("attached client `{0}'".format(client.__class__.__name__),
+                      level.INFO)
         return self
 
     def disconnect(self, client):
         """Removes a client from the simulation"""
         if client in self._clients:
             self.cpu.remove(client)
-            self.log.write('detatched a client')
+            self.log.write('detatched a client', level.INFO)
         self.log.flush()
 
 #

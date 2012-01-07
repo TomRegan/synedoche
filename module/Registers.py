@@ -9,6 +9,7 @@
 
 from copy import deepcopy
 from Logger    import RegisterLogger
+from Logger    import level
 from Interface import LoggerClient
 from Monitor   import MonitorClient
 from lib.Functions import hexadecimal as hex
@@ -17,12 +18,12 @@ class BaseRegisters(LoggerClient, MonitorClient):
     def open_log(self, logger):
         self.log = RegisterLogger(logger)
         self.log.buffer("created registers, `{:}'"
-                        .format(self.__class__.__name__))
+                        .format(self.__class__.__name__), level.INFO)
 
     def open_monitor(self, monitor):
         self._monitor = monitor
         self._log.buffer("attached a monitor, `{:}'"
-                         .format(monitor.__class__.__name__))
+                         .format(monitor.__class__.__name__), level.FINE)
 
 class Registers(BaseRegisters):
     """Provides an interface that should be used to build a set of registers
@@ -66,7 +67,8 @@ class Registers(BaseRegisters):
         self._registers[number]['profile']   = profile
         self._registers[number]['privilege'] = privilege
         self.log.buffer('added register: {:>2} {:>12} {:} {:>3} {:}'
-                        .format(number, value, size, profile, privilege))
+                        .format(number, value, size, profile, privilege),
+                        level.FINEST)
         self._registers_iv = deepcopy(self._registers)
 
     def add_register_mapping(self, name, number):
@@ -90,7 +92,8 @@ class Registers(BaseRegisters):
         if number not in self.keys():
             return
         name = self._number_name[number]
-        self.log.buffer("setting {:} to {:}".format(name, hex(value, 8)))
+        self.log.buffer("setting {:} to {:}".format(name, hex(value, 8)),
+                        level.FINER)
         self._registers[number]['value']=value
         if not self._registers[number]['profile'] == 'pc':
             self._monitor.increment('register_writes')
@@ -115,7 +118,8 @@ class Registers(BaseRegisters):
         Increases the value in a register
         """
         name = self._number_name[number]
-        self.log.buffer("adding {:} to {:}".format(amount, name))
+        self.log.buffer("adding {:} to {:}".format(amount, name),
+                        level.FINEST)
         value = self._registers[number]['value']+amount
         self.set_value(number, value)
 
@@ -128,7 +132,7 @@ class Registers(BaseRegisters):
 
     def reset(self):
         """Resets all registers to beginning values"""
-        self.log.buffer("clearing register values")
+        self.log.buffer("clearing register values", level.FINER)
         self._registers = deepcopy(self._registers_iv)
         self._monitor.increment('registers_resets')
 
