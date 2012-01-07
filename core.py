@@ -258,6 +258,10 @@ class Simulation(object):
         """Returns a reference to the assembler object."""
         return self.assembler
 
+    def get_logger(self):
+        """Returns a reference to the simulator logger."""
+        return self.log
+
     def get_isa(self):
         """Returns a reference to the isa object."""
         return self.instructions

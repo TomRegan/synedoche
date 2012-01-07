@@ -165,8 +165,10 @@ class Cli(UpdateListener):
                 self._program_name = filename
             except IOError, e:
                 sys.stderr.write("No such file: `{:}'\n".format(filename))
+                self.simulation.log.write("No such file: `{:}'".format(filename))
             except BadInstructionOrSyntax, e:
-                print('File contains errors:\n{:}'.format(e.message))
+                print('File contains errors: {:}'.format(e.message))
+                self.simulation.assembler.log.write(e.message) #what?
             except Exception, e:
                 self.exception_handler(e)
         else:

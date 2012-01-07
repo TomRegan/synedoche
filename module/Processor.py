@@ -110,16 +110,21 @@ class Pipelined(BaseProcessor):
         self.listeners = []
 
     def cycle(self):
+
         self._log.buffer('beginning a cycle', level.FINER)
+
         # Denotes that incrementation has taken place this cycle.
         # This is initially false.
         self.__special_flags['increment'] = False
+
         try:
             for stage in self._pipeline_stages:
                 self._log.buffer('entering {0} stage'.format(stage),
                                  level.FINEST)
+
                 # A little string transformation to help avoid accidents.
                 stagecall = '_' + stage + '_coordinator'
+
                 try:
                 # Dispatch to one of the instance's methods.
                     call = getattr(self, stagecall)
@@ -138,13 +143,12 @@ class Pipelined(BaseProcessor):
                                      .format(stage), level.FINEST)
                 self._log.buffer('leaving {0} stage'.format(stage),
                                  level.FINEST)
-            # Do any housekeeping.
-            self.__retire_cycle()
         except Exception, e:
-            self.__retire_cycle()
             self.broadcast()
             self._log.buffer('EXCEPTION {:}'.format(e.message), level.FINE)
             raise e
+        finally:
+            self.__retire_cycle()
         # Update listeners.
         self.broadcast()
         self._monitor.increment('processor_cycles')
