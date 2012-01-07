@@ -23,6 +23,7 @@ from module.Memory      import AlignmentError, AddressingError
 from module.Assembler   import BadInstructionOrSyntax
 from module.Memory      import SegmentationFaultException
 from module.System      import SigTrap, SigFpe, SigXCpu, SigIll
+from module.Logger      import level
 
 # TODO: Replace __all__ imports with named. (2011-08-03)
 from module.lib.Header    import *
@@ -35,7 +36,7 @@ class Cli(UpdateListener):
     """``Cli is just this guy, you know?''
                                     --Gag Halfrunt
     """
-    def __init__(self, config):
+    def __init__(self, config, logfile, logging_level):
 
         # DEBUG Levels:
         # 1: minimal feedback, short traceback and frame data
@@ -60,7 +61,8 @@ class Cli(UpdateListener):
 
         try:
             self.simulation = Simulation(config = config,
-                                         logfile='logs/cli.log')
+                                         logfile='logs/cli.log',
+                                         logging_level=logging_level)
 
         # Avoid some unnecessary crashes:
         # Authorization from the system ensures necessary methods
@@ -563,7 +565,13 @@ class Cli(UpdateListener):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 2:
+        logging_level = False
+        logging_token = 'logging='
+        for arg in sys.argv:
+            if logging_token in arg:
+                logging_level = getattr(level, arg.replace(logging_token, '').upper())
     if len(sys.argv) > 1:
-        Cli(sys.argv[1])
+        Cli(sys.argv[1], 'logs/cli.log', logging_level)
     else:
         sys.stderr.write('Usage: cli <config package>\n')

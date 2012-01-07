@@ -33,7 +33,8 @@ from module.lib.Functions import hexadecimal as hex
 class Simulation(object):
     def __init__(self,
                  config,
-                 logfile='logs/core.log'):
+                 logfile='logs/core.log',
+                 logging_level=False):
         """
         Raises:
             All exceptions must be caught by the client.
@@ -45,7 +46,7 @@ class Simulation(object):
             self._daemons = []
             self.logfile  = logfile
             self.monitor  = Monitor.Monitor()
-            self.logger   = Logger.Logger(self.logfile)
+            self.logger   = Logger.Logger(self.logfile, logging_level)
             self.system_call = System.SystemCall()
 
         # We need a logger object that will co-ordinate logging,

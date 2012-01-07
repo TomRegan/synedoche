@@ -110,7 +110,7 @@ class Pipelined(BaseProcessor):
         self.listeners = []
 
     def cycle(self):
-        self._log.buffer('beginning a cycle', level.FINE)
+        self._log.buffer('beginning a cycle', level.FINER)
         # Denotes that incrementation has taken place this cycle.
         # This is initially false.
         self.__special_flags['increment'] = False
@@ -143,12 +143,12 @@ class Pipelined(BaseProcessor):
         except Exception, e:
             self.__retire_cycle()
             self.broadcast()
-            self._log.buffer('EXCEPTION {:}'.format(e.message), level.ERROR)
+            self._log.buffer('EXCEPTION {:}'.format(e.message), level.FINE)
             raise e
         # Update listeners.
         self.broadcast()
         self._monitor.increment('processor_cycles')
-        self._log.buffer('completing a cycle', level.FINE)
+        self._log.buffer('completing a cycle', level.FINER)
 
 
     def _fetch_coordinator(self, index):

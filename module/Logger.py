@@ -13,6 +13,7 @@ from lib.Header  import LOG_HARD_LIMIT, LOGGING_LEVEL
 
 class level(object):
     NONE   = 0
+    OFF    = 0
     ERROR  = 1
     INFO   = 2
     FINE   = 3
@@ -66,12 +67,13 @@ class Logger(BaseLogger):
         4| 1234567.93 spam, spam, eggs and spam
     """
 
-    def __init__(self, filename, message=None, timed=True):
+    def __init__(self, filename, logging=False, message=None, timed=True):
         self.filename=filename
         self.timed=timed
         self.ready=False
         self.lines=[]
         self.logfile=Logfile()
+        self.logging_level = logging and logging or LOGGING_LEVEL
 
         try:
             self.logfile = open(filename, 'a')
@@ -148,9 +150,6 @@ class Logger(BaseLogger):
 
     def write(self, string, logging=level.ERROR, timed=True, symbol=False):
 
-        if logging < LOGGING_LEVEL:
-            return
-
         string = self._addLoggingLevel(string, logging)
         if self.ready:
             self.flush()
@@ -166,6 +165,7 @@ class Logger(BaseLogger):
 class CpuLogger(Logger):
     def __init__(self, instance, message=None):
         self.instance = instance
+        self.logging_level = instance.logging_level
         if message:
             time = ctime()
             message = time + ': Logging CPU activity\n'
@@ -173,7 +173,7 @@ class CpuLogger(Logger):
 
     def buffer(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'CPU  ' + string
@@ -181,7 +181,7 @@ class CpuLogger(Logger):
 
     def write(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'CPU  ' + string
@@ -193,6 +193,7 @@ class CpuLogger(Logger):
 class MemoryLogger(Logger):
     def __init__(self, instance, message=None, timed=True):
         self.instance = instance
+        self.logging_level = instance.logging_level
         if message:
             time = ctime()
             message = time + ': Logging Memory activity\n'
@@ -200,7 +201,7 @@ class MemoryLogger(Logger):
 
     def buffer(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'MEM  ' + string
@@ -208,7 +209,7 @@ class MemoryLogger(Logger):
 
     def write(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'MEM  ' + string
@@ -220,6 +221,7 @@ class MemoryLogger(Logger):
 class AssemblerLogger(Logger):
     def __init__(self, instance, message=None, timed=True):
         self.instance = instance
+        self.logging_level = instance.logging_level
         if message:
             time = ctime()
             message = time + ': Logging Memory activity\n'
@@ -227,7 +229,7 @@ class AssemblerLogger(Logger):
 
     def buffer(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'ASM  ' + string
@@ -235,7 +237,7 @@ class AssemblerLogger(Logger):
 
     def write(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'ASM  ' + string
@@ -247,6 +249,7 @@ class AssemblerLogger(Logger):
 class RegisterLogger(Logger):
     def __init__(self, instance, message=None, timed=True):
         self.instance = instance
+        self.logging_level = instance.logging_level
         if message:
             time = ctime()
             message = time + ': Logging Register activity\n'
@@ -254,7 +257,7 @@ class RegisterLogger(Logger):
 
     def buffer(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'REG  ' + string
@@ -262,7 +265,7 @@ class RegisterLogger(Logger):
 
     def write(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'REG  ' + string
@@ -274,6 +277,7 @@ class RegisterLogger(Logger):
 class ApiLogger(Logger):
     def __init__(self, instance, message=None, timed=True):
         self.instance = instance
+        self.logging_level = instance.logging_level
         if message:
             time = ctime()
             message = time + ': Logging Api activity\n'
@@ -281,7 +285,7 @@ class ApiLogger(Logger):
 
     def buffer(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'API  ' + string
@@ -289,7 +293,7 @@ class ApiLogger(Logger):
 
     def write(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'API  ' + string
@@ -301,12 +305,13 @@ class ApiLogger(Logger):
 class SystemLogger(Logger):
     def __init__(self, instance, message=None):
         self.instance = instance
+        self.logging_level = instance.logging_level
         if message:
             self.instance.write(message)
 
     def buffer(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'SYS  ' + string
@@ -314,7 +319,7 @@ class SystemLogger(Logger):
 
     def write(self, string, logging=level.ERROR, timed=True):
 
-        if logging > LOGGING_LEVEL:
+        if logging > self.logging_level:
             return
 
         string= 'SYS  ' + string
