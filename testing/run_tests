@@ -7,7 +7,13 @@
 # last modified  : 2011-08-03
 
 for test in *test.py; do
-  echo $test | sed 's/_/\ /;s/\.py//;s/\(\w\)\(\w\+\)/\U\1\L\2/g'
-  ./${test};
-  echo
+	if [[ $test =~ exclude ]]; then
+		echo -n "Skipping test:"
+		echo $test | sed 's/exclude//;s/_/\ /g;s/\.py//;s/\(\w\)\(\w\+\)/\U\1\L\2/g'
+		echo
+	else
+		echo $test | sed 's/_/\ /g;s/\.py//;s/\(\w\)\(\w\+\)/\U\1\L\2/g'
+		./${test};
+		echo
+	fi;
 done;

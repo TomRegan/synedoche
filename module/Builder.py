@@ -42,7 +42,7 @@ class InstructionBuilder(Builder):
         reader = XmlParser.InstructionReader(config)
         instruction_language     = reader.data['language']
         instruction_size         = reader.data['size']
-        # We're not currently using this data. It can links the config
+        # We're not currently using this data. It can link the config
         # to a specific api implementation.
         instruction_api          = reader.data['api']
         instruction_formats      = reader.data['formats']

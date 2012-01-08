@@ -1,8 +1,17 @@
 #! /bin/bash
 
+TEST='testing'
+
 if [ -e logs/ ]; then
-	echo "Removing logs..."
+	echo "Removing logs"
 	rm -f logs/*.log;
 else
-	echo "Logging directory cannot be found, skipping...";
+	echo "Directory cannot be found: skipping";
+fi
+
+if [ -e ${TEST}/logs/ ]; then
+	echo "Removing test logs"
+	rm -f ${TEST}/logs/*.log;
+else
+	echo "Directory cannot be found: skipping";
 fi
