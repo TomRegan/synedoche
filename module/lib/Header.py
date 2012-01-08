@@ -6,7 +6,7 @@
 # since          : 2011-07-15
 # last modified  : 2011-08-17
 
-VERSION='0.143.0'
+VERSION='0.143.1'
 RELEASE_NAME='-release'
 PUBLIC_API='SUNRAY'
 DEBUG=True

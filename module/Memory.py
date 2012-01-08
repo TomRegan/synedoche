@@ -11,7 +11,6 @@
 from Interface  import LoggerClient
 from Logger     import MemoryLogger
 from Logger     import level
-from Monitor    import MonitorClient
 from lib.Functions  import binary as bin
 
 class AddressingError(Exception):
@@ -39,7 +38,7 @@ class Enum(set):
 
 
 
-class BaseMemory(LoggerClient, MonitorClient):
+class BaseMemory(LoggerClient):
 
     def open_log(self, logger):
         """logger:object -> ...
@@ -54,10 +53,7 @@ class BaseMemory(LoggerClient, MonitorClient):
                         level.INFO)
 
     def open_monitor(self, monitor):
-        self._monitor = monitor
-        self._log.buffer("attached a monitor, `{:}'"
-                         .format(monitor.__class__.__name__),
-                         level.FINE)
+        self.log.write("Attempted to attach monitor", level.ERROR)
 
     def get_memory(self):
         """-> memory:object
@@ -267,7 +263,6 @@ class Memory(BaseMemory):
         self.log.buffer('loaded {0} word program into memory'
                         .format(len(text)),
                         level.INFO)
-        self._monitor['program_length'] = len(text)
         return (binary, address)
 
     def load_text_and_dump(self, text):
@@ -354,7 +349,6 @@ class Memory(BaseMemory):
                                  .format(hex(offset).replace('L','')))
         #Expect a `key error' exception, but behave as though this was
         #a successful memory read. Return 0.
-        self._monitor.increment('memory_bytes_loaded')
         try:
             return self._address[offset]
         except KeyError:
@@ -451,7 +445,6 @@ class Memory(BaseMemory):
                                  .format(hex(offset).replace('L','')),
                                             level.ERROR)
         self._address[offset] = value
-        self._monitor.increment('memory_bytes_stored')
 
     def reset(self):
         """... -> ...

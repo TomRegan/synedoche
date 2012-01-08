@@ -19,7 +19,6 @@ from module import Assembler
 from module import Builder
 from module import Interface
 from module import Logger
-from module import Monitor
 from module import Processor
 from module import System
 
@@ -45,7 +44,6 @@ class Simulation(object):
             self._clients = []
             self._daemons = []
             self.logfile  = logfile
-            self.monitor  = Monitor.Monitor()
             self.logger   = Logger.Logger(self.logfile, logging_level)
             self.system_call = System.SystemCall()
 
@@ -71,12 +69,10 @@ class Simulation(object):
         coordinator.set_builder(Builder.RegisterBuilder(log=self.logger))
         coordinator.make(filename=config)
         self.registers = coordinator.get_object()
-        self.registers.open_monitor(self.monitor)
 
         coordinator.set_builder(Builder.MemoryBuilder(log=self.logger))
         coordinator.make(filename=config)
         self.memory = coordinator.get_object()
-        self.memory.open_monitor(self.monitor)
 
         coordinator.set_builder(Builder.PipelineBuilder())
         coordinator.make(filename=config)
@@ -98,7 +94,6 @@ class Simulation(object):
             pipeline=pipeline[0],
             flags=pipeline[1])
         self.cpu.open_log(self.logger)
-        self.cpu.open_monitor(self.monitor)
 
         self.log.buffer('initialized with no incidents', level.INFO)
         self.log.flush()
@@ -204,7 +199,6 @@ class Simulation(object):
                             .format(client.__class__.__name__),
                             level.ERROR)
             return
-        self.monitor.reset()
         self.cpu.reset()
 
 #
@@ -272,7 +266,7 @@ class Simulation(object):
 
     def get_monitor(self):
         """Returns a reference to the monitor object."""
-        return self.monitor
+        self.log.write("Attempted to get monitor", level.ERROR)
 
     def get_processor(self):
         """Returns a reference to the processor object."""
@@ -330,8 +324,6 @@ if __name__ == '__main__':
         for i in range(12):
             s.cycle(client=tl)
         s.log.flush()
-        print(s.monitor)
     except:
-        print(s.monitor.data)
         s.log.flush()
         #traceback.print_exc(file=sys.stderr)

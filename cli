@@ -257,33 +257,9 @@ class Cli(UpdateListener):
                 self.pipeline.append(kwargs['pipeline'])
             if self.local_DEBUG >= 2:
                 print("DEBUG: {:}".format(self.get_statistics_update()))
-            try:
-                self.visualizer.update(self.get_statistics_update())
-                self.visualizer.render()
-            except AttributeError:
-                pass
             self.updated = True
         else:
             self.updated = False
-
-    def get_statistics_update(self):
-        a  = self.simulation.get_monitor().get_int_prop('processor_cycles')
-        ma = self.simulation.get_monitor().get_int_prop('memory_bytes_loaded')
-        mb = self.simulation.get_monitor().get_int_prop('memory_bytes_stored')
-        b = 2
-        try:
-            b = float(ma) / float(mb)
-        except: pass
-        ra = self.simulation.get_monitor().get_int_prop('register_reads')
-        rb = self.simulation.get_monitor().get_int_prop('register_writes')
-        c = 2
-        try:
-            c = float(ra) / float(rb)
-        except: pass
-        d = 0
-        e = self.simulation.get_monitor().get_int_prop('processor_executed')
-        f = self.simulation.get_processor().get_registers().get_utilization()
-        return [a, b, c, d, e, f]
 
 #
 # Modules Providing Functions
@@ -298,39 +274,6 @@ class Cli(UpdateListener):
         except Exception, e:
             print('Whoops: {:}'.format(e))
             raise e
-
-    def visualize(self, args=None):
-        try:
-            from module.Graphics  import Visualizer
-        except:
-            return
-        # Try to destroy the visualizer only if there is one.
-        if args == "kill":
-            if hasattr(self, 'visualizer'):
-                self.visualizer.__del__()
-                del self.visualizer
-            return
-        # If it doesn't exist, do the initial setup.
-        if not hasattr(self, 'visualizer'):
-            self.visualizer = Visualizer()
-            # We need to add nodes to the graph.
-            self.visualizer.add_node(0, "Cycles")
-            self.visualizer.add_node(1, "Memory Ratio")
-            self.visualizer.add_node(2, "Register Ratio")
-            self.visualizer.add_node(3, "null")
-            self.visualizer.add_node(4, "Instructions Retired")
-            self.visualizer.add_node(5, "Register Utilization")
-            # We will use the easy layout options.
-            self.visualizer.set_edge_layout_hub()
-            self.visualizer.set_text_layout_default()
-            # Init sets a window title and draws the objects
-            # ready to be rendered.
-            self.visualizer.initialize("CLI::Visualizer (r{:}:{:})"
-                                       .format(VERSION, RELEASE_NAME))
-        # Update adds the data. We can do this at any time, but preferebly
-        # before displaying on the screen with render.
-        self.visualizer.update(self.get_statistics_update())
-        self.visualizer.render()
 
     def edit(self, args=None):
         if hasattr(self, '_program_name'):
@@ -491,10 +434,6 @@ class Cli(UpdateListener):
                          hex(value, hex_width)[2:]))
             # TODO: Divide by 4 is an assumption. Review. (2011-08-17)
         print("{:-<80}".format(''))
-
-    def print_visualization_modules(self):
-        print '\n'.join(
-            self.simulation.get_monitor().list_int_props())
 
     def print_breakpoints(self):
         breakpoints = self.simulation.get_processor().get_break_points()

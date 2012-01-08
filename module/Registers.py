@@ -11,19 +11,16 @@ from copy import deepcopy
 from Logger    import RegisterLogger
 from Logger    import level
 from Interface import LoggerClient
-from Monitor   import MonitorClient
 from lib.Functions import hexadecimal as hex
 
-class BaseRegisters(LoggerClient, MonitorClient):
+class BaseRegisters(LoggerClient, ):
     def open_log(self, logger):
         self.log = RegisterLogger(logger)
         self.log.buffer("created registers, `{:}'"
                         .format(self.__class__.__name__), level.INFO)
 
     def open_monitor(self, monitor):
-        self._monitor = monitor
-        self._log.buffer("attached a monitor, `{:}'"
-                         .format(monitor.__class__.__name__), level.FINE)
+        self.log.write("Attempted to attach monitor", level.ERROR)
 
 class Registers(BaseRegisters):
     """Provides an interface that should be used to build a set of registers
@@ -95,16 +92,12 @@ class Registers(BaseRegisters):
         self.log.buffer("setting {:} to {:}".format(name, hex(value, 8)),
                         level.FINER)
         self._registers[number]['value']=value
-        if not self._registers[number]['profile'] == 'pc':
-            self._monitor.increment('register_writes')
 
     def get_value(self, number):
         """Returns the value stored in a register."""
         if number not in self.keys():
             # TODO: Raise register reference exception? (2011-08-05)
             return
-        if not self._registers[number]['profile'] == 'pc':
-            self._monitor.increment('register_reads')
         return self._registers[number]['value']
 
     def get_size(self, number):
@@ -134,7 +127,6 @@ class Registers(BaseRegisters):
         """Resets all registers to beginning values"""
         self.log.buffer("clearing register values", level.FINER)
         self._registers = deepcopy(self._registers_iv)
-        self._monitor.increment('registers_resets')
 
     def keys(self):
         return self._registers.keys()

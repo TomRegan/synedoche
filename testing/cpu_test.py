@@ -15,7 +15,6 @@ from module import Api
 from module import Builder
 from module import Assembler
 from module import Logger
-from module import Monitor
 from module import Processor
 
 from module.System import SigTrap
@@ -28,7 +27,6 @@ if __name__ == '__main__':
 
         def setUp(self):
             self.logger=Logger.Logger('logs/cpu_test.log')
-            self.monitor=Monitor.Monitor()
             self.logger.buffer('>-----setUp')
             config='../config/mips32/'
 
@@ -46,7 +44,6 @@ if __name__ == '__main__':
             coordinator.make(filename=config)
             self.memory = coordinator.get_object()
             self.memory.open_log(self.logger)
-            self.memory.open_monitor(self.monitor)
 
             coordinator.set_builder(Builder.PipelineBuilder())
             coordinator.make(filename=config)

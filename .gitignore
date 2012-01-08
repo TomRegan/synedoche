@@ -4,8 +4,8 @@
 
 # logs #
 ########
-log/*
-testing/*.log
+logs/*
+testing/logs/*.log
 *.log
 .*
 

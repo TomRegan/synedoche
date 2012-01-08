@@ -29,8 +29,6 @@ class Parser(BaseParser):
             return ('help', ())
         elif command == 'usage':
             return ('usage', {'fun':tokens[0]})
-        elif command[:6] == 'visual':
-            return self._visualize(tokens)
         elif command[:2] == 'br':
             return self._break(tokens)
         elif command[:4] == 'vers':
@@ -106,8 +104,6 @@ class Parser(BaseParser):
                 return ('print_program', ())
             elif tokens[0][:2] == "br":
                 return ('print_breakpoints', ())
-            elif tokens[0][:3] == 'vis':
-                return ('print_visualization_modules', ())
             else:
                 pass
         return ('usage', {'fun':'info'})
@@ -117,12 +113,6 @@ class Parser(BaseParser):
             return ('load', tokens[0])
         else:
             return ('load', False)
-
-    def _visualize(self, tokens):
-        if len(tokens) > 0:
-            return ('visualize', tokens[0])
-        else:
-            return ('visualize', False)
 
     def _break(self, tokens):
         rvalue = 0

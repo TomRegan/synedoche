@@ -10,7 +10,6 @@
 
 from Api        import RegisterReferenceException
 from Interface  import UpdateBroadcaster, LoggerClient
-from Monitor    import MonitorClient
 from Logger     import CpuLogger
 from copy       import copy, deepcopy
 from System     import SystemCall
@@ -19,7 +18,7 @@ from Logger        import level
 from lib.Functions import binary as bin
 from lib.Functions import integer as int
 
-class BaseProcessor(UpdateBroadcaster, LoggerClient, MonitorClient):
+class BaseProcessor(UpdateBroadcaster, LoggerClient):
     def __init__(self, registers, memory, api, instructions):
         pass
     def cycle(self):
@@ -70,10 +69,7 @@ class BaseProcessor(UpdateBroadcaster, LoggerClient, MonitorClient):
                          level.FINE)
 
     def open_monitor(self, monitor):
-        self._monitor = monitor
-        self._log.buffer("attached a monitor, `{:}'"
-                         .format(monitor.__class__.__name__),
-                         level.FINE)
+        self.log.write("Attempted to attach monitor", level.ERROR)
 
 class Pipelined(BaseProcessor):
     """Pipelined CPU Implementation"""
@@ -151,7 +147,6 @@ class Pipelined(BaseProcessor):
             self.__retire_cycle()
         # Update listeners.
         self.broadcast()
-        self._monitor.increment('processor_cycles')
         self._log.buffer('completing a cycle', level.FINER)
 
 
@@ -171,8 +166,6 @@ class Pipelined(BaseProcessor):
         if 'FD' in self._pipeline_flags:
             self._decode_coordinator(index)
 
-        self._monitor.increment('processor_fetched')
-
     def _decode_coordinator(self, index):
         (format_type, name, number_of_parts) = self.__decode(index)
         self._pipeline[index].append(format_type)
@@ -191,11 +184,8 @@ class Pipelined(BaseProcessor):
             self._registers.increment(self._pc, self._word_space)
             number_of_parts = number_of_parts - 1
 
-        self._monitor.increment('processor_decoded')
-
     def _execute_coordinator(self, index):
         self.__execute(index)
-        self._monitor.increment('processor_executed')
 
     def _memory_coordinator(self, index):
         pass
