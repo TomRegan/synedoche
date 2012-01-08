@@ -83,6 +83,7 @@ class RegisterBuilder(Builder):
         self.obj=Registers.Registers()
         if self.logger != None:
             self.obj.open_log(self.logger)
+        self.obj.component_id='REG'
 
         reader = XmlParser.MachineReader(config)
         machine_registers = reader.data['registers']
@@ -114,6 +115,7 @@ class MemoryBuilder(Builder):
         self.obj=Memory.Memory(data)
         if self.logger != None:
             self.obj.open_log(self.logger)
+        self.obj.component_id='MEM'
 
         segments = machine_memory[3:]
         for segment in segments:

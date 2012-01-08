@@ -235,6 +235,8 @@ class Cli(UpdateListener):
             run_time = self.simulation.run(self)
         finally:
             clear_print('Program finished in {:.5} seconds'.format(run_time))
+            self.simulation.log.write(
+                'Execution took {:} seconds'.format(run_time), level.INFO)
 
 
     def update(self, *args, **kwargs):
@@ -492,6 +494,7 @@ class Cli(UpdateListener):
     def exception_handler(self, e):
         if DEBUG and self.local_DEBUG < 1:
             print("Unhandled exception: {:}".format(e))
+            traceback.print_stack()
             self.exit(1)
         elif DEBUG and self.local_DEBUG >= 1:
             (exc_type, exc_value, exc_traceback) = sys.exc_info()

@@ -9,9 +9,12 @@
 from Logger  import BaseLogger
 
 class LoggerClient(object):
-    log = BaseLogger()
-    _log = log
-    def open_log(self, Logger):
+    log          = BaseLogger()
+    _log         = log
+    component_id = None
+    def open_log(self, logger):
+        pass
+    def add_logger(self, logger):
         pass
 
 class UpdateListener(object):

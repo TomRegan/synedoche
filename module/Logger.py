@@ -8,7 +8,8 @@
 
 
 import sys
-from time import time, ctime
+from time import ctime
+from datetime import datetime
 from lib.Header  import LOG_HARD_LIMIT, LOGGING_LEVEL
 
 class level(object):
@@ -114,8 +115,10 @@ class Logger(BaseLogger):
 
 
     def _addTime(self, string):
-        now = '{0:.16}'.format(time()).replace('.','')
-        now = now.ljust(16,'0')
+        now = datetime.isoformat(datetime.now(), sep = ' ')
+        now += ' +0000'
+        #now = '{0:.16}'.format(time()).replace('.','')
+        #now = now.ljust(16,'0')
         string = '{0}:  {1}'.format(now,string)
         return string
 
@@ -171,20 +174,20 @@ class CpuLogger(Logger):
             message = time + ': Logging CPU activity\n'
             self.instance.write(message)
 
-    def buffer(self, string, logging=level.ERROR, timed=True):
+    def buffer(self, component, string, logging=level.ERROR, timed=True):
 
         if logging > self.logging_level:
             return
 
-        string= 'CPU  ' + string
+        string= component.component_id +' ' + string
         self.instance.buffer(string, logging, symbol=None, timed=timed)
 
-    def write(self, string, logging=level.ERROR, timed=True):
+    def write(self, component, string, logging=level.ERROR, timed=True):
 
         if logging > self.logging_level:
             return
 
-        string= 'CPU  ' + string
+        string = component.component_id +' ' + string
         self.instance.write(string, logging, symbol=None, timed=timed)
 
     def flush(self):

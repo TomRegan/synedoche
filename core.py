@@ -93,6 +93,7 @@ class Simulation(object):
             api=self.api, instructions=self.instructions,
             pipeline=pipeline[0],
             flags=pipeline[1])
+        self.cpu.component_id='CPU'
         self.cpu.open_log(self.logger)
 
         self.log.buffer('initialized with no incidents', level.INFO)
