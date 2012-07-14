@@ -1,6 +1,6 @@
 Next Version
-============
-143.0
+===
+143
 Granular logging set to:
 	OFF
 	ERROR (default)
@@ -9,8 +9,14 @@ Granular logging set to:
 	FINER
 	FINEST
 
-143.1
+144
+Tidy files
+
+145
 Remove Visualization module
 
-143.2
+146
+Replace XML with YAML
+
+146
 Refactor logging code to remove duplication

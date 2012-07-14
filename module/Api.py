@@ -3,7 +3,7 @@
 #
 # Interface for simulation clients.
 # file           : Api.py
-# author         : Tom Regan <code.tregan@gmail.com>
+# author         : Tom Regan <noreply.tom.regan@gmail.com>
 # since          : 2011-07-01
 # last modified  : 2011-08-04
 #     2011-08-17 : Added _decode_register_reference method

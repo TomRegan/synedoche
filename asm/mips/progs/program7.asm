@@ -1,5 +1,5 @@
 ##########################################################################
-##Author        : Tom Regan <code.tregan@gmail.com>                     ##
+##Author        : Tom Regan <noreply.tom.regan@gmail.com>                     ##
 ##Last modified : 2011-08-16                                            ##
 ##Description   : Does an O(n^2) sort on an unsorted list.              ##
 ##Modifies      : registers :                                           ##

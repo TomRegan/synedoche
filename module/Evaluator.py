@@ -2,7 +2,7 @@
 #
 # Line Evaluator.
 # file           : Evaluator.py
-# author         : Tom Regan <code.tregan@gmail.com>
+# author         : Tom Regan <noreply.tom.regan@gmail.com>
 # since          : 2011-07-18
 # last modified  : 2011-08-17
 #     2011-08-17 : Changes in cli (size field removed)

@@ -2,7 +2,7 @@
 #
 # Helper Functions.
 # file           : Functions.py
-# author         : Tom Regan <code.tregan@gmail.com>
+# author         : Tom Regan <noreply.tom.regan@gmail.com>
 # since          : 2011-07-19
 # last modified  : 2011-08-04
 

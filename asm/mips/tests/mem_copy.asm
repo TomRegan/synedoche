@@ -1,4 +1,4 @@
-# Tom Regan <code.tregan@gmail.com>
+# Tom Regan <noreply.tom.regan@gmail.com>
 # 2011-07-19
 #
 # @purpose: TESTING

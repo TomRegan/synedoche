@@ -1,5 +1,5 @@
 #!/bin/bash
-# author          : Tom Regan <code.tregan@gmail.com>
+# author          : Tom Regan <noreply.tom.regan@gmail.com>
 # last modified   : 2011-08-30
 
 find . -name '*.py' | xargs grep -inH -C1 --color=AUTO $@

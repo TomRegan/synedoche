@@ -2,7 +2,7 @@
 #
 # Some variables for use by other modules.
 # file           : Header.py
-# author         : Tom Regan <code.tregan@gmail.com>
+# author         : Tom Regan <noreply.tom.regan@gmail.com>
 # since          : 2011-07-15
 # last modified  : 2011-08-17
 
@@ -11,7 +11,7 @@ RELEASE_NAME='-release'
 PUBLIC_API='SUNRAY'
 DEBUG=True
 COLOUR = True
-LICENSE="""Copyright 2011 Tom Regan (code.tregan@gmail.com)
+LICENSE="""Copyright 2011 Tom Regan (noreply.tom.regan@gmail.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

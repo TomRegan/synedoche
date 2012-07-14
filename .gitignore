@@ -20,3 +20,4 @@ testing/logs/*.log
 # cruft #
 #########
 .cli_history
+patch/

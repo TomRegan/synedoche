@@ -5,7 +5,7 @@
 # that will be used to run simulations.
 # Modules which interface with the system should use core.
 # file           : core.py
-# author         : Tom Regan <code.tregan@gmail.com>
+# author         : Tom Regan <noreply.tom.regan@gmail.com>
 # since          : 2011-07-08
 # last modified  : 2011-07-27
 

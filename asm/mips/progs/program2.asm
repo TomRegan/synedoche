@@ -1,5 +1,5 @@
 ##########################################################################
-##Author        : Tom Regan <code.tregan@gmail.com>                     ##
+##Author        : Tom Regan <noreply.tom.regan@gmail.com>                     ##
 ##Last modified : 2011-08-11                                            ##
 ##Description   : MIPS assembly program: finds the first number         ##
 ##                divisible by all numbers from 1..10                   ##

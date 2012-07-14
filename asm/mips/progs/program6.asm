@@ -1,5 +1,5 @@
 ##########################################################################
-##Author        : Tom Regan <code.tregan@gmail.com>                     ##
+##Author        : Tom Regan <noreply.tom.regan@gmail.com>                     ##
 ##Last modified : 2011-07-22                                            ##
 ##Description   : MIPS assembly program: Copies a portion of memory     ##
 ##                from data to stack                                    ##

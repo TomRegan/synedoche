@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;Author        : Tom Regan <code.tregan@gmail.com>                     ;;
+;;Author        : Tom Regan <noreply.tom.regan@gmail.com>                     ;;
 ;;Last modified : 2011-08-30                                            ;;
 ;;Description   : 8085 assembly program: computes an 8-bit factorial.   ;;
 ;;Modifies      : registers : A, B, C, D, H, L                          ;;
@@ -31,7 +31,7 @@ l0: NOP     ; Multiplication loop.
   DCR B     ; 250 useless instructions and no MUL.
   JNZ l0    ; Multiply by a series of additions.
   NOP
-  MOV E, A  ; Store the intermediary result.
+  MOV E, A  ; Store the intermediate result.
   MVI A, 0
   DCR C     ; Decrement the counter.
   JNZ fact  ; Call factorial again.
